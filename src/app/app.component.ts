@@ -4,7 +4,13 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { BenachrichtigungenPage } from '../pages/benachrichtigungen/benachrichtigungen';
+import { FallstudiePage } from '../pages/fallstudie/fallstudie';
+import { MeinSzenarioPage } from '../pages/meinSzenario/meinSzenario';
+import { BewertungenPage } from '../pages/bewertungen/bewertungen';
+import { EinstellungenPage } from '../pages/einstellungen/einstellungen';
+import { UeberPage } from '../pages/ueber/ueber';
+import { LogInPage } from '../pages/log-in/log-in';
 
 @Component({
   templateUrl: 'app.html'
@@ -12,7 +18,7 @@ import { ListPage } from '../pages/list/list';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = LogInPage;
 
   pages: Array<{title: string, component: any}>;
 
@@ -22,7 +28,12 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
+      { title: 'Benachrichtigungen', component: BenachrichtigungenPage },
+	  { title: 'Fallstudie', component: FallstudiePage },
+	  { title: 'Mein Szenario', component: MeinSzenarioPage },
+	  { title: 'Bewertungen', component: BewertungenPage },
+	  { title: 'Einstellungen', component: EinstellungenPage },
+	  { title: 'Über', component: UeberPage }
     ];
 
   }

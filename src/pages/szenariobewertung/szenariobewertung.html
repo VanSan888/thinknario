@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Szenariobewertung zu (XYZ)</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<h4>Entwicklung</h4>
+<p> Wie schätzen Sie die Entwicklung des Szenarios ein? </p>
+
+  <ion-item>
+    <ion-range [(ngModel)]="entwicklung">
+      <ion-label range-left>Sehr negativ</ion-label>
+      <ion-label range-right>Sehr positiv</ion-label>
+    </ion-range>
+  </ion-item>
+  
+<button ion-button [navPush]="szenarioerstellungPage">Weiter</button>
+
+</ion-content>

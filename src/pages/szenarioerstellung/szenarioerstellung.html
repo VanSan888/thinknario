@@ -1,0 +1,146 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Szenarioerstellung</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+<p>Die ionic-form muss auf jeden Fall angepasst werden. Sollte über id= und .css zu machen sein.</p>
+
+<div padding>
+  <ion-segment [(ngModel)]="hilfen">
+    <ion-segment-button value="annahmen">
+      Annahmen
+    </ion-segment-button>
+    <ion-segment-button value="randbedingungen">
+      Randbedingungen
+    </ion-segment-button>
+	<ion-segment-button value="ereignisse">
+      Ereignisse
+    </ion-segment-button>
+	<ion-segment-button value="schluesselfaktoren">
+      Schlüsselfaktoren
+    </ion-segment-button>
+  </ion-segment>
+</div>
+
+<div [ngSwitch]="hilfen">
+  <ion-list *ngSwitchCase="'annahmen'">
+    <ion-item>
+      <h4>Annahme 1:</h4>
+	  <p> Muss editierbar sein</p>
+    </ion-item>
+	<ion-item>
+      <h4>Annahme 2:</h4>
+	  <p> Muss editierbar sein </p>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngSwitchCase="'randbedingungen'">
+    <ion-item>
+      <h4>Randbedingung 1</h4>
+	  <p> Muss editierbar sein </p>
+    </ion-item>
+	<ion-item>
+      <h4>Randbedingung 2</h4>
+	  <p> Muss editierbar sein </p>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngSwitchCase="'ereignisse'">
+    <ion-item>
+      <h4>Ereignis 1</h4>
+	  <p> Muss editierbar sein </p>
+    </ion-item>
+	<ion-item>
+      <h4>Ereignis 2</h4>
+	  <p> Muss editierbar sein </p>
+    </ion-item>
+  </ion-list> 
+  
+   <ion-list *ngSwitchCase="'schluesselfaktoren'">
+    <ion-item>
+       <ion-thumbnail item-left>
+        <img src="img/thumbnail-puppy-1.jpg">
+      </ion-thumbnail>
+	  <h4>Entwicklung Schlüsselfaktor 1</h4>
+	  <p> Zum vergrößern auf Bild klicken </p>
+	  <p> Muss editierbar sein </p>
+   </ion-item>
+	<ion-item>
+      <ion-thumbnail item-left>
+        <img src="img/thumbnail-puppy-1.jpg">
+      </ion-thumbnail>
+	  <h4>Entwicklung Schlüsselfaktor 2</h4>
+	  <p> Zum vergrößern auf Bild klicken </p>
+	  <p> Muss editierbar sein </p>
+    </ion-item>
+	<ion-item>
+      <ion-thumbnail item-left>
+        <img src="img/thumbnail-puppy-1.jpg">
+      </ion-thumbnail>
+	  <h4>Entwicklung Schlüsselfaktor 2</h4>
+	  <p> Zum vergrößern auf Bild klicken </p>
+	  <p> Muss editierbar sein </p>
+    </ion-item>
+	<ion-item>
+      <ion-thumbnail item-left>
+        <img src="img/thumbnail-puppy-1.jpg">
+      </ion-thumbnail>
+	  <h4>Entwicklung Schlüsselfaktor 2</h4>
+	  <p> Zum vergrößern auf Bild klicken </p>
+	  <p> Muss editierbar sein </p>
+    </ion-item>
+  </ion-list> 
+</div>
+
+<h4>Ihr Szenario</h4>
+
+<ion-list>
+  <ion-item>
+    <ion-input type="text" value="" placeholder="Beschreiben Sie hier Ihr Szenario"></ion-input>
+  </ion-item>
+</ion-list>
+
+<button ion-button [navPush]="szenariobewertungPage">Fertig</button>
+
+<div padding>
+  <ion-segment [(ngModel)]="kommunikation">
+    <ion-segment-button value="kommentare">
+      Kommentare
+    </ion-segment-button>
+    <ion-segment-button value="statistik">
+      Statistik
+    </ion-segment-button>
+  </ion-segment>
+</div>
+
+<div [ngSwitch]="kommunikation">
+  <ion-list *ngSwitchCase="'kommentare'">
+    <ion-item>
+      <h4>Kommentar 1</h4>
+	  <button ion-button>Antworten</button>
+    </ion-item>
+	<ion-item>
+      <h4>Kommentar 2</h4>
+	  <button ion-button>Antworten</button>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngSwitchCase="'statistik'">
+    <ion-item>
+      <h4>Entwicklung</h4>
+	  <p> Punktzahl </p>
+    </ion-item>
+	<ion-item>
+      <h4>Realitätsnahe</h4>
+	  <p> Punktzahl </p>
+    </ion-item>
+  </ion-list> 
+</div>
+
+
+
+</ion-content>

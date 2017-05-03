@@ -8,11 +8,60 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+  <h4>Überblick</h4>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+  <p>Wenn Szenario (nachfolgende Liste) fertig, dann gelangt man mit dem einem Klick zur Übersichtsseite </p>
+  
+  <ion-list>
+  <button ion-item [navPush]="meinSzenarioPage">
+    <ion-icon name="ios-paper-outline" item-left></ion-icon>
+      Ihr Szenario
+  </button>  
+  <ion-item>
+    <ion-icon name="ios-paper-outline" item-left></ion-icon>
+      Ihr Szenario
+	  <button ion-button [navPush]="meinSzenarioPage">Ansehen</button>
+  </ion-item>
+  <ion-item>
+    <ion-icon name="ios-clipboard-outline" item-left></ion-icon>
+      Ihre Bewertungen
+	  <button ion-button [navPush]="bewertungenPage">Ansehen</button>
+  </ion-item>
+  <ion-item>
+    <ion-icon name="ios-chatboxes-outline" item-left></ion-icon>
+      Kommentare und Statistik
+  </ion-item>
+</ion-list>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+<h4>Beliebte Szenarien</h4>
+<p>Bewerten und kommentieren Sie weitere Szenarien, um zusätzliche Punkte zu sammeln:</p>
+
+
+<ion-card>
+  <ion-card-header>
+    Szenario von XYZ
+  </ion-card-header>
+  <ion-card-content>
+	<p>Problemdefinition: Bla bla</p>
+    <p>Kommentare: 3</p>
+    <p>Durchschnittliche Bewertung: 20/35 Punkten</p>
+	<button ion-button>Ansehen</button>
+  </ion-card-content>
+</ion-card>
+
+<ion-card>
+  <ion-card-header>
+    Szenario von AAA
+  </ion-card-header>
+  <ion-card-content>
+	<p>Problemdefinition: Blub Blub</p>
+    <p>Kommentare: 6</p>
+    <p>Durchschnittliche Bewertung: 30/35 Punkten</p>
+	<button ion-button>Ansehen</button>
+  </ion-card-content>
+</ion-card>
+
+
+<button ion-button>Bibliothek durchsuchen</button>
+
 </ion-content>

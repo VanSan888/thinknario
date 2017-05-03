@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Überraschende Ereignisse</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<h4>Beschreibung</h4>
+<p> Hier evtl. noch (toggle) Button:Beispiele einfügen. </p>
+<p>Welche überraschenden Ereignisse können Sie sich für ihr Szenario vorstellen?</p>
+
+<ion-list>
+  <ion-item>
+    <ion-label fixed>Ereignis 1:</ion-label>
+    <ion-input type="text" value=""></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label fixed>Ereignis 2:</ion-label>
+    <ion-input type="passwort"></ion-input>
+  </ion-item>
+</ion-list>
+
+<button ion-button> Weitere Ereignisse einfügen </button>
+
+<button ion-button [navPush]="szenarioerstellungPage">Weiter</button>
+
+
+</ion-content>

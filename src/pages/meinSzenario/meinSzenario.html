@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Mein Szenario</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <p>Hier mit NgIf arbeiten. wenn das Szenario noch nicht fertig ist (z.B. kein Text im Szenarioerstellung), dann folgendes</p>
+  <h4>Erklärung der Szenariotechnik</h4>
+  <p>Hier dann kurz beschreiben, was Szenariotechnik ist</p>
+  <img src="www/assets/img/ablauf-szenarioerstellung.png"/>
+
+    
+ <ion-list>
+  <button ion-item [navPush]="problemfeldPage">
+    <ion-icon name="ios-globe-outline" item-left></ion-icon>
+      Problemfeld
+	<ion-icon name="md-checkmark" item-right></ion-icon>  
+  </button>
+  <button ion-item [navPush]="problemdefinitionPage">
+    <ion-icon name="ios-pin-outline" item-left></ion-icon>
+      Problemdefinition
+  </button>
+  <button ion-item [navPush]="schluesselfaktorenPage">
+    <ion-icon name="md-key" item-left></ion-icon>
+      Schlüsselfaktoren
+  </button>
+  <button ion-item ion-item [navPush]="deskriptorenanalysePage">
+    <ion-icon name="ios-trending-up-outline" item-left></ion-icon>
+      Entwicklung der Schlüsselfaktoren
+  </button>
+  <button ion-item [navPush]="annahmenPage">
+    <ion-icon name="ios-flag-outline" item-left></ion-icon>
+      Annahmen
+  </button>
+  <button ion-item [navPush]="randbedingungenPage">
+    <ion-icon name="ios-filing-outline" item-left></ion-icon>
+      Randbedingungen
+  </button>
+  <button ion-item [navPush]="ereignissePage">
+    <ion-icon name="ios-warning-outline" item-left></ion-icon>
+      Überraschende Ereignisse
+  </button>
+   <button ion-item [navPush]="szenarioerstellungPage">
+    <ion-icon name="ios-paper-outline" item-left></ion-icon>
+      Szenarioerstellung
+  </button>
+</ion-list>
+
+<button ion-button [navPush]="problemfeldPage">Los geht's!</button>
+
+</ion-content>

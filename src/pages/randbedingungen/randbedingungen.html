@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Randbedingungen</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<p> Was sind Randbedingungen in diesem Fall? Hier evtl. noch (toggle) Button:Beispiele einfügen. </p>
+<p>Welche Randbedingungen treffen Sie für Ihr Szenario</p>
+
+<ion-list>
+  <ion-item>
+    <ion-label fixed>Randbedingung 1:</ion-label>
+    <ion-input type="text" value=""></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label fixed>Randbedingung 2:</ion-label>
+    <ion-input type="passwort"></ion-input>
+  </ion-item>
+</ion-list>
+
+<button ion-button>Weitere Randbedingungen einfügen</button>
+
+<button ion-button [navPush]="ereignissePage">Weiter</button>
+
+
+</ion-content>

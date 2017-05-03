@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Annahmen</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+<p> Was sind Annahmen in diesem Fall? Hier evtl. noch toggle Beispiele einfügen. </p>
+<p>Welche Annahmen treffen Sie für Ihr Szenario</p>
+
+<ion-list>
+  <ion-item>
+    <ion-label fixed>Annahme 1:</ion-label>
+    <ion-input type="text" value=""></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label fixed>Annahme 2:</ion-label>
+    <ion-input type="passwort"></ion-input>
+  </ion-item>
+</ion-list>
+
+<button ion-button >Weitere Annahmen einfügen</button>
+
+<button ion-button [navPush]="randbedingungenPage">Weiter</button>
+
+
+</ion-content>
