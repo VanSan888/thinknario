@@ -18,7 +18,7 @@ import { LogInPage } from '../pages/log-in/log-in';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LogInPage;
+  rootPage: any = 'LogInPage';
 
   pages: Array<{title: string, component: any}>;
 
@@ -27,13 +27,13 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'Benachrichtigungen', component: BenachrichtigungenPage },
-	  { title: 'Fallstudie', component: FallstudiePage },
-	  { title: 'Mein Szenario', component: MeinSzenarioPage },
-	  { title: 'Bewertungen', component: BewertungenPage },
-	  { title: 'Einstellungen', component: EinstellungenPage },
-	  { title: 'Über', component: UeberPage }
+      { title: 'Home', component: 'HomePage' },
+      { title: 'Benachrichtigungen', component: 'BenachrichtigungenPage' },
+	  { title: 'Fallstudie', component: 'FallstudiePage' },
+	  { title: 'Mein Szenario', component: 'MeinSzenarioPage' },
+	  { title: 'Bewertungen', component: 'BewertungenPage' },
+	  { title: 'Einstellungen', component: 'EinstellungenPage' },
+	  { title: 'Über', component: 'UeberPage' }
     ];
 
   }

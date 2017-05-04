@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { IonicPage } from 'ionic-angular';
 
 
 @IonicPage()
@@ -8,7 +9,7 @@ import { NavController } from 'ionic-angular';
   templateUrl: 'problemfeld.html'
 })
 export class ProblemfeldPage {
-problemdefinitionPage = ProblemdefinitionPage;
+problemdefinitionPage = 'ProblemdefinitionPage';
 
   constructor(public navCtrl: NavController) {
 

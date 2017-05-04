@@ -7,7 +7,7 @@ import { BenachrichtigungenPage } from './benachrichtigungen';
     BenachrichtigungenPage,
   ],
   imports: [
-    IonicPageModule.forChild(AnnahmenPage),
+    IonicPageModule.forChild(BenachrichtigungenPage),
   ],
   exports: [
     BenachrichtigungenPage
