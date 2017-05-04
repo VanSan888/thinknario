@@ -3,14 +3,7 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HomePage } from '../pages/home/home';
-import { BenachrichtigungenPage } from '../pages/benachrichtigungen/benachrichtigungen';
-import { FallstudiePage } from '../pages/fallstudie/fallstudie';
-import { MeinSzenarioPage } from '../pages/meinSzenario/meinSzenario';
-import { BewertungenPage } from '../pages/bewertungen/bewertungen';
-import { EinstellungenPage } from '../pages/einstellungen/einstellungen';
-import { UeberPage } from '../pages/ueber/ueber';
-import { LogInPage } from '../pages/log-in/log-in';
+
 
 @Component({
   templateUrl: 'app.html'
