@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 
 import { RandbedingungenPage } from '../randbedingungen/randbedingungen';
 
+@IonicPage()
 @Component({
   selector: 'page-annahmen',
   templateUrl: 'annahmen.html'

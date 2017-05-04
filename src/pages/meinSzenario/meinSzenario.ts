@@ -11,7 +11,7 @@ import { SzenarioerstellungPage } from '../szenarioerstellung/szenarioerstellung
 
 
 
-
+@IonicPage()
 @Component({
   selector: 'page-meinSzenario',
   templateUrl: 'meinSzenario.html'

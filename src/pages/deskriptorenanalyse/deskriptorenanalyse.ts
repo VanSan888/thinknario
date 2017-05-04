@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 
 import { AnnahmenPage } from '../annahmen/annahmen';
 
-
+@IonicPage()
 @Component({
   selector: 'page-deskriptorenanalyse',
   templateUrl: 'deskriptorenanalyse.html'

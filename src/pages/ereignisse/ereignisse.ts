@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 
 import { SzenarioerstellungPage } from '../szenarioerstellung/szenarioerstellung';
 
-
+@IonicPage()
 @Component({
   selector: 'page-ereignisse',
   templateUrl: 'ereignisse.html'

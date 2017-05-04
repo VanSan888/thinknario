@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 
 import { EreignissePage } from '../ereignisse/ereignisse';
 
-
+@IonicPage()
 @Component({
   selector: 'page-randbedingungen',
   templateUrl: 'randbedingungen.html'

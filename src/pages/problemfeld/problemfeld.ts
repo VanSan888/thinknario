@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 import { ProblemdefinitionPage } from '../problemdefinition/problemdefinition';
 
 
-
+@IonicPage()
 @Component({
   selector: 'page-problemfeld',
   templateUrl: 'problemfeld.html'
