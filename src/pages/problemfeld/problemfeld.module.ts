@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { ProblemfeldPage } from './problemfeld';
+import { ProblemfeldPage } from './problemdefeld';
  
 @NgModule({
   declarations: [

@@ -1,6 +1,5 @@
 import { NavController } from 'ionic-angular';
 import { Component } from '@angular/core';
-import { IonicPage } from 'ionic-angular';
 
 
 @IonicPage()
@@ -9,14 +8,14 @@ import { IonicPage } from 'ionic-angular';
   templateUrl: 'meinSzenario.html'
 })
 export class MeinSzenarioPage {
-problemfeldPage = 'ProblemfeldPage';
-problemdefinitionPage = 'ProblemdefinitionPage';
-deskriptorenanalysePage = 'DeskriptorenanalysePage';
-schluesselfaktorenPage = 'SchluesselfaktorenPage';
-annahmenPage = 'AnnahmenPage';
-randbedingungenPage = 'RandbedingungenPage';
-ereignissePage = 'EreignissePage';
-szenarioerstellungPage = 'SzenarioerstellungPage';
+problemfeldPage = ProblemfeldPage;
+problemdefinitionPage = ProblemdefinitionPage;
+deskriptorenanalysePage = DeskriptorenanalysePage;
+schluesselfaktorenPage = SchluesselfaktorenPage;
+annahmenPage = AnnahmenPage;
+randbedingungenPage = RandbedingungenPage;
+ereignissePage = EreignissePage;
+szenarioerstellungPage = SzenarioerstellungPage;
   constructor(public navCtrl: NavController) {
 
   

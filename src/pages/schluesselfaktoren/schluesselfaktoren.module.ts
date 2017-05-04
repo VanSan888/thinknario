@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { SchluesselfaktorenPage } from './schluesselfaktoren';
+import { SchluesselfaktorenPage } from './schluesslfaktoren';
  
 @NgModule({
   declarations: [

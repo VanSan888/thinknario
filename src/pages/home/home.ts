@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { IonicPage } from 'ionic-angular';
 
 
 
@@ -11,8 +10,8 @@ import { IonicPage } from 'ionic-angular';
 })
 export class HomePage {
 	
-bewertungenPage = 'BewertungenPage';
-meinSzenarioPage = 'MeinSzenarioPage';
+bewertungenPage = BewertungenPage;
+meinSzenarioPage = MeinSzenarioPage;
 
   constructor(public navCtrl: NavController) {
 
