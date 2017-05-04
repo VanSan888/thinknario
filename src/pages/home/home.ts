@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-import { BewertungenPage } from '../bewertungen/bewertungen';
-import { MeinSzenarioPage } from '../meinSzenario/meinSzenario';
+
 
 @IonicPage()
 @Component({

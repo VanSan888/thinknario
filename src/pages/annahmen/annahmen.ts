@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-import { RandbedingungenPage } from '../randbedingungen/randbedingungen';
 
 @IonicPage()
 @Component({
@@ -10,7 +9,7 @@ import { RandbedingungenPage } from '../randbedingungen/randbedingungen';
 })
 export class AnnahmenPage {
 	
-randbedingungenPage = RandbedingungenPage;
+randbedingungenPage = 'RandbedingungenPage';
 
   constructor(public navCtrl: NavController) {
 
