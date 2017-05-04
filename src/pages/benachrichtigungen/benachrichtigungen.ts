@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { IonicPage } from 'ionic-angular';
 
+@IonicPage()
 @Component({
   selector: 'page-benachrichtigungen',
   templateUrl: 'benachrichtigungen.html'
@@ -30,7 +32,7 @@ export class BenachrichtigungenPage {
 
   itemTapped(event, item) {
     // That's right, we're pushing to ourselves!
-    this.navCtrl.push(BenachrichtigungenPage, {
+    this.navCtrl.push('BenachrichtigungenPage', {
       item: item
     });
   }

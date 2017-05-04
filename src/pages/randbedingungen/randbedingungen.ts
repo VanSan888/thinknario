@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { IonicPage } from 'ionic-angular';
 
-import { EreignissePage } from '../ereignisse/ereignisse';
 
-
+@IonicPage()
 @Component({
   selector: 'page-randbedingungen',
   templateUrl: 'randbedingungen.html'
 })
 export class RandbedingungenPage {
 	
-ereignissePage = EreignissePage;
+ereignissePage = 'EreignissePage';
 
 
   constructor(public navCtrl: NavController) {

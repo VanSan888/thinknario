@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { ProblemdefinitionPage } from '../problemdefinition/problemdefinition';
+import { IonicPage } from 'ionic-angular';
 
 
-
+@IonicPage()
 @Component({
   selector: 'page-problemfeld',
   templateUrl: 'problemfeld.html'
 })
 export class ProblemfeldPage {
-problemdefinitionPage = ProblemdefinitionPage;
+problemdefinitionPage = 'ProblemdefinitionPage';
 
   constructor(public navCtrl: NavController) {
 

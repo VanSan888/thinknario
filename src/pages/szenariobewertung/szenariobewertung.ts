@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { IonicPage } from 'ionic-angular';
 
-import { SzenarioerstellungPage } from '../szenarioerstellung/szenarioerstellung';
-
+@IonicPage()
 @Component({
   selector: 'page-szenariobewertung',
   templateUrl: 'szenariobewertung.html'
 })
 export class SzenariobewertungPage {
 	
-szenarioerstellungPage = SzenarioerstellungPage;
+szenarioerstellungPage = 'SzenarioerstellungPage';
 
 
   constructor(public navCtrl: NavController) {
