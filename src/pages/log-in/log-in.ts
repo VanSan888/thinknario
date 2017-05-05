@@ -9,7 +9,7 @@ import { IonicPage } from 'ionic-angular';
 })
 export class LogInPage {
 
-
+registrierungPage = 'RegistrierungPage'
 
   constructor(public navCtrl: NavController) {
   
