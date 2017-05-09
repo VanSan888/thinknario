@@ -40,7 +40,7 @@ public loading:Loading;
         this.loginForm.value.password)
     .then( authData => {
       this.loading.dismiss().then( () => {
-        this.navCtrl.setRoot('MyApp');
+        this.navCtrl.setRoot('HomePage');
       });
     }, error => {
       this.loading.dismiss().then( () => {
