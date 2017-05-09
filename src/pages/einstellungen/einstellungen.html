@@ -13,19 +13,27 @@
 <ion-list>
   <ion-item>
     Username: ()
-	<button ion-button>Ändern</button>
-  </ion-item>
     
+  </ion-item>
+  
   <ion-item>
     E-Mail: ()
-	<button ion-button>Ändern</button>
   </ion-item>
+
+  <ion-item>
+    <button ion-button [navPush]="resetPasswordPage">Passwort ändern</button>
+  </ion-item>
+
+  <ion-item>
+    <button ion-button>Profilbild hochladen</button>
+  </ion-item>
+  
+  <ion-item>
+    <button ion-button (click)="logoutUser()">Log out</button>
+  </ion-item>
+  
 </ion-list>
 
-<button ion-button>Passwort ändern</button>
-
-
-<button ion-button>Profilbild hochladen</button>
 
 <h4>Persönliche Daten</h4>
 <p>Hier dann die Eingaben darstellen, die der Kunde beim Interview angegeben hat</p>
