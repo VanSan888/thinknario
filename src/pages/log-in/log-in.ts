@@ -8,7 +8,6 @@ import {
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { EmailValidator } from '../../validators/email';
 import { AuthData } from '../../providers/auth/auth';
-import { MyApp } from '../../app/app.component';
 
 @IonicPage()
 @Component({
@@ -41,7 +40,7 @@ public loading:Loading;
         this.loginForm.value.password)
     .then( authData => {
       this.loading.dismiss().then( () => {
-        this.navCtrl.setRoot(MyApp);
+        this.navCtrl.setRoot('MyApp');
       });
     }, error => {
       this.loading.dismiss().then( () => {
@@ -62,8 +61,8 @@ public loading:Loading;
   }
 }
 
-goToSignup(): void { this.navCtrl.push('registrierung'); }
+goToSignup(): void { this.navCtrl.push('RegistrierungPage'); }
 
-goToResetPassword(): void { this.navCtrl.push('reset-password'); }
+goToResetPassword(): void { this.navCtrl.push('ResetPasswordPage'); }
 
 }

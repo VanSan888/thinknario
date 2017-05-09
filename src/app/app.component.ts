@@ -35,12 +35,12 @@ export class MyApp {
 	const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
      this.zone.run( () => {
 	   //hier dann die Funktion einbauen, die den user
-	   //an die Stelle weiterleitet, an der er sein Suenario weiter machen soll
+	   //an die Stelle weiterleitet, an der er sein Szenario weiter machen soll
        if (!user) {
-         this.rootPage = 'log-in';
+         this.rootPage = 'LogInPage';
          unsubscribe();
        } else { 
-       this.rootPage = 'home';
+       this.rootPage = 'HomePage';
          unsubscribe();
     }
   });     

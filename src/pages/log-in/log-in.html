@@ -20,17 +20,17 @@
     </ion-item>
     <ion-item class="error-message" 
       *ngIf="!loginForm.controls.email.valid  && loginForm.controls.email.dirty">
-      <p>Please enter a valid email.</p>
+      <p>Bitte geben Sie eine gültige E-Mail Adresse ein.</p>
     </ion-item>
 
     <ion-item>
-      <ion-label stacked>Password</ion-label>
+      <ion-label stacked>Passwort</ion-label>
       <ion-input formControlName="password" type="password" placeholder="Your password" 
         [class.invalid]="!loginForm.controls.password.valid && loginForm.controls.password.dirty"></ion-input>
     </ion-item>
     <ion-item class="error-message" 
       *ngIf="!loginForm.controls.password.valid  && loginForm.controls.password.dirty">
-      <p>Your password needs more than 6 characters.</p>
+      <p>Ihr Passwort muss mehr als 6 Zeichen haben.</p>
     </ion-item>
 
     <button ion-button block type="submit" [disabled]="!loginForm.valid">
@@ -40,11 +40,11 @@
   </form>
 
   <button ion-button block clear (click)="goToSignup()">
-    Create a new account
+    Account registrieren
   </button>
 
   <button ion-button block clear (click)="goToResetPassword()">
-    I forgot my password
+    Ich habe mein Passwort vergessen
   </button>
 
 
