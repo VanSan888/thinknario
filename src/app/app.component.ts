@@ -1,7 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, NgZone } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import * as firebase from 'firebase';
 
 
 
@@ -11,12 +12,40 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = 'LogInPage';
+  rootPage: any;
+  zone: NgZone;
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(
+    public platform: Platform,
+	public statusBar: StatusBar,
+	public splashScreen: SplashScreen) {
     this.initializeApp();
+	firebase.initializeApp({
+      apiKey: "AIzaSyBY6OTviwlRvdO7Pa6nhgHSHmAGE91klNM",
+      authDomain: "thinknario.firebaseapp.com",
+      databaseURL: "https://thinknario.firebaseio.com",
+      storageBucket: "thinknario.appspot.com",
+      messagingSenderId: "320520092415"
+    });
+
+	this.zone = new NgZone({});
+
+	const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+     this.zone.run( () => {
+	   //hier dann die Funktion einbauen, die den user
+	   //an die Stelle weiterleitet, an der er sein Suenario weiter machen soll
+       if (!user) {
+         this.rootPage = 'log-in';
+         unsubscribe();
+       } else { 
+       this.rootPage = 'home';
+         unsubscribe();
+    }
+  });     
+});
+
 
     // used for an example of ngFor and navigation
     this.pages = [
@@ -45,4 +74,8 @@ export class MyApp {
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
+  
+
+  
 }
+
