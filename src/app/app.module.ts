@@ -8,6 +8,11 @@ import { MyApp } from './app.component';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { AuthProvider } from '../providers/auth/auth';
+import { EventProvider } from '../providers/event/event';
+import { ProfileProvider } from '../providers/profile/profile';
+//Für Handykamera
+import { Camera } from '@ionic-native/camera';
 
 
 @NgModule({
@@ -26,7 +31,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthProvider,
+    EventProvider,
+    ProfileProvider,
+	//für Handycamera
+	Camera
   ]
 })
 export class AppModule {}
