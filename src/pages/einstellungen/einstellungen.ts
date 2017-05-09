@@ -17,18 +17,12 @@ resetPasswordPage = 'ResetPasswordPage'
 
   }
   
-/*logoutUser(): void {
+  logoutUser(): void {
 	
 	this.authData.logoutUser()
-   .then( authData => {
-      this.loading.dismiss().then( () => {
-        this.navCtrl.setRoot('MyApp');
+    .then( () => {
+        this.navCtrl.setRoot('LogInPage');
       });
-    }*/
-	
- /* logoutUser(): firebase.Promise<void> {
-  return firebase.auth().signOut();
-  }*/
-    	
+  }	
 
 }
