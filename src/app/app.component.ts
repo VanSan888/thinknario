@@ -54,7 +54,7 @@ export class MyApp {
 	  { title: 'Fallstudie', component: 'FallstudiePage' },
 	  { title: 'Mein Szenario', component: 'MeinSzenarioPage' },
 	  { title: 'Bewertungen', component: 'BewertungenPage' },
-	  { title: 'Einstellungen', component: 'EinstellungenPage' },
+	  { title: 'Profileinstellungen', component: 'EinstellungenPage' },
 	  { title: 'Über', component: 'UeberPage' }
     ];
 

@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar color="primary">
+  <ion-navbar>
     <ion-title>
       Create an Account
     </ion-title>
@@ -8,7 +8,7 @@
 
 
 <ion-content padding>
-  <img src="http://placehold.it/300x100">
+
   <form [formGroup]="signupForm" (submit)="signupUser()" novalidate>
 
     <ion-item>
@@ -19,22 +19,22 @@
     </ion-item>
     <ion-item class="error-message" 
       *ngIf="!signupForm.controls.email.valid  && signupForm.controls.email.dirty">
-      <p>Please enter a valid email.</p>
+      <p>Bitte geben Sie eine gültige E-Mail Adresse ein.</p>
     </ion-item>
 
     <ion-item>
-      <ion-label stacked>Password</ion-label>
+      <ion-label stacked>Passwort</ion-label>
       <ion-input formControlName="password" type="password" placeholder="Your password" 
         [class.invalid]="!signupForm.controls.password.valid && signupForm.controls.password.dirty">
       </ion-input>
     </ion-item>
     <ion-item class="error-message" 
       *ngIf="!signupForm.controls.password.valid  && signupForm.controls.password.dirty">
-      <p>Your password needs more than 6 characters.</p>
+      <p>Ihr Passwort muss mehr als 6 Zeichen lang sein.</p>
     </ion-item>
 
     <button ion-button block type="submit" [disabled]="!signupForm.valid">
-      Create an Account
+      Account jetzt erstellen.
     </button>
 	
 	<p> Rechtlicher Hinweis (jan nach einem wissenschaftlichen beleg dafür fragen): <br>

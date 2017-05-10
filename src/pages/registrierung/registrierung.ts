@@ -36,7 +36,7 @@ public signupForm: FormGroup;
         this.signupForm.value.password)
     .then(() => {
       this.loading.dismiss().then( () => {
-        this.navCtrl.setRoot('HomePage');
+        this.navCtrl.setRoot('InterviewPage');
       });
     }, (error) => {
       this.loading.dismiss().then( () => {
@@ -45,7 +45,7 @@ public signupForm: FormGroup;
           buttons: [
             {
               text: "Ok",
-              role: 'cancel'
+              role: 'Abbrechen'
             }
           ]
         });

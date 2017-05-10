@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 
+
 @Injectable()
 export class AuthData {
 
@@ -25,6 +26,9 @@ resetPassword(email: string): firebase.Promise<void> {
 }
 
 logoutUser(): firebase.Promise<void> {
+  firebase.database().ref('/userProfile')
+    .child(firebase.auth().currentUser.uid).off();
+
   return firebase.auth().signOut();
 }
   

@@ -49,7 +49,7 @@ public loading:Loading;
           buttons: [
             {
               text: "Ok",
-              role: 'cancel'
+              role: 'Abbrechen'
             }
           ]
         });
