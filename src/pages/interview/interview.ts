@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { IonicPage, NavController, AlertController } from 'ionic-angular';
+import { AuthData } from '../../providers/auth/auth';
+import { ProfileProvider } from '../../providers/profile/profile';
 
 
 @IonicPage()
@@ -9,12 +10,43 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'interview.html',
 })
 export class InterviewPage {
+	
+  fallstudiePage = 'FallstudiePage';
+	
+  public userProfile: any;
+  public birthDate: string;
+  public firstName: string;
+  public lastName: string;
+  public gender: string = "o";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController,
+  public profileProvider: ProfileProvider, public authData: AuthData) {
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad InterviewPage');
+  
+  ionViewDidEnter() {
+    this.profileProvider.getUserProfile().then( profileSnap => {
+      this.userProfile = profileSnap;
+    });
+  }
+  
+  updateFirstname(firstName){
+		
+	this.profileProvider.updateFirstname(firstName);
+	 
+  }
+ 
+  updateLastname(lastName){
+	
+	this.profileProvider.updateLastname(lastName);
+	 
+  }
+ 
+  updateDOB(birthDate){
+    this.profileProvider.updateDOB(birthDate);
+  }
+  
+  updateGender(gender) {
+	  this.profileProvider.updateGender(gender);
   }
 
 }

@@ -35,14 +35,18 @@ export class ProfileProvider {
       lastName: lastName,
     });
   }  
-  
-  
-  
-  
+    
   updateDOB(birthDate: string): firebase.Promise<any> {
     return firebase.database().ref('/userProfile')
     .child(firebase.auth().currentUser.uid).update({
       birthDate: birthDate,
+    });
+  }
+  
+  updateGender(gender: string): firebase.Promise<any> {
+    return firebase.database().ref('/userProfile')
+    .child(firebase.auth().currentUser.uid).update({
+      gender: gender,
     });
   }
   

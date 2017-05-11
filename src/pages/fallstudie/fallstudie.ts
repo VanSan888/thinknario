@@ -8,6 +8,8 @@ import { IonicPage } from 'ionic-angular';
   templateUrl: 'fallstudie.html'
 })
 export class FallstudiePage {
+	
+  meinSzenarioPage = 'MeinSzenarioPage'
 
   constructor(public navCtrl: NavController) {
 

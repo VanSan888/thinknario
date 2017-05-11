@@ -15,6 +15,7 @@ export class EinstellungenPage {
   public birthDate: string;
   public firstName: string;
   public lastName: string;
+  public gender: string = "o";
 
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController,
@@ -28,6 +29,7 @@ export class EinstellungenPage {
       this.birthDate = this.userProfile.birthDate
 	  this.firstName = this.userProfile.firstName
 	  this.lastName = this.userProfile.lastName
+	  this.gender = this.userProfile.gender
 	  });
   }
   
@@ -39,21 +41,24 @@ export class EinstellungenPage {
   }
     
  
- updateFirstname(firstName){
+  updateFirstname(firstName){
 		
 	this.profileProvider.updateFirstname(firstName);
 	 
- }
+  }
  
   updateLastname(lastName){
 	
 	this.profileProvider.updateLastname(lastName);
 	 
- }
- 
+  }
  
   updateDOB(birthDate){
     this.profileProvider.updateDOB(birthDate);
+  }
+  
+  updateGender(gender) {
+	  this.profileProvider.updateGender(gender);
   }
   
   
