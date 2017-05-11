@@ -12,7 +12,10 @@ import { ProfileProvider } from '../../providers/profile/profile';
 export class EinstellungenPage {
 	
   public userProfile: any;
-  public birthDate: string;	
+  public birthDate: string;
+  public firstName: string;
+  public lastName: string;
+
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController,
   public profileProvider: ProfileProvider, public authData: AuthData) {
@@ -22,8 +25,10 @@ export class EinstellungenPage {
   ionViewDidEnter() {
     this.profileProvider.getUserProfile().then( profileSnap => {
       this.userProfile = profileSnap;
-      this.birthDate = this.userProfile.birthDate;
-    });
+      this.birthDate = this.userProfile.birthDate
+	  this.firstName = this.userProfile.firstName
+	  this.lastName = this.userProfile.lastName
+	  });
   }
   
   logOut(): void {
@@ -32,40 +37,25 @@ export class EinstellungenPage {
         this.navCtrl.setRoot('LogInPage');
     });
   }
-  
-  updateName(){
-    let alert = this.alertCtrl.create({
-      message: "Ihr Vor- und Nachname",
-      inputs: [
-        {
-          name: 'firstName',
-          placeholder: 'Ihr Vorname',
-          value: this.userProfile.firstName
-        },
-        {
-          name: 'lastName',
-          placeholder: 'Ihr Nachname',
-          value: this.userProfile.lastName
-        },
-      ],
-      buttons: [
-        {
-          text: 'Abbrechen',
-        },
-        {
-          text: 'Save',
-          handler: data => {
-            this.profileProvider.updateName(data.firstName, data.lastName);
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-  
+    
+ 
+ updateFirstname(firstName){
+		
+	this.profileProvider.updateFirstname(firstName);
+	 
+ }
+ 
+  updateLastname(lastName){
+	
+	this.profileProvider.updateLastname(lastName);
+	 
+ }
+ 
+ 
   updateDOB(birthDate){
     this.profileProvider.updateDOB(birthDate);
   }
+  
   
 updateEmail(){
   let alert = this.alertCtrl.create({

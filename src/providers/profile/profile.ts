@@ -10,23 +10,34 @@ export class ProfileProvider {
 
   }
 
+
+ 
   getUserProfile(): Promise<any> {
-    return new Promise( (resolve, reject) => {
-      firebase.database().ref('/userProfile')
-      .child(firebase.auth().currentUser.uid)
-      .on('value', data => {
+    return   new  Promise( (resolve, reject) => { 
+     firebase.database().ref('/userProfile')
+	.child(firebase.auth().currentUser.uid)
+     .on('value', data => {
         resolve(data.val());
       });
     });
   }
-  
-  updateName(firstName: string, lastName: string): firebase.Promise<any> {
+
+  updateFirstname(firstName: string): firebase.Promise<any> {
     return firebase.database().ref('/userProfile')
     .child(firebase.auth().currentUser.uid).update({
       firstName: firstName,
-      lastName: lastName,
     });
   }
+  
+  updateLastname(lastName: string): firebase.Promise<any> {
+    return firebase.database().ref('/userProfile')
+    .child(firebase.auth().currentUser.uid).update({
+      lastName: lastName,
+    });
+  }  
+  
+  
+  
   
   updateDOB(birthDate: string): firebase.Promise<any> {
     return firebase.database().ref('/userProfile')
