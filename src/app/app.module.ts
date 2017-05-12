@@ -13,6 +13,7 @@ import { EventProvider } from '../providers/event/event';
 import { ProfileProvider } from '../providers/profile/profile';
 //Für Handykamera
 import { Camera } from '@ionic-native/camera';
+import { SzenarioProvider } from '../providers/szenario/szenario';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { Camera } from '@ionic-native/camera';
     EventProvider,
     ProfileProvider,
 	//für Handycamera
-	Camera
+	Camera,
+    SzenarioProvider
   ]
 })
 export class AppModule {}

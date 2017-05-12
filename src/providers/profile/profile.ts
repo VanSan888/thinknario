@@ -7,10 +7,7 @@ import * as firebase from 'firebase';
 export class ProfileProvider {
 
   constructor() {
-
   }
-
-
  
   getUserProfile(): Promise<any> {
     return   new  Promise( (resolve, reject) => { 
@@ -36,6 +33,13 @@ export class ProfileProvider {
     });
   }  
     
+  updateUsername(userName: string): firebase.Promise<any> {
+    return firebase.database().ref('/userProfile')
+    .child(firebase.auth().currentUser.uid).update({
+      userName: userName,
+    });
+  }	
+	
   updateDOB(birthDate: string): firebase.Promise<any> {
     return firebase.database().ref('/userProfile')
     .child(firebase.auth().currentUser.uid).update({

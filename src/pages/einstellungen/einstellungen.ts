@@ -11,10 +11,13 @@ import { ProfileProvider } from '../../providers/profile/profile';
 })
 export class EinstellungenPage {
 	
+  interviewPage='InterviewPage'
+	
   public userProfile: any;
   public birthDate: string;
   public firstName: string;
   public lastName: string;
+  public userName: string;
   public gender: string = "o";
 
 
@@ -29,6 +32,7 @@ export class EinstellungenPage {
       this.birthDate = this.userProfile.birthDate
 	  this.firstName = this.userProfile.firstName
 	  this.lastName = this.userProfile.lastName
+	  this.userName = this.userProfile.userName
 	  this.gender = this.userProfile.gender
 	  });
   }
@@ -52,6 +56,12 @@ export class EinstellungenPage {
 	this.profileProvider.updateLastname(lastName);
 	 
   }
+  
+  updateUsername(userName){
+	
+	this.profileProvider.updateUsername(userName);
+	 
+  }  
  
   updateDOB(birthDate){
     this.profileProvider.updateDOB(birthDate);

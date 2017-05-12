@@ -13,11 +13,14 @@ export class InterviewPage {
 	
   fallstudiePage = 'FallstudiePage';
 	
+  
   public userProfile: any;
   public birthDate: string;
   public firstName: string;
   public lastName: string;
+  public userName: string;
   public gender: string = "o";
+
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController,
   public profileProvider: ProfileProvider, public authData: AuthData) {
@@ -28,7 +31,7 @@ export class InterviewPage {
       this.userProfile = profileSnap;
     });
   }
-  
+ 
   updateFirstname(firstName){
 		
 	this.profileProvider.updateFirstname(firstName);
@@ -40,6 +43,12 @@ export class InterviewPage {
 	this.profileProvider.updateLastname(lastName);
 	 
   }
+  
+   updateUsername(userName){
+	
+	this.profileProvider.updateUsername(userName);
+	 
+  }  
  
   updateDOB(birthDate){
     this.profileProvider.updateDOB(birthDate);
@@ -48,5 +57,5 @@ export class InterviewPage {
   updateGender(gender) {
 	  this.profileProvider.updateGender(gender);
   }
-
+  
 }

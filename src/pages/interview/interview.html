@@ -23,6 +23,13 @@
 	  [(ngModel)]="lastName" (change)="updateLastname(lastName)" name="nachname">
 	  </ion-input>
     </ion-item>
+	
+	<ion-item>
+      <ion-label stacked>User-Name</ion-label>
+      <ion-input type="text" placeholder="Gewünschter User-Name" 
+	  [(ngModel)]="userName" (change)="updateUsername(userName)" name="username">
+	  </ion-input>
+    </ion-item>	
 
     <ion-item>
       <ion-label>Geburtstag</ion-label>

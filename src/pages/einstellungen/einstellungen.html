@@ -33,6 +33,13 @@
 	  </ion-input>
     </ion-item>
 
+	<ion-item>
+      <ion-label stacked>User-Name</ion-label>
+      <ion-input type="text" placeholder="Gewünschter User-Name" 
+	  [(ngModel)]="userName" (change)="updateUsername(userName)" name="username">
+	  </ion-input>
+    </ion-item>	
+	
     <ion-item>
       <ion-label>Geburtstag</ion-label>
       <ion-datetime displayFormat="MMM D, YYYY" pickerFormat="D MMM YYYY"
@@ -85,4 +92,8 @@
       </ion-grid>
     </ion-item>
   </ion-list>
+  <p>Diesen Button wieder löschen:</p>
+  <button ion-button [navPush]="interviewPage">Zum Interview</button>
+ 
+ 
 </ion-content>
