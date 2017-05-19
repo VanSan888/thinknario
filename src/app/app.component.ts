@@ -18,11 +18,14 @@ export class MyApp {
   pages: Array<{title: string, component: any}>;
 
   constructor(
+  
     public platform: Platform,
 	public statusBar: StatusBar,
 	public splashScreen: SplashScreen) {
     this.initializeApp();
+	//firebase Initialisierungund 
 	firebase.initializeApp({
+	  //firebase-Konfiguration
       apiKey: "AIzaSyBY6OTviwlRvdO7Pa6nhgHSHmAGE91klNM",
       authDomain: "thinknario.firebaseapp.com",
       databaseURL: "https://thinknario.firebaseio.com",
@@ -34,11 +37,11 @@ export class MyApp {
 
 	const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
      this.zone.run( () => {
-	   //hier dann die Funktion einbauen, die den user
-	   //an die Stelle weiterleitet, an der er sein Szenario weiter machen soll
+       //Wenn kein user authentifiziert ist, zu LogInPage
        if (!user) {
          this.rootPage = 'LogInPage';
          unsubscribe();
+	   //wenn ein user authentifiziert ist, zu HomePage
        } else { 
        this.rootPage = 'HomePage';
          unsubscribe();
@@ -47,7 +50,7 @@ export class MyApp {
 });
 
 
-    // used for an example of ngFor and navigation
+    // used for ngFor and navigation
     this.pages = [
       { title: 'Home', component: 'HomePage' },
       { title: 'Benachrichtigungen', component: 'BenachrichtigungenPage' },
@@ -60,6 +63,7 @@ export class MyApp {
 
   }
 
+  //App initiieren	
   initializeApp() {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -70,8 +74,7 @@ export class MyApp {
   }
 
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
+    //Navigation aus dem SideMenu zu den einzelnen Seiten
     this.nav.setRoot(page.component);
   }
   

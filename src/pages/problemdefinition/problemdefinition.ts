@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { IonicPage } from 'ionic-angular';
+import { NavController,IonicPage } from 'ionic-angular';
+import { SzenarioProvider } from '../../providers/szenario/szenario';
+
 
 
 @IonicPage()
@@ -10,10 +11,28 @@ import { IonicPage } from 'ionic-angular';
 })
 export class ProblemdefinitionPage {
 
+//Notwendig für Navigation
 schluesselfaktorenPage = 'SchluesselfaktorenPage';
 
-  constructor(public navCtrl: NavController) {
+public szenarioData: any;
+public problemdefinition : string = "";
+
+  constructor(public navCtrl: NavController, public szenarioProvider: SzenarioProvider) {
 
   }
 
+  ionViewDidEnter() {
+	//Evtl mit if nicht null den path abfragen    	
+    this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
+      this.szenarioData = szenarioSnap;
+      this.problemdefinition = this.szenarioData.problemdefinition;
+	  });	
+  }
+ 
+
+  
+  updateProblemdefinition(problemdefinition) {
+	  this.szenarioProvider.updateProblemdefinition(problemdefinition);
+  }
+  
 }

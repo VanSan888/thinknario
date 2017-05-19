@@ -8,8 +8,10 @@ export class ProfileProvider {
 
   constructor() {
   }
- 
+  
+  //Promise zur Erlangung der aktuellen Nutzerdaten
   getUserProfile(): Promise<any> {
+
     return   new  Promise( (resolve, reject) => { 
      firebase.database().ref('/userProfile')
 	.child(firebase.auth().currentUser.uid)
@@ -19,6 +21,7 @@ export class ProfileProvider {
     });
   }
 
+  //Funktion für Firebaseupdate für Vornamen
   updateFirstname(firstName: string): firebase.Promise<any> {
     return firebase.database().ref('/userProfile')
     .child(firebase.auth().currentUser.uid).update({
@@ -26,13 +29,15 @@ export class ProfileProvider {
     });
   }
   
+  //Funktion für Firebaseupdate für Nachnamen
   updateLastname(lastName: string): firebase.Promise<any> {
     return firebase.database().ref('/userProfile')
     .child(firebase.auth().currentUser.uid).update({
       lastName: lastName,
     });
   }  
-    
+  
+//Funktion für Firebaseupdate für Usernamen  
   updateUsername(userName: string): firebase.Promise<any> {
     return firebase.database().ref('/userProfile')
     .child(firebase.auth().currentUser.uid).update({
@@ -40,6 +45,7 @@ export class ProfileProvider {
     });
   }	
 	
+  //Funktion für Firebaseupdate für Geburtstag	
   updateDOB(birthDate: string): firebase.Promise<any> {
     return firebase.database().ref('/userProfile')
     .child(firebase.auth().currentUser.uid).update({
@@ -47,6 +53,7 @@ export class ProfileProvider {
     });
   }
   
+  //Funktion für Firebaseupdate für Geschlecht
   updateGender(gender: string): firebase.Promise<any> {
     return firebase.database().ref('/userProfile')
     .child(firebase.auth().currentUser.uid).update({
@@ -54,6 +61,7 @@ export class ProfileProvider {
     });
   }
   
+  //Funktion für Firebaseupdate für E-Mail mittels Passwort
   updateEmail(newEmail: string, password: string): firebase.Promise<any> {
     const credential =  firebase.auth.EmailAuthProvider
         .credential(firebase.auth().currentUser.email, password);
@@ -67,6 +75,7 @@ export class ProfileProvider {
     });
   }
   
+  //Funktion für Firebaseupdate für neues Passwort mit altem Passwort
   updatePassword(newPass: string, oldPassword: string): firebase.Promise<any> {
     const credential =  firebase.auth.EmailAuthProvider
         .credential(firebase.auth().currentUser.email, oldPassword);

@@ -15,7 +15,7 @@ export class ResetPasswordPage {
 
   constructor(public navCtrl: NavController, public authData: AuthData,
     public formBuilder: FormBuilder, public alertCtrl: AlertController) {
-
+      //Einbinden des Validators für die E-Mail Eingabe
       this.resetPasswordForm = formBuilder.group({
         email: ['', Validators.compose([Validators.required, 
             EmailValidator.isValid])],
@@ -26,6 +26,7 @@ export class ResetPasswordPage {
   if (!this.resetPasswordForm.valid){
     console.log(this.resetPasswordForm.value);
   } else {
+	//Übergabe der Parameter für Passwort-Reset mittels E-Mail
     this.authData.resetPassword(this.resetPasswordForm.value.email)
     .then((user) => {
       let alert = this.alertCtrl.create({
@@ -39,7 +40,7 @@ export class ResetPasswordPage {
         ]
       });
       alert.present();
-
+    //Fehlermeldung für Passwortreset
     }, (error) => {
       var errorMessage: string = error.message;
       let errorAlert = this.alertCtrl.create({

@@ -9,21 +9,40 @@
 
 <ion-content padding>
 <p> Was sind Randbedingungen in diesem Fall? Hier evtl. noch (toggle) Button:Beispiele einfügen. </p>
-<p>Welche Randbedingungen treffen Sie für Ihr Szenario</p>
+<p>Welche Randbedingungen treffen Sie für Ihr Szenario?</p>
+<p>Geben Sie mindestens 2 Randbedingungen ein:</p>
 
 <ion-list>
-  <ion-item>
-    <ion-label fixed>Randbedingung 1:</ion-label>
-    <ion-input type="text" value=""></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label fixed>Randbedingung 2:</ion-label>
-    <ion-input type="passwort"></ion-input>
-  </ion-item>
+    <ion-item>
+      <ion-label stacked>Randbedingung 1</ion-label>
+      <ion-input type="text" placeholder="Hier Ihre erste Randbedingung eingeben" 
+	  [(ngModel)]="randbedingung1" name="randbedingung1"
+	  (change)="updateRandbedingung1(randbedingung1)">
+	  </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Randbedingung 2</ion-label>
+      <ion-input type="text" placeholder="Hier Ihre zweite Randbedingung eingeben" 
+	  [(ngModel)]="randbedingung2" name="randbedingung2"
+	  (change)="updateRandbedingung2(randbedingung2)">
+	  </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Randbedingung 3</ion-label>
+      <ion-input type="text" placeholder="Optional hier Ihre dritte Randbedingung eingeben" 
+	  [(ngModel)]="randbedingung3" name="randbedingung3"
+	  (change)="updateRandbedingung3(randbedingung3)">
+	  </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Randbedingung 4</ion-label>
+      <ion-input type="text" placeholder="Optional hier Ihre vierte Randbedingung eingeben" 
+	  [(ngModel)]="randbedingung4" name="randbedingung4"
+	  (change)="updateRandbedingung4(randbedingung4)">
+	  </ion-input>
+    </ion-item>
 </ion-list>
 
-<button ion-button>Weitere Randbedingungen einfügen</button>
 
 <button ion-button [navPush]="ereignissePage">Weiter</button>
 

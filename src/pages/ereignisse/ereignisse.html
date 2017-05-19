@@ -11,20 +11,40 @@
 <h4>Beschreibung</h4>
 <p> Hier evtl. noch (toggle) Button:Beispiele einfügen. </p>
 <p>Welche überraschenden Ereignisse können Sie sich für ihr Szenario vorstellen?</p>
+<p>Geben Sie mindestens 2 überraschende Ereignisse ein:</p>
+
 
 <ion-list>
-  <ion-item>
-    <ion-label fixed>Ereignis 1:</ion-label>
-    <ion-input type="text" value=""></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label fixed>Ereignis 2:</ion-label>
-    <ion-input type="passwort"></ion-input>
-  </ion-item>
+    <ion-item>
+      <ion-label stacked>Ereignis 1</ion-label>
+      <ion-input type="text" placeholder="Hier Ihre erstes Ereignis eingeben" 
+	  [(ngModel)]="ereignis1" name="ereignis1"
+	  (change)="updateEreignis1(ereignis1)">
+	  </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Ereignis 2</ion-label>
+      <ion-input type="text" placeholder="Hier Ihre zweites Ereignis eingeben" 
+	  [(ngModel)]="ereignis2" name="ereignis2"
+	  (change)="updateEreignis2(ereignis2)">
+	  </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Ereignis 3</ion-label>
+      <ion-input type="text" placeholder="Optional hier Ihre drittes Ereignis eingeben" 
+	  [(ngModel)]="ereignis3" name="ereignis3"
+	  (change)="updateEreignis3(ereignis3)">
+	  </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Ereignis 4</ion-label>
+      <ion-input type="text" placeholder="Optional hier Ihre viertes Ereignis eingeben" 
+	  [(ngModel)]="ereignis4" name="ereignis4"
+	  (change)="updateEreignis4(ereignis4)">
+	  </ion-input>
+    </ion-item>
 </ion-list>
 
-<button ion-button> Weitere Ereignisse einfügen </button>
 
 <button ion-button [navPush]="szenarioerstellungPage">Weiter</button>
 

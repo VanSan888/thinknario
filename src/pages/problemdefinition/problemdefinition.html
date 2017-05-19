@@ -10,14 +10,17 @@
 <ion-content padding>
 <p>Bitte beschreiben Sie hier das aus Ihrer Sicht größte Problem der (Fallstudie)</p>
 
-<ion-list>
-  <ion-item>
-    <ion-label fixed>Ihre Problemdefinition:</ion-label>
-    <ion-input type="text" value=""></ion-input>
-  </ion-item>
-</ion-list>
+    <ion-item>
+      <ion-label stacked>Ihre Problemdefinition</ion-label>
+      <ion-input type="text" placeholder="hier eingeben" 
+	  [(ngModel)]="problemdefinition" (change)="updateProblemdefinition(problemdefinition)"
+	  name="problemdefinition">
+	  </ion-input>
+    </ion-item>
 
 <button ion-button [navPush]="schluesselfaktorenPage">Weiter</button>
+
+
 
 
 </ion-content>

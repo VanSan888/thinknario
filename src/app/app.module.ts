@@ -8,10 +8,11 @@ import { MyApp } from './app.component';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+//provider import
 import { AuthData } from '../providers/auth/auth';
 import { EventProvider } from '../providers/event/event';
 import { ProfileProvider } from '../providers/profile/profile';
-//Für Handykamera
+//Optional für Handykamera
 import { Camera } from '@ionic-native/camera';
 import { SzenarioProvider } from '../providers/szenario/szenario';
 
@@ -36,7 +37,7 @@ import { SzenarioProvider } from '../providers/szenario/szenario';
     AuthData,
     EventProvider,
     ProfileProvider,
-	//für Handycamera
+	//Optional für Handycamera
 	Camera,
     SzenarioProvider
   ]

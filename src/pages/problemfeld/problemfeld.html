@@ -11,30 +11,26 @@
 <p>Beschreibung und Auswahlliste für Problemfeld</p>
 
 <ion-list>
-<ion-item>
-  <ion-label>Beispiel 1</ion-label>
-  <ion-checkbox  checked="false"></ion-checkbox>
-</ion-item>
-<ion-item>
-  <ion-label>Beispiel 2</ion-label>
-  <ion-checkbox  checked="false"></ion-checkbox>
-</ion-item>
-<ion-item>
-  <ion-label>Beispiel 3</ion-label>
-  <ion-checkbox  checked="false"></ion-checkbox>
-</ion-item>
-<ion-item>
-  <ion-label>Beispiel 4</ion-label>
-  <ion-checkbox  checked="false"></ion-checkbox>
-</ion-item>
-<ion-item>
-  <ion-label>Beispiel 5</ion-label>
-  <ion-checkbox  checked="false"></ion-checkbox>
-</ion-item>
-<ion-item>
-  <ion-label>Beispiel 6</ion-label>
-  <ion-checkbox  checked="false"></ion-checkbox>
-</ion-item>
+  <ion-item>
+    <ion-label>Problemfeld 1</ion-label>
+    <ion-checkbox  checked="false" [(ngModel)]="problemfeld1" name="problemfeld1"
+	(ionChange)="updateProblemfeld1(problemfeld1)"></ion-checkbox>
+  </ion-item>
+  <ion-item>
+    <ion-label>Problemfeld 2</ion-label>
+    <ion-checkbox  checked="false" [(ngModel)]="problemfeld2" name="problemfeld2"
+	(ionChange)="updateProblemfeld2(problemfeld2)"></ion-checkbox>
+  </ion-item>
+  <ion-item>
+    <ion-label>Problemfeld 3</ion-label>
+    <ion-checkbox  checked="false" [(ngModel)]="problemfeld3" name="problemfeld3"
+	(ionChange)="updateProblemfeld3(problemfeld3)"></ion-checkbox>
+  </ion-item>
+  <ion-item>
+    <ion-label>Problemfeld 4</ion-label>
+    <ion-checkbox  checked="false" [(ngModel)]="problemfeld4" name="problemfeld4"
+	(ionChange)="updateProblemfeld4(problemfeld4)"></ion-checkbox>
+  </ion-item>  	
 </ion-list>
 
 <button ion-button [navPush]="problemdefinitionPage">Weiter</button>

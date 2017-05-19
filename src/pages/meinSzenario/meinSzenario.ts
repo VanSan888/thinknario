@@ -9,7 +9,7 @@ import { IonicPage } from 'ionic-angular';
   templateUrl: 'meinSzenario.html'
 })
 export class MeinSzenarioPage {
-	
+//Notwendig für Navigation	
 problemfeldPage = 'ProblemfeldPage';
 problemdefinitionPage = 'ProblemdefinitionPage';
 deskriptorenanalysePage = 'DeskriptorenanalysePage';

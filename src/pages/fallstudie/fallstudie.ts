@@ -9,6 +9,7 @@ import { IonicPage } from 'ionic-angular';
 })
 export class FallstudiePage {
 	
+  //Notwendig für Navigation
   meinSzenarioPage = 'MeinSzenarioPage'
 
   constructor(public navCtrl: NavController) {

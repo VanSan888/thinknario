@@ -48,10 +48,10 @@
 	
     <ion-item>
       <ion-label>Geschlecht</ion-label>
-      <ion-select [(ngModel)]="gender" (click)="updateGender(gender)" okText="Okay" cancelText="Abbrechen" placeholder="Ihr Geschlecht">
+      <ion-select [(ngModel)]="gender" cancelText="Abbrechen" (ionChange)="updateGender(gender)"  placeholder="Ihr Geschlecht">
         <ion-option value="o">Bitte auswählen</ion-option>
-		<ion-option value="w">Weiblich</ion-option>
-        <ion-option value="m">Männlich</ion-option>
+		<ion-option  value="w">Weiblich</ion-option>
+        <ion-option  value="m">Männlich</ion-option>
       </ion-select>
     </ion-item>	
 
@@ -76,7 +76,9 @@
         </ion-row>
       </ion-grid>
     </ion-item>
+	
 
+  
     <ion-item (click)="updatePassword()">
       <ion-grid>
         <ion-row>
@@ -92,6 +94,8 @@
       </ion-grid>
     </ion-item>
   </ion-list>
+
+
   <p>Diesen Button wieder löschen:</p>
   <button ion-button [navPush]="interviewPage">Zum Interview</button>
  

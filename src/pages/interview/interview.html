@@ -39,7 +39,7 @@
 	
     <ion-item>
       <ion-label>Geschlecht</ion-label>
-      <ion-select [(ngModel)]="gender" (click)="updateGender(gender)" okText="Okay" cancelText="Abbrechen">
+      <ion-select [(ngModel)]="gender"  cancelText="Abbrechen" (ionChange)="updateGender(gender)">
         <ion-option value="o">Bitte auswählen</ion-option>
 		<ion-option value="w">Weiblich</ion-option>
         <ion-option value="m">Männlich</ion-option>

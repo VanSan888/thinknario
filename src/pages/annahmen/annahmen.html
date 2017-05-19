@@ -9,22 +9,36 @@
 
 <ion-content padding>
 
-<p> Was sind Annahmen in diesem Fall? Hier evtl. noch toggle Beispiele einfügen. </p>
-<p>Welche Annahmen treffen Sie für Ihr Szenario</p>
+<p> Was sind Annahmen in diesem Fall? Hier evtl. noch toggle Beispiele einfügen und besser erklären, was gemeint ist </p>
+<p>Welche Annahmen treffen Sie für Ihr Szenario?</p>
+<p>Geben Sie mindestens 2 Annahmen ein:</p>
 
 <ion-list>
-  <ion-item>
-    <ion-label fixed>Annahme 1:</ion-label>
-    <ion-input type="text" value=""></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label fixed>Annahme 2:</ion-label>
-    <ion-input type="passwort"></ion-input>
-  </ion-item>
+    <ion-item>
+      <ion-label stacked>Annahme 1</ion-label>
+      <ion-input type="text" placeholder="Hier Ihre erste Annahme eingeben" 
+	  [(ngModel)]="annahme1" name="annahme1" (change)="updateAnnahme1(annahme1)">
+	  </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Annahme 2</ion-label>
+      <ion-input type="text" placeholder="Hier Ihre zweite Annahme eingeben" 
+	  [(ngModel)]="annahme2" name="annahme2" (change)="updateAnnahme2(annahme2)">
+	  </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Annahme 3</ion-label>
+      <ion-input type="text" placeholder="Optional hier Ihre dritte Annahme eingeben" 
+	  [(ngModel)]="annahme3" name="annahme3" (change)="updateAnnahme3(annahme3)">
+	  </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Annahme 4</ion-label>
+      <ion-input type="text" placeholder="Optional hier Ihre vierte Annahme eingeben" 
+	  [(ngModel)]="annahme4" name="annahme4" (change)="updateAnnahme4(annahme4)">
+	  </ion-input>
+    </ion-item>
 </ion-list>
-
-<button ion-button >Weitere Annahmen einfügen</button>
 
 <button ion-button [navPush]="randbedingungenPage">Weiter</button>
 
