@@ -9,18 +9,27 @@ export class SzenarioProvider {
 	  
   }
   
- 
-    checkPath(dataPath):  Promise<boolean> {
-	 
+  /*
+  Funktion, um beim Aufruf der einzelnen Seiten zu schauen, ob der Pfad schon beschrieben ist.
+  Für Erklärung dazu siehe "problemfeld.ts"
+  */
+  //Die Funtion bekommt ein Argument, in dem der zu prüfende Pfa steht.
+  //Promise um Asynchronität zu gewährleisten
+  checkPath(dataPath):  Promise<boolean> {
 	return new Promise<boolean>((resolve, reject) => {
-		firebase.database().ref('/szenarioData')
-		.child(firebase.auth().currentUser.uid).child(dataPath)
-		.on('value', data => {
-		  resolve(data.exists());
-		});
+	  //Zu prüfender Pfad inklusive der Varibalen aus den einzelnen Seiten
+	  firebase.database().ref('/szenarioData')
+	  .child(firebase.auth().currentUser.uid).child(dataPath)
+	  //.on() inklusive Arrow Funktion und Snapshot("data"), um die Daten auszulesen
+	  .on('value', data => {
+		//.exists() gibt "true" mittels resolve() an das Promise
+		//zurück, wenn Werte in dem angegebenen Pfad existieren
+	    resolve(data.exists());
+	  });
 	});  
-	}
+  }
   
+  //Ähnlich zu ProfileProvider. Siehe Erklärung dort
   getSzenarioData(): Promise<any> {
 	
     return new  Promise((resolve, reject) => { 
@@ -30,7 +39,9 @@ export class SzenarioProvider {
       });
     });
   } 
-
+  
+  //Alle unteren Funktionen ähneln den .update() Funtionen im ProfileProvider stark
+  //Siehe Erklärung dort. Namensgebung hier ist dann selbsterklärend. 
   updateProblemfeld1(problemfeld1: any): firebase.Promise<any> {	
     return firebase.database().ref('/szenarioData')
     .child(firebase.auth().currentUser.uid).child("problemfeld").update({
