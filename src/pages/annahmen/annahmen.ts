@@ -25,15 +25,21 @@ public annahme4 : string = "";
   }
   
   ionViewDidEnter() {
-	    	
-    this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
-      this.szenarioData = szenarioSnap;
-      this.annahme1 = this.szenarioData.annahmen.annahme1;
-      this.annahme2 = this.szenarioData.annahmen.annahme2;
-	  this.annahme3 = this.szenarioData.annahmen.annahme3;
-      this.annahme4 = this.szenarioData.annahmen.annahme4;
+	
+    let annahmenpath = "annahmen";
+    this.szenarioProvider.checkPath(annahmenpath).then((result: boolean) => {
+     if(result === true) {	
+      this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
+        this.szenarioData = szenarioSnap;
+        this.annahme1 = this.szenarioData.annahmen.annahme1;
+        this.annahme2 = this.szenarioData.annahmen.annahme2;
+	    this.annahme3 = this.szenarioData.annahmen.annahme3;
+        this.annahme4 = this.szenarioData.annahmen.annahme4;
 	  });	
+     }
+	});
   }
+
  
   updateAnnahme1(annahme1) {
 	  this.szenarioProvider.updateAnnahme1(annahme1);

@@ -23,15 +23,20 @@ public randbedingung4 : string = "";
 
   }
   
-ionViewDidEnter() {
-	    	
-    this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
-      this.szenarioData = szenarioSnap;
-      this.randbedingung1 = this.szenarioData.randbedingungen.randbedingung1;
-      this.randbedingung2 = this.szenarioData.randbedingungen.randbedingung2;
-	  this.randbedingung3 = this.szenarioData.randbedingungen.randbedingung3;
-      this.randbedingung4 = this.szenarioData.randbedingungen.randbedingung4;
+  ionViewDidEnter() {
+	  
+    let randbedingungenpath = "randbedingungen";
+    this.szenarioProvider.checkPath(randbedingungenpath).then((result: boolean) => {
+     if(result === true) {	  
+      this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
+        this.szenarioData = szenarioSnap;
+        this.randbedingung1 = this.szenarioData.randbedingungen.randbedingung1;
+        this.randbedingung2 = this.szenarioData.randbedingungen.randbedingung2;
+	    this.randbedingung3 = this.szenarioData.randbedingungen.randbedingung3;
+        this.randbedingung4 = this.szenarioData.randbedingungen.randbedingung4;
 	  });	
+     }
+	});
   }
 
   updateRandbedingung1(randbedingung1) {

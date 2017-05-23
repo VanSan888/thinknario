@@ -23,16 +23,21 @@ public ereignis4 : string = "";
 
   }
   
-ionViewDidEnter() {
-	    	
-    this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
-      this.szenarioData = szenarioSnap;
-      this.ereignis1 = this.szenarioData.ereignisse.ereignis1;
-      this.ereignis2 = this.szenarioData.ereignisse.ereignis2;
-	  this.ereignis3 = this.szenarioData.ereignisse.ereignis3;
-      this.ereignis4 = this.szenarioData.ereignisse.ereignis4;
+  ionViewDidEnter() {
+	
+    let ereignissepath = "ereignisse";
+    this.szenarioProvider.checkPath(ereignissepath).then((result: boolean) => {
+     if(result === true) {   	
+      this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
+        this.szenarioData = szenarioSnap;
+        this.ereignis1 = this.szenarioData.ereignisse.ereignis1;
+        this.ereignis2 = this.szenarioData.ereignisse.ereignis2;
+	    this.ereignis3 = this.szenarioData.ereignisse.ereignis3;
+        this.ereignis4 = this.szenarioData.ereignisse.ereignis4;
 	  });	
-  } 
+     }
+    });
+  }	
 
   updateEreignis1(ereignis1) {
 	  this.szenarioProvider.updateEreignis1(ereignis1);

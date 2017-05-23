@@ -22,11 +22,16 @@ public problemdefinition : string = "";
   }
 
   ionViewDidEnter() {
-	//Evtl mit if nicht null den path abfragen    	
-    this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
-      this.szenarioData = szenarioSnap;
-      this.problemdefinition = this.szenarioData.problemdefinition;
-	  });	
+
+    let problemdefinitionpath = "problemdefinition";
+    this.szenarioProvider.checkPath(problemdefinitionpath).then((result: boolean) => {
+     if(result === true) {  
+      this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
+        this.szenarioData = szenarioSnap;
+        this.problemdefinition = this.szenarioData.problemdefinition;
+	  });
+	 }
+	});
   }
  
 

@@ -24,6 +24,23 @@ public schluesselfaktor6: boolean;
 
   }
   
+  ionViewDidEnter() {
+	let schluesselfaktorpath = "schluesselfaktoren";
+    this.szenarioProvider.checkPath(schluesselfaktorpath).then((result: boolean) => {
+     if(result === true) {
+        this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
+        this.szenarioData = szenarioSnap;
+        this.schluesselfaktor1 = this.szenarioData.schluesselfaktoren.schluesselfaktor1;
+	    this.schluesselfaktor2 = this.szenarioData.schluesselfaktoren.schluesselfaktor2;
+        this.schluesselfaktor3 = this.szenarioData.schluesselfaktoren.schluesselfaktor3;
+        this.schluesselfaktor4 = this.szenarioData.schluesselfaktoren.schluesselfaktor4;
+        this.schluesselfaktor5 = this.szenarioData.schluesselfaktoren.schluesselfaktor5;
+		this.schluesselfaktor6 = this.szenarioData.schluesselfaktoren.schluesselfaktor6;
+	    });
+	  } 
+    });
+  }
+  
   updateSchluesselfaktor1(schluesselfaktor1) {
 	  this.szenarioProvider.updateSchluesselfaktor1(schluesselfaktor1);
   }

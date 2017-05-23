@@ -10,33 +10,23 @@ export class SzenarioProvider {
   }
   
  
-    checkPath():  Promise<any> {
+    checkPath(dataPath):  Promise<boolean> {
 	 
-	return new Promise((resolve, reject) => {
-		firebase.database().ref('/userProfile')
-		.child(firebase.auth().currentUser.uid).child("szenarioID")
+	return new Promise<boolean>((resolve, reject) => {
+		firebase.database().ref('/szenarioData')
+		.child(firebase.auth().currentUser.uid).child(dataPath)
 		.on('value', data => {
-			resolve(data.exists());
+		  resolve(data.exists());
 		});
 	});  
-	}  
-/*  Funktioniert nicht richitg: gibt nur noch false raus.
-	Evtl muss es nur 'szenarioID' heißen
-	let check: boolean;
-	let szenarioIDref = firebase.database().ref("/userProfile");
-	szenarioIDref.on("value", function(dataSnapshot) {
-	  check = dataSnapshot.child('/szenarioID').exists();
-	});
-	return check; 
-   }*/
-  
+	}
   
   getSzenarioData(): Promise<any> {
 	
-    return   new  Promise( (resolve, reject) => { 
+    return new  Promise((resolve, reject) => { 
      firebase.database().ref('/szenarioData').child(firebase.auth().currentUser.uid)
      .on('value', data => {
-        resolve(data.val());
+       resolve(data.val());
       });
     });
   } 
@@ -196,5 +186,14 @@ export class SzenarioProvider {
 	.child(firebase.auth().currentUser.uid).child("ereignisse").update({
       ereignis4: ereignis4,
     });
-  }  
+  }
+  
+  updateSzenariotext(szenarioText: string) : firebase.Promise<any> {
+	  
+	return firebase.database().ref('/szenarioData')
+	.child(firebase.auth().currentUser.uid).update({
+      szenariotext: szenarioText,
+    });
+  } 
+  
 }

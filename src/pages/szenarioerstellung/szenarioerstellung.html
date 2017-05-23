@@ -11,7 +11,7 @@
 
 <div padding>
   <ion-segment [(ngModel)]="hilfen">
-    <ion-segment-button value="annahmen">
+    <ion-segment-button value="Annahmen">
       Annahmen
     </ion-segment-button>
     <ion-segment-button value="randbedingungen">
@@ -27,40 +27,105 @@
 </div>
 
 <div [ngSwitch]="hilfen">
-  <ion-list *ngSwitchCase="'annahmen'">
-    <ion-item>
-      <h4>Annahme 1:</h4>
-	  <p> Muss editierbar sein</p>
+  <ion-list *ngSwitchCase="'Annahmen'">
+   <p>Hier können Sie ihre Annahmen einsehen und bearbeiten</p>
+   <ion-item>
+      <ion-label stacked>Annahme 1</ion-label>
+      <ion-input type="text" placeholder="Hier Ihre erste Annahme eingeben" 
+	  [(ngModel)]="annahme1" name="annahme1" (change)="updateAnnahme1(annahme1)">
+	  </ion-input>
     </ion-item>
-	<ion-item>
-      <h4>Annahme 2:</h4>
-	  <p> Muss editierbar sein </p>
+    <ion-item>
+      <ion-label stacked>Annahme 2</ion-label>
+      <ion-input type="text" placeholder="Hier Ihre zweite Annahme eingeben" 
+	  [(ngModel)]="annahme2" name="annahme2" (change)="updateAnnahme2(annahme2)">
+	  </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Annahme 3</ion-label>
+      <ion-input type="text" placeholder="Optional hier Ihre dritte Annahme eingeben" 
+	  [(ngModel)]="annahme3" name="annahme3" (change)="updateAnnahme3(annahme3)">
+	  </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Annahme 4</ion-label>
+      <ion-input type="text" placeholder="Optional hier Ihre vierte Annahme eingeben" 
+	  [(ngModel)]="annahme4" name="annahme4" (change)="updateAnnahme4(annahme4)">
+	  </ion-input>
     </ion-item>
   </ion-list>
-
+</div>
+  
+<div [ngSwitch]="hilfen">
   <ion-list *ngSwitchCase="'randbedingungen'">
+    <p>Hier können Sie ihre Randbedingungen einsehen und bearbeiten</p>
     <ion-item>
-      <h4>Randbedingung 1</h4>
-	  <p> Muss editierbar sein </p>
+      <ion-label stacked>Randbedingung 1</ion-label>
+      <ion-input type="text" placeholder="Hier Ihre erste Randbedingung eingeben" 
+	  [(ngModel)]="randbedingung1" name="randbedingung1"
+	  (change)="updateRandbedingung1(randbedingung1)">
+	  </ion-input>
     </ion-item>
-	<ion-item>
-      <h4>Randbedingung 2</h4>
-	  <p> Muss editierbar sein </p>
+    <ion-item>
+      <ion-label stacked>Randbedingung 2</ion-label>
+      <ion-input type="text" placeholder="Hier Ihre zweite Randbedingung eingeben" 
+	  [(ngModel)]="randbedingung2" name="randbedingung2"
+	  (change)="updateRandbedingung2(randbedingung2)">
+	  </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Randbedingung 3</ion-label>
+      <ion-input type="text" placeholder="Optional hier Ihre dritte Randbedingung eingeben" 
+	  [(ngModel)]="randbedingung3" name="randbedingung3"
+	  (change)="updateRandbedingung3(randbedingung3)">
+	  </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Randbedingung 4</ion-label>
+      <ion-input type="text" placeholder="Optional hier Ihre vierte Randbedingung eingeben" 
+	  [(ngModel)]="randbedingung4" name="randbedingung4"
+	  (change)="updateRandbedingung4(randbedingung4)">
+	  </ion-input>
     </ion-item>
   </ion-list>
+</div>  
 
+<div [ngSwitch]="hilfen">
   <ion-list *ngSwitchCase="'ereignisse'">
+    <p>Hier können Sie ihre überraschenden Ereignisse einsehen und bearbeiten</p>
     <ion-item>
-      <h4>Ereignis 1</h4>
-	  <p> Muss editierbar sein </p>
+      <ion-label stacked>Ereignis 1</ion-label>
+      <ion-input type="text" placeholder="Hier Ihre erstes Ereignis eingeben" 
+	  [(ngModel)]="ereignis1" name="ereignis1"
+	  (change)="updateEreignis1(ereignis1)">
+	  </ion-input>
     </ion-item>
-	<ion-item>
-      <h4>Ereignis 2</h4>
-	  <p> Muss editierbar sein </p>
+    <ion-item>
+      <ion-label stacked>Ereignis 2</ion-label>
+      <ion-input type="text" placeholder="Hier Ihre zweites Ereignis eingeben" 
+	  [(ngModel)]="ereignis2" name="ereignis2"
+	  (change)="updateEreignis2(ereignis2)">
+	  </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Ereignis 3</ion-label>
+      <ion-input type="text" placeholder="Optional hier Ihre drittes Ereignis eingeben" 
+	  [(ngModel)]="ereignis3" name="ereignis3"
+	  (change)="updateEreignis3(ereignis3)">
+	  </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Ereignis 4</ion-label>
+      <ion-input type="text" placeholder="Optional hier Ihre viertes Ereignis eingeben" 
+	  [(ngModel)]="ereignis4" name="ereignis4"
+	  (change)="updateEreignis4(ereignis4)">
+	  </ion-input>
     </ion-item>
   </ion-list> 
-  
-   <ion-list *ngSwitchCase="'schluesselfaktoren'">
+</div>
+
+<div [ngSwitch]="hilfen">
+  <ion-list *ngSwitchCase="'schluesselfaktoren'">
     <ion-item>
        <ion-thumbnail item-left>
         <img src="img/thumbnail-puppy-1.jpg">
@@ -98,10 +163,12 @@
 
 <h4>Ihr Szenario</h4>
 
-<ion-list>
-  <ion-textarea rows="6" placeholder="Beschreiben Sie hier Ihr Szenario">
+
+  <ion-textarea rows="6" placeholder="Beschreiben Sie hier Ihr Szenario"
+  [(ngModel)]="szenarioText" name="szenarioText"
+  (change)="updateSzenariotext(szenarioText)">
   </ion-textarea>
-</ion-list>
+
 
 <button ion-button [navPush]="szenariobewertungPage">Fertig</button>
 
