@@ -47,6 +47,7 @@ export class InterviewPage {
    updateUsername(userName){
 	
 	this.profileProvider.updateUsername(userName);
+	this.profileProvider.updateUsernameSzenario(userName);
 	 
   }  
  

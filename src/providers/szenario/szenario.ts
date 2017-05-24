@@ -8,7 +8,8 @@ export class SzenarioProvider {
   constructor() {
 	  
   }
-  
+
+ 
   /*
   Funktion, um beim Aufruf der einzelnen Seiten zu schauen, ob der Pfad schon beschrieben ist.
   Für Erklärung dazu siehe "problemfeld.ts"
@@ -29,7 +30,7 @@ export class SzenarioProvider {
 	});  
   }
   
-  //Ähnlich zu ProfileProvider. Siehe Erklärung dort
+  //Sehr ähnlich zu ProfileProvider. Siehe Erklärung dort
   getSzenarioData(): Promise<any> {
 	
     return new  Promise((resolve, reject) => { 

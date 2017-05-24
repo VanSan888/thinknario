@@ -4,15 +4,14 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { FormsModule }   from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { MyApp } from './app.component';
 
-
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
 //provider import
 import { AuthData } from '../providers/auth/auth';
-import { EventProvider } from '../providers/event/event';
+import { BibliothekProvider } from '../providers/bibliothek/bibliothek';
 import { ProfileProvider } from '../providers/profile/profile';
 import { SzenarioProvider } from '../providers/szenario/szenario';
 //Validator Import
@@ -41,7 +40,7 @@ import { Camera } from '@ionic-native/camera';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthData,
-    EventProvider,
+    BibliothekProvider,
     ProfileProvider,
 	//Optional für Handycamera
 	Camera,

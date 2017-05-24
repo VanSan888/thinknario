@@ -15,22 +15,17 @@
   <ion-list>
   <button ion-item [navPush]="meinSzenarioPage">
     <ion-icon name="ios-paper-outline" item-left></ion-icon>
-      Ihr Szenario
+      Ihr Szenario ansehen
   </button>  
-  <ion-item>
-    <ion-icon name="ios-paper-outline" item-left></ion-icon>
-      Ihr Szenario
-	  <button ion-button [navPush]="meinSzenarioPage">Ansehen</button>
-  </ion-item>
-  <ion-item>
+
+  <button ion-item [navPush]="bewertungenPage">
     <ion-icon name="ios-clipboard-outline" item-left></ion-icon>
-      Ihre Bewertungen
-	  <button ion-button [navPush]="bewertungenPage">Ansehen</button>
-  </ion-item>
-  <ion-item>
+      Ihre Bewertungen ansehen
+  </button>
+  <button ion-item>
     <ion-icon name="ios-chatboxes-outline" item-left></ion-icon>
-      Kommentare und Statistik
-  </ion-item>
+      Kommentare und Statistik ansehen
+  </button>
 </ion-list>
 
 <h4>Beliebte Szenarien</h4>
@@ -62,6 +57,6 @@
 </ion-card>
 
 
-<button ion-button>Bibliothek durchsuchen</button>
+<button ion-button [navPush]="bibliothekPage">Bibliothek durchsuchen</button>
 
 </ion-content>

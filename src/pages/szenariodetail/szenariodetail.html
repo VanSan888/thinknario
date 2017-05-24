@@ -1,0 +1,117 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Szenario von {{currentSzenario?.username}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <p>{{currentSzenario?.problemdefinition}}</p>
+
+<div padding>
+  <ion-segment [(ngModel)]="hilfen">
+    <ion-segment-button value="Annahmen">
+      Annahmen
+    </ion-segment-button>
+    <ion-segment-button value="randbedingungen">
+      Randbedingungen
+    </ion-segment-button>
+	<ion-segment-button value="ereignisse">
+      Ereignisse
+    </ion-segment-button>
+	<ion-segment-button value="schluesselfaktoren">
+      Schlüsselfaktoren
+    </ion-segment-button>
+  </ion-segment>
+</div>
+
+<div [ngSwitch]="hilfen">
+  <ion-list *ngSwitchCase="'Annahmen'">
+    <ion-item>
+      <h4>Annahme 1:</h4>
+	  <p>{{currentSzenario?.annahme1}}</p>
+    </ion-item>
+    <ion-item>
+      <h4>Annahme 2:</h4>
+	  <p>{{currentSzenario?.annahme2}}</p>
+    </ion-item>
+    <ion-item>
+      <h4>Annahme 3:</h4>
+	  <p>{{currentSzenario?.annahme3}}</p>
+    </ion-item>
+    <ion-item>
+      <h4>Annahme 4:</h4>
+	  <p>{{currentSzenario?.annahme4}}</p>
+    </ion-item>
+  </ion-list>
+</div>
+  
+<div [ngSwitch]="hilfen">
+  <ion-list *ngSwitchCase="'randbedingungen'">
+    <ion-item>
+      <h4>Randbedingung 1:</h4>
+	  <p>{{currentSzenario?.randbedingung1}}</p>
+    </ion-item>
+    <ion-item>
+      <h4>Randbedingung 2:</h4>
+	  <p>{{currentSzenario?.randbedingung2}}</p>
+    </ion-item>
+    <ion-item>
+      <h4>Randbedingung 3:</h4>
+	  <p>{{currentSzenario?.randbedingung3}}</p>
+    </ion-item>
+    <ion-item>
+      <h4>Randbedingung 4:</h4>
+	  <p>{{currentSzenario?.randbedingung4}}</p>
+    </ion-item>
+  </ion-list>
+</div>  
+
+<div [ngSwitch]="hilfen">
+  <ion-list *ngSwitchCase="'ereignisse'">
+    <ion-item>
+      <h4>Ereignis 1:</h4>
+	  <p>{{currentSzenario?.ereignis1}}</p>
+    </ion-item>
+    <ion-item>
+      <h4>Ereignis 2:</h4>
+	  <p>{{currentSzenario?.ereignis2}}</p>
+    </ion-item>
+    <ion-item>
+      <h4>Ereignis 3:</h4>
+	  <p>{{currentSzenario?.ereignis3}}</p>
+    </ion-item>
+    <ion-item>
+      <h4>Ereignis 4:</h4>
+	  <p>{{currentSzenario?.ereignis4}}</p>
+    </ion-item>
+  </ion-list> 
+</div>
+
+<div [ngSwitch]="hilfen">
+  <ion-list *ngSwitchCase="'schluesselfaktoren'">
+    <ion-item>
+
+    </ion-item>
+	<ion-item>
+
+    </ion-item>
+	<ion-item>
+
+    </ion-item>
+	<ion-item>
+
+    </ion-item>
+  </ion-list> 
+</div>
+
+<h4>Szenario von {{currentSzenario?.username}}</h4>
+  <h6>{{currentSzenario?.szenariotext}}</h6>
+
+
+
+<button ion-button>Dieses Szenario bewerten und kommentieren</button>
+</ion-content>

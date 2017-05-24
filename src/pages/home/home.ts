@@ -14,9 +14,13 @@ export class HomePage {
 //Notwendig für Navigation
 bewertungenPage = 'BewertungenPage';
 meinSzenarioPage = 'MeinSzenarioPage';
+bibliothekPage = 'bibliothekpage';
 
   constructor(public navCtrl: NavController) {
 
   }
+  
+
+
 
 }

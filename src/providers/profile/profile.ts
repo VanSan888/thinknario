@@ -45,9 +45,17 @@ export class ProfileProvider {
     });
   }  
   
-//Funktion für Firebaseupdate für Usernamen  
+  //Funktion für Firebaseupdate für Usernamen in /userProfile
   updateUsername(userName: string): firebase.Promise<any> {
     return firebase.database().ref('/userProfile')
+    .child(firebase.auth().currentUser.uid).update({
+      userName: userName,
+    });
+  }
+  
+  //Funktion für Firebaseupdate für Usernamen in /szenarioData
+  updateUsernameSzenario(userName: string): firebase.Promise<any> {
+    return firebase.database().ref('/szenarioData')
     .child(firebase.auth().currentUser.uid).update({
       userName: userName,
     });
