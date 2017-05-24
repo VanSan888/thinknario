@@ -27,6 +27,31 @@ export class BibliothekProvider {
     });
   }
   
+  /*
+  Diese Funktion später nach dem Vorbild von getSzenariolist gestalten.
+  Es soll dabei allerdings nach den meisten Kommentaren
+  und/oder den besten Bewertungen durch .orderByChild() usw. gefiltert werden.
+  
+  getShortSzenarioList(): Promise<any> {
+    return new Promise( (resolve, reject) => {
+      firebase.database().ref("szenarioData").orderByChild().endAt(2)
+      .on('value', snapshot => {
+        let rawList = [];
+        snapshot.forEach( snap => {
+          rawList.push({
+            id: snap.key,
+			username: snap.val().userName,
+            problemdefinition: snap.val().problemdefinition,
+          });
+		  
+        return false
+        });
+        resolve(rawList);
+      });
+    });
+  }  
+  */
+  
   getSzenarioDetail(szenarioId): Promise<any> {
     return new Promise( (resolve, reject) => {
       firebase.database().ref("szenarioData/")

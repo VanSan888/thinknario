@@ -32,29 +32,21 @@
 <p>Bewerten und kommentieren Sie weitere Szenarien, um zusätzliche Punkte zu sammeln:</p>
 
 
-<ion-card>
-  <ion-card-header>
-    Szenario von XYZ
-  </ion-card-header>
-  <ion-card-content>
-	<p>Problemdefinition: Bla bla</p>
-    <p>Kommentare: 3</p>
-    <p>Durchschnittliche Bewertung: 20/35 Punkten</p>
-	<button ion-button>Ansehen</button>
-  </ion-card-content>
-</ion-card>
-
-<ion-card>
-  <ion-card-header>
-    Szenario von AAA
-  </ion-card-header>
-  <ion-card-content>
-	<p>Problemdefinition: Blub Blub</p>
-    <p>Kommentare: 6</p>
-    <p>Durchschnittliche Bewertung: 30/35 Punkten</p>
-	<button ion-button>Ansehen</button>
-  </ion-card-content>
-</ion-card>
+  <ion-list>
+    <ion-item *ngFor="let szenario of szenarioList; let i=index" (click)="goToSzenarioDetail(szenario.id)">
+	  <div *ngIf="i<3">
+	  <ion-card>
+        <ion-card-header>Szenario von {{szenario.username}}</ion-card-header>
+        <ion-card-content>
+	      <p>Problemdefinition: {{szenario?.problemdefinition}}</p>
+          <p>Kommentare: 3</p>
+          <p>Durchschnittliche Bewertung: 20/35 Punkten</p>
+	      <button ion-button>Ansehen</button>
+        </ion-card-content>
+	  </ion-card>
+	  </div>
+	</ion-item>
+  </ion-list>
 
 
 <button ion-button [navPush]="bibliothekPage">Bibliothek durchsuchen</button>

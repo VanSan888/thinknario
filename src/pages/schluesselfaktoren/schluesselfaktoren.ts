@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage } from 'ionic-angular';
+import { NavController,IonicPage } from 'ionic-angular';
 import { SzenarioProvider } from '../../providers/szenario/szenario';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SzenarioValidator } from '../../validators/szenarioValidator';
 
 
 @IonicPage()
@@ -9,8 +11,13 @@ import { SzenarioProvider } from '../../providers/szenario/szenario';
   templateUrl: 'schluesselfaktoren.html'
 })
 export class SchluesselfaktorenPage {
-
+//Notwendig zur Navigation	
 deskriptorenanalysePage = 'DeskriptorenanalysePage';
+
+//Properties für die Formvalidierung
+public schluesselfaktorenform 					: FormGroup;
+
+//Properties für die Datentransferierung von und zu firebase
 
 public szenarioData: any;
 public schluesselfaktor1: boolean;
@@ -20,8 +27,26 @@ public schluesselfaktor4: boolean;
 public schluesselfaktor5: boolean;
 public schluesselfaktor6: boolean;
 
-  constructor(public navCtrl: NavController, public szenarioProvider: SzenarioProvider) {
-
+  constructor(public navCtrl: NavController,
+              //Initialisierung des SzenarioProviders
+              public szenarioProvider: SzenarioProvider,
+			  //Initialisierung der Formbuilder und Validator Module
+              private _FB 	   : FormBuilder,
+              private _VAL    : SzenarioValidator)
+  {//Erstellung eines FormBuilder-Objectes
+     this.schluesselfaktorenform 			= _FB.group({
+		 //Nested FormGroup zugeordner zu einem key, der "service" heißt
+		 //Zuständig für Checkboxen, initial default value false
+         'service' 			: _FB.group({
+		    schluesselfaktorenform1   : [ false ],
+		    schluesselfaktorenform2   : [ false ],
+		    schluesselfaktorenform3   : [ false ],
+		    schluesselfaktorenform4   : [ false ],
+			schluesselfaktorenform5   : [ false ],
+			schluesselfaktorenform6   : [ false ],
+			//Abrufen des SzenarioValidators und seiner Methode für "Problemfeld"
+		 }, { validator: _VAL.validateCheckboxesProblemfeld })
+      });
   }
   
   ionViewDidEnter() {

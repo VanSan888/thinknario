@@ -9,13 +9,16 @@
 
 <ion-content padding>
 <p>Beschreibung und Auswahlliste für Problemfeld</p>
-<form [formGroup]="form">
+<!-- Form zur Validierung der Inputs -->
+<form [formGroup]="problemfeldform">
+  <!-- Zuordnung der Checkboxen zur "service" -->
   <ion-item-group formGroupName="service">
     <ion-list>
       <ion-item>
         <ion-label>Problemfeld 1</ion-label>
 	    <!-- Two-Way Data binding mittels ngModel. (ionChange) ruft bei jeder Veränderung
-	    die update() Funktion in der problemfeld.ts Datei auf.--> 
+	    die update() Funktion in der problemfeld.ts Datei auf. Zusätzlih wird der
+		Checkbox ein FormControl-Name zugewiesen, um die Werte zu kontrollieren--> 
         <ion-checkbox  checked="false" [(ngModel)]="problemfeld1" name="problemfeld1"
 	    (ionChange)="updateProblemfeld1(problemfeld1)"
 		formControlName="problemfeldform1"></ion-checkbox>
@@ -41,9 +44,8 @@
     </ion-list>
   </ion-item-group>
 </form>
-<button ion-button 
-[navPush]="problemdefinitionPage"
-[disabled]="!form.valid">Weiter</button>
+<button ion-button [navPush]="problemdefinitionPage"
+[disabled]="!problemfeldform.valid">Weiter</button>
 
 
 </ion-content>

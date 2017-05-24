@@ -15,8 +15,8 @@ export class ProblemfeldPage {
 problemdefinitionPage = 'ProblemdefinitionPage';
 
 //Properties für die Formvalidierung
-public form 					: FormGroup;
-public charactersCounted	    : number = 0;
+public problemfeldform 					: FormGroup;
+public charactersCounted	    : number = 0; //kann weg
 
 //Properties für die Datentransferierung von und zu firebase
 public szenarioData: any;
@@ -32,8 +32,8 @@ public problemfeld4: boolean;
               private _FB 	   : FormBuilder,
               private _VAL    : SzenarioValidator)
   {//Erstellung eines FormBuilder-Objectes
-     this.form 			= _FB.group({
-		 //Minimale Eingabe in Input: 10 zeichen
+     this.problemfeldform 			= _FB.group({
+		 //Minimale Eingabe in Input: 10 zeichen/ kann eigentlich weg
          'message' 		    : ['', Validators.minLength(10)],
 		 //Nested FormGroup zugeordner zu einem key, der "service" heißt
 		 //Zuständig für Checkboxen, initial default value false
