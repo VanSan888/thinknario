@@ -68,6 +68,8 @@ export class EinstellungenPage {
   updateUsername(userName){
 	
 	this.profileProvider.updateUsername(userName);
+	this.profileProvider.updateUsernameSzenario(userName);
+
 	 
   }  
  

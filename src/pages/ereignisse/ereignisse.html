@@ -13,40 +13,82 @@
 <p>Welche überraschenden Ereignisse können Sie sich für ihr Szenario vorstellen?</p>
 <p>Geben Sie mindestens 2 überraschende Ereignisse ein:</p>
 
+<!-- Für Erklärungen siehe annahmen.html -->
+<form #ereignisseForm="ngForm">
+  <ion-list>
+    <ion-item>
+      <ion-label stacked for="Ereignis1">Ereignis 1</ion-label>
+      <ion-textarea type="text" placeholder="Hier Ihre erstes Ereignis eingeben" 
+	  [(ngModel)]="ereignis1" name="Ereignis1"
+	  (change)="updateEreignis1(ereignis1)"
+	  required minlength="20" maxlength="100" #Ereignis1="ngModel">
+	  </ion-textarea>
+    </ion-item>
+	<div *ngIf="Ereignis1.errors && (Ereignis1.dirty || Ereignis1.touched)"
+    class="alert alert-danger">
+      <div [hidden]="!Ereignis1.errors.minlength">
+        <p>Ihr Ereignis sollte mindestens 20 Zeichen lang sein</p>
+      </div>
+      <div [hidden]="!Ereignis1.errors.maxlength">
+        <p>Ihr Ereignis sollte nicht länger als 100 Zeichen  sein</p>
+      </div>
+    </div>
+    <ion-item>
+      <ion-label stacked for="Ereignis2">Ereignis 2</ion-label>
+      <ion-textarea type="text" placeholder="Hier Ihre zweites Ereignis eingeben" 
+	  [(ngModel)]="ereignis2" name="Ereignis2"
+	  (change)="updateEreignis2(ereignis2)"
+	  required minlength="20" maxlength="100" #Ereignis2="ngModel">
+	  </ion-textarea>
+    </ion-item>
+	<div *ngIf="Ereignis2.errors && (Ereignis2.dirty || Ereignis2.touched)"
+    class="alert alert-danger">
+      <div [hidden]="!Ereignis2.errors.minlength">
+        <p>Ihr Ereignis sollte mindestens 20 Zeichen lang sein</p>
+      </div>
+      <div [hidden]="!Ereignis2.errors.maxlength">
+        <p>Ihr Ereignis sollte nicht länger als 100 Zeichen  sein</p>
+      </div>
+    </div>
+    <ion-item>
+      <ion-label stacked for="Ereignis3">Ereignis 3</ion-label>
+      <ion-textarea type="text" placeholder="Optional hier Ihre drittes Ereignis eingeben" 
+	  [(ngModel)]="ereignis3" name="Ereignis3"
+	  (change)="updateEreignis3(ereignis3)"
+	  minlength="20" maxlength="100" #Ereignis3="ngModel">
+	  </ion-textarea>
+    </ion-item>
+	<div *ngIf="Ereignis3.errors && (Ereignis3.dirty || Ereignis3.touched)"
+    class="alert alert-danger">
+      <div [hidden]="!Ereignis3.errors.minlength">
+        <p>Ihr Ereignis sollte mindestens 20 Zeichen lang sein</p>
+      </div>
+      <div [hidden]="!Ereignis3.errors.maxlength">
+        <p>Ihr Ereignis sollte nicht länger als 100 Zeichen  sein</p>
+      </div>
+    </div>
+    <ion-item>
+      <ion-label stacked for="Ereignis4">Ereignis 4</ion-label>
+      <ion-textarea type="text" placeholder="Optional hier Ihre viertes Ereignis eingeben" 
+	  [(ngModel)]="ereignis4" name="Ereignis4"
+	  (change)="updateEreignis4(ereignis4)"
+	  minlength="20" maxlength="100" #Ereignis4="ngModel">
+	  </ion-textarea>
+    </ion-item>
+	<div *ngIf="Ereignis4.errors && (Ereignis4.dirty || Ereignis4.touched)"
+    class="alert alert-danger">
+      <div [hidden]="!Ereignis4.errors.minlength">
+        <p>Ihr Ereignis sollte mindestens 20 Zeichen lang sein</p>
+      </div>
+      <div [hidden]="!Ereignis4.errors.maxlength">
+        <p>Ihr Ereignis sollte nicht länger als 100 Zeichen  sein</p>
+      </div>
+    </div>
+  </ion-list>
+</form>
 
-<ion-list>
-    <ion-item>
-      <ion-label stacked>Ereignis 1</ion-label>
-      <ion-input type="text" placeholder="Hier Ihre erstes Ereignis eingeben" 
-	  [(ngModel)]="ereignis1" name="ereignis1"
-	  (change)="updateEreignis1(ereignis1)">
-	  </ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label stacked>Ereignis 2</ion-label>
-      <ion-input type="text" placeholder="Hier Ihre zweites Ereignis eingeben" 
-	  [(ngModel)]="ereignis2" name="ereignis2"
-	  (change)="updateEreignis2(ereignis2)">
-	  </ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label stacked>Ereignis 3</ion-label>
-      <ion-input type="text" placeholder="Optional hier Ihre drittes Ereignis eingeben" 
-	  [(ngModel)]="ereignis3" name="ereignis3"
-	  (change)="updateEreignis3(ereignis3)">
-	  </ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label stacked>Ereignis 4</ion-label>
-      <ion-input type="text" placeholder="Optional hier Ihre viertes Ereignis eingeben" 
-	  [(ngModel)]="ereignis4" name="ereignis4"
-	  (change)="updateEreignis4(ereignis4)">
-	  </ion-input>
-    </ion-item>
-</ion-list>
-
-
-<button ion-button [navPush]="szenarioerstellungPage">Weiter</button>
+<button ion-button [navPush]="szenarioerstellungPage"
+[disabled]="!ereignisseForm.form.valid">Weiter</button>
 
 
 </ion-content>

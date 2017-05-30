@@ -5,10 +5,14 @@ import firebase from 'firebase';
 @Injectable()
 export class BibliothekProvider {
 
+
+
   constructor() {
   }
   
   getSzenarioList(): Promise<any> {
+	  
+	  
     return new Promise( (resolve, reject) => {
       firebase.database().ref("szenarioData")
       .on('value', snapshot => {
@@ -22,7 +26,8 @@ export class BibliothekProvider {
 		  
         return false
         });
-        resolve(rawList);
+		  resolve(rawList);
+        
       });
     });
   }

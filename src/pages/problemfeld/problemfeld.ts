@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController,IonicPage } from 'ionic-angular';
 import { SzenarioProvider } from '../../providers/szenario/szenario';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { SzenarioValidator } from '../../validators/szenarioValidator';
 
 
@@ -15,8 +15,8 @@ export class ProblemfeldPage {
 problemdefinitionPage = 'ProblemdefinitionPage';
 
 //Properties für die Formvalidierung
-public problemfeldform 					: FormGroup;
-public charactersCounted	    : number = 0; //kann weg
+public problemfeldform 	: FormGroup;
+
 
 //Properties für die Datentransferierung von und zu firebase
 public szenarioData: any;
@@ -33,8 +33,6 @@ public problemfeld4: boolean;
               private _VAL    : SzenarioValidator)
   {//Erstellung eines FormBuilder-Objectes
      this.problemfeldform 			= _FB.group({
-		 //Minimale Eingabe in Input: 10 zeichen/ kann eigentlich weg
-         'message' 		    : ['', Validators.minLength(10)],
 		 //Nested FormGroup zugeordner zu einem key, der "service" heißt
 		 //Zuständig für Checkboxen, initial default value false
          'service' 			: _FB.group({

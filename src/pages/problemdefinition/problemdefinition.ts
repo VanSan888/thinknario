@@ -4,6 +4,7 @@ import { SzenarioProvider } from '../../providers/szenario/szenario';
 
 
 
+
 @IonicPage()
 @Component({
   selector: 'page-problemdefinition',

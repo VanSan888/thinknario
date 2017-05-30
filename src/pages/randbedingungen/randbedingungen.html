@@ -12,39 +12,83 @@
 <p>Welche Randbedingungen treffen Sie für Ihr Szenario?</p>
 <p>Geben Sie mindestens 2 Randbedingungen ein:</p>
 
-<ion-list>
-    <ion-item>
-      <ion-label stacked>Randbedingung 1</ion-label>
-      <ion-input type="text" placeholder="Hier Ihre erste Randbedingung eingeben" 
-	  [(ngModel)]="randbedingung1" name="randbedingung1"
-	  (change)="updateRandbedingung1(randbedingung1)">
-	  </ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label stacked>Randbedingung 2</ion-label>
-      <ion-input type="text" placeholder="Hier Ihre zweite Randbedingung eingeben" 
-	  [(ngModel)]="randbedingung2" name="randbedingung2"
-	  (change)="updateRandbedingung2(randbedingung2)">
-	  </ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label stacked>Randbedingung 3</ion-label>
-      <ion-input type="text" placeholder="Optional hier Ihre dritte Randbedingung eingeben" 
-	  [(ngModel)]="randbedingung3" name="randbedingung3"
-	  (change)="updateRandbedingung3(randbedingung3)">
-	  </ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label stacked>Randbedingung 4</ion-label>
-      <ion-input type="text" placeholder="Optional hier Ihre vierte Randbedingung eingeben" 
-	  [(ngModel)]="randbedingung4" name="randbedingung4"
-	  (change)="updateRandbedingung4(randbedingung4)">
-	  </ion-input>
-    </ion-item>
-</ion-list>
+<!-- Für Erklärungen siehe annahmen.html -->
 
+<form #randbedingungenForm="ngForm">
+  <ion-list>
+    <ion-item>
+      <ion-label stacked for="Randbedingung1">Randbedingung 1</ion-label>
+      <ion-textarea type="text" placeholder="Hier Ihre erste Randbedingung eingeben" 
+	  [(ngModel)]="randbedingung1" name="Randbedingung1"
+	  (change)="updateRandbedingung1(randbedingung1)"
+	  required minlength="20" maxlength="100" #Randbedingung1="ngModel">
+	  </ion-textarea>
+    </ion-item>
+	<div *ngIf="Randbedingung1.errors && (Randbedingung1.dirty || Randbedingung1.touched)"
+    class="alert alert-danger">
+      <div [hidden]="!Randbedingung1.errors.minlength">
+        <p>Ihre Randbedingung sollte mindestens 20 Zeichen lang sein</p>
+      </div>
+      <div [hidden]="!Randbedingung1.errors.maxlength">
+        <p>Ihre Randbedingung sollte nicht länger als 100 Zeichen  sein</p>
+      </div>
+    </div>	
+    <ion-item>
+      <ion-label stacked for="Randbedingung2">Randbedingung 2</ion-label>
+      <ion-textarea type="text" placeholder="Hier Ihre zweite Randbedingung eingeben" 
+	  [(ngModel)]="randbedingung2" name="Randbedingung2"
+	  (change)="updateRandbedingung2(randbedingung2)"
+	  required minlength="20" maxlength="100" #Randbedingung2="ngModel">
+	  </ion-textarea>
+    </ion-item>
+	<div *ngIf="Randbedingung2.errors && (Randbedingung2.dirty || Randbedingung2.touched)"
+    class="alert alert-danger">
+      <div [hidden]="!Randbedingung2.errors.minlength">
+        <p>Ihre Randbedingung sollte mindestens 20 Zeichen lang sein</p>
+      </div>
+      <div [hidden]="!Randbedingung2.errors.maxlength">
+        <p>Ihre Randbedingung sollte nicht länger als 100 Zeichen  sein</p>
+      </div>
+    </div>
+    <ion-item>
+      <ion-label stacked for="Randbedingung3">Randbedingung 3</ion-label>
+      <ion-textarea type="text" placeholder="Optional hier Ihre dritte Randbedingung eingeben" 
+	  [(ngModel)]="randbedingung3" name="Randbedingung3"
+	  (change)="updateRandbedingung3(randbedingung3)"
+	  minlength="20" maxlength="100" #Randbedingung3="ngModel">
+	  </ion-textarea>
+    </ion-item>
+	<div *ngIf="Randbedingung3.errors && (Randbedingung3.dirty || Randbedingung3.touched)"
+    class="alert alert-danger">
+      <div [hidden]="!Randbedingung3.errors.minlength">
+        <p>Ihre Randbedingung sollte mindestens 20 Zeichen lang sein</p>
+      </div>
+      <div [hidden]="!Randbedingung3.errors.maxlength">
+        <p>Ihre Randbedingung sollte nicht länger als 100 Zeichen  sein</p>
+      </div>
+    </div>
+    <ion-item>
+      <ion-label stacked for="Randbedingung4">Randbedingung 4</ion-label>
+      <ion-textarea type="text" placeholder="Optional hier Ihre vierte Randbedingung eingeben" 
+	  [(ngModel)]="randbedingung4" name="Randbedingung4"
+	  (change)="updateRandbedingung4(randbedingung4)"
+	  minlength="20" maxlength="100" #Randbedingung4="ngModel">
+	  </ion-textarea>
+    </ion-item>
+	<div *ngIf="Randbedingung4.errors && (Randbedingung4.dirty || Randbedingung4.touched)"
+    class="alert alert-danger">
+      <div [hidden]="!Randbedingung4.errors.minlength">
+        <p>Ihre Randbedingung sollte mindestens 20 Zeichen lang sein</p>
+      </div>
+      <div [hidden]="!Randbedingung4.errors.maxlength">
+        <p>Ihre Randbedingung sollte nicht länger als 100 Zeichen  sein</p>
+      </div>
+    </div>
+  </ion-list>
+</form>
 
-<button ion-button [navPush]="ereignissePage">Weiter</button>
+<button ion-button [navPush]="ereignissePage"
+[disabled]="!randbedingungenForm.form.valid">Weiter</button>
 
 
 </ion-content>

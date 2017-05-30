@@ -9,16 +9,41 @@
 
 <ion-content padding>
 <p>Bitte beschreiben Sie hier das aus Ihrer Sicht größte Problem der (Fallstudie)</p>
-
+  <!-- Deklarierung der Form für die Problemdefinition -->
+  <form #problemdefinitionForm="ngForm">
     <ion-item>
-      <ion-label stacked>Ihre Problemdefinition</ion-label>
-      <ion-input type="text" placeholder="hier eingeben" 
+	  <!-- Überschrift für die ion-textarea und Zuweisung zur FormValidierung (Problemdefintion) -->
+      <ion-label for="Problemdefinition" stacked>Ihre Problemdefinition</ion-label>
+	  <!-- Textfeld mit Typ und Platzhalter. [(ngModel)] für two-way data Biding in das Model und aus dem Modell.
+      Bei Veränderung der textarea wird die updateProblemdefinition() Funktion aufgerufen (change).
+	  "name" ist notwendig zur Formvalidierung. Eingabe wird benötigt (required), muss mindestens 20 Zeichen
+	  lang sein (minlength) und darf höchstens 160 Zeichen lang sein (maxlenght)
+	  #Problemdefinition=ngModel wird zur Formvalidierung benötigt-->
+      <ion-textarea type="text" placeholder="Hier Ihre Problemdefinition eingeben"
 	  [(ngModel)]="problemdefinition" (change)="updateProblemdefinition(problemdefinition)"
-	  name="problemdefinition">
-	  </ion-input>
+	  name="Problemdefinition" required minlength="20" maxlength="160" #Problemdefinition="ngModel">
+	  </ion-textarea>
     </ion-item>
+    <!-- <div> zur Kontrolle der Form.
+	Wenn die Form einen Fehler beinhaltet, zeige die entsprechenden Fehlernachrichten
+	.dirty und .touched verhindern das Anzeigen von Fehlernachrichten, wären der User noch seine Eingabe tätigt-->
+    <div *ngIf="Problemdefinition.errors && (Problemdefinition.dirty || Problemdefinition.touched)"
+    class="alert alert-danger">
+	  <!-- Fehlernachricht, wenn die Eingabe zu kurz ist -->
+      <div [hidden]="!Problemdefinition.errors.minlength">
+        <p>Ihre Problemdefinition sollte mindestens 20 Zeichen lang sein</p>
+      </div>
+	  <!-- Fehlernachricht, wenn die Eingabe zu lang ist -->
+      <div [hidden]="!Problemdefinition.errors.maxlength">
+        <p>Ihre Problemdefinition sollte nicht länger als 160 Zeichen sein</p>
+      </div>
+    </div>  
+  </form>	
 
-<button ion-button [navPush]="schluesselfaktorenPage">Weiter</button>
+  <!-- Button navigiert zur Schlüsselfaktorenseite. Ist erst klickbar,
+  wenn die obige Form den Anforderungen entspricht (.form.valid)-->
+<button ion-button [navPush]="schluesselfaktorenPage"
+[disabled]="!problemdefinitionForm.form.valid">Weiter</button>
 
 
 

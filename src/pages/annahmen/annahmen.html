@@ -13,34 +13,77 @@
 <p>Welche Annahmen treffen Sie für Ihr Szenario?</p>
 <p>Geben Sie mindestens 2 Annahmen ein:</p>
 
-<ion-list>
+<form #annahmenForm="ngForm">
+  <ion-list>
     <ion-item>
-      <ion-label stacked>Annahme 1</ion-label>
-      <ion-input type="text" placeholder="Hier Ihre erste Annahme eingeben" 
-	  [(ngModel)]="annahme1" name="annahme1" (change)="updateAnnahme1(annahme1)">
-	  </ion-input>
+      <ion-label stacked for="Annahme1">Annahme 1</ion-label>
+      <ion-textarea type="text" placeholder="Hier Ihre erste Annahme eingeben" 
+	  [(ngModel)]="annahme1" name="Annahme1" (change)="updateAnnahme1(annahme1)"
+	  required minlength="20" maxlength="100" #Annahme1="ngModel">
+	  </ion-textarea>
     </ion-item>
+	<div *ngIf="Annahme1.errors && (Annahme1.dirty || Annahme1.touched)"
+    class="alert alert-danger">
+      <div [hidden]="!Annahme1.errors.minlength">
+        <p>Ihre Annahme sollte mindestens 20 Zeichen lang sein</p>
+      </div>
+      <div [hidden]="!Annahme1.errors.maxlength">
+        <p>Ihre Annahme sollte nicht länger als 100 Zeichen  sein</p>
+      </div>
+   </div>
     <ion-item>
-      <ion-label stacked>Annahme 2</ion-label>
-      <ion-input type="text" placeholder="Hier Ihre zweite Annahme eingeben" 
-	  [(ngModel)]="annahme2" name="annahme2" (change)="updateAnnahme2(annahme2)">
-	  </ion-input>
+      <ion-label stacked for="Annahme2">Annahme 2</ion-label>
+      <ion-textarea type="text" placeholder="Hier Ihre zweite Annahme eingeben" 
+	  [(ngModel)]="annahme2" name="Annahme2" (change)="updateAnnahme2(annahme2)"
+	  required minlength="20" maxlength="100" #Annahme2="ngModel">
+	  </ion-textarea>
     </ion-item>
+	<div *ngIf="Annahme2.errors && (Annahme2.dirty || Annahme2.touched)"
+    class="alert alert-danger">
+      <div [hidden]="!Annahme2.errors.minlength">
+        <p>Ihre Annahme sollte mindestens 20 Zeichen lang sein</p>
+      </div>
+      <div [hidden]="!Annahme2.errors.maxlength">
+        <p>Ihre Annahme sollte nicht länger als 100 Zeichen  sein</p>
+      </div>
+   </div>
     <ion-item>
-      <ion-label stacked>Annahme 3</ion-label>
-      <ion-input type="text" placeholder="Optional hier Ihre dritte Annahme eingeben" 
-	  [(ngModel)]="annahme3" name="annahme3" (change)="updateAnnahme3(annahme3)">
-	  </ion-input>
+      <ion-label stacked for="Annahme3">Annahme 3</ion-label>
+      <ion-textarea type="text" placeholder="Optional hier Ihre dritte Annahme eingeben" 
+	  [(ngModel)]="annahme3" name="Annahme3" (change)="updateAnnahme3(annahme3)"
+	  minlength="20" maxlength="100" #Annahme3="ngModel">
+	  </ion-textarea>
     </ion-item>
-    <ion-item>
-      <ion-label stacked>Annahme 4</ion-label>
-      <ion-input type="text" placeholder="Optional hier Ihre vierte Annahme eingeben" 
-	  [(ngModel)]="annahme4" name="annahme4" (change)="updateAnnahme4(annahme4)">
-	  </ion-input>
+	<div *ngIf="Annahme3.errors && (Annahme3.dirty || Annahme3.touched)"
+    class="alert alert-danger">
+      <div [hidden]="!Annahme3.errors.minlength">
+        <p>Ihre Annahme sollte mindestens 20 Zeichen lang sein</p>
+      </div>
+      <div [hidden]="!Annahme3.errors.maxlength">
+        <p>Ihre Annahme sollte nicht länger als 100 Zeichen  sein</p>
+      </div>
+   </div>
+   <ion-item>
+    <ion-label stacked for="Annahme4">Annahme 4</ion-label>
+      <ion-textarea type="text" placeholder="Optional hier Ihre vierte Annahme eingeben" 
+	  [(ngModel)]="annahme4" name="Annahme4" (change)="updateAnnahme4(annahme4)"
+	  minlength="20" maxlength="100" #Annahme4="ngModel">
+	  </ion-textarea>
     </ion-item>
-</ion-list>
+	<div *ngIf="Annahme4.errors && (Annahme4.dirty || Annahme4.touched)"
+    class="alert alert-danger">
+      <div [hidden]="!Annahme4.errors.minlength">
+        <p>Ihre Annahme sollte mindestens 20 Zeichen lang sein</p>
+      </div>
+      <div [hidden]="!Annahme4.errors.maxlength">
+        <p>Ihre Annahme sollte nicht länger als 100 Zeichen  sein</p>
+      </div>
+   </div>	
+  </ion-list>
+</form>
 
-<button ion-button [navPush]="randbedingungenPage">Weiter</button>
+<button ion-button [navPush]="randbedingungenPage"
+[disabled]="!annahmenForm.form.valid">Weiter</button>
 
 
 </ion-content>

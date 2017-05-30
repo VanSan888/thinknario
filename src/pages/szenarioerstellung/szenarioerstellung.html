@@ -7,7 +7,6 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-<p>Die ionic-form muss auf jeden Fall angepasst werden. Sollte über id= und .css zu machen sein.</p>
 
 <div padding>
   <ion-segment [(ngModel)]="hilfen">
@@ -163,12 +162,12 @@
 
 <h4>Ihr Szenario</h4>
 
-
-  <ion-textarea rows="6" placeholder="Beschreiben Sie hier Ihr Szenario"
+<ion-item>
+  <ion-textarea type="text" placeholder="Beschreiben Sie hier Ihr Szenario"
   [(ngModel)]="szenarioText" name="szenarioText"
   (change)="updateSzenariotext(szenarioText)">
   </ion-textarea>
-
+</ion-item>
 
 <button ion-button [navPush]="szenariobewertungPage">Fertig</button>
 
