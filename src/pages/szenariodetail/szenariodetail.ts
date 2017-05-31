@@ -25,5 +25,9 @@ export class SzenariodetailPage {
       this.currentSzenario = szenarioSnap;
     });
   }
+  
+  goToRatingDetail(szenarioId){
+    this.navCtrl.push('ratingdetail', { 'szenarioId': szenarioId });
+  }
 
 }

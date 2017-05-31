@@ -39,6 +39,8 @@ export class RatingProvider {
     });
   }
   
+
+  
   updateEntwicklung(entwicklung: number): firebase.Promise<any> {	
     return firebase.database().ref('/ratingData')
     .child(firebase.auth().currentUser.uid).child("eigeneBewertung").update({
@@ -85,6 +87,87 @@ export class RatingProvider {
     return firebase.database().ref('/ratingData')
     .child(firebase.auth().currentUser.uid).child("eigeneBewertung").update({
       faktenlage: faktenlage,
+    });
+  }
+  
+  checkPathDetail(szenarioId):  Promise<boolean> {
+	return new Promise<boolean>((resolve, reject) => {
+	  //Zu prüfender Pfad inklusive der Varibalen aus den einzelnen Seiten
+	  firebase.database().ref('/ratingData')
+	  .child(szenarioId).child('erhalteneBewertungen').child(firebase.auth().currentUser.uid)
+	  //.on() inklusive Arrow Funktion und Snapshot("data"), um die Daten auszulesen
+	  .on('value', data => {
+		//.exists() gibt "true" mittels resolve() an das Promise
+		//zurück, wenn Werte in dem angegebenen Pfad existieren
+	    resolve(data.exists());
+	  });
+	});  
+  }
+  
+  getRatingDataDetail(szenarioId): Promise<any> {
+    return new Promise( (resolve, reject) => {
+      firebase.database().ref("ratingData/")
+      .child(szenarioId).child('erhalteneBewertungen').child(firebase.auth().currentUser.uid)
+	  .on('value', data => {
+       resolve(data.val());
+      });
+    });
+  }
+  
+  updateEntwicklungDetail(entwicklung: number, szenarioId: any): firebase.Promise<any> {	
+    return firebase.database().ref('/ratingData').child(szenarioId).child("erhalteneBewertungen")
+    .child(firebase.auth().currentUser.uid).update({
+      entwicklung: entwicklung,
+    });
+  }
+  
+  updateRealitaetsnaeheDetail(realitaetsnaehe: number, szenarioId: any): firebase.Promise<any> {	
+    return firebase.database().ref('/ratingData').child(szenarioId).child("erhalteneBewertungen")
+    .child(firebase.auth().currentUser.uid).update({
+      realitaetsnaehe: realitaetsnaehe,
+    });
+  }
+  
+  updateRelevanzDetail(relevanz: number, szenarioId: any): firebase.Promise<any> {	
+    return firebase.database().ref('/ratingData').child(szenarioId).child("erhalteneBewertungen")
+    .child(firebase.auth().currentUser.uid).update({
+      relevanz: relevanz,
+    });
+  }
+  
+  updateAusfuehrlichkeitDetail(ausfuehrlichkeit: number, szenarioId: any): firebase.Promise<any> {	
+    return firebase.database().ref('/ratingData').child(szenarioId).child("erhalteneBewertungen")
+    .child(firebase.auth().currentUser.uid).update({
+      ausfuehrlichkeit: ausfuehrlichkeit,
+    });
+  }
+  
+  updateZusammenhaengeDetail(zusammenhaenge: number, szenarioId: any): firebase.Promise<any> {	
+    return firebase.database().ref('/ratingData').child(szenarioId).child("erhalteneBewertungen")
+    .child(firebase.auth().currentUser.uid).update({
+      zusammenhaenge: zusammenhaenge,
+    });
+  }
+  
+  updateWiederspruecheDetail(wiedersprueche: number, szenarioId: any): firebase.Promise<any> {	
+    return firebase.database().ref('/ratingData').child(szenarioId).child("erhalteneBewertungen")
+    .child(firebase.auth().currentUser.uid).update({
+      wiedersprueche: wiedersprueche,
+    });
+  }
+  
+  updateFaktenlageDetail(faktenlage: number, szenarioId: any): firebase.Promise<any> {	
+    return firebase.database().ref('/ratingData').child(szenarioId).child("erhalteneBewertungen")
+    .child(firebase.auth().currentUser.uid).update({
+      faktenlage: faktenlage,
+    });
+  }
+  
+  pushErstellteBewertungen(szenarioId: any): firebase.Promise<any> {	
+    return firebase.database().ref('/ratingData').child(firebase.auth().currentUser.uid)
+	.child("erstellteBewertungen")
+    .push({
+      szenarioId: szenarioId,
     });
   }
 

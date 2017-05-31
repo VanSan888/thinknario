@@ -3,20 +3,20 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Szenariobewertung ihres eigenen Szenarios</ion-title>
+    <ion-title>Szenariobewertung für {{currentSzenario?.username}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-<p> Hier muss evtl dann noch eine Page oder wenigstens ein text hin, der dem user erklärt, was als nächstes passiert. <br>
-Evtl. Hier dann auch die Erläuterungen zu den Incentives und diwe man diese bekommt und wie der weitere Plan abläuft. </p>
+
+
 <form #ratingForm="ngForm">
   <ion-list>
     <h4>Entwicklung</h4>
     <p> Hier kurze Erklärung. Wie schätzen Sie die Entwicklung des Szenarios ein? </p>
       <ion-item>
         <ion-range [(ngModel)]="entwicklung" name="Entwicklung"
-	    (ionChange)="updateEntwicklung(entwicklung)" required>
+	    (ionChange)="updateEntwicklungDetail(entwicklung)" required>
           <ion-label range-left>Sehr negativ</ion-label>
           <ion-label range-right>Sehr positiv</ion-label>
         </ion-range>
@@ -25,7 +25,7 @@ Evtl. Hier dann auch die Erläuterungen zu den Incentives und diwe man diese bek
     <p> Hier kurze Erklärung. Als wie realistisch schätzen Sie das Szenario ein? </p>
       <ion-item>
         <ion-range [(ngModel)]="realitaetsnaehe" name="Realitaetsnaehe"
-	    (ionChange)="updateRealitaetsnaehe(realitaetsnaehe)" required>
+	    (ionChange)="updateRealitaetsnaeheDetail(realitaetsnaehe)" required>
           <ion-label range-left>Sehr unrealistisch</ion-label>
           <ion-label range-right>Sehr realistisch</ion-label>
         </ion-range>
@@ -34,7 +34,7 @@ Evtl. Hier dann auch die Erläuterungen zu den Incentives und diwe man diese bek
     <p> Hier kurze Erklärung. Als wie relavant schätzen Sie das Szenario und dessen Problemdefinition ein? </p>	
       <ion-item>
         <ion-range [(ngModel)]="relevanz" name="Relevanz"
-	    (ionChange)="updateRelevanz(relevanz)" required>
+	    (ionChange)="updateRelevanzDetail(relevanz)" required>
           <ion-label range-left>Sehr irrelevant</ion-label>
           <ion-label range-right>Sehr relevant</ion-label>
         </ion-range>
@@ -43,7 +43,7 @@ Evtl. Hier dann auch die Erläuterungen zu den Incentives und diwe man diese bek
     <p> Hier kurze Erklärung. Wie ausführlich wurde das Szenario beschrieben? </p>
       <ion-item>
         <ion-range [(ngModel)]="ausfuehrlichkeit" name="Ausfuehrlichkeit"
-	    (ionChange)="updateAusfuehrlichkeit(ausfuehrlichkeit)" required>
+	    (ionChange)="updateAusfuehrlichkeitDetail(ausfuehrlichkeit)" required>
           <ion-label range-left>Sehr oberflächlich</ion-label>
           <ion-label range-right>Sehr ausführlich</ion-label>
         </ion-range>
@@ -54,7 +54,7 @@ Evtl. Hier dann auch die Erläuterungen zu den Incentives und diwe man diese bek
     Randbedingungen und überraschenden Ereignissen anschaulich dar. </p>
       <ion-item>
         <ion-range [(ngModel)]="zusammenhaenge" name="Zusammenhaenge"
-	    (ionChange)="updateZusammenhaenge(zusammenhaenge)" required>
+	    (ionChange)="updateZusammenhaengeDetail(zusammenhaenge)" required>
           <ion-label range-left>Lehne stark ab</ion-label>
           <ion-label range-right>Stimme stark zu</ion-label>
         </ion-range>
@@ -64,7 +64,7 @@ Evtl. Hier dann auch die Erläuterungen zu den Incentives und diwe man diese bek
     <p> Das Szenario ist widerspruchsfrei und in sich stimmig. </p>
       <ion-item>
         <ion-range [(ngModel)]="wiedersprueche" name="Wiedersprueche"
-	    (ionChange)="updateWiedersprueche(wiedersprueche)" required>
+	    (ionChange)="updateWiederspruecheDetail(wiedersprueche)" required>
           <ion-label range-left>Lehne stark ab</ion-label>
           <ion-label range-right>Stimme stark zu</ion-label>
         </ion-range>
@@ -74,7 +74,7 @@ Evtl. Hier dann auch die Erläuterungen zu den Incentives und diwe man diese bek
     <p> Das Szenario enthält keine Fakten. Es besteht zu einem Großteil aus Schwafelei. </p>
       <ion-item>
         <ion-range [(ngModel)]="faktenlage" name="faktenlage"
-	    (ionChange)="updateFaktenlage(faktenlage)" required>
+	    (ionChange)="updateFaktenlageDetail(faktenlage)" required>
           <ion-label range-left>Lehne stark ab</ion-label>
           <ion-label range-right>Stimme stark zu</ion-label>
         </ion-range>
@@ -89,6 +89,6 @@ Evtl. Hier dann auch die Erläuterungen zu den Incentives und diwe man diese bek
 
  
 <button ion-button [navPush]="homePage"
-[disabled]="!ratingForm.form.valid">Weiter</button>
+[disabled]="!ratingForm.form.valid">Zur Homepage</button>
 
 </ion-content>
