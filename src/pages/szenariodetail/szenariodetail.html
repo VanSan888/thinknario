@@ -3,6 +3,8 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
+	<!-- Ausgabe des Usernamens der akutellen Seite
+    Aktuelle Seite wird durch die Navigationsparameter in szenariodetail.ts festgelegt.-->
     <ion-title>Szenario von {{currentSzenario?.username}}</ion-title>
   </ion-navbar>
 </ion-header>
@@ -112,7 +114,7 @@
   <h6>{{currentSzenario?.szenariotext}}</h6>
 
 
-
+<!-- Button, der beim clicken die goToRatingDetail() Funktion aufruft und die aktuelle SzenarioID übergibt -->
 <button ion-button (click)="goToRatingDetail(currentSzenario.id)"
 >Dieses Szenario bewerten und kommentieren</button>
 

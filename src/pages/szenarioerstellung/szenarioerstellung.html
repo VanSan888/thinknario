@@ -3,11 +3,10 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Szenarioerstellung</ion-title>
+    <ion-title>Ihre Szenarioerstellung</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-
 <div padding>
   <ion-segment [(ngModel)]="hilfen">
     <ion-segment-button value="Annahmen">
@@ -161,15 +160,23 @@
 </div>
 
 <h4>Ihr Szenario</h4>
+<form #szenarioerstellungForm="ngForm">
+  <ion-item>
+    <ion-textarea type="text" placeholder="Beschreiben Sie hier Ihr Szenario"
+    [(ngModel)]="szenarioText" name="SzenarioText" (change)="updateSzenariotext(szenarioText)"
+	required minlength="15" #SzenarioText="ngModel">
+    </ion-textarea>
+  </ion-item>	
+	<div *ngIf="SzenarioText.errors && (SzenarioText.dirty || SzenarioText.touched)"
+    class="alert alert-danger">
+      <div [hidden]="!SzenarioText.errors.minlength">
+        <p>Ihr Szenario sollte mindestens 300 Zeichen lang sein</p>
+      </div>
+    </div>
+</form>
 
-<ion-item>
-  <ion-textarea type="text" placeholder="Beschreiben Sie hier Ihr Szenario"
-  [(ngModel)]="szenarioText" name="szenarioText"
-  (change)="updateSzenariotext(szenarioText)">
-  </ion-textarea>
-</ion-item>
-
-<button ion-button [navPush]="szenariobewertungPage">Fertig</button>
+<button ion-button [navPush]="szenariobewertungPage"
+[disabled]="!szenarioerstellungForm.form.valid">Fertig</button>
 
 <div padding>
   <ion-segment [(ngModel)]="kommunikation">

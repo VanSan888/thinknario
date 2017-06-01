@@ -3,16 +3,21 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
+	<!-- Ausgabe des Userszenarios, dass bewertet werden soll. -->
     <ion-title>Szenariobewertung für {{currentSzenario?.username}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
 
-
+<!-- name der Form für die Validierung -->
 <form #ratingForm="ngForm">
   <ion-list>
     <h4>Entwicklung</h4>
+	<!-- Hier werden die einzelnen Ratingkriterien jeweils als ioin-range
+    abgefragt und eingegeben. Bei Veränderung der Werte wird durch (ionChange)
+	die jeweilige Update() Funktion in ratingdetail.ts aufgerufen.
+	required dient der Formvalidierung-->
     <p> Hier kurze Erklärung. Wie schätzen Sie die Entwicklung des Szenarios ein? </p>
       <ion-item>
         <ion-range [(ngModel)]="entwicklung" name="Entwicklung"
@@ -79,16 +84,18 @@
           <ion-label range-right>Stimme stark zu</ion-label>
         </ion-range>
       </ion-item>
-	<!-- Fehlernachricht, wenn nicht alle Kriterien bewertet wurden.-->
   </ion-list>
+  <!-- Fehlernachricht, wenn nicht alle Kriterien bewertet wurden (required).-->
   <div [hidden]="ratingForm.form.valid">
     <p>Bitte geben Sie für alle Kriterien Ihre Einschätzung ab.</p>
   </div>  
 </form>
 
 
- 
+<!-- Button kann erst geklickt werden, wenn alle Kriterien bewertet wurden. -->
+<!-- Aufruf der updateAverage() Funktion -->
 <button ion-button [navPush]="homePage"
-[disabled]="!ratingForm.form.valid">Zur Homepage</button>
+[disabled]="!ratingForm.form.valid"
+(click)="updateAverage()">Speichern und Zur Homepage</button>
 
 </ion-content>

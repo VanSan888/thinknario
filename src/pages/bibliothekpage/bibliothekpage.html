@@ -10,8 +10,13 @@
 
 <ion-content padding>
   <ion-list>
+    <!-- Iteration durch alle Szenarien die erstellt wurden
+    wenn auf die ion-cards geklickt wird, wird die zugehörige szenario.id an die 
+	goTOSzenarioDetail() Funtkion in bibliothekpage.ts übergeben-->
     <ion-item *ngFor="let szenario of szenarioList" (click)="goToSzenarioDetail(szenario.id)">
 	  <ion-card>
+	    <!-- Anzeige des Usernamens, der Problemdefinition, der Anzahl der Kommentare und der 
+		Durchschnittlichen Bewertung -->
         <ion-card-header>Szenario von {{szenario.username}}</ion-card-header>
         <ion-card-content>
 	      <p>Problemdefinition: {{szenario?.problemdefinition}}</p>

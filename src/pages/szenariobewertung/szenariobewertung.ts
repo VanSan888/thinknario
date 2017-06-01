@@ -60,6 +60,9 @@ public faktenlage: number;
     });
   }
   
+  
+  //Es folgen Funktionen zum Aufruf der Update() Funktionen in rating.ts
+  //Ebenfalls übergabe der zu aktualisierenden Werte
   updateEntwicklung(entwicklung) {
     this.ratingProvider.updateEntwicklung(entwicklung);
   }
