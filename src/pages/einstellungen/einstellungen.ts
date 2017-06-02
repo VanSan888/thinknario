@@ -34,11 +34,11 @@ export class EinstellungenPage {
 	//und beschreiben der notwendigen Variablen für two-way-binding
     this.profileProvider.getUserProfile().then( profileSnap => {
       this.userProfile = profileSnap;
-      this.birthDate = this.userProfile.birthDate
-	  this.firstName = this.userProfile.firstName
-	  this.lastName = this.userProfile.lastName
-	  this.userName = this.userProfile.userName
-	  this.gender = this.userProfile.gender
+      this.birthDate = this.userProfile.birthDate;
+	  this.firstName = this.userProfile.firstName;
+	  this.lastName = this.userProfile.lastName;
+	  this.userName = this.userProfile.userName.userName;
+	  this.gender = this.userProfile.gender;
 	  });
   }
   
@@ -68,7 +68,7 @@ export class EinstellungenPage {
   updateUsername(userName){
 	
 	this.profileProvider.updateUsername(userName);
-	this.profileProvider.updateUsernameSzenario(userName);
+	//this.profileProvider.updateUsernameSzenario(userName);
 
 	 
   }  

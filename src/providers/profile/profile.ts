@@ -45,22 +45,24 @@ export class ProfileProvider {
     });
   }  
   
-  //Funktion für Firebaseupdate für Usernamen in /userProfile
+  //Funktion für Firebaseupdate für Usernamen in verschiedenen Pfaden
   updateUsername(userName: string): firebase.Promise<any> {
-    return firebase.database().ref('/userProfile')
-    .child(firebase.auth().currentUser.uid).update({
-      userName: userName,
-    });
+  //Festlegung der zu aktualisierenden Daten
+  let updateData = {userName: userName};
+  //Festlegung der aktuellen UserID
+  let uid = firebase.auth().currentUser.uid;
+  
+  //Festlegung der verschiedenen Pfade
+  let locations = {};
+    locations['/userProfile/' + uid + '/' + 'userName/'] = updateData;
+    locations['/szenarioData/' + uid + '/' + 'userName/'] = updateData;
+    locations['/ratingData/' + uid + '/' + 'userName/'] = updateData;	
+	//Update der Daten in den verschiedenen Pfaden
+    return firebase.database().ref().update(locations);
   }
   
-  //Funktion für Firebaseupdate für Usernamen in /szenarioData
-  updateUsernameSzenario(userName: string): firebase.Promise<any> {
-    return firebase.database().ref('/szenarioData')
-    .child(firebase.auth().currentUser.uid).update({
-      userName: userName,
-    });
-  }	
-	
+
+  
   //Funktion für Firebaseupdate für Geburtstag	
   updateDOB(birthDate: string): firebase.Promise<any> {
     return firebase.database().ref('/userProfile')

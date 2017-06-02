@@ -210,12 +210,18 @@ export class RatingProvider {
     });
   }
   
-  //Funktion, um den neuen Durchschnittswert zu aktualisieren
+  //Funktion, um den neuen Durchschnittswert in verschiedenen Pfaden zu aktualisieren
   //Siehe Erklärung zu updateEntwicklungDetail  
-  updateAverage(average: number,  szenarioId: any): firebase.Promise<any> {	
-    return firebase.database().ref('/ratingData').child(szenarioId).update({
-      average: average,
-    });
+  updateAverage(average: any,  szenarioId: any): firebase.Promise<any> {	
+  //Festlegung der zu aktualisierenden Daten
+  let updateData = {average: average};
+  
+  //Festlegung der verschiedenen Pfade
+  let locations = {};
+    locations['/szenarioData/' + szenarioId + '/' + 'average/'] = updateData;
+    locations['/ratingData/' + szenarioId + '/' + 'average/'] = updateData;	
+  //Update der Daten in den verschiedenen Pfaden  
+  return firebase.database().ref().update(locations);
   } 
   
 

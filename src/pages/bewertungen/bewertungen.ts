@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage} from 'ionic-angular';
 import { BibliothekProvider } from '../../providers/bibliothek/bibliothek';
+
 @IonicPage()
 @Component({
   selector: 'page-bewertungen',

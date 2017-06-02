@@ -25,8 +25,9 @@ export class BibliothekProvider {
 			//Später sollen auch die Anzahl der Kommentare und die durschnittliche Bewertung
 			//Auf das Array geschrieben werden und in bibliothekpage.html angezeigt werden.
             id: snap.key,
-			username: snap.val().userName,
-            problemdefinition: snap.val().problemdefinition,
+			username: snap.val().userName.userName,
+            problemdefinition: snap.val().problemdefinition.problemdefinition,
+			average: snap.val().average.average,
           });
 		  
         return false
@@ -80,6 +81,9 @@ export class BibliothekProvider {
 			//Auf das Array geschrieben werden und in bibliothekpage.html angezeigt werden.
             id: snap.key,
 			szenarioId: snap.val().szenarioId,
+			username: snap.val().userName.userName,
+			problemdefinition: snap.val().problemdefinition.problemdefinition,
+			average: snap.val().average.average,			
           });		  
         return false
         });
@@ -125,8 +129,8 @@ export class BibliothekProvider {
         resolve({
 		  //Beschreiben der Properties mit den Daten aus den jeweiligen Szenarien
           id: snapshot.key,
-	      username: snapshot.val().userName,
-		  problemdefinition: snapshot.val().problemdefinition,
+	      username: snapshot.val().userName.userName,
+		  problemdefinition: snapshot.val().problemdefinition.problemdefinition,
           annahme1: snapshot.val().annahmen.annahme1,
           annahme2: snapshot.val().annahmen.annahme2,
           annahme3: snapshot.val().annahmen.annahme3,

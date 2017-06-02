@@ -3,6 +3,8 @@ import { NavController,IonicPage } from 'ionic-angular';
 import { SzenarioProvider } from '../../providers/szenario/szenario';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SzenarioValidator } from '../../validators/szenarioValidator';
+import { RatingProvider } from '../../providers/rating/rating';
+import * as firebase from 'firebase';
 
 
 @IonicPage()
@@ -28,6 +30,7 @@ public problemfeld4: boolean;
   constructor(public navCtrl: NavController,
               //Initialisierung des SzenarioProviders
               public szenarioProvider: SzenarioProvider,
+              public ratingProvider: RatingProvider,			  
 			  //Initialisierung der Formbuilder und Validator Module
               private _FB 	   : FormBuilder,
               private _VAL    : SzenarioValidator)
@@ -81,7 +84,29 @@ public problemfeld4: boolean;
         this.problemfeld3 = this.szenarioData.problemfeld.problemfeld3;
         this.problemfeld4 = this.szenarioData.problemfeld.problemfeld4;
 	    });
-	  } 
+	  } else {
+		//Hier muss der average und die Problemdefinition in die Datenbank geschrieben werden.
+		//Grund dafür ist, dass sobald ein neues Szenario in "/szenarioData" geschrieben wird,
+		//Es auch auf der Homepage und in der Bibliothek angezeigt werden würde.
+		//Die getSzenarioList() Funktion in "bibliothek.ts" schlägt allerdings fehl, wenn
+		//keine Daten in "/szenarioData/average" und "/szenarioData/problemdefinition" enthalten sind.
+		//Leider kann man die dort auszulesenden properties nicht als optional deklarieren.
+		//Genau an dieser Stelle hier wird bei if(){} das erste mal geprüft, ob Daten in 
+		//"/szenarioData/aktuellerUser" enthalten sind. Also sollen hier direkt die beiden wichtigen
+		//Datensätze zu average und problemdefinition als Dummi festgelegt werden, sodass die getSzenarioList()
+		//Funktion nicht fehlschlägt:
+		
+        //Festlegung der aktuellen UserID
+        let uid = firebase.auth().currentUser.uid;
+		//Festlegung des Dummiaverages
+        let dummiaverage: string = "(Noch keine Bewertung)";
+		//Festlegung der Dummiproblemdefinition
+        let dummiproblemdefinition: string = "(Hier ihre Problemdefinition)";
+		
+		this.ratingProvider.updateAverage(dummiaverage, uid);
+		this.szenarioProvider.updateProblemdefinition(dummiproblemdefinition);
+		
+		}
     });
   }
 

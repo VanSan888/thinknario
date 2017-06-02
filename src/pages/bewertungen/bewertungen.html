@@ -16,11 +16,11 @@
 	  <ion-card>
 	    <!-- Anzeige des Usernamens, der Problemdefinition, der Anzahl der Kommentare und der 
 		Durchschnittlichen Bewertung -->
-        <ion-card-header>Szenario von </ion-card-header>
+        <ion-card-header>Szenario von {{rated.username}}</ion-card-header>
         <ion-card-content>
-	      <p>Problemdefinition: </p>
+	      <p>Problemdefinition: {{rated.problemdefinition}}</p>
           <p>Kommentare: 3</p>
-          <p>Durchschnittliche Bewertung: 20/35 Punkten</p>
+          <p>Durchschnittliche Bewertung: {{rated.average}} von 100 Punkten</p>
 	      <button ion-button>Ansehen</button>
         </ion-card-content>
       </ion-card>

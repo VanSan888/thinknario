@@ -68,12 +68,19 @@ export class SzenarioProvider {
     });
   }  
 
-  
+  //Funktion zur Aktualisierung der Problemdefinition in verschiedenen Pfaden
   updateProblemdefinition(problemdefinition: string) : firebase.Promise<any> {
-	  
-	return firebase.database().ref('/szenarioData').child(firebase.auth().currentUser.uid).update({
-      problemdefinition: problemdefinition,
-    });
+  //Festlegung der zu aktualisierenden Daten
+  let updateData = {problemdefinition: problemdefinition};
+  //Festlegung der aktuellen UserID
+  let uid = firebase.auth().currentUser.uid;
+  
+  //Festlegung der verschiedenen Pfade
+  let locations = {};
+    locations['/szenarioData/' + uid + '/' + 'problemdefinition/'] = updateData;
+    locations['/ratingData/' + uid + '/' + 'problemdefinition/'] = updateData;	
+	//Update der Daten in den verschiedenen Pfaden	  
+	return firebase.database().ref().update(locations);
   }
 
   updateSchluesselfaktor1(schluesselfaktor1: any): firebase.Promise<any> {	

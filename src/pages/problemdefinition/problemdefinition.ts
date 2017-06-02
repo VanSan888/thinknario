@@ -29,7 +29,7 @@ public problemdefinition : string = "";
      if(result === true) {  
       this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
         this.szenarioData = szenarioSnap;
-        this.problemdefinition = this.szenarioData.problemdefinition;
+        this.problemdefinition = this.szenarioData.problemdefinition.problemdefinition;
 	  });
 	 }
 	});

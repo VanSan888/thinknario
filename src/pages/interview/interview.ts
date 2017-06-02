@@ -46,12 +46,8 @@ export class InterviewPage {
   
   updateUsername(userName){
 	
-	//Hier wird der Username in /szenarioData und /userProfile gespeichert
-	//Das war die einfachste Lösung den userNamen in szenarioData unterzubringen
-	//Als Alternative könnte man auch die getSzenarioDetail() Funktion im BibliothekProvider
-	//so anpassen, dass Daten aus /userProfile importiert und in rawList geschrieben werden
 	this.profileProvider.updateUsername(userName);
-	this.profileProvider.updateUsernameSzenario(userName);
+
 	 
   }  
  
