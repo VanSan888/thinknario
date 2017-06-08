@@ -30,25 +30,25 @@
    <ion-item>
       <ion-label stacked>Annahme 1</ion-label>
       <ion-input type="text" placeholder="Hier Ihre erste Annahme eingeben" 
-	  [(ngModel)]="annahme1" name="annahme1" (change)="updateAnnahme1(annahme1)">
+	  [(ngModel)]="annahme1" name="annahme1" (change)="updateAnnahme(annahme1, 'annahme1')">
 	  </ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>Annahme 2</ion-label>
       <ion-input type="text" placeholder="Hier Ihre zweite Annahme eingeben" 
-	  [(ngModel)]="annahme2" name="annahme2" (change)="updateAnnahme2(annahme2)">
+	  [(ngModel)]="annahme2" name="annahme2" (change)="updateAnnahme(annahme2, 'annahme2')">
 	  </ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>Annahme 3</ion-label>
       <ion-input type="text" placeholder="Optional hier Ihre dritte Annahme eingeben" 
-	  [(ngModel)]="annahme3" name="annahme3" (change)="updateAnnahme3(annahme3)">
+	  [(ngModel)]="annahme3" name="annahme3" (change)="updateAnnahme(annahme3, 'annahme3')">
 	  </ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>Annahme 4</ion-label>
       <ion-input type="text" placeholder="Optional hier Ihre vierte Annahme eingeben" 
-	  [(ngModel)]="annahme4" name="annahme4" (change)="updateAnnahme4(annahme4)">
+	  [(ngModel)]="annahme4" name="annahme4" (change)="updateAnnahme(annahme4, 'annahme4')">
 	  </ion-input>
     </ion-item>
   </ion-list>

@@ -12,7 +12,7 @@
     <!-- Iteration durch alle Szenarien die bewertet wurden
     wenn auf die ion-cards geklickt wird, wird die zugehörige szenario.id an die 
 	goTOSzenarioDetail() Funtkion in bibliothekpage.ts übergeben-->
-    <ion-item *ngFor="let rated of ratedList" (click)="goToSzenarioDetail(rated.szenarioId)">
+    <ion-item *ngFor="let rated of ratedList" (click)="goToSzenarioDetail(rated.id)">
 	  <ion-card>
 	    <!-- Anzeige des Usernamens, der Problemdefinition, der Anzahl der Kommentare und der 
 		Durchschnittlichen Bewertung -->

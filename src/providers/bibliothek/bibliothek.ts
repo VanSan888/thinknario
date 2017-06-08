@@ -22,7 +22,7 @@ export class BibliothekProvider {
           rawList.push({
 			//Es werden nur der .key, der username und die Problemdefintion für die
 			//Darstellung auf bibliothekpage.html benötigt
-			//Später sollen auch die Anzahl der Kommentare und die durschnittliche Bewertung
+			//Später soll auch die Anzahl der Kommentare
 			//Auf das Array geschrieben werden und in bibliothekpage.html angezeigt werden.
             id: snap.key,
 			username: snap.val().userName.userName,
@@ -38,32 +38,7 @@ export class BibliothekProvider {
     });
   }
   
-  // Funktion, um alle bewerteten Szenarien auf ein Array zu schreiben
-  getRatedList2(): Promise<any> {  
-    return new Promise( (resolve, reject) => {
-      firebase.database().ref("ratingData").child(firebase.auth().currentUser.uid)
-	  .child("erstellteBewertungen").on('value', snapshot => {
-		firebase.database().ref("szenarioData").child(firebase.auth().currentUser.uid) 
-		//Deklarierung des Arrays
-        let rawList = [];
-        snapshot.forEach( snap => {
-	      //Beschreiben des Arrays
-          rawList.push({
-			//Es werden nur der .key, der username und die Problemdefintion für die
-			//Darstellung auf bibliothekpage.html benötigt
-			//Später sollen auch die Anzahl der Kommentare und die durschnittliche Bewertung
-			//Auf das Array geschrieben werden und in bibliothekpage.html angezeigt werden.
-            id: snap.key,
-			szenarioId: snap.val().szenarioId,
-          });
-		  
-        return false
-        });
-		  resolve(rawList);
-        
-      });
-    });
-  } 
+
 
   
   getRatedList(): Promise<any> {  
@@ -77,13 +52,12 @@ export class BibliothekProvider {
           rawList.push({
 			//Es werden nur der .key, der username und die Problemdefintion für die
 			//Darstellung auf bibliothekpage.html benötigt
-			//Später sollen auch die Anzahl der Kommentare und die durschnittliche Bewertung
+			//Später soll auch die Anzahl der Kommentare
 			//Auf das Array geschrieben werden und in bibliothekpage.html angezeigt werden.
             id: snap.key,
-			szenarioId: snap.val().szenarioId,
-			username: snap.val().userName.userName,
-			problemdefinition: snap.val().problemdefinition.problemdefinition,
-			average: snap.val().average.average,			
+			username: snap.val().userName,
+			problemdefinition: snap.val().problemdefinition,
+			average: snap.val().average,			
           });		  
         return false
         });
@@ -91,7 +65,32 @@ export class BibliothekProvider {
         
       });
     });
-  } 
+  }
+  
+  
+  //Hier wird ein Array mit den UIDs beschrieben, von denen man eine Bewertung erhalten hat
+  //In den updateUsername() updateAverage() und updateProblemdefinition() Funktionen wird dieses
+  //Array benutzt, um auch in "ratingData/currentUser/erstellteBewertungen" den usernamen, den Average
+  //und die Problemdefintion zu aktualisieren
+  getErhalteneBewertungenList(): Promise<any> {  
+    return new Promise( (resolve, reject) => {
+      firebase.database().ref("ratingData").child(firebase.auth().currentUser.uid)
+	  .child("erhalteneBewertungen").on('value', snapshot => {
+		//Deklarierung des Arrays
+        let rawList = [];
+        snapshot.forEach( snap => {
+	      //Beschreiben des Arrays
+          rawList.push({
+			//Es werden nur der .key, benötigt
+            id: snap.key			
+          });		  
+        return false
+        });
+	      resolve(rawList);
+        
+      });
+    });
+  }  
   
   
   /*

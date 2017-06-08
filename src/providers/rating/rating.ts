@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
+//Siehe updateAverage() warum dieser Import hier evtl nötog wird
+import { BibliothekProvider } from '../../providers/bibliothek/bibliothek';
 
 
 
 @Injectable()
 export class RatingProvider {
+	
+public erhalteneBewertungenList: Array<any>;
 
-  constructor() {
+  constructor(public bibliothekProvider: BibliothekProvider) {
   }
   
   //Zuerst erfolgen in diesem provider die Funktionen für die Selbstbewertung.
@@ -172,17 +176,42 @@ export class RatingProvider {
       faktenlage: faktenlage,
     });
   }
+  
+
+  
+  //Funktion ähnlich zu ProfileProvider. Siehe Erklärung dort
+  //Aufgabe: Es sollen die Daten zu userName und Problemdefinition zu dem User abgerufen werden,
+  //der gerade betrachtet wird. Diese Daten werden dann in der pushErstellteBewertungen()
+  //Funktion in den entsprechenden Pfad geschrieben
+  getSzenarioDataForErstellteBewertungen(szenarioId: any): Promise<any> {
+	
+    return new  Promise((resolve, reject) => { 
+     firebase.database().ref('/ratingData').child(szenarioId)
+     .on('value', data => {
+       resolve(data.val());
+      });
+    });
+  }  
+  
   //Um dem aktiven User, der Bewertungen erstellt, später anzeigen zu können, zu welchen Szenarien er
-  //schon Bewertungen erstellt hat, wird an dieser Stelle eine Liste erstellt.
+  //für welche anderen User schon Bewertungen erstellt hat, wird an dieser Stelle eine Liste erstellt.
+  //Diese Liste enthält den userNamen, den average und die Problemdefinition.
   //Die Daten werden in "/ratingData/currentUser/erstellteBewertungen" abgelegt.
   //Diese Daten werden auf der bewertungen.ts Seite abgerufen.
-  pushErstellteBewertungen(szenarioId: any): firebase.Promise<any> {	
+  updateErstellteBewertungen(szenarioId: any,
+                             userName: string,
+						     average: number,
+						     problemdefinition: string): firebase.Promise<any> {	
     return firebase.database().ref('/ratingData').child(firebase.auth().currentUser.uid)
-	.child("erstellteBewertungen")
-    .push({
-      szenarioId: szenarioId,
+	.child("erstellteBewertungen").child(szenarioId)
+    .update({
+	  userName: userName,
+	  average: average,
+	  problemdefinition: problemdefinition
     });
   }
+  
+
   
   //Funktion, um die Werte aller Bewertungen für ein Szenario auszulesen
   getRatingValues(szenarioId): Promise<any> {
@@ -212,7 +241,19 @@ export class RatingProvider {
   
   //Funktion, um den neuen Durchschnittswert in verschiedenen Pfaden zu aktualisieren
   //Siehe Erklärung zu updateEntwicklungDetail  
-  updateAverage(average: any,  szenarioId: any): firebase.Promise<any> {	
+  updateAverage(average: any,  szenarioId: any): firebase.Promise<any> {
+  
+  //Dieser Teil wäre dafür da, ein Array von bibliothek.ts zu holen.
+  //Mit diesem Array würde der Average auch in "/ratingData/currentUser/erstellteBewertungen" geupdated werden
+  /*this.bibliothekProvider.getErhalteneBewertungenList().then( erhalteneBewertungenSnap => {
+    //Beschreiben der lokalen Arrays mit den einzelnen erhaltenen Bewertungen
+    this.erhalteneBewertungenList = erhalteneBewertungenSnap;
+	//Arrow-Funktion um funktion zu gewährleisten
+    })
+  */
+	
+	
+	
   //Festlegung der zu aktualisierenden Daten
   let updateData = {average: average};
   

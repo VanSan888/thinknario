@@ -98,10 +98,10 @@ public problemfeld4: boolean;
 		
         //Festlegung der aktuellen UserID
         let uid = firebase.auth().currentUser.uid;
-		//Festlegung des Dummiaverages
-        let dummiaverage: string = "(Noch keine Bewertung)";
-		//Festlegung der Dummiproblemdefinition
-        let dummiproblemdefinition: string = "(Hier ihre Problemdefinition)";
+		//Festlegung des Dummiaverages (null)
+        let dummiaverage: string = "";
+		//Festlegung der Dummiproblemdefinition (null)
+        let dummiproblemdefinition: string = "";
 		
 		this.ratingProvider.updateAverage(dummiaverage, uid);
 		this.szenarioProvider.updateProblemdefinition(dummiproblemdefinition);

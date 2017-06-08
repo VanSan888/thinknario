@@ -120,34 +120,15 @@ export class SzenarioProvider {
     });
   }
   
-  updateAnnahme1(annahme1: string) : firebase.Promise<any> {
+  updateAnnahme(path:string, annahme: string, begruendung?: string) : firebase.Promise<any> {
 	  
 	return firebase.database().ref('/szenarioData')
-	.child(firebase.auth().currentUser.uid).child("annahmen").update({
-      annahme1: annahme1,
+	.child(firebase.auth().currentUser.uid).child("annahmen").child(path).update({
+      annahme: annahme,
+	  begruendung: begruendung,
     });
   }
-    updateAnnahme2(annahme2: string) : firebase.Promise<any> {
-	  
-	return firebase.database().ref('/szenarioData')
-	.child(firebase.auth().currentUser.uid).child("annahmen").update({
-      annahme2: annahme2,
-    });
-  }
-  updateAnnahme3(annahme3: string) : firebase.Promise<any> {
-	  
-	return firebase.database().ref('/szenarioData')
-	.child(firebase.auth().currentUser.uid).child("annahmen").update({
-      annahme3: annahme3,
-    });
-  }
-  updateAnnahme4(annahme4: string) : firebase.Promise<any> {
-	  
-	return firebase.database().ref('/szenarioData')
-	.child(firebase.auth().currentUser.uid).child("annahmen").update({
-      annahme4: annahme4,
-    });
-  }
+
   
   updateRandbedingung1(randbedingung1: string) : firebase.Promise<any> {
 	  

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController,IonicPage } from 'ionic-angular';
+import { NavController,IonicPage, AlertController } from 'ionic-angular';
 import { SzenarioProvider } from '../../providers/szenario/szenario';
 
 
@@ -28,19 +28,20 @@ public ereignis3 : string = "";
 public ereignis4 : string = "";
 public szenarioText : string = "";
 
-  constructor(public navCtrl: NavController, public szenarioProvider: SzenarioProvider) {
+  constructor(public navCtrl: NavController,
+              public szenarioProvider: SzenarioProvider,
+			  public alertCtrl: AlertController) {
 
   }
 
   ionViewDidEnter() {
 	   
-    let szenariotextpath = "szenariotext";
     this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
       this.szenarioData = szenarioSnap;
-      this.annahme1 = this.szenarioData.annahmen.annahme1;
-      this.annahme2 = this.szenarioData.annahmen.annahme2;
-	  this.annahme3 = this.szenarioData.annahmen.annahme3;
-      this.annahme4 = this.szenarioData.annahmen.annahme4;
+      this.annahme1 = this.szenarioData.annahmen.annahme1.annahme;
+      this.annahme2 = this.szenarioData.annahmen.annahme2.annahme;
+	  this.annahme3 = this.szenarioData.annahmen.annahme3.annahme;
+      this.annahme4 = this.szenarioData.annahmen.annahme4.annahme;
 	  this.randbedingung1 = this.szenarioData.randbedingungen.randbedingung1;
       this.randbedingung2 = this.szenarioData.randbedingungen.randbedingung2;
 	  this.randbedingung3 = this.szenarioData.randbedingungen.randbedingung3;
@@ -49,7 +50,7 @@ public szenarioText : string = "";
       this.ereignis2 = this.szenarioData.ereignisse.ereignis2;
 	  this.ereignis3 = this.szenarioData.ereignisse.ereignis3;
       this.ereignis4 = this.szenarioData.ereignisse.ereignis4;
-     this.szenarioProvider.checkPath(szenariotextpath).then((result: boolean) => {
+     this.szenarioProvider.checkPath("szenariotext").then((result: boolean) => {
       if(result === true) {
 	    this.szenarioText = this.szenarioData.szenariotext;
       }
@@ -57,17 +58,35 @@ public szenarioText : string = "";
 	});
   }
  
-  updateAnnahme1(annahme1) {
-	  this.szenarioProvider.updateAnnahme1(annahme1);
-  }
-  updateAnnahme2(annahme2) {
-	  this.szenarioProvider.updateAnnahme2(annahme2);
-  }
-  updateAnnahme3(annahme3) {
-	  this.szenarioProvider.updateAnnahme3(annahme3);
-  }
-  updateAnnahme4(annahme4) {
-	  this.szenarioProvider.updateAnnahme4(annahme4);
+  updateAnnahme(annahme, path) {
+	  
+  let alert = this.alertCtrl.create({
+    title: 'Begründung',
+	subTitle: 'Warum haben Sie genau diese Annahme getroffen?',
+	inputs: [
+      {
+        name: 'begruendung',
+        placeholder: 'Hier Begründung eingeben'
+      }
+    ],
+    buttons: [
+      {
+        text: 'Abbrechen',
+        role: 'cancel',
+        handler: data => {
+          this.szenarioProvider.updateAnnahme(path, annahme, data.begruendung);
+        }
+      },
+      {
+        text: 'Speichern',
+        handler: data => {
+          this.szenarioProvider.updateAnnahme(path, annahme, data.begruendung);
+        }
+      }
+    ]
+  });
+  alert.present();	  
+	  	
   }
   
   updateRandbedingung1(randbedingung1) {

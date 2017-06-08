@@ -5,6 +5,7 @@ import { RatingProvider } from '../../providers/rating/rating';
 import { BibliothekProvider } from '../../providers/bibliothek/bibliothek';
 
 
+
 @IonicPage({
     name: 'ratingdetail',
 	//Hier wird eine Instanz dieser Seite mittels der SzenarioID aufgerufen
@@ -34,6 +35,12 @@ public ausfuehrlichkeit: number;
 public zusammenhaenge: number;
 public wiedersprueche: number;
 public faktenlage: number;
+
+//Variablen für die Liste des aktiven Users in "ratingData/erstellteBewertungen/szenarioId"
+public ratingListForBewertungen: any;
+public userName: string;
+public problemdefinition: string;
+public averageForBewertungen: number;
 
 //Variablen zur Berechnung des Durchschnittswertes
 public v1: number;
@@ -98,7 +105,18 @@ public i: number=0
 		  //bei dem User, der das vorliegende Szenario bewerten soll, ein Eintrag in 
 		  // "/ratingData/currentUserID/erstellteBewertungen" erzeugt. Weitere Erklärungen dazu
 		  //in rating.ts unter pushErstellteBewertungen.
-		  this.ratingProvider.pushErstellteBewertungen(this.navParams.get('szenarioId'));
+		  this.ratingProvider.getSzenarioDataForErstellteBewertungen(this.navParams.get('szenarioId')).then( snap => {
+		  this.ratingListForBewertungen        = snap;
+          this.userName                        = this.ratingListForBewertungen.userName.userName;
+		  this.averageForBewertungen           = this.ratingListForBewertungen.average.average;
+		  this.problemdefinition               = this.ratingListForBewertungen.problemdefinition.problemdefinition;
+		  }).then( snap => {
+		  
+		  this.ratingProvider.updateErstellteBewertungen(this.navParams.get('szenarioId'),
+		                                                 this.userName,
+													     this.averageForBewertungen,
+													     this.problemdefinition);
+		  });
          
 	  }
     });

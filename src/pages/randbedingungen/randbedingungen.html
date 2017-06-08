@@ -26,6 +26,9 @@
     </ion-item>
 	<div *ngIf="Randbedingung1.errors && (Randbedingung1.dirty || Randbedingung1.touched)"
     class="alert alert-danger">
+	  <div [hidden]="!Randbedingung1.errors.required">
+        <p>Bitte geben Sie eine Randbedingung ein.</p>
+      </div>
       <div [hidden]="!Randbedingung1.errors.minlength">
         <p>Ihre Randbedingung sollte mindestens 20 Zeichen lang sein</p>
       </div>
@@ -33,7 +36,7 @@
         <p>Ihre Randbedingung sollte nicht länger als 100 Zeichen  sein</p>
       </div>
     </div>	
-    <ion-item>
+    <ion-item [hidden]="!randbedingung1">
       <ion-label stacked for="Randbedingung2">Randbedingung 2</ion-label>
       <ion-textarea type="text" placeholder="Hier Ihre zweite Randbedingung eingeben" 
 	  [(ngModel)]="randbedingung2" name="Randbedingung2"
@@ -43,6 +46,9 @@
     </ion-item>
 	<div *ngIf="Randbedingung2.errors && (Randbedingung2.dirty || Randbedingung2.touched)"
     class="alert alert-danger">
+	  <div [hidden]="!Randbedingung2.errors.required">
+        <p>Bitte geben Sie eine Randbedingung ein.</p>
+      </div>
       <div [hidden]="!Randbedingung2.errors.minlength">
         <p>Ihre Randbedingung sollte mindestens 20 Zeichen lang sein</p>
       </div>
@@ -50,7 +56,7 @@
         <p>Ihre Randbedingung sollte nicht länger als 100 Zeichen  sein</p>
       </div>
     </div>
-    <ion-item>
+    <ion-item [hidden]="!randbedingung2">
       <ion-label stacked for="Randbedingung3">Randbedingung 3</ion-label>
       <ion-textarea type="text" placeholder="Optional hier Ihre dritte Randbedingung eingeben" 
 	  [(ngModel)]="randbedingung3" name="Randbedingung3"
@@ -67,7 +73,7 @@
         <p>Ihre Randbedingung sollte nicht länger als 100 Zeichen  sein</p>
       </div>
     </div>
-    <ion-item>
+    <ion-item [hidden]="!randbedingung3">
       <ion-label stacked for="Randbedingung4">Randbedingung 4</ion-label>
       <ion-textarea type="text" placeholder="Optional hier Ihre vierte Randbedingung eingeben" 
 	  [(ngModel)]="randbedingung4" name="Randbedingung4"
