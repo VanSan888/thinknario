@@ -36,17 +36,38 @@
       <h4>Annahme 1:</h4>
 	  <p>{{currentSzenario?.annahme1}}</p>
     </ion-item>
+    <ion-item [hidden]="!currentSzenario?.annahmebegruendung1 || !toggleVar">
+      <h4  padding-left>Begründung:</h4>
+	  <p padding-left>{{currentSzenario?.annahmebegruendung1}}</p>
+    </ion-item>	
     <ion-item>
       <h4>Annahme 2:</h4>
 	  <p>{{currentSzenario?.annahme2}}</p>
     </ion-item>
-    <ion-item>
+    <ion-item [hidden]="!currentSzenario?.annahmebegruendung2 || !toggleVar">
+      <h4  padding-left>Begründung:</h4>
+	  <p padding-left>{{currentSzenario?.annahmebegruendung2}}</p>
+    </ion-item>
+    <ion-item [hidden]="!currentSzenario?.annahme3">
       <h4>Annahme 3:</h4>
 	  <p>{{currentSzenario?.annahme3}}</p>
     </ion-item>
-    <ion-item>
+    <ion-item [hidden]="!currentSzenario?.annahmebegruendung3 || !toggleVar">
+      <h4  padding-left>Begründung:</h4>
+	  <p padding-left>{{currentSzenario?.annahmebegruendung4}}</p>
+    </ion-item>
+    <ion-item  [hidden]="!currentSzenario?.annahme4">
       <h4>Annahme 4:</h4>
 	  <p>{{currentSzenario?.annahme4}}</p>
+    </ion-item>
+    <ion-item [hidden]="!currentSzenario?.annahmebegruendung4 || !toggleVar">
+      <h4  padding-left>Begründung:</h4>
+	  <p padding-left>{{currentSzenario?.annahmebegruendung4}}</p>
+    </ion-item>
+    <ion-item [hidden]="!currentSzenario?.annahmebegruendung1 && !currentSzenario?.annahmebegruendung2
+	&& !currentSzenario?.annahmebegruendung3 && !currentSzenario?.annahmebegruendung4">
+      <button ion-button  float-right (click)="hideBegruendungen()"
+	  >Begründungen ein- und ausblenden</button>
     </ion-item>
   </ion-list>
 </div>
@@ -57,17 +78,38 @@
       <h4>Randbedingung 1:</h4>
 	  <p>{{currentSzenario?.randbedingung1}}</p>
     </ion-item>
+    <ion-item [hidden]="!currentSzenario?.randbedingungbegruendung1 || !toggleVar">
+      <h4  padding-left>Begründung:</h4>
+	  <p padding-left>{{currentSzenario?.randbedingungbegruendung1}}</p>
+    </ion-item>
     <ion-item>
       <h4>Randbedingung 2:</h4>
 	  <p>{{currentSzenario?.randbedingung2}}</p>
     </ion-item>
-    <ion-item>
+    <ion-item [hidden]="!currentSzenario?.randbedingungbegruendung2 || !toggleVar">
+      <h4  padding-left>Begründung:</h4>
+	  <p padding-left>{{currentSzenario?.randbedingungbegruendung2}}</p>
+    </ion-item>
+    <ion-item [hidden]="!currentSzenario?.randbedingung3">
       <h4>Randbedingung 3:</h4>
 	  <p>{{currentSzenario?.randbedingung3}}</p>
     </ion-item>
-    <ion-item>
+    <ion-item [hidden]="!currentSzenario?.randbedingungbegruendung3 || !toggleVar">
+      <h4  padding-left>Begründung:</h4>
+	  <p padding-left>{{currentSzenario?.randbedingungbegruendung3}}</p>
+    </ion-item>
+    <ion-item  [hidden]="!currentSzenario?.randbedingung4">
       <h4>Randbedingung 4:</h4>
 	  <p>{{currentSzenario?.randbedingung4}}</p>
+    </ion-item>
+    <ion-item [hidden]="!currentSzenario?.randbedingungbegruendung4 || !toggleVar">
+      <h4  padding-left>Begründung:</h4>
+	  <p  padding-left>{{currentSzenario?.randbedingungbegruendung4}}</p>
+    </ion-item>
+	<ion-item [hidden]="!currentSzenario?.randbedingungbegruendung1 && !currentSzenario?.randbedingungbegruendung2
+	&& !currentSzenario?.randbedingungbegruendung3 && !currentSzenario?.randbedingungbegruendung4">
+      <button ion-button  float-right (click)="hideBegruendungen()"
+	  >Begründungen ein- und ausblenden</button>
     </ion-item>
   </ion-list>
 </div>  
@@ -78,17 +120,38 @@
       <h4>Ereignis 1:</h4>
 	  <p>{{currentSzenario?.ereignis1}}</p>
     </ion-item>
+    <ion-item [hidden]="!currentSzenario?.ereignisbegruendung1 || !toggleVar">
+      <h4  padding-left>Begründung:</h4>
+	  <p padding-left>{{currentSzenario?.ereignisbegruendung1}}</p>
+    </ion-item>
     <ion-item>
       <h4>Ereignis 2:</h4>
 	  <p>{{currentSzenario?.ereignis2}}</p>
     </ion-item>
-    <ion-item>
+    <ion-item [hidden]="!currentSzenario?.ereignisbegruendung2 || !toggleVar">
+      <h4  padding-left>Begründung:</h4>
+	  <p  padding-left>{{currentSzenario?.ereignisbegruendung2}}</p>
+    </ion-item>
+    <ion-item  [hidden]="!currentSzenario?.ereignis3">
       <h4>Ereignis 3:</h4>
 	  <p>{{currentSzenario?.ereignis3}}</p>
     </ion-item>
-    <ion-item>
+    <ion-item  [hidden]="!currentSzenario?.ereignisbegruendung3 || !toggleVar">
+      <h4  padding-left>Begründung:</h4>
+	  <p  padding-left>{{currentSzenario?.ereignisbegruendung3}}</p>
+    </ion-item>
+    <ion-item   [hidden]="!currentSzenario?.ereignis4">
       <h4>Ereignis 4:</h4>
 	  <p>{{currentSzenario?.ereignis4}}</p>
+    </ion-item>
+    <ion-item  [hidden]="!currentSzenario?.ereignisbegruendung4 || !toggleVar">
+      <h4  padding-left>Begründung:</h4>
+	  <p  padding-left>{{currentSzenario?.ereignisbegruendung4}}</p>
+    </ion-item>
+	<ion-item [hidden]="!currentSzenario?.ereignisbegruendung1 && !currentSzenario?.ereignisbegruendung2
+	&& !currentSzenario?.ereignisbegruendung3 && !currentSzenario?.ereignisbegruendung4">
+      <button ion-button  float-right (click)="hideBegruendungen()"
+	  >Begründungen ein- und ausblenden</button>
     </ion-item>
   </ion-list> 
 </div>

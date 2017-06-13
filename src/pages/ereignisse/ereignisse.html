@@ -13,14 +13,14 @@
 <p>Welche überraschenden Ereignisse können Sie sich für ihr Szenario vorstellen?</p>
 <p>Geben Sie mindestens 2 überraschende Ereignisse ein:</p>
 
-<!-- Für Erklärungen siehe annahmen.html -->
+<!-- Für Erklärungen siehe annahmen.html (sehr ähnlicher Code) -->
 <form #ereignisseForm="ngForm">
   <ion-list>
     <ion-item>
       <ion-label stacked for="Ereignis1">Ereignis 1</ion-label>
       <ion-textarea type="text" placeholder="Hier Ihr erstes Ereignis eingeben" 
 	  [(ngModel)]="ereignis1" name="Ereignis1"
-	  (change)="updateEreignis1(ereignis1)"
+	  (change)="updateEreignis('ereignis1', ereignis1, begruendung1)"
 	  required minlength="20" maxlength="100" #Ereignis1="ngModel">
 	  </ion-textarea>
     </ion-item>
@@ -36,11 +36,17 @@
         <p>Ihr Ereignis sollte nicht länger als 100 Zeichen  sein</p>
       </div>
     </div>
-    <ion-item [hidden]="!ereignis1">
+	<ion-item [hidden]="!begruendung1 || !toggleVar">
+	  <ion-input type="text" placeholder="Hier Ihre Begründung eingeben"
+	  [(ngModel)]="begruendung1" name="Begruendung1" 
+	  (change)="updateEreignis('ereignis1', ereignis1, begruendung1)" padding-left>
+	  </ion-input>
+	</ion-item>
+    <ion-item>
       <ion-label stacked for="Ereignis2">Ereignis 2</ion-label>
       <ion-textarea type="text" placeholder="Hier Ihr zweites Ereignis eingeben" 
 	  [(ngModel)]="ereignis2" name="Ereignis2"
-	  (change)="updateEreignis2(ereignis2)"
+	  (change)="updateEreignis('ereignis2', ereignis2, begruendung2)"
 	  required minlength="20" maxlength="100" #Ereignis2="ngModel">
 	  </ion-textarea>
     </ion-item>
@@ -56,11 +62,17 @@
         <p>Ihr Ereignis sollte nicht länger als 100 Zeichen  sein</p>
       </div>
     </div>
+	<ion-item [hidden]="!begruendung2 || !toggleVar">
+	  <ion-input type="text" placeholder="Hier Ihre Begründung eingeben"
+	  [(ngModel)]="begruendung2" name="Begruendung1" 
+	  (change)="updateEreignis('ereignis2', ereignis2, begruendung2)" padding-left>
+	  </ion-input>
+	</ion-item>
     <ion-item [hidden]="!ereignis2">
       <ion-label stacked for="Ereignis3">Ereignis 3</ion-label>
       <ion-textarea type="text" placeholder="Optional hier Ihr drittes Ereignis eingeben" 
 	  [(ngModel)]="ereignis3" name="Ereignis3"
-	  (change)="updateEreignis3(ereignis3)"
+	  (change)="updateEreignis('ereignis3', ereignis3, begruendung3)"
 	  minlength="20" maxlength="100" #Ereignis3="ngModel">
 	  </ion-textarea>
     </ion-item>
@@ -73,11 +85,17 @@
         <p>Ihr Ereignis sollte nicht länger als 100 Zeichen  sein</p>
       </div>
     </div>
+	<ion-item [hidden]="!begruendung3 || !toggleVar">
+	  <ion-input type="text" placeholder="Hier Ihre Begründung eingeben"
+	  [(ngModel)]="begruendung3" name="Begruendung1" 
+	  (change)="updateEreignis('ereignis3', ereignis3, begruendung3)" padding-left>
+	  </ion-input>
+	</ion-item>
     <ion-item [hidden]="!ereignis3">
       <ion-label stacked for="Ereignis4">Ereignis 4</ion-label>
       <ion-textarea type="text" placeholder="Optional hier Ihr viertes Ereignis eingeben" 
 	  [(ngModel)]="ereignis4" name="Ereignis4"
-	  (change)="updateEreignis4(ereignis4)"
+	  (change)="updateEreignis('ereignis4', ereignis4, begruendung4)"
 	  minlength="20" maxlength="100" #Ereignis4="ngModel">
 	  </ion-textarea>
     </ion-item>
@@ -90,6 +108,16 @@
         <p>Ihr Ereignis sollte nicht länger als 100 Zeichen  sein</p>
       </div>
     </div>
+	<ion-item [hidden]="!begruendung4 || !toggleVar">
+	  <ion-input type="text" placeholder="Hier Ihre Begründung eingeben"
+	  [(ngModel)]="begruendung4" name="Begruendung1" 
+	  (change)="updateEreignis('ereignis4', ereignis4, begruendung4)" padding-left>
+	  </ion-input>
+	</ion-item>
+    <ion-item [hidden]="!begruendung1 && !begruendung2 && !begruendung3 && !begruendung4">
+      <button ion-button  float-right (click)="hideBegruendungen()"
+	  >Begründungen ein- und ausblenden</button>
+    </ion-item>
   </ion-list>
 </form>
 

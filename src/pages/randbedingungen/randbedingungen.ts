@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController,IonicPage } from 'ionic-angular';
+import { NavController,IonicPage, AlertController  } from 'ionic-angular';
 import { SzenarioProvider } from '../../providers/szenario/szenario';
 
+//Für Erklärungen siehe annahmen.ts (sehr ähnlicher Code/gleiche Funktion).
 
 @IonicPage()
 @Component({
@@ -17,39 +18,100 @@ public randbedingung1 : string = "";
 public randbedingung2 : string = "";
 public randbedingung3 : string = "";
 public randbedingung4 : string = "";
+public begruendung1 : any = "";
+public begruendung2 : any = "";
+public begruendung3 : any = "";
+public begruendung4 : any = "";
+public subTitleText: string;
+public toggleVar: boolean= true;
 
 
-  constructor(public navCtrl: NavController, public szenarioProvider: SzenarioProvider) {
+  constructor( public navCtrl: NavController,
+               public szenarioProvider: SzenarioProvider,
+			   public alertCtrl: AlertController) {
 
   }
   
   ionViewDidEnter() {
 	  
-    let randbedingungenpath = "randbedingungen";
-    this.szenarioProvider.checkPath(randbedingungenpath).then((result: boolean) => {
+    this.szenarioProvider.checkPath("randbedingungen").then((result: boolean) => {
      if(result === true) {	  
       this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
         this.szenarioData = szenarioSnap;
-        this.randbedingung1 = this.szenarioData.randbedingungen.randbedingung1;
-        this.randbedingung2 = this.szenarioData.randbedingungen.randbedingung2;
-	    this.randbedingung3 = this.szenarioData.randbedingungen.randbedingung3;
-        this.randbedingung4 = this.szenarioData.randbedingungen.randbedingung4;
+        this.randbedingung1 = this.szenarioData.randbedingungen.randbedingung1.randbedingung;
+        this.randbedingung2 = this.szenarioData.randbedingungen.randbedingung2.randbedingung;
+	    this.randbedingung3 = this.szenarioData.randbedingungen.randbedingung3.randbedingung;
+        this.randbedingung4 = this.szenarioData.randbedingungen.randbedingung4.randbedingung;
+		this.begruendung1 = this.szenarioData.randbedingungen.randbedingung1.begruendung;
+        this.begruendung2 = this.szenarioData.randbedingungen.randbedingung2.begruendung;
+	    this.begruendung3 = this.szenarioData.randbedingungen.randbedingung3.begruendung;
+        this.begruendung4 = this.szenarioData.randbedingungen.randbedingung4.begruendung;
 	  });	
-     }
+     } else {
+	     this.szenarioProvider.updateRandbedingung("randbedingung1", "", "");
+	     this.szenarioProvider.updateRandbedingung("randbedingung2", "", "");
+	     this.szenarioProvider.updateRandbedingung("randbedingung3", "", "");
+	     this.szenarioProvider.updateRandbedingung("randbedingung4", "", "");
+	 }
 	});
   }
 
-  updateRandbedingung1(randbedingung1) {
-	  this.szenarioProvider.updateRandbedingung1(randbedingung1);
+  updateRandbedingung(path, randbedingung, begruendung) {
+	  
+    if(path == "randbedingung1") {
+	  this.subTitleText = 'Eine Begründung, warum Sie genau diese Randbedingung festgelegt haben, hilft Ihnen bei der Erstellung Ihres Szenarios. Warum haben Sie genau diese Randbedingung festgelegt?';
+    } else {
+      this.subTitleText = 'Warum haben Sie genau diese Randbedingung festgelegt?';
+    }
+  
+    if (begruendung == "") {
+	  
+    let alert = this.alertCtrl.create({
+      title: 'Begründung',
+	  subTitle: this.subTitleText,
+	  inputs: [
+        {
+          name: "begruendung",
+          placeholder: 'Hier Begründung eingeben'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Abbrechen',
+          role: 'cancel',
+          handler: data => {
+            this.szenarioProvider.updateRandbedingung(path, randbedingung, data.begruendung);
+          }
+        },
+        {
+          text: 'Speichern',
+          handler: data => {
+            this.szenarioProvider.updateRandbedingung(path, randbedingung, data.begruendung).then( data => {
+              this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
+                this.szenarioData = szenarioSnap;  
+                this.begruendung1 = this.szenarioData.randbedingungen.randbedingung1.begruendung;
+                this.begruendung2 = this.szenarioData.randbedingungen.randbedingung2.begruendung;
+	            this.begruendung3 = this.szenarioData.randbedingungen.randbedingung3.begruendung;
+                this.begruendung4 = this.szenarioData.randbedingungen.randbedingung4.begruendung;		
+	          }); 			  
+		    });
+          }
+        }
+      ]
+    });
+
+    alert.present();
+    } else {
+      this.szenarioProvider.updateRandbedingung(path, randbedingung, begruendung);		       	  
+      }  
   }
-  updateRandbedingung2(randbedingung2) {
-	  this.szenarioProvider.updateRandbedingung2(randbedingung2);
-  }
-  updateRandbedingung3(randbedingung3) {
-	  this.szenarioProvider.updateRandbedingung3(randbedingung3);
-  }
-  updateRandbedingung4(randbedingung4) {
-	  this.szenarioProvider.updateRandbedingung4(randbedingung4);
-  }  
+  
+  hideBegruendungen() {
+    if (this.toggleVar == true){
+	  this.toggleVar = false;
+	} else if (this.toggleVar == false){
+	    this.toggleVar = true;
+	}
+  }   
 
 }

@@ -8,10 +8,12 @@ import { BibliothekProvider } from '../../providers/bibliothek/bibliothek';
   templateUrl: 'bewertungen.html'
 })
 export class BewertungenPage {
-	
+
+//Notwendig für die Navigation
 bibliothekPage = 'bibliothekpage';
 
- public ratedList: Array<any>;
+// Variable die zur Darstellung aller erstellten Bewertungen
+public ratedList: Array<any>;
 
   constructor(public navCtrl: NavController,
               public bibliothekProvider: BibliothekProvider) {

@@ -38,7 +38,48 @@ export class BibliothekProvider {
     });
   }
   
-
+  //Funktion um mit Hilfe der (szenarioId) den Pfad zu bestimmen, aus den die Daten gelesen werden sollen
+  //(szenarioId) legt fest, welche Szenariodaten gelesen und zurückgegeben werden sollen.
+  //szenarioId wird je nach dem festgelegt, welche ion-card auf bibliothekpage.html angeklickt wird
+  getSzenarioDetail(szenarioId): Promise<any> {
+    return new Promise( (resolve, reject) => {
+      firebase.database().ref("szenarioData/")
+      .child(szenarioId).on('value', snapshot => {
+        resolve({
+		  //Beschreiben der Properties mit den Daten aus den jeweiligen Szenarien
+          id: snapshot.key,
+	      username: snapshot.val().userName.userName,
+		  problemdefinition: snapshot.val().problemdefinition.problemdefinition,
+          annahme1: snapshot.val().annahmen.annahme1.annahme,
+          annahme2: snapshot.val().annahmen.annahme2.annahme,
+          annahme3: snapshot.val().annahmen.annahme3.annahme,
+          annahme4: snapshot.val().annahmen.annahme4.annahme,
+		  annahmebegruendung1: snapshot.val().annahmen.annahme1.begruendung,
+		  annahmebegruendung2: snapshot.val().annahmen.annahme2.begruendung,
+		  annahmebegruendung3: snapshot.val().annahmen.annahme3.begruendung,
+		  annahmebegruendung4: snapshot.val().annahmen.annahme4.begruendung,
+          randbedingung1: snapshot.val().randbedingungen.randbedingung1.randbedingung,
+          randbedingung2: snapshot.val().randbedingungen.randbedingung2.randbedingung,
+          randbedingung3: snapshot.val().randbedingungen.randbedingung3.randbedingung,
+          randbedingung4: snapshot.val().randbedingungen.randbedingung4.randbedingung,
+		  randbedingungbegruendung1: snapshot.val().randbedingungen.randbedingung1.begruendung,
+		  randbedingungbegruendung2: snapshot.val().randbedingungen.randbedingung2.begruendung,
+		  randbedingungbegruendung3: snapshot.val().randbedingungen.randbedingung3.begruendung,
+		  randbedingungbegruendung4: snapshot.val().randbedingungen.randbedingung4.begruendung,
+          ereignis1: snapshot.val().ereignisse.ereignis1.ereignis,
+          ereignis2: snapshot.val().ereignisse.ereignis2.ereignis,
+          ereignis3: snapshot.val().ereignisse.ereignis3.ereignis,
+          ereignis4: snapshot.val().ereignisse.ereignis4.ereignis,
+		  ereignisbegruendung1: snapshot.val().ereignisse.ereignis1.begruendung,
+		  ereignisbegruendung2: snapshot.val().ereignisse.ereignis2.begruendung,
+		  ereignisbegruendung3: snapshot.val().ereignisse.ereignis3.begruendung,
+		  ereignisbegruendung4: snapshot.val().ereignisse.ereignis4.begruendung,
+          //deskriptoren: snapshot.deskriptoren.val().deskriptor1,
+          szenariotext: snapshot.val().szenariotext
+        });
+      });
+    });
+  }
 
   
   getRatedList(): Promise<any> {  
@@ -118,35 +159,6 @@ export class BibliothekProvider {
   }  
   */
   
-  //Funktion um mit Hilfe der (szenarioId) den Pfad zu bestimmen, aus den die Daten gelesen werden sollen
-  //(szenarioId) legt fest, welche Szenariodaten gelesen und zurückgegeben werden sollen.
-  //szenarioId wird je nach dem festgelegt, welche ion-card auf bibliothekpage.html angeklickt wird
-  getSzenarioDetail(szenarioId): Promise<any> {
-    return new Promise( (resolve, reject) => {
-      firebase.database().ref("szenarioData/")
-      .child(szenarioId).on('value', snapshot => {
-        resolve({
-		  //Beschreiben der Properties mit den Daten aus den jeweiligen Szenarien
-          id: snapshot.key,
-	      username: snapshot.val().userName.userName,
-		  problemdefinition: snapshot.val().problemdefinition.problemdefinition,
-          annahme1: snapshot.val().annahmen.annahme1,
-          annahme2: snapshot.val().annahmen.annahme2,
-          annahme3: snapshot.val().annahmen.annahme3,
-          annahme4: snapshot.val().annahmen.annahme4,
-          randbedingung1: snapshot.val().randbedingungen.randbedingung1,
-          randbedingung2: snapshot.val().randbedingungen.randbedingung2,
-          randbedingung3: snapshot.val().randbedingungen.randbedingung3,
-          randbedingung4: snapshot.val().randbedingungen.randbedingung4,
-          ereignis1: snapshot.val().ereignisse.ereignis1,
-          ereignis2: snapshot.val().ereignisse.ereignis2,
-          ereignis3: snapshot.val().ereignisse.ereignis3,
-          ereignis4: snapshot.val().ereignisse.ereignis4,
-          //deskriptoren: snapshot.deskriptoren.val().deskriptor1,
-          szenariotext: snapshot.val().szenariotext
-        });
-      });
-    });
-  }
+
    
 }

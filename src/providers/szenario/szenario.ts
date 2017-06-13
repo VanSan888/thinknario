@@ -120,6 +120,8 @@ export class SzenarioProvider {
     });
   }
   
+  //Funtkion an sich ist gleich den obigen. Hier wird allerdings auch der Pfad (path) mit
+  //übergeben, der aktualisiert werden soll.  
   updateAnnahme(path:string, annahme: string, begruendung?: string) : firebase.Promise<any> {
 	  
 	return firebase.database().ref('/szenarioData')
@@ -128,72 +130,45 @@ export class SzenarioProvider {
 	  begruendung: begruendung,
     });
   }
+  
+  //Ähnlich zu updateAnnahme()
+  updateRandbedingung(path:string, randbedingung: string, begruendung?: string) : firebase.Promise<any> {
+	  
+	return firebase.database().ref('/szenarioData')
+	.child(firebase.auth().currentUser.uid).child("randbedingungen").child(path).update({
+      randbedingung: randbedingung,
+	  begruendung: begruendung,
+    });
+  }  
+   //Ähnlich zu updateAnnahme()
+  updateEreignis(path:string, ereignis: string, begruendung?: string) : firebase.Promise<any> {
+	  
+	return firebase.database().ref('/szenarioData')
+	.child(firebase.auth().currentUser.uid).child("ereignisse").child(path).update({
+      ereignis: ereignis,
+	  begruendung: begruendung,
+    });
+  }   
 
   
-  updateRandbedingung1(randbedingung1: string) : firebase.Promise<any> {
+  updateSzenariotext(ausgangslageText: string,
+                     entwicklungText: string,
+					 endzustandText: string) : firebase.Promise<any> {
 	  
 	return firebase.database().ref('/szenarioData')
-	.child(firebase.auth().currentUser.uid).child("randbedingungen").update({
-      randbedingung1: randbedingung1,
-    });
-  }
-  updateRandbedingung2(randbedingung2: string) : firebase.Promise<any> {
-	  
-	return firebase.database().ref('/szenarioData')
-	.child(firebase.auth().currentUser.uid).child("randbedingungen").update({
-      randbedingung2: randbedingung2,
-    });
-  }
-  updateRandbedingung3(randbedingung3: string) : firebase.Promise<any> {
-	  
-	return firebase.database().ref('/szenarioData')
-	.child(firebase.auth().currentUser.uid).child("randbedingungen").update({
-      randbedingung3: randbedingung3,
-    });
-  }
-  updateRandbedingung4(randbedingung4: string) : firebase.Promise<any> {
-	  
-	return firebase.database().ref('/szenarioData')
-	.child(firebase.auth().currentUser.uid).child("randbedingungen").update({
-      randbedingung4: randbedingung4,
+	.child(firebase.auth().currentUser.uid).child('szenariotext').update({
+      ausgangslage: ausgangslageText,
+	  entwicklung: entwicklungText,
+	  endzustand: endzustandText,
     });
   }
   
-  updateEreignis1(ereignis1: string) : firebase.Promise<any> {
+  updateHilfe(hilfeVar: boolean) : firebase.Promise<any> {
 	  
 	return firebase.database().ref('/szenarioData')
-	.child(firebase.auth().currentUser.uid).child("ereignisse").update({
-      ereignis1: ereignis1,
+	.child(firebase.auth().currentUser.uid).child('szenariotext').update({
+      hilfe: hilfeVar,
     });
   }
-  updateEreignis2(ereignis2: string) : firebase.Promise<any> {
-	  
-	return firebase.database().ref('/szenarioData')
-	.child(firebase.auth().currentUser.uid).child("ereignisse").update({
-      ereignis2: ereignis2,
-    });
-  }
-  updateEreignis3(ereignis3: string) : firebase.Promise<any> {
-	  
-	return firebase.database().ref('/szenarioData')
-	.child(firebase.auth().currentUser.uid).child("ereignisse").update({
-      ereignis3: ereignis3,
-    });
-  }
-  updateEreignis4(ereignis4: string) : firebase.Promise<any> {
-	  
-	return firebase.database().ref('/szenarioData')
-	.child(firebase.auth().currentUser.uid).child("ereignisse").update({
-      ereignis4: ereignis4,
-    });
-  }
-  
-  updateSzenariotext(szenarioText: string) : firebase.Promise<any> {
-	  
-	return firebase.database().ref('/szenarioData')
-	.child(firebase.auth().currentUser.uid).update({
-      szenariotext: szenarioText,
-    });
-  } 
   
 }

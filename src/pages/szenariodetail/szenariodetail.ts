@@ -19,6 +19,7 @@ export class SzenariodetailPage {
   
   //Variable die mit den Daten des Szenarios beschrieben wird.
   public currentSzenario: any;
+  public toggleVar: boolean= false;
   
   //NavParams sind notwendig, um die Weiterleitung von der Bibliothekpage zu gewährleisten
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -42,6 +43,14 @@ export class SzenariodetailPage {
     //Übergabe des Navigationsparameters an diese Seite.
 	//Der Navigationsparameter entspricht der UserID des Szenarios, welches bewertet werden soll.
     this.navCtrl.push('ratingdetail', { 'szenarioId': szenarioId });
+  }
+
+  hideBegruendungen() {
+    if (this.toggleVar == true){
+	  this.toggleVar = false;
+	} else if (this.toggleVar == false){
+	    this.toggleVar = true;
+	}
   }
 
 }

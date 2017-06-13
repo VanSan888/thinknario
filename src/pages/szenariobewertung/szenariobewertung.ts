@@ -12,6 +12,7 @@ export class SzenariobewertungPage {
 
 //notwendig für Navigation	
 homePage = 'HomePage';
+szenarioerstellungPage = 'SzenarioerstellungPage';
 
 public ratingData: any;
 public entwicklung: number;
