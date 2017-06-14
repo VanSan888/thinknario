@@ -171,4 +171,16 @@ export class SzenarioProvider {
     });
   }
   
+  updateCounter(ausgangslageCounter: number,
+                entwicklungCounter: number,
+				endzustandCounter: number) : firebase.Promise<any> {
+	  
+	return firebase.database().ref('/szenarioData')
+	.child(firebase.auth().currentUser.uid).child('szenariotext').update({
+      ausgangslagecounter: ausgangslageCounter,
+	  entwicklungcounter: entwicklungCounter,
+	  endzustandcounter: endzustandCounter,
+    });
+  }
+  
 }

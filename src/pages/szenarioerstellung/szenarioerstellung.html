@@ -262,6 +262,9 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
 <div>
 <ion-icon name="help" item-left (click)="hilfeAlert()" padding-left [hidden]="hilfeVar"></ion-icon>
 </div>
+<div>
+  <button ion-button float-right [hidden]="ausgangslageCounter<1"> Dialogfelder ein-/ausblenden</button>
+</div>
 <form #ohneHilfeForm="ngForm">
   <ion-item [hidden]= "hilfeVar">
     <ion-textarea type="text" placeholder="Beschreiben Sie hier Ihr Szenario"
@@ -282,21 +285,34 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
 [disabled]="!ohneHilfeForm.form.valid" [hidden]="hilfeVar">Fertig</button>
 
 <form #mitHilfeForm="ngForm">
+
   <ion-item [hidden]="!hilfeVar" padding-vertical>  
-    <ion-label stacked >Ausgangslage</ion-label>
+    <ion-label stacked>Ausgangslage</ion-label>
 	<ion-textarea type="text" placeholder="Beschreiben Sie hier Ihre Ausgangslage"
     [(ngModel)]="ausgangslageText" name="AusgangslageText"
 	(change)="updateSzenariotext(ausgangslageText, entwicklungText, endzustandText)"
 	required minlength="15" #AusgangslageText="ngModel">
     </ion-textarea>
-  </ion-item>	
+  </ion-item>  
 	<div *ngIf="AusgangslageText.errors && (AusgangslageText.dirty || AusgangslageText.touched)"
     class="alert alert-danger">
       <div [hidden]="!AusgangslageText.errors.minlength">
         <p>Die Beschreibung Ihrer Ausgangslage sollte mindestens 300 Zeichen lang sein</p>
       </div>
     </div>
-   <ion-item [hidden]="!AusgangslageText.valid" padding-vertical>  
+   <div>
+     <ion-item float-left [hidden] = "!hilfeVar">
+       <h5>{{ausgangslageDialogText}}</h5>
+     </ion-item>   
+   </div>
+   <div>
+     <ion-item [hidden] = "!hilfeVar">
+       <button ion-button [hidden]="ausgangslageCounter<2" (click)='countBackward("ausgangslage")'>Zurück</button>
+       <button ion-button float-right [hidden]="ausgangslageCounter>3"
+	   (click)='countForward("ausgangslage")'>Weiter</button>
+	 </ion-item>
+   </div>
+   <ion-item [hidden]='entwicklungCounter<1' padding-vertical>  
     <ion-label stacked >Entwicklung</ion-label>
 	<ion-textarea type="text" placeholder="Beschreiben Sie hier die Entwicklung Ihres Szenarios"
     [(ngModel)]="entwicklungText" name="EntwicklungText"
@@ -310,7 +326,19 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
         <p>Die Beschreibung Ihrer Entwicklung sollte mindestens 300 Zeichen lang sein</p>
       </div>
     </div>
-   <ion-item [hidden]="!EntwicklungText.valid" padding-vertical>  
+	<div>
+     <ion-item float-left [hidden]="entwicklungCounter<1">
+       <h5>{{entwicklungDialogText}}</h5>
+     </ion-item>   
+    </div>
+    <div>
+	  <ion-item [hidden]="entwicklungCounter<1">
+        <button ion-button [hidden]="entwicklungCounter<2" (click)='countBackward("entwicklung")'>Zurück</button>
+        <button ion-button float-right  [hidden]="entwicklungCounter>3"
+		(click)='countForward("entwicklung")'>Weiter</button>
+	  </ion-item>
+    </div>
+   <ion-item [hidden]='endzustandCounter<1' padding-vertical>  
     <ion-label stacked >Endzustand</ion-label>
 	<ion-textarea type="text" placeholder="Beschreiben Sie hier die Entwicklung Ihres Szenarios"
     [(ngModel)]="endzustandText" name="EndzustandText"
@@ -323,11 +351,23 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
       <div [hidden]="!EndzustandText.errors.minlength">
         <p>Die Beschreibung Ihres Endzustandes sollte mindestens 300 Zeichen lang sein</p>
       </div>
-    </div> 
+    </div>
+	<div>
+     <ion-item float-left [hidden]='endzustandCounter<1'>
+       <h5>{{endzustandDialogText}}</h5>
+     </ion-item>   
+    </div>
+    <div>
+	  <ion-item [hidden]='endzustandCounter<1'>
+        <button ion-button [hidden]="endzustandCounter<2" (click)='countBackward("endzustand")'>Zurück</button>
+        <button ion-button float-right [hidden]="endzustandCounter>3"
+		(click)='countForward("endzustand")'>Weiter</button>
+	  </ion-item>
+    </div>	
 </form>
 
 <button ion-button [navPush]="szenariobewertungPage"
-[disabled]="!mitHilfeForm.form.valid" [hidden] = "!hilfeVar">Fertig</button>
+[disabled]="!mitHilfeForm.form.valid" [hidden] = "!hilfeVar">Fertig - zur Bewertung</button>
 
 
 <div padding>
