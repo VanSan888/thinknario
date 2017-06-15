@@ -105,13 +105,6 @@ public toggleVar: boolean= true;
       this.szenarioProvider.updateRandbedingung(path, randbedingung, begruendung);		       	  
       }  
   }
-  
-  hideBegruendungen() {
-    if (this.toggleVar == true){
-	  this.toggleVar = false;
-	} else if (this.toggleVar == false){
-	    this.toggleVar = true;
-	}
-  }   
+    
 
 }

@@ -114,10 +114,10 @@
 	  (change)="updateRandbedingung('randbedingung4', randbedingung4, begruendung4)" padding-left>
 	  </ion-input>
 	</ion-item>
-	<ion-item [hidden]="!begruendung1 && !begruendung2 && !begruendung3 && !begruendung4">
-      <button ion-button  float-right (click)="hideBegruendungen()"
-	  >Begründungen ein- und ausblenden</button>
-    </ion-item>
+    <div [hidden]="!begruendung1 && !begruendung2 && !begruendung3 && !begruendung4" padding-bottom>
+	  <ion-toggle float-right [(ngModel)]="toggleVar" name="ToggleVarRandbedingungen"></ion-toggle>
+      <p float-right>Begründungen ein- und ausblenden: </p>
+    </div>
   </ion-list>
 </form>
 

@@ -136,19 +136,6 @@ public toggleVar: boolean= true;
     } else {
       this.szenarioProvider.updateAnnahme(path, annahme, begruendung);		       	  
       }  
-  }
-  
-  
-  //Funktion, um die Begründungen mittels eines Buttons ein- und auszublenden.
-  hideBegruendungen() {
-	//Wenn der Buuton gedrückt wird und toggleVar den Wert true hat, ...
-    if (this.toggleVar == true){
-	  //... wird toggleVar auf false gesetzt ... 
-	  this.toggleVar = false;
-	// ... und andersherum.
-	} else if (this.toggleVar == false){
-	    this.toggleVar = true;
-	}
   } 
 
 

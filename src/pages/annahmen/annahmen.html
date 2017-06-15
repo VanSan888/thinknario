@@ -123,14 +123,14 @@
 	 (change)="updateAnnahme('annahme4', annahme4, begruendung4)" padding-left>
      </ion-input>
    </ion-item>
-   <!-- Solange keine Begründungen eingegeben wurden, ist der Button, um die Begründungen ein und 
+   <!-- Solange keine Begründungen eingegeben wurden, ist der Toggle-Button, um die Begründungen ein und 
         auszublenden, versteckt.   -->
-   <ion-item [hidden]="!begruendung1 && !begruendung2 && !begruendung3 && !begruendung4">
-     <!-- Der Button soll an der rechten Seite angezeigt werden (float-right). Er löst außerdem die
-          hideBegruendungen() Funktion aus.	 -->
-     <button ion-button  float-right (click)="hideBegruendungen()"
-	 >Begründungen ein- und ausblenden</button>
-   </ion-item>
+   <!-- Der Toggle-Button soll an der rechten Seite angezeigt werden (float-right). Er zeigt und versteckt
+   über [(ngModel)]="toggleVar" die Begründungen.	 -->
+   <div [hidden]="!begruendung1 && !begruendung2 && !begruendung3 && !begruendung4" padding-bottom>
+	 <ion-toggle float-right [(ngModel)]="toggleVar" name="ToggleVarAnnahmen"></ion-toggle>
+     <p float-right>Begründungen ein- und ausblenden: </p>
+   </div>
   </ion-list>
 </form>
 

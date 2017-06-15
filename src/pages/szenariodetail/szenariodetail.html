@@ -64,11 +64,11 @@
       <h4  padding-left>Begründung:</h4>
 	  <p padding-left>{{currentSzenario?.annahmebegruendung4}}</p>
     </ion-item>
-    <ion-item [hidden]="!currentSzenario?.annahmebegruendung1 && !currentSzenario?.annahmebegruendung2
-	&& !currentSzenario?.annahmebegruendung3 && !currentSzenario?.annahmebegruendung4">
-      <button ion-button  float-right (click)="hideBegruendungen()"
-	  >Begründungen ein- und ausblenden</button>
-    </ion-item>
+    <div [hidden]="!currentSzenario?.annahmebegruendung1 && !currentSzenario?.annahmebegruendung2
+	&& !currentSzenario?.annahmebegruendung3 && !currentSzenario?.annahmebegruendung4" padding-bottom>
+	  <ion-toggle float-right [(ngModel)]="toggleVar" name="ToggleVarAnnahmen"></ion-toggle>
+      <p float-right>Begründungen ein- und ausblenden: </p>
+    </div>
   </ion-list>
 </div>
   
@@ -106,11 +106,11 @@
       <h4  padding-left>Begründung:</h4>
 	  <p  padding-left>{{currentSzenario?.randbedingungbegruendung4}}</p>
     </ion-item>
-	<ion-item [hidden]="!currentSzenario?.randbedingungbegruendung1 && !currentSzenario?.randbedingungbegruendung2
-	&& !currentSzenario?.randbedingungbegruendung3 && !currentSzenario?.randbedingungbegruendung4">
-      <button ion-button  float-right (click)="hideBegruendungen()"
-	  >Begründungen ein- und ausblenden</button>
-    </ion-item>
+    <div [hidden]="!currentSzenario?.randbedingungbegruendung1 && !currentSzenario?.randbedingungbegruendung2
+	&& !currentSzenario?.randbedingungbegruendung3 && !currentSzenario?.randbedingungbegruendung4" padding-bottom>
+	  <ion-toggle float-right [(ngModel)]="toggleVar" name="ToggleVarRandbedingungen"></ion-toggle>
+      <p float-right>Begründungen ein- und ausblenden: </p>
+    </div>
   </ion-list>
 </div>  
 
@@ -148,11 +148,11 @@
       <h4  padding-left>Begründung:</h4>
 	  <p  padding-left>{{currentSzenario?.ereignisbegruendung4}}</p>
     </ion-item>
-	<ion-item [hidden]="!currentSzenario?.ereignisbegruendung1 && !currentSzenario?.ereignisbegruendung2
-	&& !currentSzenario?.ereignisbegruendung3 && !currentSzenario?.ereignisbegruendung4">
-      <button ion-button  float-right (click)="hideBegruendungen()"
-	  >Begründungen ein- und ausblenden</button>
-    </ion-item>
+    <div [hidden]="!currentSzenario?.ereignisbegruendung1 && !currentSzenario?.ereignisbegruendung2
+	&& !currentSzenario?.ereignisbegruendung3 && !currentSzenario?.ereignisbegruendung4" padding-bottom>
+	  <ion-toggle float-right [(ngModel)]="toggleVar" name="ToggleVarEreignisse"></ion-toggle>
+      <p float-right>Begründungen ein- und ausblenden: </p>
+    </div>
   </ion-list> 
 </div>
 

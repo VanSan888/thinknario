@@ -45,12 +45,4 @@ export class SzenariodetailPage {
     this.navCtrl.push('ratingdetail', { 'szenarioId': szenarioId });
   }
 
-  hideBegruendungen() {
-    if (this.toggleVar == true){
-	  this.toggleVar = false;
-	} else if (this.toggleVar == false){
-	    this.toggleVar = true;
-	}
-  }
-
 }
