@@ -75,7 +75,11 @@ export class BibliothekProvider {
 		  ereignisbegruendung3: snapshot.val().ereignisse.ereignis3.begruendung,
 		  ereignisbegruendung4: snapshot.val().ereignisse.ereignis4.begruendung,
           //deskriptoren: snapshot.deskriptoren.val().deskriptor1,
-          szenariotext: snapshot.val().szenariotext
+          szenariotext: snapshot.val().szenariotext.ausgangslage,
+		  ausgangslage: snapshot.val().szenariotext.ausgangslage,
+		  entwicklung: snapshot.val().szenariotext.entwicklung,
+		  endzustand: snapshot.val().szenariotext.endzustand,
+		  hilfe: snapshot.val().szenariotext.hilfe,		  
         });
       });
     });

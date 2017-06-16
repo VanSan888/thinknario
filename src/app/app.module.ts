@@ -11,6 +11,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { MyApp } from './app.component';
 
+
+
 //provider import
 import { AuthData } from '../providers/auth/auth';
 import { BibliothekProvider } from '../providers/bibliothek/bibliothek';
@@ -26,17 +28,18 @@ import { Camera } from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
-    MyApp,	
+    MyApp,
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
 	FormsModule,
 	HttpModule,
+	
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
   ],
   providers: [
     StatusBar,

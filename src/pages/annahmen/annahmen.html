@@ -48,6 +48,7 @@
          wenn ein Button gedrückt wird, der toggleVar auf true stellt. (Siehe Button am ende der ion-list)
          Auch die Begründung wird bei jeder Änderung innerhalb des Eingabefeldes durch updateAnnahme() aktualisiert. -->
 	<ion-item [hidden]="!begruendung1 || !toggleVar">
+	  <ion-label for="Begruendung1">Begründung:</ion-label>
 	  <ion-input type="text" placeholder="Hier Ihre Begründung eingeben"
 	  [(ngModel)]="begruendung1" name="Begruendung1" 
 	  (change)="updateAnnahme('annahme1', annahme1, begruendung1)" padding-left>
@@ -72,7 +73,8 @@
         <p>Ihre Annahme sollte nicht länger als 100 Zeichen  sein</p>
       </div>
     </div>
-	<ion-item [hidden]="!begruendung2 || !toggleVar" >
+	<ion-item [hidden]="!begruendung2 || !toggleVar">
+	  <ion-label for="Begruendung2">Begründung:</ion-label>
 	  <ion-input type="text" placeholder="Hier Ihre Begründung eingeben"
 	  [(ngModel)]="begruendung2" name="Begruendung2" 
 	  (change)="updateAnnahme('annahme2', annahme2, begruendung2)" padding-left>
@@ -96,6 +98,7 @@
       </div>
    </div>
    <ion-item [hidden]="!begruendung3 || !toggleVar">
+     <ion-label for="Begruendung3">Begründung:</ion-label>
      <ion-input type="text" placeholder="Hier Ihre Begründung eingeben"
      [(ngModel)]="begruendung3" name="Begruendung3" 
 	 (change)="updateAnnahme('annahme3', annahme3, begruendung3)" padding-left>
@@ -118,6 +121,7 @@
       </div>
    </div>
    <ion-item [hidden]="!begruendung4 || !toggleVar">
+     <ion-label for="Begruendung4">Begründung:</ion-label>
      <ion-input type="text" placeholder="Hier Ihre Begründung eingeben"
      [(ngModel)]="begruendung4" name="Begruendung4" 
 	 (change)="updateAnnahme('annahme4', annahme4, begruendung4)" padding-left>

@@ -22,10 +22,10 @@ public problemfeldform 	: FormGroup;
 
 //Properties für die Datentransferierung von und zu firebase
 public szenarioData: any;
-public problemfeld1: boolean;
-public problemfeld2: boolean;
-public problemfeld3: boolean;
-public problemfeld4: boolean;
+public problemfeld1: boolean = false;
+public problemfeld2: boolean = false;
+public problemfeld3: boolean = false;
+public problemfeld4: boolean = false;
 
   constructor(public navCtrl: NavController,
               //Initialisierung des SzenarioProviders
@@ -59,15 +59,13 @@ public problemfeld4: boolean;
   
   //Lifecyyle event: Wenn Die Seite geladen wurde und die aktive Seite ist.
   ionViewDidEnter() {
-	//Deklaration der Variablen, die dazu dient, den zu prüfenden Pfad festzulegen
-	let problemfeldpath = "problemfeld";
 	/*
-	Aufruf des SzanrioProviders und dessen checkPath() Funktion, sowie
-	Übergabe der Pfadvariablen. Durch die .then(result) Funktion wird der tatsächliche Wert
+	Aufruf des SzanrioProviders und dessen checkPath() Funktion, Angabe des Pfades (problemfeld).
+	Durch die .then(result) Funktion wird der tatsächliche Wert
 	des Promise ausgelesen. Die Arrow-Funktion wird benötigt, um den .then()-Kontext nicht
 	durcheinander zu bringen
 	*/
-    this.szenarioProvider.checkPath(problemfeldpath).then((result: boolean) => {
+    this.szenarioProvider.checkPath("problemfeld").then((result: boolean) => {
 	 //Wenn in dem Pfad Daten hinterlegt sind, dann...
      if(result === true) {
 		/*
@@ -104,8 +102,16 @@ public problemfeld4: boolean;
         let dummiproblemdefinition: string = "";
 		
 		this.ratingProvider.updateAverage(dummiaverage, uid);
-		this.szenarioProvider.updateProblemdefinition(dummiproblemdefinition);
+		this.szenarioProvider.updateProblemdefinition(dummiproblemdefinition).then( data => {
 		
+		//Zusätzlich werden Dummidaten in "szenarioData/currentUser/problemfeld" geschrieben, wenn der User
+		//diese Seite das erste mal betritt.
+		  this.szenarioProvider.updateProblemfeld(this.problemfeld1,
+		                                          this.problemfeld2,
+												  this.problemfeld3,
+												  this.problemfeld4);
+		
+		  });
 		}
     });
   }
@@ -114,19 +120,10 @@ public problemfeld4: boolean;
   Hier werden die Eingaben aus der problemfeld.html Datei an die jeweiligen
   .update() Funktionen im SzenarioProvider weitergegeben.
   */
-  updateProblemfeld1(problemfeld1) {
-	  this.szenarioProvider.updateProblemfeld1(problemfeld1);
-  }
-  updateProblemfeld2(problemfeld2) {
-	  this.szenarioProvider.updateProblemfeld2(problemfeld2);
-  }
-  updateProblemfeld3(problemfeld3) {
-	  this.szenarioProvider.updateProblemfeld3(problemfeld3);
-  }
-  updateProblemfeld4(problemfeld4) {
-	  this.szenarioProvider.updateProblemfeld4(problemfeld4);
-  }
-  
-  
-  
+  updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4) {
+	  this.szenarioProvider.updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4);
+
+  }	  
 }
+
+

@@ -43,30 +43,18 @@ export class SzenarioProvider {
   
   //Alle unteren Funktionen ähneln den .update() Funtionen im ProfileProvider stark
   //Siehe Erklärung dort. Namensgebung hier ist dann selbsterklärend. 
-  updateProblemfeld1(problemfeld1: any): firebase.Promise<any> {	
+  updateProblemfeld(problemfeld1: boolean,
+                    problemfeld2: boolean,
+					problemfeld3: boolean,
+					problemfeld4: boolean): firebase.Promise<any> {	
     return firebase.database().ref('/szenarioData')
     .child(firebase.auth().currentUser.uid).child("problemfeld").update({
       problemfeld1: problemfeld1,
+	  problemfeld2: problemfeld2,
+	  problemfeld3: problemfeld3,
+	  problemfeld4: problemfeld4,
     });
   }
-  updateProblemfeld2(problemfeld2: any): firebase.Promise<any> {	
-    return firebase.database().ref('/szenarioData')
-    .child(firebase.auth().currentUser.uid).child("problemfeld").update({
-      problemfeld2: problemfeld2,
-    });
-  }
-  updateProblemfeld3(problemfeld3: any): firebase.Promise<any> {	
-    return firebase.database().ref('/szenarioData')
-    .child(firebase.auth().currentUser.uid).child("problemfeld").update({
-      problemfeld3: problemfeld3,
-    });
-  }
-  updateProblemfeld4(problemfeld4: any): firebase.Promise<any> {	
-    return firebase.database().ref('/szenarioData')
-    .child(firebase.auth().currentUser.uid).child("problemfeld").update({
-      problemfeld4: problemfeld4,
-    });
-  }  
 
   //Funktion zur Aktualisierung der Problemdefinition in verschiedenen Pfaden
   updateProblemdefinition(problemdefinition: string) : firebase.Promise<any> {
@@ -83,42 +71,23 @@ export class SzenarioProvider {
 	return firebase.database().ref().update(locations);
   }
 
-  updateSchluesselfaktor1(schluesselfaktor1: any): firebase.Promise<any> {	
+  updateSchluesselfaktor(schluesselfaktor1: boolean,
+                         schluesselfaktor2: boolean,
+						 schluesselfaktor3: boolean,
+						 schluesselfaktor4: boolean,
+						 schluesselfaktor5: boolean,
+						 schluesselfaktor6: boolean,): firebase.Promise<any> {	
     return firebase.database().ref('/szenarioData')
     .child(firebase.auth().currentUser.uid).child("schluesselfaktoren").update({
       schluesselfaktor1: schluesselfaktor1,
+	  schluesselfaktor2: schluesselfaktor2,
+	  schluesselfaktor3: schluesselfaktor3,
+	  schluesselfaktor4: schluesselfaktor4,
+	  schluesselfaktor5: schluesselfaktor5,
+	  schluesselfaktor6: schluesselfaktor6,
     });
   }
-  updateSchluesselfaktor2(schluesselfaktor2: any): firebase.Promise<any> {	
-    return firebase.database().ref('/szenarioData')
-    .child(firebase.auth().currentUser.uid).child("schluesselfaktoren").update({
-      schluesselfaktor2: schluesselfaktor2,
-    });
-  }
-  updateSchluesselfaktor3(schluesselfaktor3: any): firebase.Promise<any> {	
-    return firebase.database().ref('/szenarioData')
-    .child(firebase.auth().currentUser.uid).child("schluesselfaktoren").update({
-      schluesselfaktor3: schluesselfaktor3,
-    });
-  }
-  updateSchluesselfaktor4(schluesselfaktor4: any): firebase.Promise<any> {	
-    return firebase.database().ref('/szenarioData')
-    .child(firebase.auth().currentUser.uid).child("schluesselfaktoren").update({
-      schluesselfaktor4: schluesselfaktor4,
-    });
-  }
-  updateSchluesselfaktor5(schluesselfaktor5: any): firebase.Promise<any> {	
-    return firebase.database().ref('/szenarioData')
-    .child(firebase.auth().currentUser.uid).child("schluesselfaktoren").update({
-      schluesselfaktor5: schluesselfaktor5,
-    });
-  }
-  updateSchluesselfaktor6(schluesselfaktor6: any): firebase.Promise<any> {	
-    return firebase.database().ref('/szenarioData')
-    .child(firebase.auth().currentUser.uid).child("schluesselfaktoren").update({
-      schluesselfaktor6: schluesselfaktor6,
-    });
-  }
+
   
   //Funtkion an sich ist gleich den obigen. Hier wird allerdings auch der Pfad (path) mit
   //übergeben, der aktualisiert werden soll.  

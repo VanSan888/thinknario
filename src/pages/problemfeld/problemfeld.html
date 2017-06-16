@@ -21,25 +21,25 @@
 	    die update() Funktion in der problemfeld.ts Datei auf. Zusätzlich wird der
 		Checkbox ein FormControl-Name zugewiesen, um die Werte zu kontrollieren.--> 
         <ion-checkbox  checked="false" [(ngModel)]="problemfeld1" name="problemfeld1"
-	    (ionChange)="updateProblemfeld1(problemfeld1)"
+	    (ionChange)="updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4)"
 		formControlName="problemfeldform1"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Problemfeld 2</ion-label>
         <ion-checkbox  checked="false" [(ngModel)]="problemfeld2" name="problemfeld2"
-	    (ionChange)="updateProblemfeld2(problemfeld2)"
+	    (ionChange)="updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4)"
 		formControlName="problemfeldform2"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Problemfeld 3</ion-label>
         <ion-checkbox  checked="false" [(ngModel)]="problemfeld3" name="problemfeld3"
-	    (ionChange)="updateProblemfeld3(problemfeld3)"
+	    (ionChange)="updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4)"
 		formControlName="problemfeldform3"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Problemfeld 4</ion-label>
         <ion-checkbox  checked="false" [(ngModel)]="problemfeld4" name="problemfeld4"
-	    (ionChange)="updateProblemfeld4(problemfeld4)"
+	    (ionChange)="updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4)"
 		formControlName="problemfeldform4"></ion-checkbox>
       </ion-item>  	
     </ion-list>

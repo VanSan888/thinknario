@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { IonicPage } from 'ionic-angular';
 
 
+
 @IonicPage()
 @Component({
   selector: 'page-deskriptorenanalyse',
@@ -15,5 +16,6 @@ annahmenPage = 'AnnahmenPage'
   constructor(public navCtrl: NavController) {
 
   }
+
 
 }

@@ -21,6 +21,10 @@ export class SzenariodetailPage {
   public currentSzenario: any;
   public toggleVar: boolean= false;
   
+  //Variable um szenariodetail.html anzupassen, je nach dem, ob der User die Hiflestellung
+  //in Anspruch genommen hat oder nicht.
+  public hilfeVar: boolean = false;
+  
   //NavParams sind notwendig, um die Weiterleitung von der Bibliothekpage zu gewährleisten
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public bibliothekProvider: BibliothekProvider) {}
@@ -35,6 +39,7 @@ export class SzenariodetailPage {
     .then( szenarioSnap => {
 	  //Beschreiben der Variablen mit den Daten des Snapshots aus firebase
       this.currentSzenario = szenarioSnap;
+	  this.hilfeVar = this.currentSzenario.hilfe;
     });
   }
   

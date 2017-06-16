@@ -18,14 +18,13 @@ deskriptorenanalysePage = 'DeskriptorenanalysePage';
 public schluesselfaktorenform 					: FormGroup;
 
 //Properties für die Datentransferierung von und zu firebase
-
 public szenarioData: any;
-public schluesselfaktor1: boolean;
-public schluesselfaktor2: boolean;
-public schluesselfaktor3: boolean;
-public schluesselfaktor4: boolean;
-public schluesselfaktor5: boolean;
-public schluesselfaktor6: boolean;
+public schluesselfaktor1: boolean = false;
+public schluesselfaktor2: boolean = false;
+public schluesselfaktor3: boolean = false;
+public schluesselfaktor4: boolean = false;
+public schluesselfaktor5: boolean = false;
+public schluesselfaktor6: boolean = false;
 
   constructor(public navCtrl: NavController,
               //Initialisierung des SzenarioProviders
@@ -49,6 +48,7 @@ public schluesselfaktor6: boolean;
       });
   }
   
+  //Code ist sehr ähnlich zu Problemfeld. Siehe Erklärungen dort
   ionViewDidEnter() {
 	let schluesselfaktorpath = "schluesselfaktoren";
     this.szenarioProvider.checkPath(schluesselfaktorpath).then((result: boolean) => {
@@ -62,28 +62,29 @@ public schluesselfaktor6: boolean;
         this.schluesselfaktor5 = this.szenarioData.schluesselfaktoren.schluesselfaktor5;
 		this.schluesselfaktor6 = this.szenarioData.schluesselfaktoren.schluesselfaktor6;
 	    });
-	  } 
+	  } else {
+		  this.szenarioProvider.updateSchluesselfaktor(this.schluesselfaktor1,
+                                                       this.schluesselfaktor2,
+						                               this.schluesselfaktor3,
+						                               this.schluesselfaktor4,
+						                               this.schluesselfaktor5,
+						                               this.schluesselfaktor6);
+	  }
     });
   }
   
-  updateSchluesselfaktor1(schluesselfaktor1) {
-	  this.szenarioProvider.updateSchluesselfaktor1(schluesselfaktor1);
+  updateSchluesselfaktor(schluesselfaktor1,
+                         schluesselfaktor2,
+						 schluesselfaktor3,
+						 schluesselfaktor4,
+						 schluesselfaktor5,
+						 schluesselfaktor6) {
+    this.szenarioProvider.updateSchluesselfaktor(schluesselfaktor1,
+                                                 schluesselfaktor2,
+						                         schluesselfaktor3,
+						                         schluesselfaktor4,
+						                         schluesselfaktor5,
+						                         schluesselfaktor6);
   }
-  updateSchluesselfaktor2(schluesselfaktor2) {
-	  this.szenarioProvider.updateSchluesselfaktor2(schluesselfaktor2);
-  }
-  updateSchluesselfaktor3(schluesselfaktor3) {
-	  this.szenarioProvider.updateSchluesselfaktor3(schluesselfaktor3);
-  }
-  updateSchluesselfaktor4(schluesselfaktor4) {
-	  this.szenarioProvider.updateSchluesselfaktor4(schluesselfaktor4);
-  }
-  updateSchluesselfaktor5(schluesselfaktor5) {
-	  this.szenarioProvider.updateSchluesselfaktor5(schluesselfaktor5);
-  }
-  updateSchluesselfaktor6(schluesselfaktor6) {
-	  this.szenarioProvider.updateSchluesselfaktor6(schluesselfaktor6);
-  }
-  
 
 }

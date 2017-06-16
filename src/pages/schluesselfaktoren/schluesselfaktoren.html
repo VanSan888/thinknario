@@ -18,13 +18,15 @@
     <ion-item>
       <ion-label>Schlüsselfaktor 1</ion-label>
       <ion-checkbox  checked="false" [(ngModel)]="schluesselfaktor1" 
-      (ionChange)="updateSchluesselfaktor1(schluesselfaktor1)"
+      (ionChange)="updateSchluesselfaktor(schluesselfaktor1, schluesselfaktor2,
+	  schluesselfaktor3, schluesselfaktor4, schluesselfaktor5, schluesselfaktor6)"
       name="schluesselfaktor1" formControlName="schluesselfaktorenform1"></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label>Schlüsselfaktor 2</ion-label>
       <ion-checkbox  checked="false" [(ngModel)]="schluesselfaktor2"
-      (ionChange)="updateSchluesselfaktor2(schluesselfaktor2)"
+      (ionChange)="updateSchluesselfaktor(schluesselfaktor1, schluesselfaktor2,
+	  schluesselfaktor3, schluesselfaktor4, schluesselfaktor5, schluesselfaktor6)"
       name="schluesselfaktor2" formControlName="schluesselfaktorenform2"></ion-checkbox>
     </ion-item>
     <ion-item>
@@ -36,19 +38,22 @@
     <ion-item>
       <ion-label>Schlüsselfaktor 4</ion-label>
       <ion-checkbox  checked="false" [(ngModel)]="schluesselfaktor4"
-      (ionChange)="updateSchluesselfaktor4(schluesselfaktor4)"
+      (ionChange)="updateSchluesselfaktor(schluesselfaktor1, schluesselfaktor2,
+	  schluesselfaktor3, schluesselfaktor4, schluesselfaktor5, schluesselfaktor6)"
       name="schluesselfaktor4" formControlName="schluesselfaktorenform4"></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label>Schlüsselfaktor 5</ion-label>
       <ion-checkbox  checked="false" [(ngModel)]="schluesselfaktor5"
-      (ionChange)="updateSchluesselfaktor5(schluesselfaktor5)"
+      (ionChange)="updateSchluesselfaktor(schluesselfaktor1, schluesselfaktor2,
+	  schluesselfaktor3, schluesselfaktor4, schluesselfaktor5, schluesselfaktor6)"
       name="schluesselfaktor5" formControlName="schluesselfaktorenform5"></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label>Schlüsselfaktor 6</ion-label>
       <ion-checkbox  checked="false" [(ngModel)]="schluesselfaktor6"
-      (ionChange)="updateSchluesselfaktor6(schluesselfaktor6)"
+      (ionChange)="updateSchluesselfaktor(schluesselfaktor1, schluesselfaktor2,
+	  schluesselfaktor3, schluesselfaktor4, schluesselfaktor5, schluesselfaktor6)"
       name="schluesselfaktor6" formControlName="schluesselfaktorenform6"></ion-checkbox>
     </ion-item>
     </ion-item-group>

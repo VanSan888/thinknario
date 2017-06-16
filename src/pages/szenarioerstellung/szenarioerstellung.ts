@@ -4,6 +4,7 @@ import { SzenarioProvider } from '../../providers/szenario/szenario';
 
 
 
+
 @IonicPage()
 @Component({
   selector: 'page-szenarioerstellung',
@@ -52,9 +53,10 @@ public hilfeVar: boolean = false;
 
 
 public subTitleText: string;
+//Variable um über ion-toggle die Begründungen ein- und auszublenden
 public toggleVar: boolean = false;
 
-//Variablen notwensig für die variable Ausgabe der Dialogtexte
+//Variablen notwendig für die variable Ausgabe der Dialogtexte
 public ausgangslageDialogText: string;
 public ausgangslageCounter: number = 0;
 
@@ -390,8 +392,8 @@ public toggleEndzustand: boolean = true;
 	  this.szenarioProvider.updateSzenariotext(ausgangslageText, entwicklungText, endzustandText);
   }
   
-  //In der startHilfe Funktion wird ein Toast in der Mitte der Seite (middle) aufgerufen, der den groben folgenden Ablauf der
-  //Szenarioerstellung erklärt.
+  //In der startHilfe Funktion wird ein Toast in der Mitte der Seite (middle) aufgerufen,
+  //der den groben folgenden Ablauf der Szenarioerstellung erklärt.
   startHilfe() {
 
 	  let toast = this.toastCtrl.create({
@@ -402,15 +404,18 @@ public toggleEndzustand: boolean = true;
 	  });
       //Wenn der User auf 'Weiter' klickt, dann wird der ausgangslageText beschrieben.
       toast.onDidDismiss( data => {
-		//Es wird nur beschrieben, falls der Ausgangslagetext noch aus den Dummidaten aus ionViewDidEnter besteht.
-		//Wenn der User schon ohne Hilfestellung Eingaben getätigt hat,
+		//Die Variable wird nur beschrieben, falls der Ausgangslagetext noch aus den Dummidaten aus 
+		//ionViewDidEnter besteht. Wenn der User schon ohne Hilfestellung Eingaben getätigt hat,
 		//dann sollen diese nicht überschrieben werden.
+		//Außerdem wird so verhindert, dass der geschriebene Text des Users - auch mit Hilfestellung,
+		//beim erneuten aufrufen der Seite überschrieben wird.
 		if (this.ausgangslageText == "") {
         this.ausgangslageText= "Startzeitpunkt:";
 		}
-		//Dann wird der ausgangslageCounter auf 1 gesetzt ... 
+		//Dann wird der ausgangslageCounter auf 1 gesetzt (UI Veränderungen in szenarioerstellung.html). 
 		this.ausgangslageCounter = 1;
-		// ... und sein neuer Wert in der Datenbank gespeichert,
+		// Zusätzlich wird der neue Wert in der Datenbank gespeichert. So kann der User beim erneuten aufruf der 
+		//Seite an der gleichen Stelle weiterarbeiten.
         this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);
         //Übergabe des neuen ausgangslageCounters an die ausgangslageDialog() Funktion.		
 		this.ausgangslageDialog(this.ausgangslageCounter);
@@ -420,9 +425,11 @@ public toggleEndzustand: boolean = true;
 
   }
   
+  //Funktion, um abhängig vom übergebenen Wert den ausgangslageDialogText in 
+  //szenarioerstelung.html festelgt.
   ausgangslageDialog (counter) {
 	if (counter == 0) {
-	
+		
 	} else if (counter == 1) {
 	  this.ausgangslageDialogText = "Fangen Sie bei der Angabe des Startzeitpunktes Ihres Dialoges an. Wann beginnt Ihr Szenario?"
 	} else if (counter == 2) {
@@ -430,12 +437,18 @@ public toggleEndzustand: boolean = true;
 	} else if (counter == 3) {
         this.ausgangslageDialogText = 'Welchen Einfluss haben die Randbedingungen und deren Begründungen auf [das Produkt oder die Dienstleistung] und die Ausgangslage?'	
 	} else {
-        this.ausgangslageDialogText = 'Welchen Einfluss haben die Randbedingungen und deren Begründungen auf [das Produkt oder die Dienstleistung] und die Ausgangslage?'			
+        this.ausgangslageDialogText = 'Welchen Einfluss haben die Randbedingungen und deren Begründungen auf [das Produkt oder die Dienstleistung] und die Ausgangslage?'
+        //Wenn alle Fragen vom User bearbeitet worden sind, wird die entwicklungsHilfe() Funktion aufgerufen.	
 		this.entwicklungHilfe();
 	}
   }
   
+  //In der entwicklungHilfe() Funktion wird ein Toast in der Mitte der Seite (middle) aufgerufen,
+  //der dem User den weiteren Ablauf erklärt (siehe Message).
   entwicklungHilfe() {
+	//Der Toast wird nur dann aufgerufen, wenn der Ausgangslagetext noch aus den Dummidaten aus 
+    //ionViewDidEnter besteht. So wird verhindert, dass der User, der sein Szenario nur noch einmal 
+	//nachträglich verändern will, immer wieder den Toast wegklicken muss.
     if (this.entwicklungText == "") {
 	  let toast = this.toastCtrl.create({
         message: 'Sie haben Ihr Ausgangslage fertiggestellt! Sie können jedoch trotzdem jederzeit Verfeinerungen vornehmen.\nSie können bei Bedarf ebenfalls das Dialogfeld wieder einblenden. \Nun entwickeln Sie Ihr Szenario von der Ausgangslage aus weiter. \n Das Dialogfeld wird Ihnen auch hier helfen',
@@ -443,11 +456,14 @@ public toggleEndzustand: boolean = true;
 	    showCloseButton: true,
 	    closeButtonText: 'Weiter',
 	  });
-
+      //Wenn der User auf weiter klickt ...
       toast.onDidDismiss(() => {
-        
+          //Dann wird der entwicklungCounter auf 1 gesetzt (UI Veränderungen in szenarioerstellung.html). 
 		  this.entwicklungCounter = 1;
-          this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);		
+		  // Zusätzlich wird der neue Wert in der Datenbank gespeichert. So kann der User beim erneuten aufruf der 
+		  //Seite an der gleichen Stelle weiterarbeiten.
+          this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);
+          //Übergabe des neuen entwicklungCounter an die entwicklungDialog() Funktion.		  
 		  this.entwicklungDialog(this.entwicklungCounter);
       });
 
@@ -455,7 +471,8 @@ public toggleEndzustand: boolean = true;
 	}
 
   }
-
+  
+  //Siehe Erklärung zu ausgangslageDialog
   entwicklungDialog (counter) {
 	if (counter == 0) {
 		
@@ -471,6 +488,7 @@ public toggleEndzustand: boolean = true;
 	}
   }
 
+  //Sehr ähnlich zu entwicklungHilfe(). Siehe Erklärung dort.
   endzustandHilfe() {
     if(this.endzustandText == "") {
 	  let toast = this.toastCtrl.create({
@@ -493,6 +511,7 @@ public toggleEndzustand: boolean = true;
     }
   }
   
+  //Siehe Erklärung zu ausgangslageDialog  
   endzustandDialog (counter) {
 	if (counter == 1) {
 	  this.endzustandDialogText = "Frage 1"
@@ -506,11 +525,18 @@ public toggleEndzustand: boolean = true;
 	}
   }  
   
+  //Funktion, um abhängig vom übergebenen Argument den entsprechenden Counter hochzuzählen.
   countForward(identifier) {
+	//Wenn der identifier der ausgangslage entspricht und kleiner als 4 ist (es gibt nur 3 Fragen
+	//und bei einem zusätzlichen Klick den entwicklungHilfe-Toast), dann
 	if(identifier == "ausgangslage" && this.ausgangslageCounter < 4) {
+	  //Zähle den ausgangslageCounter um eine Zahl nach oben.
       this.ausgangslageCounter = this.ausgangslageCounter + 1;
+	  //und übergebe diesen neuen Wert an die ausgangslageDialog() Funktion
 	  this.ausgangslageDialog(this.ausgangslageCounter);
+	  //Dann update den neuen ausgangslageCounter-Wert in der Datenbank.
 	  this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);
+	//Der Rest der Funktion funktionert in gleicher Art und Weise nur für die anderen Counter.
 	} else if (identifier == "entwicklung" && this.entwicklungCounter < 4) {
 		this.entwicklungCounter = this.entwicklungCounter + 1;
 		this.entwicklungDialog(this.entwicklungCounter);
@@ -521,16 +547,26 @@ public toggleEndzustand: boolean = true;
         this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);		
 	}		
   }
-  
+
+  //Funktion, um abhängig vom übergebenen Argument den entsprechenden Counter runterzuzählen.  
   countBackward(identifier) {
+    //Wenn der identifier der ausgangslage entspricht...
     if (identifier == "ausgangslage") {
+	  //Zähle den ausgangslageCounter um eine Zahl nach unten.
       this.ausgangslageCounter = this.ausgangslageCounter - 1;
+	  //und übergebe diesen neuen Wert an die ausgangslageDialog() Funktion.
 	  this.ausgangslageDialog(this.ausgangslageCounter);
+	  //Dann update den neuen ausgangslageCounter-Wert in der Datenbank.
 	  this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);
+	//Dieser Teil der Funktion funktionert noch nicht korrekt.
+	//Hier soll der Counter um 2 reduziert werden, wenn der Counter gleich 4 ist.
+	//Hintergrund ist, dass man sonst zwei mal auf zurück klicken müsste, wenn der Counter
+	//auf 4 steht, um die Frage 2 zu sehen.
 	} else if (this.ausgangslageCounter == 4 && identifier == "ausgangslage") {
 	    this.ausgangslageCounter = this.ausgangslageCounter -2;
 		this.entwicklungDialog(this.ausgangslageCounter);
-        this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);	
+        this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);
+    //Der Rest der Funktion funktionert in gleicher Art und Weise nur für die anderen Counter.		
 	}else if (identifier == "entwicklung") {
 		this.entwicklungCounter = this.entwicklungCounter - 1;
 		this.entwicklungDialog(this.entwicklungCounter);

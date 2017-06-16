@@ -173,12 +173,22 @@
   </ion-list> 
 </div>
 
-<h4>Szenario von {{currentSzenario?.username}}</h4>
-  <h6>{{currentSzenario?.szenariotext}}</h6>
+<h4  padding>Szenario von {{currentSzenario?.username}}</h4>
+<div [hidden]="hilfeVar">
+  <h6 padding-left>{{currentSzenario?.szenariotext}}</h6>
+</div>
+<div [hidden]="!hilfeVar">
+  <h5 padding-top padding-left>Ausgangslage:</h5>
+  <h6 padding-left>{{currentSzenario?.ausgangslage}}</h6>
+  <h5 padding-top padding-left>Entwicklung:</h5>  
+  <h6 padding-left>{{currentSzenario?.entwicklung}}</h6>
+  <h5 padding-top padding-left>Endzustand:</h5>
+  <h6 padding-left>{{currentSzenario?.endzustand}}</h6>
+</div>
 
 
 <!-- Button, der beim clicken die goToRatingDetail() Funktion aufruft und die aktuelle SzenarioID übergibt -->
-<button ion-button (click)="goToRatingDetail(currentSzenario.id)"
+<button ion-button padding (click)="goToRatingDetail(currentSzenario.id)"
 >Dieses Szenario bewerten und kommentieren</button>
 
 
