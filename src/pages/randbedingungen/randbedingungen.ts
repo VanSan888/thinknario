@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController,IonicPage, AlertController  } from 'ionic-angular';
+import { NavController, IonicPage, AlertController  } from 'ionic-angular';
 import { SzenarioProvider } from '../../providers/szenario/szenario';
 
 //Für Erklärungen siehe annahmen.ts (sehr ähnlicher Code/gleiche Funktion).

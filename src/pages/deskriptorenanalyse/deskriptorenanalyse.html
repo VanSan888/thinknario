@@ -11,9 +11,35 @@
 <h4>Erklärung</h4>
   <p>Erklärung, was hier gemacht werden soll. Video/gif und die Eintragung der Graphen in die Koordinatensysteme</p>
 
+
 <div>
-  <canvas id="drawing-canvas"></canvas>
+<canvas-whiteboard #canvasWhiteboard
+                       [drawButtonClass]="'fa fa-pencil fa-2x'"
+                       [drawButtonText]="'Draw'"
+                       [clearButtonClass]="'fa fa-eraser fa-2x canvas_whiteboard_button-clear'"
+                       [clearButtonText]="'Clear'"
+                       [undoButtonText]="'Undo'"
+                       [undoButtonEnabled]="true"
+                       [redoButtonText]="'Redo'"
+                       [redoButtonEnabled]="true"
+                       [colorPickerEnabled]="true"
+                       (onBatchUpdate)="sendBatchUpdate($event)"
+                       (onClear)="onCanvasClear()"
+                       (onUndo)="onCanvasUndo($event)"
+                       (onRedo)="onCanvasRedo($event)">                    
+</canvas-whiteboard>
 </div>
 
+
+<canvas #canvas1></canvas>
+<button ion-button (click)="clearCanvas1()">Zurücksetzen</button>
+
+
+<canvas #canvas2></canvas> 
+<button ion-button (click)="clearCanvas2()">Zurücksetzen</button>
+  
+
+
 <button ion-button [navPush]="annahmenPage">Weiter</button>
+<button ion-button (click)="server()">Upload</button>
 </ion-content>
