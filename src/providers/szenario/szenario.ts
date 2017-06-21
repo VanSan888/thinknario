@@ -87,6 +87,8 @@ export class SzenarioProvider {
 	  schluesselfaktor6: schluesselfaktor6,
     });
   }
+  
+
 
   
   //Funtkion an sich ist gleich den obigen. Hier wird allerdings auch der Pfad (path) mit

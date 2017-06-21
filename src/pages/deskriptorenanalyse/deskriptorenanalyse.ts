@@ -6,7 +6,7 @@ import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/operator/pairwise';
 import { CanvasWhiteboardUpdate } from 'ng2-canvas-whiteboard';
 import { ViewEncapsulation } from '@angular/core';
-//Alte Ideen müssen in dieser Datei, in der dazugehörigen .hmtl und in app.module bereinigt werden
+//Alte Ideen müssen in dieser Datei, in der dazugehörigen .hmtl module.ts und in app.module bereinigt werden
 
 import * as firebase from 'firebase';
 
@@ -19,20 +19,7 @@ import * as firebase from 'firebase';
   encapsulation: ViewEncapsulation.None 
 })
 export class DeskriptorenanalysePage {
-	
 
-  sendBatchUpdate(updates: CanvasWhiteboardUpdate[]) {
-    console.log(updates);
-  }
-  onCanvasClear() {
-    console.log("The canvas was cleared");
-  }
-  onCanvasUndo(updateUUID: string) {
-    console.log(`UNDO with uuid: ${updateUUID}`);
-  }
-  onCanvasRedo(updateUUID: string) {
-    console.log(`REDO with uuid: ${updateUUID}`);
-  }
 	
 
 //Notwendig für Naviigation	
@@ -41,13 +28,15 @@ annahmenPage = 'AnnahmenPage'
   //a reference to the canvas element from our template
   @ViewChild('canvas1') public canvas1: ElementRef;
   @ViewChild('canvas2') public canvas2: ElementRef;
+  @ViewChild('canvasWhiteboard') public canvas3: ElementRef;
 
   // setting a width and height for the canvas
   @Input() public width = 400;
   @Input() public height = 300;
 
   private cx1: CanvasRenderingContext2D;
-  private cx2: CanvasRenderingContext2D;  
+  private cx2: CanvasRenderingContext2D;
+  //private cx3: CanvasRenderingContext2D;
 
   
   
@@ -59,9 +48,11 @@ annahmenPage = 'AnnahmenPage'
   ionViewDidLoad() {
     // get the context
     const canvasEl1: HTMLCanvasElement = this.canvas1.nativeElement;
-    const canvasEl2: HTMLCanvasElement = this.canvas2.nativeElement;	
+    const canvasEl2: HTMLCanvasElement = this.canvas2.nativeElement;
+	//const canvasEl3: HTMLCanvasElement = this.canvas3.nativeElement;
     this.cx1 = canvasEl1.getContext('2d');
     this.cx2 = canvasEl2.getContext('2d');
+    //this.cx3 = canvasEl3.getContext('2d');	
 	
 	if ( this.cx1 == null || this.cx2 == null) {
       let alert = this.alertCtrl.create({
@@ -79,6 +70,7 @@ annahmenPage = 'AnnahmenPage'
     canvasEl2.height = this.height;
 
 
+
     // set some default properties about the line
     this.cx1.lineWidth = 3;
     this.cx1.lineCap = 'round';
@@ -93,7 +85,23 @@ annahmenPage = 'AnnahmenPage'
 	this.captureEvents2(canvasEl2);
   }
   
-/*
+  ionViewDidEnter () {
+	 let storageRef =  firebase.storage().ref().child(firebase.auth().currentUser.uid +'/').child('deskriptor1');
+	 storageRef.getDownloadURL().then(function(url) {
+
+     // Insert url into an <img> tag to "download"
+	 /*
+	 var img: HTMLImageElement = new Image;
+     img.onload = function(){
+     this.cx1.drawImage(img,0,0); // Or at whatever offset you like
+     };
+     img.src = url;*/
+    });
+  }
+  
+
+  
+
   sendBatchUpdate(updates: CanvasWhiteboardUpdate[]) {
     console.log(updates);
   }
@@ -106,7 +114,7 @@ annahmenPage = 'AnnahmenPage'
   onCanvasRedo(updateUUID: string) {
     console.log(`REDO with uuid: ${updateUUID}`);
   }
-*/
+
 
 private captureEvents1(canvasEl: HTMLCanvasElement) {
   Observable
@@ -214,21 +222,22 @@ private captureEvents2(canvasEl: HTMLCanvasElement) {
         this.cx2.clearRect(0, 0, this.canvas2.nativeElement.width, this.canvas2.nativeElement.height);   
     }
 
-/*	
-  server(){
-    let canvas = this.canvas1.nativeElement;
-    var storageRef = firebase.storage().ref();	
-	canvas.toBlob(function(blob){
+	
+  uploadDeskriptoren(){
+    let canvas1 = this.canvas1.nativeElement;
+	let canvas2 = this.canvas2.nativeElement;
+    var storageRef = firebase.storage().ref().child(firebase.auth().currentUser.uid);	
+	canvas1.toBlob(blob => {
       var image = new Image();
       image.src = blob;
-      var uploadTask = storageRef.child('images/' + "apple").put(blob);
+      var uploadTask = storageRef.child("deskriptor1").put(blob);
+    });
+	canvas2.toBlob(blob => {
+      var image = new Image();
+      image.src = blob;
+      var uploadTask = storageRef.child("deskriptor2").put(blob);
     });
 	/*
-    var storageRef = firebase.storage().ref();
-    var image = new Image();
-    image.src = this.canvas1.nativeElement.toDataURL("image/png");
-    var uploadTask = storageRef.child('images/').put(image);
-	
     uploadTask.on('state_changed', function(snapshot){
         // Observe state change events such as progress, pause, and resume
         // See below for more detail
@@ -239,7 +248,28 @@ private captureEvents2(canvasEl: HTMLCanvasElement) {
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         var downloadURL = uploadTask.snapshot.downloadURL;
     });
+	*/
   }
-*/
+
+  
+  uploadDeskriptoren2(){
+    let canvas1 = this.canvas1.nativeElement;
+    var storageRef = firebase.storage().ref().child(firebase.auth().currentUser.uid);	
+    storageRef.putString(canvas1, 'base64', {contentType:'image/jpg'}).then(function(snapshot) {
+    console.log('Uploaded a base64 string!');
+    });
+	/*
+    uploadTask.on('state_changed', function(snapshot){
+        // Observe state change events such as progress, pause, and resume
+        // See below for more detail
+    }, function(error) {
+        // Handle unsuccessful uploads
+    }, function() {
+        // Handle successful uploads on complete
+        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        var downloadURL = uploadTask.snapshot.downloadURL;
+    });
+	*/
+  }
   
 }
