@@ -138,5 +138,4 @@ public toggleVar: boolean= true;
       }  
   } 
 
-
 }

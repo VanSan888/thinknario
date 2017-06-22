@@ -31,7 +31,7 @@
 </div>
 
 
-<canvas #canvas1></canvas>
+<canvas #canvas1 crossOrigin='Anonymous'></canvas>
 <button ion-button (click)="clearCanvas1()">Zurücksetzen</button>
 
 
@@ -41,4 +41,8 @@
 
 <button ion-button [navPush]="annahmenPage">Weiter</button>
 <button ion-button (click)="uploadDeskriptoren()">Upload</button>
+<button ion-button (click)="uploadDeskriptoren2()">Upload2</button>
+<button ion-button (click)="uploadDeskriptoren3()">Upload3</button>
+<p>{{downloadURL}}</p>
+<button ion-button (click)="downloadDeskriptoren()">Download</button>
 </ion-content>

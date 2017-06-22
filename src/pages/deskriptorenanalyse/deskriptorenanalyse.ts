@@ -37,6 +37,8 @@ annahmenPage = 'AnnahmenPage'
   private cx1: CanvasRenderingContext2D;
   private cx2: CanvasRenderingContext2D;
   //private cx3: CanvasRenderingContext2D;
+  
+  public downloadURL: any;
 
   
   
@@ -49,7 +51,7 @@ annahmenPage = 'AnnahmenPage'
     // get the context
     const canvasEl1: HTMLCanvasElement = this.canvas1.nativeElement;
     const canvasEl2: HTMLCanvasElement = this.canvas2.nativeElement;
-	//const canvasEl3: HTMLCanvasElement = this.canvas3.nativeElement;
+	const canvasEl3: HTMLCanvasElement = this.canvas3.nativeElement;
     this.cx1 = canvasEl1.getContext('2d');
     this.cx2 = canvasEl2.getContext('2d');
     //this.cx3 = canvasEl3.getContext('2d');	
@@ -225,10 +227,12 @@ private captureEvents2(canvasEl: HTMLCanvasElement) {
 	
   uploadDeskriptoren(){
     let canvas1 = this.canvas1.nativeElement;
+	canvas1.crossOrigin = "anonymous";
 	let canvas2 = this.canvas2.nativeElement;
     var storageRef = firebase.storage().ref().child(firebase.auth().currentUser.uid);	
 	canvas1.toBlob(blob => {
       var image = new Image();
+	  image.crossOrigin="anonymous";
       image.src = blob;
       var uploadTask = storageRef.child("deskriptor1").put(blob);
     });
@@ -254,11 +258,11 @@ private captureEvents2(canvasEl: HTMLCanvasElement) {
   
   uploadDeskriptoren2(){
     let canvas1 = this.canvas1.nativeElement;
+	let dataURL = canvas1.toDataURL().substring(24);
     var storageRef = firebase.storage().ref().child(firebase.auth().currentUser.uid);	
-    storageRef.putString(canvas1, 'base64', {contentType:'image/jpg'}).then(function(snapshot) {
+    var uploadTask = storageRef.putString(dataURL, 'base64', {contentType:'image/jpg'}).then(function(snapshot) {
     console.log('Uploaded a base64 string!');
-    });
-	/*
+    });/*
     uploadTask.on('state_changed', function(snapshot){
         // Observe state change events such as progress, pause, and resume
         // See below for more detail
@@ -268,8 +272,45 @@ private captureEvents2(canvasEl: HTMLCanvasElement) {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         var downloadURL = uploadTask.snapshot.downloadURL;
-    });
-	*/
+    });*/
   }
+  
+
+  uploadDeskriptoren3(){
+    let canvas1 = this.canvas1.nativeElement;
+	let dataURL = canvas1.toDataURL();
+    var storageRef = firebase.storage().ref().child(firebase.auth().currentUser.uid);	
+    var uploadTask = storageRef.putString(dataURL.substring(24), 'base64', {contentType:'image/jpg'}).then(snapshot => {
+    console.log('Uploaded a base64 string!');
+    }).then(uploadTask.on('state_changed', function(snapshot){
+        // Observe state change events such as progress, pause, and resume
+        // See below for more detail
+    }, function(error) {
+        // Handle unsuccessful uploads
+    }, function() {
+        // Handle successful uploads on complete
+        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        this.downloadURL = uploadTask.snapshot.downloadURL;
+    }));
+	
+
+  }
+  
+  downloadDeskriptoren() {
+	/*let storageRef =  firebase.storage().ref().child(firebase.auth().currentUser.uid +'/').child('deskriptor1');
+	storageRef.getDownloadURL().then(function(url) {	 
+	this.downloadURL = url;
+	});	*/
+	this.downloadURL = 'https://firebasestorage.googleapis.com/v0/b/thinknario.appspot.com/o/BNgYN3kSbBcgVDFQ9aiVFYOONPH2%2Fdeskriptor1?alt=media&token=6b425a58-6347-4e83-a0df-e737a8d17e74'
+    let canvas1 = this.canvas1.nativeElement;
+	let ctx = canvas1.getContext('2d');
+    var img = new Image();
+	//img.crossOrigin = 'anonymous';
+    img.src = this.downloadURL;
+    img.onload = function(){
+      ctx.drawImage(img,0,0); // Or at whatever offset you like
+    };
+  }
+
   
 }
