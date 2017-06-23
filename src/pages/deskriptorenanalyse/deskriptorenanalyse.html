@@ -13,14 +13,15 @@
 
 
 <div>
+
 <canvas-whiteboard #canvasWhiteboard
                        [drawButtonClass]="'fa fa-pencil fa-2x'"
-                       [drawButtonText]="'Draw'"
+                       [drawButtonText]="'Zeichnen'"
                        [clearButtonClass]="'fa fa-eraser fa-2x canvas_whiteboard_button-clear'"
-                       [clearButtonText]="'Clear'"
-                       [undoButtonText]="'Undo'"
+                       [clearButtonText]="'Zurücksetzen'"
+                       [undoButtonText]="'Rückgängig'"
                        [undoButtonEnabled]="true"
-                       [redoButtonText]="'Redo'"
+                       [redoButtonText]="'Wiederherstellen'"
                        [redoButtonEnabled]="true"
                        [colorPickerEnabled]="true"
                        (onBatchUpdate)="sendBatchUpdate($event)"
@@ -30,19 +31,16 @@
 </canvas-whiteboard>
 </div>
 
-
 <canvas #canvas1 crossOrigin='Anonymous'></canvas>
 <button ion-button (click)="clearCanvas1()">Zurücksetzen</button>
-
+<button ion-button (click)="drawCanvas1()">Zeichnen</button>
+<button ion-button (click)="eraseCanvas1()">Radieren</button>
 
 <canvas #canvas2></canvas> 
 <button ion-button (click)="clearCanvas2()">Zurücksetzen</button>
 
 
-<button ion-button [navPush]="annahmenPage">Weiter</button>
-<button ion-button (click)="uploadDeskriptoren()">Upload</button>
-<button ion-button (click)="uploadDeskriptoren2()">Upload2</button>
-<button ion-button (click)="uploadDeskriptoren3()">Upload3</button>
-<p>{{downloadURL}}</p>
-<button ion-button (click)="downloadDeskriptoren()">Download</button>
+<button ion-button [navPush]="annahmenPage" (click)="uploadDeskriptoren()">Weiter</button>
+
+
 </ion-content>
