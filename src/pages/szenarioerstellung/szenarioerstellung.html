@@ -38,9 +38,9 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
   <ion-list *ngSwitchCase="'Annahmen'">
    <p>Hier können Sie ihre Annahmen einsehen und bearbeiten</p>
    <ion-item>
-      <ion-label stacked>Annahme 1</ion-label>
-      <ion-input type="text" placeholder="Hier Ihre erste Annahme eingeben" 
-	  [(ngModel)]="annahme1" name="annahme1" (change)="updateAnnahme('annahme1', annahme1, annahmebegruendung1)">
+     <ion-label stacked>Annahme 1</ion-label>
+     <ion-input type="text" placeholder="Hier Ihre erste Annahme eingeben" 
+	   [(ngModel)]="annahme1" name="annahme1" (change)="updateAnnahme('annahme1', annahme1, annahmebegruendung1)">
 	  </ion-input>
     </ion-item>
 	<ion-item [hidden]="!annahmebegruendung1 || !toggleVar">
@@ -51,8 +51,8 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
 	  </ion-input>
 	</ion-item>
     <ion-item>
-      <ion-label stacked>Annahme 2</ion-label>
-      <ion-input type="text" placeholder="Hier Ihre zweite Annahme eingeben" 
+    <ion-label stacked>Annahme 2</ion-label>
+    <ion-input type="text" placeholder="Hier Ihre zweite Annahme eingeben" 
 	  [(ngModel)]="annahme2" name="annahme2" (change)="updateAnnahme('annahme2', annahme2, annahmebegruendung2)">
 	  </ion-input>
     </ion-item>
@@ -64,29 +64,29 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
 	  </ion-input>
 	</ion-item>
     <ion-item [hidden]="!annahme2">
-      <ion-label stacked>Annahme 3</ion-label>
-      <ion-input type="text" placeholder="Optional hier Ihre dritte Annahme eingeben" 
+    <ion-label stacked>Annahme 3</ion-label>
+    <ion-input type="text" placeholder="Optional hier Ihre dritte Annahme eingeben" 
 	  [(ngModel)]="annahme3" name="annahme3" (change)="updateAnnahme('annahme3', annahme3, annahmebegruendung3)">
 	  </ion-input>
     </ion-item>
     <ion-item [hidden]="!annahmebegruendung3 || !toggleVar">
-	  <ion-label for="Begruendung3">Begründung:</ion-label>
+	    <ion-label for="Begruendung3">Begründung:</ion-label>
       <ion-input type="text" placeholder="Hier Ihre Begründung eingeben"
       [(ngModel)]="annahmebegruendung3" name="Begruendung3" 
-	  (change)="updateAnnahme('annahme3', annahme3, annahmebegruendung3)" padding-left>
+	    (change)="updateAnnahme('annahme3', annahme3, annahmebegruendung3)" padding-left>
       </ion-input>
     </ion-item>
     <ion-item [hidden]="!annahme3">
       <ion-label stacked>Annahme 4</ion-label>
       <ion-input type="text" placeholder="Optional hier Ihre vierte Annahme eingeben" 
-	  [(ngModel)]="annahme4" name="annahme4" (change)="updateAnnahme('annahme4', annahme4, annahmebegruendung4)">
-	  </ion-input>
+	    [(ngModel)]="annahme4" name="annahme4" (change)="updateAnnahme('annahme4', annahme4, annahmebegruendung4)">
+	    </ion-input>
     </ion-item>
     <ion-item [hidden]="!annahmebegruendung4 || !toggleVar">
-	  <ion-label for="Begruendung4">Begründung:</ion-label>
+	    <ion-label for="Begruendung4">Begründung:</ion-label>
       <ion-input type="text" placeholder="Hier Ihre Begründung eingeben"
       [(ngModel)]="annahmebegruendung4" name="Begruendung4" 
-	  (change)="updateAnnahme('annahme4', annahme4, annahmebegruendung4)" padding-left>
+	    (change)="updateAnnahme('annahme4', annahme4, annahmebegruendung4)" padding-left>
       </ion-input>
     </ion-item>
     <div [hidden]="!annahmebegruendung1 && !annahmebegruendung2 && !annahmebegruendung3 && !annahmebegruendung4" padding-bottom>
@@ -102,9 +102,9 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
     <ion-item>
       <ion-label stacked>Randbedingung 1</ion-label>
       <ion-input type="text" placeholder="Hier Ihre erste Randbedingung eingeben" 
-	  [(ngModel)]="randbedingung1" name="randbedingung1"
-	  (change)="updateRandbedingung('randbedingung1', randbedingung1, randbedingungbegruendung1)">
-	  </ion-input>
+	    [(ngModel)]="randbedingung1" name="randbedingung1"
+	    (change)="updateRandbedingung('randbedingung1', randbedingung1, randbedingungbegruendung1)">
+	    </ion-input>
     </ion-item>
 	<ion-item [hidden]="!randbedingungbegruendung1 || !toggleVar">
 	  <ion-label for="Randbedingungbegruendung1">Begründung:</ion-label>
@@ -116,9 +116,9 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
     <ion-item>
       <ion-label stacked>Randbedingung 2</ion-label>
       <ion-input type="text" placeholder="Hier Ihre zweite Randbedingung eingeben" 
-	  [(ngModel)]="randbedingung2" name="randbedingung2"
-	  (change)="updateRandbedingung('randbedingung2', randbedingung2, randbedingungbegruendung2)">
-	  </ion-input>
+	    [(ngModel)]="randbedingung2" name="randbedingung2"
+	    (change)="updateRandbedingung('randbedingung2', randbedingung2, randbedingungbegruendung2)">
+	    </ion-input>
     </ion-item>
 	<ion-item [hidden]="!randbedingungbegruendung2 || !toggleVar">
 	  <ion-label for="Randbedingungbegruendung2">Begründung:</ion-label>
@@ -232,38 +232,50 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
 
 <div [ngSwitch]="hilfen">
   <ion-list *ngSwitchCase="'schluesselfaktoren'">
-    <ion-item>
-       <ion-thumbnail item-left>
-        <img src="img/thumbnail-puppy-1.jpg">
-      </ion-thumbnail>
-	  <h4>Entwicklung Schlüsselfaktor 1</h4>
-	  <p> Zum vergrößern auf Bild klicken </p>
-	  <p> Muss editierbar sein </p>
-   </ion-item>
-	<ion-item>
-      <ion-thumbnail item-left>
-        <img src="img/thumbnail-puppy-1.jpg">
-      </ion-thumbnail>
-	  <h4>Entwicklung Schlüsselfaktor 2</h4>
-	  <p> Zum vergrößern auf Bild klicken </p>
-	  <p> Muss editierbar sein </p>
-    </ion-item>
-	<ion-item>
-      <ion-thumbnail item-left>
-        <img src="img/thumbnail-puppy-1.jpg">
-      </ion-thumbnail>
-	  <h4>Entwicklung Schlüsselfaktor 2</h4>
-	  <p> Zum vergrößern auf Bild klicken </p>
-	  <p> Muss editierbar sein </p>
-    </ion-item>
-	<ion-item>
-      <ion-thumbnail item-left>
-        <img src="img/thumbnail-puppy-1.jpg">
-      </ion-thumbnail>
-	  <h4>Entwicklung Schlüsselfaktor 2</h4>
-	  <p> Zum vergrößern auf Bild klicken </p>
-	  <p> Muss editierbar sein </p>
-    </ion-item>
+    <ion-slides>
+      <ion-slide *ngIf='schluesselfaktor1'>
+        <p>Nach links oder rechts schieben, um andere Schlüsselfaktoren anzuzeigen</p>
+        <canvas #canvas1></canvas>
+          <button ion-button (click)="clearCanvas1()">Zurücksetzen</button>
+          <button ion-button (click)="drawCanvas1()">Zeichnen</button>
+          <button ion-button (click)="eraseCanvas1()">Radieren</button>
+      </ion-slide>
+      <ion-slide *ngIf='schluesselfaktor2'>
+        <p>Nach links oder rechts schieben, um andere Schlüsselfaktoren anzuzeigen</p>
+        <canvas #canvas2></canvas> 
+        <button ion-button (click)="clearCanvas2()">Zurücksetzen</button>
+        <button ion-button (click)="drawCanvas2()">Zeichnen</button>
+        <button ion-button (click)="eraseCanvas2()">Radieren</button>
+      </ion-slide>
+      <ion-slide  *ngIf='schluesselfaktor3'>
+        <p>Nach links oder rechts schieben, um andere Schlüsselfaktoren anzuzeigen</p>
+        <canvas #canvas3></canvas> 
+        <button ion-button (click)="clearCanvas3()">Zurücksetzen</button>
+        <button ion-button (click)="drawCanvas3()">Zeichnen</button>
+        <button ion-button (click)="eraseCanvas3()">Radieren</button>
+      </ion-slide>
+      <ion-slide *ngIf='schluesselfaktor4'>
+        <p>Nach links oder rechts schieben, um andere Schlüsselfaktoren anzuzeigen</p>
+        <canvas #canvas4></canvas> 
+        <button ion-button (click)="clearCanvas4()">Zurücksetzen</button>
+        <button ion-button (click)="drawCanvas4()">Zeichnen</button>
+        <button ion-button (click)="eraseCanvas4()">Radieren</button>
+      </ion-slide>
+      <ion-slide *ngIf='schluesselfaktor5'>
+        <p>Nach links oder rechts schieben, um andere Schlüsselfaktoren anzuzeigen</p>
+        <canvas #canvas5></canvas> 
+        <button ion-button (click)="clearCanvas5()">Zurücksetzen</button>
+        <button ion-button (click)="drawCanvas5()">Zeichnen</button>
+        <button ion-button (click)="eraseCanvas5()">Radieren</button>
+      </ion-slide>
+      <ion-slide *ngIf='schluesselfaktor6'>
+        <p>Nach links oder rechts schieben, um andere Schlüsselfaktoren anzuzeigen</p>
+        <canvas #canvas6></canvas> 
+        <button ion-button (click)="clearCanvas6()">Zurücksetzen</button>
+        <button ion-button (click)="drawCanvas6()">Zeichnen</button>
+        <button ion-button (click)="eraseCanvas6()">Radieren</button>
+      </ion-slide>
+    </ion-slides>
   </ion-list> 
 </div>
 

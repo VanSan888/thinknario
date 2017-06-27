@@ -36,7 +36,7 @@ public toggleVar: boolean= true;
 			   public alertCtrl: AlertController) {
 
   }
-  
+
   ionViewDidEnter() {
 	
 	//Siehe Erklärung bei ProblemfeldPage

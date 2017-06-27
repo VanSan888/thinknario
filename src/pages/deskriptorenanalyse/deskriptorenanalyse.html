@@ -31,16 +31,46 @@
 </canvas-whiteboard>
 </div>
 
-<canvas #canvas1 crossOrigin='Anonymous'></canvas>
-<button ion-button (click)="clearCanvas1()">Zurücksetzen</button>
-<button ion-button (click)="drawCanvas1()">Zeichnen</button>
-<button ion-button (click)="eraseCanvas1()">Radieren</button>
+<div [hidden]="!schluesselfaktor1">
+  <canvas #canvas1></canvas>
+  <button ion-button (click)="clearCanvas1()">Zurücksetzen</button>
+  <button ion-button (click)="drawCanvas1()">Zeichnen</button>
+  <button ion-button (click)="eraseCanvas1()">Radieren</button>
+</div>
+<div [hidden]="!schluesselfaktor2">
+  <canvas #canvas2></canvas> 
+  <button ion-button (click)="clearCanvas2()">Zurücksetzen</button>
+  <button ion-button (click)="drawCanvas2()">Zeichnen</button>
+  <button ion-button (click)="eraseCanvas2()">Radieren</button>
+</div>
+<div [hidden]="!schluesselfaktor3">
+  <canvas #canvas3></canvas> 
+  <button ion-button (click)="clearCanvas3()">Zurücksetzen</button>
+  <button ion-button (click)="drawCanvas3()">Zeichnen</button>
+  <button ion-button (click)="eraseCanvas3()">Radieren</button>
+</div>
+<div [hidden]="!schluesselfaktor4">
+  <canvas #canvas4></canvas> 
+  <button ion-button (click)="clearCanvas4()">Zurücksetzen</button>
+  <button ion-button (click)="drawCanvas4()">Zeichnen</button>
+  <button ion-button (click)="eraseCanvas4()">Radieren</button>
+</div>
+<div [hidden]="!schluesselfaktor5">
+  <canvas #canvas5></canvas> 
+  <button ion-button (click)="clearCanvas5()">Zurücksetzen</button>
+  <button ion-button (click)="drawCanvas5()">Zeichnen</button>
+  <button ion-button (click)="eraseCanvas5()">Radieren</button>
+</div>
+<div [hidden]="!schluesselfaktor6">
+  <canvas #canvas6></canvas> 
+  <button ion-button (click)="clearCanvas6()">Zurücksetzen</button>
+  <button ion-button (click)="drawCanvas6()">Zeichnen</button>
+  <button ion-button (click)="eraseCanvas6()">Radieren</button>
+</div>
 
-<canvas #canvas2></canvas> 
-<button ion-button (click)="clearCanvas2()">Zurücksetzen</button>
 
 
-<button ion-button [navPush]="annahmenPage" (click)="uploadDeskriptoren()">Weiter</button>
+<button ion-button [navPush]="annahmenPage">Weiter</button>
 
 
 </ion-content>

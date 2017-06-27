@@ -123,8 +123,8 @@
    <ion-item [hidden]="!begruendung4 || !toggleVar">
      <ion-label for="Begruendung4">Begründung:</ion-label>
      <ion-input type="text" placeholder="Hier Ihre Begründung eingeben"
-     [(ngModel)]="begruendung4" name="Begruendung4" 
-	 (change)="updateAnnahme('annahme4', annahme4, begruendung4)" padding-left>
+     [(ngModel)]="begruendung4" name="Begruendung4"
+	   (change)="updateAnnahme('annahme4', annahme4, begruendung4)" padding-left>
      </ion-input>
    </ion-item>
    <!-- Solange keine Begründungen eingegeben wurden, ist der Toggle-Button, um die Begründungen ein und 

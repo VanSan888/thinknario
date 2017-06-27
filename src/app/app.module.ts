@@ -21,9 +21,6 @@ import { SzenarioValidator } from '../validators/szenarioValidator';
 //Optional für Handykamera
 import { Camera } from '@ionic-native/camera';
 
-
-
-
 @NgModule({
   declarations: [
     MyApp,

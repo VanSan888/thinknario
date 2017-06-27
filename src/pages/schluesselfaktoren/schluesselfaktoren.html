@@ -32,7 +32,8 @@
     <ion-item>
       <ion-label>Schlüsselfaktor 3</ion-label>
       <ion-checkbox  checked="false" [(ngModel)]="schluesselfaktor3"
-      (ionChange)="updateSchluesselfaktor3(schluesselfaktor3)"
+      (ionChange)="updateSchluesselfaktor(schluesselfaktor1, schluesselfaktor2,
+	    schluesselfaktor3, schluesselfaktor4, schluesselfaktor5, schluesselfaktor6)"
       name="schluesselfaktor3" formControlName="schluesselfaktorenform3"></ion-checkbox>
     </ion-item>
     <ion-item>

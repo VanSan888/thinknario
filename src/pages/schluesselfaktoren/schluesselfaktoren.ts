@@ -41,8 +41,8 @@ public schluesselfaktor6: boolean = false;
 		    schluesselfaktorenform2   : [ false ],
 		    schluesselfaktorenform3   : [ false ],
 		    schluesselfaktorenform4   : [ false ],
-			schluesselfaktorenform5   : [ false ],
-			schluesselfaktorenform6   : [ false ],
+			  schluesselfaktorenform5   : [ false ],
+			  schluesselfaktorenform6   : [ false ],
 			//Abrufen des SzenarioValidators und seiner Methode für "Problemfeld"
 		 }, { validator: _VAL.validateCheckboxesProblemfeld })
       });
@@ -56,35 +56,35 @@ public schluesselfaktor6: boolean = false;
         this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
         this.szenarioData = szenarioSnap;
         this.schluesselfaktor1 = this.szenarioData.schluesselfaktoren.schluesselfaktor1;
-	    this.schluesselfaktor2 = this.szenarioData.schluesselfaktoren.schluesselfaktor2;
+	      this.schluesselfaktor2 = this.szenarioData.schluesselfaktoren.schluesselfaktor2;
         this.schluesselfaktor3 = this.szenarioData.schluesselfaktoren.schluesselfaktor3;
         this.schluesselfaktor4 = this.szenarioData.schluesselfaktoren.schluesselfaktor4;
         this.schluesselfaktor5 = this.szenarioData.schluesselfaktoren.schluesselfaktor5;
-		this.schluesselfaktor6 = this.szenarioData.schluesselfaktoren.schluesselfaktor6;
+		    this.schluesselfaktor6 = this.szenarioData.schluesselfaktoren.schluesselfaktor6;
 	    });
 	  } else {
 		  this.szenarioProvider.updateSchluesselfaktor(this.schluesselfaktor1,
-                                                       this.schluesselfaktor2,
-						                               this.schluesselfaktor3,
-						                               this.schluesselfaktor4,
-						                               this.schluesselfaktor5,
-						                               this.schluesselfaktor6);
+                                                   this.schluesselfaktor2,
+						                                       this.schluesselfaktor3,
+						                                       this.schluesselfaktor4,
+						                                       this.schluesselfaktor5,
+						                                       this.schluesselfaktor6);
 	  }
     });
   }
   
   updateSchluesselfaktor(schluesselfaktor1,
                          schluesselfaktor2,
-						 schluesselfaktor3,
-						 schluesselfaktor4,
-						 schluesselfaktor5,
-						 schluesselfaktor6) {
+						             schluesselfaktor3,
+						             schluesselfaktor4,
+						             schluesselfaktor5,
+						             schluesselfaktor6) {
     this.szenarioProvider.updateSchluesselfaktor(schluesselfaktor1,
                                                  schluesselfaktor2,
-						                         schluesselfaktor3,
-						                         schluesselfaktor4,
-						                         schluesselfaktor5,
-						                         schluesselfaktor6);
+						                                     schluesselfaktor3,
+						                                     schluesselfaktor4,
+						                                     schluesselfaktor5,
+						                                     schluesselfaktor6);
   }
 
 }

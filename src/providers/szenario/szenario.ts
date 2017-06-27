@@ -49,7 +49,7 @@ export class SzenarioProvider {
 					problemfeld4: boolean): firebase.Promise<any> {	
     return firebase.database().ref('/szenarioData')
     .child(firebase.auth().currentUser.uid).child("problemfeld").update({
-      problemfeld1: problemfeld1,
+    problemfeld1: problemfeld1,
 	  problemfeld2: problemfeld2,
 	  problemfeld3: problemfeld3,
 	  problemfeld4: problemfeld4,
@@ -73,13 +73,13 @@ export class SzenarioProvider {
 
   updateSchluesselfaktor(schluesselfaktor1: boolean,
                          schluesselfaktor2: boolean,
-						 schluesselfaktor3: boolean,
-						 schluesselfaktor4: boolean,
-						 schluesselfaktor5: boolean,
-						 schluesselfaktor6: boolean,): firebase.Promise<any> {	
+						             schluesselfaktor3: boolean,
+						             schluesselfaktor4: boolean,
+						             schluesselfaktor5: boolean,
+						             schluesselfaktor6: boolean,): firebase.Promise<any> {	
     return firebase.database().ref('/szenarioData')
     .child(firebase.auth().currentUser.uid).child("schluesselfaktoren").update({
-      schluesselfaktor1: schluesselfaktor1,
+    schluesselfaktor1: schluesselfaktor1,
 	  schluesselfaktor2: schluesselfaktor2,
 	  schluesselfaktor3: schluesselfaktor3,
 	  schluesselfaktor4: schluesselfaktor4,
@@ -97,7 +97,7 @@ export class SzenarioProvider {
 	  
 	return firebase.database().ref('/szenarioData')
 	.child(firebase.auth().currentUser.uid).child("annahmen").child(path).update({
-      annahme: annahme,
+    annahme: annahme,
 	  begruendung: begruendung,
     });
   }
@@ -107,7 +107,7 @@ export class SzenarioProvider {
 	  
 	return firebase.database().ref('/szenarioData')
 	.child(firebase.auth().currentUser.uid).child("randbedingungen").child(path).update({
-      randbedingung: randbedingung,
+    randbedingung: randbedingung,
 	  begruendung: begruendung,
     });
   }  
@@ -116,7 +116,7 @@ export class SzenarioProvider {
 	  
 	return firebase.database().ref('/szenarioData')
 	.child(firebase.auth().currentUser.uid).child("ereignisse").child(path).update({
-      ereignis: ereignis,
+    ereignis: ereignis,
 	  begruendung: begruendung,
     });
   }   
@@ -124,11 +124,11 @@ export class SzenarioProvider {
   
   updateSzenariotext(ausgangslageText: string,
                      entwicklungText: string,
-					 endzustandText: string) : firebase.Promise<any> {
+					           endzustandText: string) : firebase.Promise<any> {
 	  
 	return firebase.database().ref('/szenarioData')
 	.child(firebase.auth().currentUser.uid).child('szenariotext').update({
-      ausgangslage: ausgangslageText,
+    ausgangslage: ausgangslageText,
 	  entwicklung: entwicklungText,
 	  endzustand: endzustandText,
     });
@@ -144,11 +144,11 @@ export class SzenarioProvider {
   
   updateCounter(ausgangslageCounter: number,
                 entwicklungCounter: number,
-				endzustandCounter: number) : firebase.Promise<any> {
+				        endzustandCounter: number) : firebase.Promise<any> {
 	  
 	return firebase.database().ref('/szenarioData')
 	.child(firebase.auth().currentUser.uid).child('szenariotext').update({
-      ausgangslagecounter: ausgangslageCounter,
+    ausgangslagecounter: ausgangslageCounter,
 	  entwicklungcounter: entwicklungCounter,
 	  endzustandcounter: endzustandCounter,
     });

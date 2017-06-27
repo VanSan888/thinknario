@@ -1,6 +1,11 @@
-import { Component } from '@angular/core';
-import { NavController,IonicPage, AlertController, ToastController } from 'ionic-angular';
+import { Component, Input, ElementRef, ViewChild } from '@angular/core';
+import { NavController, IonicPage, AlertController, ToastController, Slides  } from 'ionic-angular';
 import { SzenarioProvider } from '../../providers/szenario/szenario';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/takeUntil';
+import 'rxjs/add/operator/pairwise';
+import * as firebase from 'firebase';
 
 
 
@@ -71,13 +76,107 @@ public toggleAusgangslage: boolean = true;
 public toggleEntwicklung: boolean = true;
 public toggleEndzustand: boolean = true;
 
+//a reference to the canvas element from our template
+@ViewChild('canvas1') public canvas1: ElementRef;
+@ViewChild('canvas2') public canvas2: ElementRef;
+@ViewChild('canvas3') public canvas3: ElementRef;
+@ViewChild('canvas4') public canvas4: ElementRef;
+@ViewChild('canvas5') public canvas5: ElementRef;
+@ViewChild('canvas6') public canvas6: ElementRef;
 
+// setting a width and height for the canvas
+@Input() public width = 400;
+@Input() public height = 300;
 
+private cx1: CanvasRenderingContext2D;
+private cx2: CanvasRenderingContext2D;
+private cx3: CanvasRenderingContext2D;
+private cx4: CanvasRenderingContext2D;
+private cx5: CanvasRenderingContext2D;
+private cx6: CanvasRenderingContext2D;
+
+public schluesselfaktor1: boolean = false;
+public schluesselfaktor2: boolean = false;
+public schluesselfaktor3: boolean = false;
+public schluesselfaktor4: boolean = false;
+public schluesselfaktor5: boolean = false;
+public schluesselfaktor6: boolean = false;
 
   constructor(public navCtrl: NavController,
               public szenarioProvider: SzenarioProvider,
-			  public alertCtrl: AlertController,
-			  public toastCtrl: ToastController) {
+			        public alertCtrl: AlertController,
+			        public toastCtrl: ToastController) {}
+
+ionViewDidLoad() {
+    // get the context
+    const canvasEl1: HTMLCanvasElement = this.canvas1.nativeElement;
+    const canvasEl2: HTMLCanvasElement = this.canvas2.nativeElement;
+    const canvasEl3: HTMLCanvasElement = this.canvas3.nativeElement;
+    const canvasEl4: HTMLCanvasElement = this.canvas4.nativeElement;
+    const canvasEl5: HTMLCanvasElement = this.canvas5.nativeElement;
+    const canvasEl6: HTMLCanvasElement = this.canvas6.nativeElement;
+    this.cx1 = canvasEl1.getContext('2d');
+    this.cx2 = canvasEl2.getContext('2d');
+    this.cx3 = canvasEl3.getContext('2d');
+    this.cx4 = canvasEl4.getContext('2d');
+    this.cx5 = canvasEl5.getContext('2d');
+    this.cx6 = canvasEl6.getContext('2d');	
+	
+	if ( this.cx1 == null || this.cx2 == null || this.cx3 == null || this.cx4 == null || 
+       this.cx5 == null || this.cx6 == null) {
+      let alert = this.alertCtrl.create({
+        title: 'Keine Unterstützung',
+        subTitle: 'Ihr System unterstützt diese Funktion nicht. Bitte updaten Sie ihr System',
+        buttons: ['Abbrechen']
+      });
+      alert.present();	
+	}
+	
+    // set the width and height
+    canvasEl1.width  = this.width;
+    canvasEl1.height = this.height;
+    canvasEl2.width  = this.width;
+    canvasEl2.height = this.height;
+    canvasEl3.width  = this.width;
+    canvasEl3.height = this.height;
+    canvasEl4.width  = this.width;
+    canvasEl4.height = this.height;
+    canvasEl5.width  = this.width;
+    canvasEl5.height = this.height;
+    canvasEl6.width  = this.width;
+    canvasEl6.height = this.height;
+	  //this.canvasWhiteboard.canvas.width = this.width;
+    //this.canvasWhiteboard.canvas.height = this.height;
+
+
+    // set some default properties about the line
+    this.cx1.lineWidth = 3;
+    this.cx1.lineCap = 'round';
+    this.cx1.strokeStyle = '#000';
+    this.cx2.lineWidth = 3;
+    this.cx2.lineCap = 'round';
+    this.cx2.strokeStyle = '#000';
+    this.cx3.lineWidth = 3;
+    this.cx3.lineCap = 'round';
+    this.cx3.strokeStyle = '#000';
+    this.cx4.lineWidth = 3;
+    this.cx4.lineCap = 'round';
+    this.cx4.strokeStyle = '#000';
+    this.cx5.lineWidth = 3;
+    this.cx5.lineCap = 'round';
+    this.cx5.strokeStyle = '#000';
+    this.cx6.lineWidth = 3;
+    this.cx6.lineCap = 'round';
+    this.cx6.strokeStyle = '#000';
+	
+    
+    // we'll implement this method to start capturing mouse events
+    this.captureEvents(canvasEl1, this.cx1);
+	  this.captureEvents(canvasEl2, this.cx2);
+    this.captureEvents(canvasEl3, this.cx3);
+    this.captureEvents(canvasEl4, this.cx4);
+    this.captureEvents(canvasEl5, this.cx5);
+    this.captureEvents(canvasEl6, this.cx6);
 
   }
 
@@ -88,28 +187,34 @@ public toggleEndzustand: boolean = true;
       this.szenarioData = szenarioSnap;
       this.annahme1 = this.szenarioData.annahmen.annahme1.annahme;
       this.annahme2 = this.szenarioData.annahmen.annahme2.annahme;
-	  this.annahme3 = this.szenarioData.annahmen.annahme3.annahme;
+	    this.annahme3 = this.szenarioData.annahmen.annahme3.annahme;
       this.annahme4 = this.szenarioData.annahmen.annahme4.annahme;
       this.annahmebegruendung1 = this.szenarioData.annahmen.annahme1.begruendung;
       this.annahmebegruendung2 = this.szenarioData.annahmen.annahme2.begruendung;
       this.annahmebegruendung3 = this.szenarioData.annahmen.annahme3.begruendung;
       this.annahmebegruendung4 = this.szenarioData.annahmen.annahme4.begruendung;	  
-	  this.randbedingung1 = this.szenarioData.randbedingungen.randbedingung1.randbedingung;
+	    this.randbedingung1 = this.szenarioData.randbedingungen.randbedingung1.randbedingung;
       this.randbedingung2 = this.szenarioData.randbedingungen.randbedingung2.randbedingung;
-	  this.randbedingung3 = this.szenarioData.randbedingungen.randbedingung3.randbedingung;
+	    this.randbedingung3 = this.szenarioData.randbedingungen.randbedingung3.randbedingung;
       this.randbedingung4 = this.szenarioData.randbedingungen.randbedingung4.randbedingung;
       this.randbedingungbegruendung1 = this.szenarioData.randbedingungen.randbedingung1.begruendung;
-	  this.randbedingungbegruendung2 = this.szenarioData.randbedingungen.randbedingung2.begruendung;
+	    this.randbedingungbegruendung2 = this.szenarioData.randbedingungen.randbedingung2.begruendung;
       this.randbedingungbegruendung3 = this.szenarioData.randbedingungen.randbedingung3.begruendung;
       this.randbedingungbegruendung4 = this.szenarioData.randbedingungen.randbedingung4.begruendung;
       this.ereignis1 = this.szenarioData.ereignisse.ereignis1.ereignis;
       this.ereignis2 = this.szenarioData.ereignisse.ereignis2.ereignis;
-	  this.ereignis3 = this.szenarioData.ereignisse.ereignis3.ereignis;
+	    this.ereignis3 = this.szenarioData.ereignisse.ereignis3.ereignis;
       this.ereignis4 = this.szenarioData.ereignisse.ereignis4.ereignis;
-	  this.ereignisbegruendung1 = this.szenarioData.ereignisse.ereignis1.begruendung;
-	  this.ereignisbegruendung2 = this.szenarioData.ereignisse.ereignis2.begruendung;
-	  this.ereignisbegruendung3 = this.szenarioData.ereignisse.ereignis3.begruendung;
-	  this.ereignisbegruendung4 = this.szenarioData.ereignisse.ereignis4.begruendung;
+	    this.ereignisbegruendung1 = this.szenarioData.ereignisse.ereignis1.begruendung;
+	    this.ereignisbegruendung2 = this.szenarioData.ereignisse.ereignis2.begruendung;
+	    this.ereignisbegruendung3 = this.szenarioData.ereignisse.ereignis3.begruendung;
+	    this.ereignisbegruendung4 = this.szenarioData.ereignisse.ereignis4.begruendung;
+      this.schluesselfaktor1 = this.szenarioData.schluesselfaktoren.schluesselfaktor1;
+	    this.schluesselfaktor2 = this.szenarioData.schluesselfaktoren.schluesselfaktor2;
+      this.schluesselfaktor3 = this.szenarioData.schluesselfaktoren.schluesselfaktor3;
+      this.schluesselfaktor4 = this.szenarioData.schluesselfaktoren.schluesselfaktor4;
+      this.schluesselfaktor5 = this.szenarioData.schluesselfaktoren.schluesselfaktor5;
+		  this.schluesselfaktor6 = this.szenarioData.schluesselfaktoren.schluesselfaktor6;
 
 	  //Schauen, ob Daten im Pfad "szenariotext" hinterlegt sind.
       this.szenarioProvider.checkPath("szenariotext").then((result: boolean) => {
@@ -119,7 +224,7 @@ public toggleEndzustand: boolean = true;
 		  //szenariotext.ausgangslage beschrieben. So kann später gewährleistet werden,
 		  //dass auch bei einem Wechsel von ohne zu mit Hilfestellung die bisherigen Eingaben des Users in
 		  //szenarioText nicht verloren gehen. (siehe Auch startHilfe()).
-	      this.szenarioText = this.szenarioData.szenariotext.ausgangslage;
+	    this.szenarioText = this.szenarioData.szenariotext.ausgangslage;
 		  this.ausgangslageText = this.szenarioData.szenariotext.ausgangslage;
 		  this.entwicklungText = this.szenarioData.szenariotext.entwicklung;
 		  this.endzustandText = this.szenarioData.szenariotext.endzustand;
@@ -147,6 +252,74 @@ public toggleEndzustand: boolean = true;
 		  }
 	  });
 	});
+
+  let storageRef =  firebase.storage().ref().child(firebase.auth().currentUser.uid + '/').child('deskriptor1');
+	  storageRef.getDownloadURL().then( url => {
+      let canvas1 = this.canvas1.nativeElement;
+	    let ctx = canvas1.getContext('2d');
+      var img = new Image();
+	    img.crossOrigin = 'anonymous';
+      img.src = url;
+      img.onload = function(){
+        ctx.drawImage(img,0,0); // Or at whatever offset you like
+      };
+    });
+    storageRef =  firebase.storage().ref().child(firebase.auth().currentUser.uid + '/').child('deskriptor2');
+	  storageRef.getDownloadURL().then( url => {
+      let canvas2 = this.canvas2.nativeElement;
+	    let ctx = canvas2.getContext('2d');
+      var img = new Image();
+	    img.crossOrigin = 'anonymous';
+      img.src = url;
+      img.onload = function(){
+        ctx.drawImage(img,0,0); // Or at whatever offset you like
+      };
+    });
+    storageRef =  firebase.storage().ref().child(firebase.auth().currentUser.uid + '/').child('deskriptor3');
+	  storageRef.getDownloadURL().then( url => {
+      let canvas3 = this.canvas3.nativeElement;
+	    let ctx = canvas3.getContext('2d');
+      var img = new Image();
+	    img.crossOrigin = 'anonymous';
+      img.src = url;
+      img.onload = function(){
+        ctx.drawImage(img,0,0); // Or at whatever offset you like
+      };
+    });
+    storageRef =  firebase.storage().ref().child(firebase.auth().currentUser.uid + '/').child('deskriptor4');
+	  storageRef.getDownloadURL().then( url => {
+      let canvas4 = this.canvas4.nativeElement;
+	    let ctx = canvas4.getContext('2d');
+      var img = new Image();
+	    img.crossOrigin = 'anonymous';
+      img.src = url;
+      img.onload = function(){
+        ctx.drawImage(img,0,0); // Or at whatever offset you like
+      };
+    });
+    storageRef =  firebase.storage().ref().child(firebase.auth().currentUser.uid + '/').child('deskriptor5');
+	  storageRef.getDownloadURL().then( url => {
+      let canvas5 = this.canvas5.nativeElement;
+	    let ctx = canvas5.getContext('2d');
+      var img = new Image();
+	    img.crossOrigin = 'anonymous';
+      img.src = url;
+      img.onload = function(){
+        ctx.drawImage(img,0,0); // Or at whatever offset you like
+      };
+    });
+    storageRef =  firebase.storage().ref().child(firebase.auth().currentUser.uid + '/').child('deskriptor6');
+	  storageRef.getDownloadURL().then( url => {
+      let canvas6 = this.canvas6.nativeElement;
+	    let ctx = canvas6.getContext('2d');
+      var img = new Image();
+	    img.crossOrigin = 'anonymous';
+      img.src = url;
+      img.onload = function(){
+        ctx.drawImage(img,0,0); // Or at whatever offset you like
+      };
+    });
+
   }
   
   //Toast1 wird in der Mitte der Seite angezeigt (middle) und fängt an dem User
@@ -384,6 +557,187 @@ public toggleEndzustand: boolean = true;
       this.szenarioProvider.updateEreignis(path, ereignis, begruendung);		       	  
       }  
   }
+
+private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
+  Observable
+    .fromEvent(canvasEl, 'mousedown')
+    .switchMap((e) => {
+      return Observable
+        .fromEvent(canvasEl, 'mousemove')
+        .takeUntil(Observable.fromEvent(canvasEl, 'mouseup'))
+        .pairwise()
+    })
+    .subscribe((res: [MouseEvent, MouseEvent]) => {
+      const rect = canvasEl.getBoundingClientRect();
+
+      const prevPos = {
+        x: res[0].clientX - rect.left,
+        y: res[0].clientY - rect.top
+      };
+
+      const currentPos = {
+        x: res[1].clientX - rect.left,
+        y: res[1].clientY - rect.top
+      };
+
+      this.drawOnCanvas(prevPos, currentPos, ctx);
+    });
+}
+
+
+  private drawOnCanvas(
+    prevPos: { x: number, y: number }, 
+    currentPos: { x: number, y: number },
+    ctx: CanvasRenderingContext2D
+    ) {
+      // incase the context is not set
+      if (!ctx) { return; }
+
+      // start our drawing path
+      ctx.beginPath();
+
+      // we're drawing lines so we need a previous position
+      if (prevPos) {
+      // sets the start point
+      ctx.moveTo(prevPos.x, prevPos.y); // from
+
+      // draws a line from the start pos until the current position
+      ctx.lineTo(currentPos.x, currentPos.y);
+
+      // strokes the current path with the styles we set earlier
+      ctx.stroke();
+      }
+  }
+  
+  clearCanvas(ctx : CanvasRenderingContext2D){	  
+    ctx.clearRect(0, 0, this.width, this.height);   
+  }
+  clearCanvas1(){
+    this.clearCanvas(this.cx1);
+  }
+  clearCanvas2(){
+    this.clearCanvas(this.cx2);
+  }
+  clearCanvas3(){
+    this.clearCanvas(this.cx3);
+  }
+  clearCanvas4(){
+    this.clearCanvas(this.cx4);
+  }
+  clearCanvas5(){
+    this.clearCanvas(this.cx5);
+  }
+  clearCanvas6(){
+    this.clearCanvas(this.cx6);
+  }
+	
+  drawCanvas(ctx : CanvasRenderingContext2D){
+    ctx.lineWidth = 3;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = '#000';	  
+  }
+  drawCanvas1(){
+    this.drawCanvas(this.cx1)
+  }
+  drawCanvas2(){
+    this.drawCanvas(this.cx2)
+  }
+  drawCanvas3(){
+    this.drawCanvas(this.cx3)
+  }
+  drawCanvas4(){
+    this.drawCanvas(this.cx4)
+  }
+  drawCanvas5(){
+    this.drawCanvas(this.cx5)
+  }
+  drawCanvas6(){
+    this.drawCanvas(this.cx6)
+  }
+
+  eraseCanvas(ctx : CanvasRenderingContext2D){
+    ctx.lineWidth = 15;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = '#FFF';	  
+  }
+  eraseCanvas1() {
+    this.eraseCanvas(this.cx1)
+  }
+  eraseCanvas2() {
+    this.eraseCanvas(this.cx2)
+  }
+  eraseCanvas3() {
+    this.eraseCanvas(this.cx3)
+  }
+  eraseCanvas4() {
+    this.eraseCanvas(this.cx4)
+  }
+  eraseCanvas5() {
+    this.eraseCanvas(this.cx5)
+  }
+  eraseCanvas6() {
+    this.eraseCanvas(this.cx6)
+  }
+
+ionViewWillLeave(){
+    let canvas1 = this.canvas1.nativeElement;
+	  let canvas2 = this.canvas2.nativeElement;
+	  let canvas3 = this.canvas3.nativeElement;
+    let canvas4 = this.canvas4.nativeElement;
+    let canvas5 = this.canvas5.nativeElement;
+    let canvas6 = this.canvas6.nativeElement;
+
+    var storageRef = firebase.storage().ref().child(firebase.auth().currentUser.uid);	
+	  canvas1.toBlob(blob => {
+      var image = new Image();
+	  image.crossOrigin="anonymous";
+      image.src = blob;
+      /*var uploadTask =*/ storageRef.child("deskriptor1").put(blob);
+    });
+	  canvas2.toBlob(blob => {
+      var image = new Image();
+	  image.crossOrigin="anonymous";
+      image.src = blob;
+      /*var uploadTask =*/ storageRef.child("deskriptor2").put(blob);
+    });
+	  canvas3.toBlob(blob => {
+      var image = new Image();
+	  image.crossOrigin="anonymous";
+      image.src = blob;
+      /*var uploadTask =*/ storageRef.child("deskriptor3").put(blob);
+    });
+	  canvas4.toBlob(blob => {
+      var image = new Image();
+	  image.crossOrigin="anonymous";
+      image.src = blob;
+      /*var uploadTask =*/ storageRef.child("deskriptor4").put(blob);
+    });
+	  canvas5.toBlob(blob => {
+      var image = new Image();
+	  image.crossOrigin="anonymous";
+      image.src = blob;
+      /*var uploadTask =*/ storageRef.child("deskriptor5").put(blob);
+    });
+	  canvas6.toBlob(blob => {
+      var image = new Image();
+	  image.crossOrigin="anonymous";
+      image.src = blob;
+      /*var uploadTask =*/ storageRef.child("deskriptor6").put(blob);
+    });
+	/*
+    uploadTask.on('state_changed', function(snapshot){
+        // Observe state change events such as progress, pause, and resume
+        // See below for more detail
+    }, function(error) {
+        // Handle unsuccessful uploads
+    }, function() {
+        // Handle successful uploads on complete
+        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        var downloadURL = uploadTask.snapshot.downloadURL;
+    });
+	*/
+  }
+
   
   //Funktion zum Updaten der Szenariotexte für die Ausgangslage, die Entwicklung und den Endzustand
   updateSzenariotext(ausgangslageText: string,

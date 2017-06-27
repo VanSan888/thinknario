@@ -10,8 +10,8 @@ import { CommonModule } from '@angular/common';
   ],
   imports: [
     IonicPageModule.forChild(DeskriptorenanalysePage),
-	CanvasWhiteboardModule,
-	CommonModule,
+	  CanvasWhiteboardModule,
+	  CommonModule,
 
   ],
   exports: [
