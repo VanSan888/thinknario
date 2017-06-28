@@ -15,16 +15,16 @@
 
 <div padding>
   <ion-segment [(ngModel)]="hilfen">
-    <ion-segment-button value="Annahmen">
+    <ion-segment-button value="Annahmen" (click)="hideSchluesselfaktoren()">
       Annahmen
     </ion-segment-button>
-    <ion-segment-button value="randbedingungen">
+    <ion-segment-button value="randbedingungen" (click)="hideSchluesselfaktoren()">
       Randbedingungen
     </ion-segment-button>
-	<ion-segment-button value="ereignisse">
+	<ion-segment-button value="ereignisse" (click)="hideSchluesselfaktoren()">
       Ereignisse
     </ion-segment-button>
-	<ion-segment-button value="schluesselfaktoren">
+	<ion-segment-button value="schluesselfaktoren" (click)="toggleSchluesselfaktoren()">
       Schlüsselfaktoren
     </ion-segment-button>
   </ion-segment>
@@ -156,21 +156,33 @@
   </ion-list> 
 </div>
 
-<div [ngSwitch]="hilfen">
-  <ion-list *ngSwitchCase="'schluesselfaktoren'">
-    <ion-item>
-
-    </ion-item>
-	<ion-item>
-
-    </ion-item>
-	<ion-item>
-
-    </ion-item>
-	<ion-item>
-
-    </ion-item>
-  </ion-list> 
+<div [hidden]='!toggleVarSchluesselfaktoren'>
+    <ion-slides>
+      <ion-slide [hidden]='!currentSzenario?.schluesselfaktor1'>
+        <p>Nach links oder rechts schieben, um andere Schlüsselfaktoren anzuzeigen</p>
+        <canvas #canvas1></canvas>
+      </ion-slide>
+      <ion-slide [hidden]='!currentSzenario?.schluesselfaktor2'>
+        <p>Nach links oder rechts schieben, um andere Schlüsselfaktoren anzuzeigen</p>
+        <canvas #canvas2></canvas> 
+      </ion-slide>
+      <ion-slide [hidden]='!currentSzenario?.schluesselfaktor3'>
+        <p>Nach links oder rechts schieben, um andere Schlüsselfaktoren anzuzeigen</p>
+        <canvas #canvas3></canvas> 
+      </ion-slide>
+      <ion-slide [hidden]='!currentSzenario?.schluesselfaktor4'>
+        <p>Nach links oder rechts schieben, um andere Schlüsselfaktoren anzuzeigen</p>
+        <canvas #canvas4></canvas> 
+      </ion-slide>
+      <ion-slide [hidden]='!currentSzenario?.schluesselfaktor5'>
+        <p>Nach links oder rechts schieben, um andere Schlüsselfaktoren anzuzeigen</p>
+        <canvas #canvas5></canvas> 
+      </ion-slide>
+      <ion-slide [hidden]='!currentSzenario?.schluesselfaktor6'>
+        <p>Nach links oder rechts schieben, um andere Schlüsselfaktoren anzuzeigen</p>
+        <canvas #canvas6></canvas> 
+      </ion-slide>
+    </ion-slides>
 </div>
 
 <h4  padding>Szenario von {{currentSzenario?.username}}</h4>

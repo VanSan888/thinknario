@@ -32,8 +32,8 @@
 <p>Bewerten und kommentieren Sie weitere Szenarien, um zusätzliche Punkte zu sammeln:</p>
 
 
-  <ion-list>
-    <ion-item *ngFor="let szenario of szenarioList; let i=index"  (click)="goToSzenarioDetail(szenario.id)">
+<ion-list>
+  <ion-item *ngFor="let szenario of szenarioList; let i=index"  (click)="goToSzenarioDetail(szenario.id)">
 	  <div *ngIf="i<3">
 	  <ion-card>
         <ion-card-header>Szenario von {{szenario.username}}</ion-card-header>
@@ -46,7 +46,7 @@
 	  </ion-card>
 	  </div>
 	</ion-item>
-  </ion-list>
+</ion-list>
 
 
 <button ion-button [navPush]="bibliothekPage">Bibliothek durchsuchen</button>

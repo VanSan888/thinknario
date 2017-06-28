@@ -14,16 +14,16 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
 <!-- Hier wird ein ion-segment mit 4 Buttons erstellt. -->
 <div padding>
   <ion-segment [(ngModel)]="hilfen">
-    <ion-segment-button value="Annahmen">
+    <ion-segment-button value="Annahmen" (click)="hideSchluesselfaktoren()">
       Annahmen
     </ion-segment-button>
-    <ion-segment-button value="randbedingungen">
+    <ion-segment-button value="randbedingungen" (click)="hideSchluesselfaktoren()">
       Randbedingungen
     </ion-segment-button>
-	<ion-segment-button value="ereignisse">
+	<ion-segment-button value="ereignisse" (click)="hideSchluesselfaktoren()">
       Ereignisse
     </ion-segment-button>
-	<ion-segment-button value="schluesselfaktoren">
+	<ion-segment-button value="schluesselfaktoren" (click)="toggleSchluesselfaktoren()">
       Schlüsselfaktoren
     </ion-segment-button>
   </ion-segment>
@@ -230,45 +230,44 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
   </ion-list> 
 </div>
 
-<div [ngSwitch]="hilfen">
-  <ion-list *ngSwitchCase="'schluesselfaktoren'">
+<div [hidden]='!toggleVarSchluesselfaktoren'>
     <ion-slides>
-      <ion-slide *ngIf='schluesselfaktor1'>
+      <ion-slide [hidden]='!schluesselfaktor1'>
         <p>Nach links oder rechts schieben, um andere Schlüsselfaktoren anzuzeigen</p>
         <canvas #canvas1></canvas>
-          <button ion-button (click)="clearCanvas1()">Zurücksetzen</button>
-          <button ion-button (click)="drawCanvas1()">Zeichnen</button>
-          <button ion-button (click)="eraseCanvas1()">Radieren</button>
+        <button ion-button (click)="clearCanvas1()">Zurücksetzen</button>
+        <button ion-button (click)="drawCanvas1()">Zeichnen</button>
+        <button ion-button (click)="eraseCanvas1()">Radieren</button>
       </ion-slide>
-      <ion-slide *ngIf='schluesselfaktor2'>
+      <ion-slide [hidden]='!schluesselfaktor2'>
         <p>Nach links oder rechts schieben, um andere Schlüsselfaktoren anzuzeigen</p>
         <canvas #canvas2></canvas> 
         <button ion-button (click)="clearCanvas2()">Zurücksetzen</button>
         <button ion-button (click)="drawCanvas2()">Zeichnen</button>
         <button ion-button (click)="eraseCanvas2()">Radieren</button>
       </ion-slide>
-      <ion-slide  *ngIf='schluesselfaktor3'>
+      <ion-slide [hidden]='!schluesselfaktor3'>
         <p>Nach links oder rechts schieben, um andere Schlüsselfaktoren anzuzeigen</p>
         <canvas #canvas3></canvas> 
         <button ion-button (click)="clearCanvas3()">Zurücksetzen</button>
         <button ion-button (click)="drawCanvas3()">Zeichnen</button>
         <button ion-button (click)="eraseCanvas3()">Radieren</button>
       </ion-slide>
-      <ion-slide *ngIf='schluesselfaktor4'>
+      <ion-slide [hidden]='!schluesselfaktor4'>
         <p>Nach links oder rechts schieben, um andere Schlüsselfaktoren anzuzeigen</p>
         <canvas #canvas4></canvas> 
         <button ion-button (click)="clearCanvas4()">Zurücksetzen</button>
         <button ion-button (click)="drawCanvas4()">Zeichnen</button>
         <button ion-button (click)="eraseCanvas4()">Radieren</button>
       </ion-slide>
-      <ion-slide *ngIf='schluesselfaktor5'>
+      <ion-slide [hidden]='!schluesselfaktor5'>
         <p>Nach links oder rechts schieben, um andere Schlüsselfaktoren anzuzeigen</p>
         <canvas #canvas5></canvas> 
         <button ion-button (click)="clearCanvas5()">Zurücksetzen</button>
         <button ion-button (click)="drawCanvas5()">Zeichnen</button>
         <button ion-button (click)="eraseCanvas5()">Radieren</button>
       </ion-slide>
-      <ion-slide *ngIf='schluesselfaktor6'>
+      <ion-slide [hidden]='!schluesselfaktor6'>
         <p>Nach links oder rechts schieben, um andere Schlüsselfaktoren anzuzeigen</p>
         <canvas #canvas6></canvas> 
         <button ion-button (click)="clearCanvas6()">Zurücksetzen</button>
@@ -276,7 +275,6 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
         <button ion-button (click)="eraseCanvas6()">Radieren</button>
       </ion-slide>
     </ion-slides>
-  </ion-list> 
 </div>
 
 

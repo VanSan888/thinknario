@@ -8,12 +8,12 @@
 </ion-header>
 
 <ion-content padding>
-<h4>Erklärung</h4>
+<h4>Erklärung  {{test}}</h4>
   <p>Erklärung, was hier gemacht werden soll. Video/gif und die Eintragung der Graphen in die Koordinatensysteme</p>
 
 
-<div>
 
+<div>
 <canvas-whiteboard #canvasWhiteboard
                        [drawButtonClass]="'fa fa-pencil fa-2x'"
                        [drawButtonText]="'Zeichnen'"
@@ -36,6 +36,7 @@
   <button ion-button (click)="clearCanvas1()">Zurücksetzen</button>
   <button ion-button (click)="drawCanvas1()">Zeichnen</button>
   <button ion-button (click)="eraseCanvas1()">Radieren</button>
+  <button ion-button (click)="drawCoordinates()">Koordinatensystem zeichnen</button> 
 </div>
 <div [hidden]="!schluesselfaktor2">
   <canvas #canvas2></canvas> 

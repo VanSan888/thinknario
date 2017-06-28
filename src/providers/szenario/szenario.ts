@@ -29,6 +29,17 @@ export class SzenarioProvider {
 	  });
 	});  
   }
+
+  checkDeskriptorPath():  Promise<boolean> {
+	return new Promise<boolean>((resolve, reject) => {
+	  //Zu prüfender Pfad inklusive der Varibalen aus den einzelnen Seiten
+	  let storageRef = firebase.storage().ref().child(firebase.auth().currentUser.uid).child('deskriptor1');
+    storageRef.getDownloadURL();
+    resolve(true);
+    reject(false);
+
+	});  
+  }
   
   //Sehr ähnlich zu ProfileProvider. Siehe Erklärung dort
   getSzenarioData(): Promise<any> {

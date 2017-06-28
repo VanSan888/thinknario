@@ -20,8 +20,6 @@ import * as firebase from 'firebase';
 })
 export class DeskriptorenanalysePage {
 
-	
-
 //Notwendig für Naviigation	
 annahmenPage = 'AnnahmenPage'
 
@@ -80,8 +78,8 @@ constructor(public navCtrl: NavController,
     this.cx6 = canvasEl6.getContext('2d');
     //this.cx3 =  this.canvasWhiteboard.canvas.nativeElement.getContext('2d');	
 	
-	if ( this.cx1 == null || this.cx2 == null || this.cx3 == null || this.cx4 == null || 
-       this.cx5 == null || this.cx6 == null) {
+	  if( this.cx1 == null || this.cx2 == null || this.cx3 == null || this.cx4 == null || 
+        this.cx5 == null || this.cx6 == null) {
       let alert = this.alertCtrl.create({
         title: 'Keine Unterstützung',
         subTitle: 'Ihr System unterstützt diese Funktion nicht. Bitte updaten Sie ihr System',
@@ -149,7 +147,11 @@ constructor(public navCtrl: NavController,
       this.schluesselfaktor5 = this.szenarioData.schluesselfaktoren.schluesselfaktor5;
 		  this.schluesselfaktor6 = this.szenarioData.schluesselfaktoren.schluesselfaktor6;
     });
-    
+
+    this.szenarioProvider.checkDeskriptorPath().then((result: boolean) => {
+     if(result == false) {
+       let test = result;
+     } else {
     let storageRef =  firebase.storage().ref().child(firebase.auth().currentUser.uid + '/').child('deskriptor1');
 	  storageRef.getDownloadURL().then( url => {
       let canvas1 = this.canvas1.nativeElement;
@@ -216,9 +218,30 @@ constructor(public navCtrl: NavController,
         ctx.drawImage(img,0,0); // Or at whatever offset you like
       };
     });
+     }
+    });
+    
+    
   }
   
+drawCoordinates() {
 
+  this.cx1.beginPath();
+  this.cx1.moveTo(30,30);
+  this.cx1.lineTo(30,270);
+  this.cx1.lineTo(370,270);
+  this.cx1.stroke();
+  this.cx1.font = '20px serif';
+  this.cx1.fillText('2001',30,290);  
+  this.cx1.fillText('2018',340,290);
+  this.cx1.save();
+  this.cx1.translate(0, 300);
+  this.cx1.rotate(-Math.PI/2);
+  this.cx1.textAlign = "center";
+  this.cx1.fillText("Operationalisiertes Bsp.1", 170, 25);
+  this.cx1.restore();
+
+}
   
 
   sendBatchUpdate(updates: CanvasWhiteboardUpdate[]) {

@@ -1,5 +1,5 @@
 import { Component, Input, ElementRef, ViewChild } from '@angular/core';
-import { NavController, IonicPage, AlertController, ToastController, Slides  } from 'ionic-angular';
+import { NavController, IonicPage, AlertController, ToastController } from 'ionic-angular';
 import { SzenarioProvider } from '../../providers/szenario/szenario';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
@@ -8,12 +8,11 @@ import 'rxjs/add/operator/pairwise';
 import * as firebase from 'firebase';
 
 
-
-
 @IonicPage()
 @Component({
   selector: 'page-szenarioerstellung',
-  templateUrl: 'szenarioerstellung.html'
+  templateUrl: 'szenarioerstellung.html',
+  styles: ['canvas { border: 1px solid #000; }'],
 })
 export class SzenarioerstellungPage {
 
@@ -56,7 +55,7 @@ public endzustandText: string = "";
 //Zu Beginn ist hilfeVar=false. Das heißt, dass keine Hilfestellung benutzt wird.
 public hilfeVar: boolean = false;
 
-
+//Variable für variablen Untertitel in Alert
 public subTitleText: string;
 //Variable um über ion-toggle die Begründungen ein- und auszublenden
 public toggleVar: boolean = false;
@@ -87,6 +86,8 @@ public toggleEndzustand: boolean = true;
 // setting a width and height for the canvas
 @Input() public width = 400;
 @Input() public height = 300;
+
+public toggleVarSchluesselfaktoren: boolean = false;
 
 private cx1: CanvasRenderingContext2D;
 private cx2: CanvasRenderingContext2D;
@@ -608,6 +609,18 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
       ctx.stroke();
       }
   }
+
+  toggleSchluesselfaktoren(){
+    if(this.toggleVarSchluesselfaktoren == true){
+      this.toggleVarSchluesselfaktoren = false;
+    } else if (this.toggleVarSchluesselfaktoren == false) {
+      this.toggleVarSchluesselfaktoren = true;
+    }
+  }
+
+  hideSchluesselfaktoren(){
+      this.toggleVarSchluesselfaktoren = false;
+  } 
   
   clearCanvas(ctx : CanvasRenderingContext2D){	  
     ctx.clearRect(0, 0, this.width, this.height);   
