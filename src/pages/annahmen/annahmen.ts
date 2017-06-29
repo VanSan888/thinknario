@@ -46,11 +46,11 @@ public toggleVar: boolean= true;
         this.szenarioData = szenarioSnap;
         this.annahme1 = this.szenarioData.annahmen.annahme1.annahme;
         this.annahme2 = this.szenarioData.annahmen.annahme2.annahme;
-	    this.annahme3 = this.szenarioData.annahmen.annahme3.annahme;
+	      this.annahme3 = this.szenarioData.annahmen.annahme3.annahme;
         this.annahme4 = this.szenarioData.annahmen.annahme4.annahme;
         this.begruendung1 = this.szenarioData.annahmen.annahme1.begruendung;
         this.begruendung2 = this.szenarioData.annahmen.annahme2.begruendung;
-	    this.begruendung3 = this.szenarioData.annahmen.annahme3.begruendung;
+	      this.begruendung3 = this.szenarioData.annahmen.annahme3.begruendung;
         this.begruendung4 = this.szenarioData.annahmen.annahme4.begruendung;		
 	  });
      // Wenn keine Daten in dem abgefragten Pfad hinterlegt sind, dann beschreibe den Pfad mit Dummidaten	 

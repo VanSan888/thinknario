@@ -30,15 +30,16 @@ export class SzenarioProvider {
 	});  
   }
 
-  checkDeskriptorPath():  Promise<boolean> {
-	return new Promise<boolean>((resolve, reject) => {
+  checkDeskriptorPath():  Promise<any> {
+	return new Promise<any>((resolve, reject) => {
 	  //Zu prüfender Pfad inklusive der Varibalen aus den einzelnen Seiten
 	  let storageRef = firebase.storage().ref().child(firebase.auth().currentUser.uid).child('deskriptor1');
-    storageRef.getDownloadURL();
-    resolve(true);
-    reject(false);
-
-	});  
+    storageRef.getDownloadURL().then(function(url) {
+          resolve(url);
+        }).catch(function(error) {
+          resolve(error);
+        });
+  	});  
   }
   
   //Sehr ähnlich zu ProfileProvider. Siehe Erklärung dort
@@ -56,8 +57,8 @@ export class SzenarioProvider {
   //Siehe Erklärung dort. Namensgebung hier ist dann selbsterklärend. 
   updateProblemfeld(problemfeld1: boolean,
                     problemfeld2: boolean,
-					problemfeld3: boolean,
-					problemfeld4: boolean): firebase.Promise<any> {	
+					          problemfeld3: boolean,
+					          problemfeld4: boolean): firebase.Promise<any> {	
     return firebase.database().ref('/szenarioData')
     .child(firebase.auth().currentUser.uid).child("problemfeld").update({
     problemfeld1: problemfeld1,
@@ -99,8 +100,42 @@ export class SzenarioProvider {
     });
   }
   
+  updateStartEnd(startSzenario: string, endSzenario: string): firebase.Promise<any> {
+    return firebase.database().ref('/szenarioData').child(firebase.auth().currentUser.uid)
+    .child("deskriptorenanalyse").update({
+      startSzenario: startSzenario,
+      endSzenario: endSzenario,
+    });
+  }
 
+  getDeskriptorURL(dataPath: string): Promise<any>{
+    return new  Promise((resolve, reject) => { 
+    let storageRef =  firebase.storage().ref().child(firebase.auth().currentUser.uid + '/').child(dataPath);
+	    storageRef.getDownloadURL().then( url => {
+       resolve(url);
+      });
+    });
+  }
 
+  uploadDeskriptor(blob: any, dataPath: string): firebase.Promise<any> {
+    let storageRef = firebase.storage().ref().child(firebase.auth().currentUser.uid);	
+    return storageRef.child(dataPath).put(blob);
+    
+    /*var uploadTask = */
+
+    /*
+    uploadTask.on('state_changed', function(snapshot){
+        // Observe state change events such as progress, pause, and resume
+        // See below for more detail
+    }, function(error) {
+        // Handle unsuccessful uploads
+    }, function() {
+        // Handle successful uploads on complete
+        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        var downloadURL = uploadTask.snapshot.downloadURL;
+    }); */
+
+  }
   
   //Funtkion an sich ist gleich den obigen. Hier wird allerdings auch der Pfad (path) mit
   //übergeben, der aktualisiert werden soll.  

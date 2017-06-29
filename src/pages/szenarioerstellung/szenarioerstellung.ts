@@ -51,6 +51,9 @@ public ausgangslageText: string = "";
 public entwicklungText: string = "";
 public endzustandText: string = "";
 
+public startSzenario: string;
+public endSzenario: string;
+
 //Notwendig, für das Speichern und Abrufen, ob der User den Denkantoß verwendet oder nicht
 //Zu Beginn ist hilfeVar=false. Das heißt, dass keine Hilfestellung benutzt wird.
 public hilfeVar: boolean = false;
@@ -64,11 +67,13 @@ public toggleVar: boolean = false;
 public ausgangslageDialogText: string;
 public ausgangslageCounter: number = 0;
 
+
 public entwicklungDialogText: string;
 public entwicklungCounter: number = 0;
 
 public endzustandDialogText: string;
 public endzustandCounter: number = 0;
+
 
 //Variablen notwendig für das Ein- und Ausblenden der Dialogfelder
 public toggleAusgangslage: boolean = true;
@@ -216,7 +221,8 @@ ionViewDidLoad() {
       this.schluesselfaktor4 = this.szenarioData.schluesselfaktoren.schluesselfaktor4;
       this.schluesselfaktor5 = this.szenarioData.schluesselfaktoren.schluesselfaktor5;
 		  this.schluesselfaktor6 = this.szenarioData.schluesselfaktoren.schluesselfaktor6;
-
+      this.startSzenario = this.szenarioData.deskriptorenanalyse.startSzenario;
+      this.endSzenario = this.szenarioData.deskriptorenanalyse.endSzenario;
 	  //Schauen, ob Daten im Pfad "szenariotext" hinterlegt sind.
       this.szenarioProvider.checkPath("szenariotext").then((result: boolean) => {
 		//Wenn ja, dann auslesen dieser Daten
@@ -442,7 +448,7 @@ ionViewDidLoad() {
                 this.szenarioData = szenarioSnap;  
                 this.annahmebegruendung1 = this.szenarioData.annahmen.annahme1.begruendung;
                 this.annahmebegruendung2 = this.szenarioData.annahmen.annahme2.begruendung;
-	            this.annahmebegruendung3 = this.szenarioData.annahmen.annahme3.begruendung;
+	              this.annahmebegruendung3 = this.szenarioData.annahmen.annahme3.begruendung;
                 this.annahmebegruendung4 = this.szenarioData.annahmen.annahme4.begruendung;		
 	          }); 			  
 		    });
@@ -777,7 +783,7 @@ ionViewWillLeave(){
 		//Außerdem wird so verhindert, dass der geschriebene Text des Users - auch mit Hilfestellung,
 		//beim erneuten aufrufen der Seite überschrieben wird.
 		if (this.ausgangslageText == "") {
-        this.ausgangslageText= "Startzeitpunkt:";
+        this.ausgangslageText= "Startzeitpunkt:" + this.startSzenario;
 		}
 		//Dann wird der ausgangslageCounter auf 1 gesetzt (UI Veränderungen in szenarioerstellung.html). 
 		this.ausgangslageCounter = 1;
@@ -798,7 +804,7 @@ ionViewWillLeave(){
 	if (counter == 0) {
 		
 	} else if (counter == 1) {
-	  this.ausgangslageDialogText = "Fangen Sie bei der Angabe des Startzeitpunktes Ihres Dialoges an. Wann beginnt Ihr Szenario?"
+	  this.ausgangslageDialogText = "Ausgehend vom Startzeitpunkt ihres Szenarios (" + this.startSzenario + ") ..."
 	} else if (counter == 2) {
         this.ausgangslageDialogText = 'Nun sollen Sie die wichtigsten Aspekte der Situation, in der sich [das Produkt oder die Dienstleistung] befindet beschreiben. \n Beziehen Sie die Annahmen und deren Begründungen auf [das Produkt oder die Dienstleistung] und die Ausgangslage?'
 	} else if (counter == 3) {
@@ -829,9 +835,11 @@ ionViewWillLeave(){
 		  this.entwicklungCounter = 1;
 		  // Zusätzlich wird der neue Wert in der Datenbank gespeichert. So kann der User beim erneuten aufruf der 
 		  //Seite an der gleichen Stelle weiterarbeiten.
-          this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);
-          //Übergabe des neuen entwicklungCounter an die entwicklungDialog() Funktion.		  
+      this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);
+      //Übergabe des neuen entwicklungCounter an die entwicklungDialog() Funktion.		  
 		  this.entwicklungDialog(this.entwicklungCounter);
+      //Am Ende des Dialoges soll das Dialogfeld einklappen
+      this.toggleAusgangslage = false;
       });
 
     toast.present();  
@@ -851,7 +859,7 @@ ionViewWillLeave(){
         this.entwicklungDialogText = 'Frage 3'	
 	} else {
         this.entwicklungDialogText = 'Frage 3'
-		this.endzustandHilfe();
+		    this.endzustandHilfe();
 	}
   }
 
@@ -866,31 +874,45 @@ ionViewWillLeave(){
 	  });
 
       toast.onDidDismiss(() => {
-
-          this.endzustandText= "Endzeitpunkt:";
-		  this.endzustandCounter = 1;
-          this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);		
-		  this.endzustandDialog(this.endzustandCounter);
-		
-      });
-
+        this.endzustandText= "Endzeitpunkt:" + this.endSzenario;
+		    this.endzustandCounter = 1;
+        this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);		
+		    this.endzustandDialog(this.endzustandCounter);
+        this.toggleEntwicklung = false;
+		  });
     toast.present();  
     }
   }
   
   //Siehe Erklärung zu ausgangslageDialog  
   endzustandDialog (counter) {
-	if (counter == 1) {
-	  this.endzustandDialogText = "Frage 1"
-	} else if (counter == 2) {
+	  if (counter == 1) {
+	    this.endzustandDialogText = "Sie sind am Ende Ihres Szenarios angekommen (" + this.endSzenario +") ..."
+	  } else if (counter == 2) {
         this.endzustandDialogText = 'Frage 2'
-	} else if (counter == 3) {
+	  } else if (counter == 3) {
         this.endzustandDialogText = 'Frage 3'	
-	} else {
+	  } else {
         this.endzustandDialogText = 'Frage 3'
-		//this.endzustandHilfe();
-	}
-  }  
+		    this.szenarioFertig();
+	  }
+  }
+
+  szenarioFertig(){
+    if(this.endzustandText !== ""){
+  	  let toast = this.toastCtrl.create({
+        message: 'Herzlichen Glückwunsch: Sie haben ihr Szenario erstellt! \n Wenn Sie wollen, können Sie nun selbstständig weitre Verfeinerungen und Ergänzungen vornehmen.',
+        position: 'middle',
+	      showCloseButton: true,
+	      closeButtonText: 'Weiter',
+	    });
+
+        toast.onDidDismiss(() => {
+          this.toggleEndzustand = false;
+		    });
+      toast.present(); 
+    } 
+  }
   
   //Funktion, um abhängig vom übergebenen Argument den entsprechenden Counter hochzuzählen.
   countForward(identifier) {

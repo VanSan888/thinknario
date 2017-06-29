@@ -8,13 +8,32 @@
 </ion-header>
 
 <ion-content padding>
-<h4>Erklärung  {{test}}</h4>
+<h4>Erklärung</h4>
   <p>Erklärung, was hier gemacht werden soll. Video/gif und die Eintragung der Graphen in die Koordinatensysteme</p>
 
+<button ion-button (click)="showStartEnd()" [hidden]="hideStartEnd" >Verstanden - Weiter!</button>
 
+<div [hidden]='!hideStartEnd'>
+  <ion-item padding>
+  <ion-label>Start Ihres Szenarios</ion-label>
+    <ion-datetime displayFormat="YYYY" pickerFormat="YYYY"
+    [(ngModel)]="startSzenario" (ionChange)="updateStartEnd(startSzenario, endSzenario)" #StartSzenario>
+    </ion-datetime>
+  </ion-item>
+  <ion-item padding>
+  <ion-label>Ende Ihres Szenarios</ion-label>
+    <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" max="2050"
+    [(ngModel)]="endSzenario" (ionChange)="updateStartEnd(startSzenario, endSzenario)" #StartSzenario>
+    </ion-datetime>
+  </ion-item>
 
+  <button ion-button (click)="showDeskriptoren()" [hidden]='hideDeskriptoren'
+  [disabled]="!endSzenario">Weiter</button>
+</div>
+
+<div [hidden]='!hideDeskriptoren'>
 <div>
-<canvas-whiteboard #canvasWhiteboard
+<canvas-whiteboard  #canvasWhiteboard
                        [drawButtonClass]="'fa fa-pencil fa-2x'"
                        [drawButtonText]="'Zeichnen'"
                        [clearButtonClass]="'fa fa-eraser fa-2x canvas_whiteboard_button-clear'"
@@ -36,7 +55,6 @@
   <button ion-button (click)="clearCanvas1()">Zurücksetzen</button>
   <button ion-button (click)="drawCanvas1()">Zeichnen</button>
   <button ion-button (click)="eraseCanvas1()">Radieren</button>
-  <button ion-button (click)="drawCoordinates()">Koordinatensystem zeichnen</button> 
 </div>
 <div [hidden]="!schluesselfaktor2">
   <canvas #canvas2></canvas> 
@@ -72,6 +90,6 @@
 
 
 <button ion-button [navPush]="annahmenPage">Weiter</button>
-
+</div>
 
 </ion-content>

@@ -8,7 +8,7 @@ import { SzenarioProvider } from '../../providers/szenario/szenario';
 import { CanvasWhiteboardUpdate } from 'ng2-canvas-whiteboard';
 import { ViewEncapsulation } from '@angular/core';
 //Alte Ideen müssen in dieser Datei, in der dazugehörigen .hmtl module.ts und in app.module bereinigt werden
-import * as firebase from 'firebase';
+
 
 
 @IonicPage()
@@ -53,6 +53,12 @@ public schluesselfaktor3: boolean = false;
 public schluesselfaktor4: boolean = false;
 public schluesselfaktor5: boolean = false;
 public schluesselfaktor6: boolean = false;
+
+public hideDeskriptoren: boolean;
+public hideStartEnd: boolean = true;
+
+public startSzenario:string = "";
+public endSzenario:string = "";
 
 
 constructor(public navCtrl: NavController,
@@ -138,6 +144,10 @@ constructor(public navCtrl: NavController,
   
   ionViewDidEnter () {
 
+    this.szenarioProvider.checkDeskriptorPath().then((result: any) => {
+     if(result) {}
+    });
+
     this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
       this.szenarioData = szenarioSnap;
       this.schluesselfaktor1 = this.szenarioData.schluesselfaktoren.schluesselfaktor1;
@@ -148,12 +158,18 @@ constructor(public navCtrl: NavController,
 		  this.schluesselfaktor6 = this.szenarioData.schluesselfaktoren.schluesselfaktor6;
     });
 
-    this.szenarioProvider.checkDeskriptorPath().then((result: boolean) => {
-     if(result == false) {
-       let test = result;
-     } else {
-    let storageRef =  firebase.storage().ref().child(firebase.auth().currentUser.uid + '/').child('deskriptor1');
-	  storageRef.getDownloadURL().then( url => {
+    this.szenarioProvider.checkPath("deskriptorenanalyse").then((result: boolean) => {
+      if(result === true) {	
+        this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
+          this.szenarioData = szenarioSnap;
+           this.startSzenario = this.szenarioData.deskriptorenanalyse.startSzenario;
+           this.endSzenario = this.szenarioData.deskriptorenanalyse.endSzenario;		
+	    });
+
+    this.hideDeskriptoren = true;
+    this.hideStartEnd = true;
+
+    this.szenarioProvider.getDeskriptorURL('deskriptor1').then(url => {
       let canvas1 = this.canvas1.nativeElement;
 	    let ctx = canvas1.getContext('2d');
       var img = new Image();
@@ -163,8 +179,9 @@ constructor(public navCtrl: NavController,
         ctx.drawImage(img,0,0); // Or at whatever offset you like
       };
     });
-    storageRef =  firebase.storage().ref().child(firebase.auth().currentUser.uid + '/').child('deskriptor2');
-	  storageRef.getDownloadURL().then( url => {
+
+
+    this.szenarioProvider.getDeskriptorURL('deskriptor2').then(url => {
       let canvas2 = this.canvas2.nativeElement;
 	    let ctx = canvas2.getContext('2d');
       var img = new Image();
@@ -174,8 +191,7 @@ constructor(public navCtrl: NavController,
         ctx.drawImage(img,0,0); // Or at whatever offset you like
       };
     });
-    storageRef =  firebase.storage().ref().child(firebase.auth().currentUser.uid + '/').child('deskriptor3');
-	  storageRef.getDownloadURL().then( url => {
+    this.szenarioProvider.getDeskriptorURL('deskriptor3').then(url => {
       let canvas3 = this.canvas3.nativeElement;
 	    let ctx = canvas3.getContext('2d');
       var img = new Image();
@@ -185,8 +201,7 @@ constructor(public navCtrl: NavController,
         ctx.drawImage(img,0,0); // Or at whatever offset you like
       };
     });
-    storageRef =  firebase.storage().ref().child(firebase.auth().currentUser.uid + '/').child('deskriptor4');
-	  storageRef.getDownloadURL().then( url => {
+    this.szenarioProvider.getDeskriptorURL('deskriptor4').then(url => {
       let canvas4 = this.canvas4.nativeElement;
 	    let ctx = canvas4.getContext('2d');
       var img = new Image();
@@ -196,8 +211,7 @@ constructor(public navCtrl: NavController,
         ctx.drawImage(img,0,0); // Or at whatever offset you like
       };
     });
-    storageRef =  firebase.storage().ref().child(firebase.auth().currentUser.uid + '/').child('deskriptor5');
-	  storageRef.getDownloadURL().then( url => {
+    this.szenarioProvider.getDeskriptorURL('deskriptor5').then(url => {
       let canvas5 = this.canvas5.nativeElement;
 	    let ctx = canvas5.getContext('2d');
       var img = new Image();
@@ -207,8 +221,7 @@ constructor(public navCtrl: NavController,
         ctx.drawImage(img,0,0); // Or at whatever offset you like
       };
     });
-    storageRef =  firebase.storage().ref().child(firebase.auth().currentUser.uid + '/').child('deskriptor6');
-	  storageRef.getDownloadURL().then( url => {
+    this.szenarioProvider.getDeskriptorURL('deskriptor6').then(url => {
       let canvas6 = this.canvas6.nativeElement;
 	    let ctx = canvas6.getContext('2d');
       var img = new Image();
@@ -218,31 +231,64 @@ constructor(public navCtrl: NavController,
         ctx.drawImage(img,0,0); // Or at whatever offset you like
       };
     });
-     }
-    });
-    
-    
+
+     // Wenn keine Daten in dem abgefragten Pfad hinterlegt sind, dann beschreibe den Pfad mit Dummidaten	 
+     } else {
+       this.hideDeskriptoren = false;
+       this.hideStartEnd = false;
+       this.szenarioProvider.updateStartEnd(this.startSzenario, this.endSzenario);
+	   }
+	  });
   }
-  
-drawCoordinates() {
 
-  this.cx1.beginPath();
-  this.cx1.moveTo(30,30);
-  this.cx1.lineTo(30,270);
-  this.cx1.lineTo(370,270);
-  this.cx1.stroke();
-  this.cx1.font = '20px serif';
-  this.cx1.fillText('2001',30,290);  
-  this.cx1.fillText('2018',340,290);
-  this.cx1.save();
-  this.cx1.translate(0, 300);
-  this.cx1.rotate(-Math.PI/2);
-  this.cx1.textAlign = "center";
-  this.cx1.fillText("Operationalisiertes Bsp.1", 170, 25);
-  this.cx1.restore();
+showStartEnd(){
+  let alert = this.alertCtrl.create({
+    title: 'Start und Ende ihres Szenarios',
+    subTitle: 'Wann soll ihr Szenario starten? Wann soll es enden? Bitte wählen Sie entsprechend aus!',
+    buttons: ['Weiter']
+      });
+      alert.present();  
 
+  this.hideStartEnd = true;
+}
+
+showDeskriptoren() {
+  this.hideDeskriptoren = true;
+}
+
+updateStartEnd(startSzenario, endSzenario) {
+  this.szenarioProvider.updateStartEnd(startSzenario, endSzenario);
+
+  this.drawCoordinates(this.cx1, "Operationalisiertes Bsp.1");
+  this.drawCoordinates(this.cx2, "Operationalisiertes Bsp.2");
+  this.drawCoordinates(this.cx3, "Operationalisiertes Bsp.3");
+  this.drawCoordinates(this.cx4, "Operationalisiertes Bsp.4");
+  this.drawCoordinates(this.cx5, "Operationalisiertes Bsp.5");
+  this.drawCoordinates(this.cx6, "Operationalisiertes Bsp.6");
 }
   
+drawCoordinates(ctx: CanvasRenderingContext2D, yText: string) {
+
+  ctx.beginPath();
+  ctx.moveTo(30,30);
+  ctx.lineTo(30,270);
+  ctx.lineTo(370,270);
+  ctx.stroke();
+  ctx.font = '20px serif';
+  ctx.clearRect(0, 275, 400, 30);
+  ctx.fillText(this.startSzenario, 30, 290);  
+  ctx.fillText(this.endSzenario, 340, 290);
+  ctx.save();
+  ctx.clearRect(0, 0, 27, 270);
+  ctx.translate(0, 300);
+  ctx.rotate(-Math.PI/2);
+  ctx.textAlign = "center";
+  ctx.fillText(yText, 170, 25);
+  ctx.restore();
+
+}
+
+ 
 
   sendBatchUpdate(updates: CanvasWhiteboardUpdate[]) {
     console.log(updates);
@@ -309,26 +355,28 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
       }
   }
   
-  clearCanvas(ctx : CanvasRenderingContext2D){	  
-    ctx.clearRect(0, 0, this.width, this.height);   
+  clearCanvas(ctx: CanvasRenderingContext2D, yText: string){
+      ctx.clearRect(0, 0, this.width, this.height);
+      this.drawCoordinates(ctx, yText);
   }
+
   clearCanvas1(){
-    this.clearCanvas(this.cx1);
+    this.clearCanvas(this.cx1, "Operationalisiertes Bsp.1");
   }
   clearCanvas2(){
-    this.clearCanvas(this.cx2);
+    this.clearCanvas(this.cx2, "Operationalisiertes Bsp.2");
   }
   clearCanvas3(){
-    this.clearCanvas(this.cx3);
+    this.clearCanvas(this.cx3, "Operationalisiertes Bsp.3");
   }
   clearCanvas4(){
-    this.clearCanvas(this.cx4);
+    this.clearCanvas(this.cx4, "Operationalisiertes Bsp.4");
   }
   clearCanvas5(){
-    this.clearCanvas(this.cx5);
+    this.clearCanvas(this.cx5, "Operationalisiertes Bsp.5");
   }
   clearCanvas6(){
-    this.clearCanvas(this.cx6);
+    this.clearCanvas(this.cx6, "Operationalisiertes Bsp.6");
   }
 	
   drawCanvas(ctx : CanvasRenderingContext2D){
@@ -379,10 +427,7 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
     this.eraseCanvas(this.cx6)
   }
 
- 
 
-
-	
   ionViewWillLeave(){
     let canvas1 = this.canvas1.nativeElement;
 	  let canvas2 = this.canvas2.nativeElement;
@@ -391,55 +436,42 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
     let canvas5 = this.canvas5.nativeElement;
     let canvas6 = this.canvas6.nativeElement;
 
-    var storageRef = firebase.storage().ref().child(firebase.auth().currentUser.uid);	
 	  canvas1.toBlob(blob => {
       var image = new Image();
-	  image.crossOrigin="anonymous";
+	    image.crossOrigin="anonymous";
       image.src = blob;
-      /*var uploadTask =*/ storageRef.child("deskriptor1").put(blob);
-    });
+      this.szenarioProvider.uploadDeskriptor(blob, 'deskriptor1');
+    });    
 	  canvas2.toBlob(blob => {
       var image = new Image();
-	  image.crossOrigin="anonymous";
+	    image.crossOrigin="anonymous";
       image.src = blob;
-      /*var uploadTask =*/ storageRef.child("deskriptor2").put(blob);
+      this.szenarioProvider.uploadDeskriptor(blob, 'deskriptor2');
     });
 	  canvas3.toBlob(blob => {
       var image = new Image();
-	  image.crossOrigin="anonymous";
+	    image.crossOrigin="anonymous";
       image.src = blob;
-      /*var uploadTask =*/ storageRef.child("deskriptor3").put(blob);
+      this.szenarioProvider.uploadDeskriptor(blob, 'deskriptor3');
     });
 	  canvas4.toBlob(blob => {
       var image = new Image();
-	  image.crossOrigin="anonymous";
+	    image.crossOrigin="anonymous";
       image.src = blob;
-      /*var uploadTask =*/ storageRef.child("deskriptor4").put(blob);
+      this.szenarioProvider.uploadDeskriptor(blob, 'deskriptor4');
     });
 	  canvas5.toBlob(blob => {
       var image = new Image();
-	  image.crossOrigin="anonymous";
+	    image.crossOrigin="anonymous";
       image.src = blob;
-      /*var uploadTask =*/ storageRef.child("deskriptor5").put(blob);
+      this.szenarioProvider.uploadDeskriptor(blob, 'deskriptor5');
     });
 	  canvas6.toBlob(blob => {
       var image = new Image();
-	  image.crossOrigin="anonymous";
+	    image.crossOrigin="anonymous";
       image.src = blob;
-      /*var uploadTask =*/ storageRef.child("deskriptor6").put(blob);
-    });
-	/*
-    uploadTask.on('state_changed', function(snapshot){
-        // Observe state change events such as progress, pause, and resume
-        // See below for more detail
-    }, function(error) {
-        // Handle unsuccessful uploads
-    }, function() {
-        // Handle successful uploads on complete
-        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-        var downloadURL = uploadTask.snapshot.downloadURL;
-    });
-	*/
+      this.szenarioProvider.uploadDeskriptor(blob, 'deskriptor6');
+    }); 
   }
   
 }
