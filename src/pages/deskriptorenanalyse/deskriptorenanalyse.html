@@ -9,7 +9,30 @@
 
 <ion-content padding>
 <h4>Erklärung</h4>
-  <p>Erklärung, was hier gemacht werden soll. Video/gif und die Eintragung der Graphen in die Koordinatensysteme</p>
+  <p>{{safeURL}}  Erklärung, was hier gemacht werden soll. Video/gif und die Eintragung der Graphen in die Koordinatensysteme</p>
+
+<ion-slides [hidden]="!toggleHilfe">
+  <ion-slide>
+    <p> Für weitere Erkärungen einfach die Videos hin- und herschieben. </p>
+    <p> Zeichnen </p>
+    <iframe width="400px" height="300px" [src]="safeURL1" frameborder="0" allowfullscreen></iframe>
+  </ion-slide>
+  <ion-slide>
+    <p> Für weitere Erkärungen einfach die Videos hin- und herschieben. </p>
+    <p> Radieren </p>
+    <iframe width="400px" height="300px" [src]="safeURL2" frameborder="0" allowfullscreen></iframe>
+  </ion-slide>
+  <ion-slide>
+    <p> Für weitere Erkärungen einfach die Videos hin- und herschieben. </p>
+    <p> Zurücksetzen </p>
+    <iframe width="400px" height="300px" [src]="safeURL3" frameborder="0" allowfullscreen></iframe>
+  </ion-slide>
+</ion-slides>
+
+<div>
+<p float-left>Erklärungen ein- und ausblenden: </p>
+<ion-toggle [(ngModel)]="toggleHilfe" name="ToggleHilfe" float-left></ion-toggle>
+</div>
 
 <button ion-button (click)="showStartEnd()" [hidden]="hideStartEnd" >Verstanden - Weiter!</button>
 
@@ -31,7 +54,9 @@
   [disabled]="!endSzenario">Weiter</button>
 </div>
 
+
 <div [hidden]='!hideDeskriptoren'>
+ 
 <div>
 <canvas-whiteboard  #canvasWhiteboard
                        [drawButtonClass]="'fa fa-pencil fa-2x'"

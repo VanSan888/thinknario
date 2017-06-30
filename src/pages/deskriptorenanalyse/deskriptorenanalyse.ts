@@ -7,6 +7,7 @@ import 'rxjs/add/operator/pairwise';
 import { SzenarioProvider } from '../../providers/szenario/szenario';
 import { CanvasWhiteboardUpdate } from 'ng2-canvas-whiteboard';
 import { ViewEncapsulation } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl  } from '@angular/platform-browser';
 //Alte Ideen müssen in dieser Datei, in der dazugehörigen .hmtl module.ts und in app.module bereinigt werden
 
 
@@ -22,6 +23,13 @@ export class DeskriptorenanalysePage {
 
 //Notwendig für Naviigation	
 annahmenPage = 'AnnahmenPage'
+
+public safeURL1: SafeResourceUrl;
+public safeURL2: SafeResourceUrl;
+public safeURL3: SafeResourceUrl;
+public safeURL4: SafeResourceUrl;
+
+public toggleHilfe: boolean = false;
 
 //a reference to the canvas element from our template
 @ViewChild('canvas1') public canvas1: ElementRef;
@@ -63,7 +71,14 @@ public endSzenario:string = "";
 
 constructor(public navCtrl: NavController,
             public alertCtrl: AlertController,
-            public szenarioProvider: SzenarioProvider){
+            public szenarioProvider: SzenarioProvider,
+            private _sanitizer: DomSanitizer){
+  let videoURL1 = "https://www.youtube.com/embed/ilVnDcQUra0";
+  this.safeURL1 = this._sanitizer.bypassSecurityTrustResourceUrl(videoURL1);
+  let videoURL2 = "https://www.youtube.com/embed/PAsEDOFKUfI";
+  this.safeURL2 = this._sanitizer.bypassSecurityTrustResourceUrl(videoURL2);
+  let videoURL3 = "https://www.youtube.com/embed/v4yZ58aTVoI";
+  this.safeURL3 = this._sanitizer.bypassSecurityTrustResourceUrl(videoURL3);
 
   }
    
@@ -237,6 +252,7 @@ constructor(public navCtrl: NavController,
        this.hideDeskriptoren = false;
        this.hideStartEnd = false;
        this.szenarioProvider.updateStartEnd(this.startSzenario, this.endSzenario);
+       this.toggleHilfe = true;
 	   }
 	  });
   }
@@ -250,6 +266,7 @@ showStartEnd(){
       alert.present();  
 
   this.hideStartEnd = true;
+  this.toggleHilfe = false;
 }
 
 showDeskriptoren() {
@@ -269,6 +286,9 @@ updateStartEnd(startSzenario, endSzenario) {
   
 drawCoordinates(ctx: CanvasRenderingContext2D, yText: string) {
 
+  ctx.lineWidth = 3;
+  ctx.lineCap = 'round';
+  ctx.strokeStyle = '#000';
   ctx.beginPath();
   ctx.moveTo(30,30);
   ctx.lineTo(30,270);

@@ -21,6 +21,7 @@ import { SzenarioValidator } from '../validators/szenarioValidator';
 //Optional für Handykamera
 import { Camera } from '@ionic-native/camera';
 
+
 @NgModule({
   declarations: [
     MyApp,
@@ -28,8 +29,8 @@ import { Camera } from '@ionic-native/camera';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-	FormsModule,
-	HttpModule,
+	  FormsModule,
+	  HttpModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -42,9 +43,9 @@ import { Camera } from '@ionic-native/camera';
     AuthData,
     BibliothekProvider,
     ProfileProvider,
-	SzenarioProvider,
-	RatingProvider,
-	SzenarioValidator,
+  	SzenarioProvider,
+	  RatingProvider,
+	  SzenarioValidator,
 	//Optional für Handycamera
 	Camera,
        
