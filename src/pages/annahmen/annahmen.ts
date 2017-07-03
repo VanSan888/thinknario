@@ -120,7 +120,7 @@ public toggleVar: boolean= true;
                 this.szenarioData = szenarioSnap;  
                 this.begruendung1 = this.szenarioData.annahmen.annahme1.begruendung;
                 this.begruendung2 = this.szenarioData.annahmen.annahme2.begruendung;
-	            this.begruendung3 = this.szenarioData.annahmen.annahme3.begruendung;
+	              this.begruendung3 = this.szenarioData.annahmen.annahme3.begruendung;
                 this.begruendung4 = this.szenarioData.annahmen.annahme4.begruendung;		
 	          }); 			  
 		    });

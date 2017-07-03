@@ -100,6 +100,7 @@ export class SzenarioProvider {
     });
   }
   
+  //Update der Start- und Endzeitpunkte des Szenarios. Für Erklärung siehe ProfileProvider
   updateStartEnd(startSzenario: string, endSzenario: string): firebase.Promise<any> {
     return firebase.database().ref('/szenarioData').child(firebase.auth().currentUser.uid)
     .child("deskriptorenanalyse").update({
@@ -107,7 +108,8 @@ export class SzenarioProvider {
       endSzenario: endSzenario,
     });
   }
-
+  // Es wird die URL des entsprechenden Canvas (Festlegung über dataPath) aus firebase runtergeladen und an
+  //DeskriptorenanalysePage als Promise weitergegeben.
   getDeskriptorURL(dataPath: string): Promise<any>{
     return new  Promise((resolve, reject) => { 
     let storageRef =  firebase.storage().ref().child(firebase.auth().currentUser.uid + '/').child(dataPath);
@@ -116,9 +118,14 @@ export class SzenarioProvider {
       });
     });
   }
-
+  
+  //Funktion, um die blobs im Firebase Storage zu speichern.
+  //Grundlegende Funktion wie jede update() Funktion.
   uploadDeskriptor(blob: any, dataPath: string): firebase.Promise<any> {
+    //Festlegen des Speicherpfades. (Eigene UID)
     let storageRef = firebase.storage().ref().child(firebase.auth().currentUser.uid);	
+    //Beschreiben des jeweiligen Pfades (Deskriptor eins bis sechs)
+    //und speichern des blobs mittels .put() Funktion.
     return storageRef.child(dataPath).put(blob);
     
     /*var uploadTask = */

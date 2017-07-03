@@ -9,12 +9,16 @@
 
 <ion-content padding>
 <h4>Erklärung</h4>
-  <p>{{safeURL}}  Erklärung, was hier gemacht werden soll. Video/gif und die Eintragung der Graphen in die Koordinatensysteme</p>
+  <p>Erklärung, was hier gemacht werden soll. Video/gif und die Eintragung der Graphen in die Koordinatensysteme</p>
 
+<!-- slides zur Darstellung der Hilfen, wie man die canvas benutzt.
+toggleHilfe blendet die Hilfen ein und aus (siehe ion-toggle).-->
 <ion-slides [hidden]="!toggleHilfe">
   <ion-slide>
     <p> Für weitere Erkärungen einfach die Videos hin- und herschieben. </p>
     <p> Zeichnen </p>
+    <!-- iframe zur Darstellung der youtube-Videos. Einstellung der Höhe und Breite sowie der Quelle,
+    der Rahmens (0 = kein Rahmen) und erlauben des Vollbildmodus -->
     <iframe width="400px" height="300px" [src]="safeURL1" frameborder="0" allowfullscreen></iframe>
   </ion-slide>
   <ion-slide>
@@ -29,16 +33,20 @@
   </ion-slide>
 </ion-slides>
 
+<!-- ion-toggle zum ein-und ausblenden der Hiflen mittels two-way Data binding -->
 <div>
 <p float-left>Erklärungen ein- und ausblenden: </p>
 <ion-toggle [(ngModel)]="toggleHilfe" name="ToggleHilfe" float-left></ion-toggle>
 </div>
 
+<!-- Button, der die showStartEnd() Funktion auslöst. Ist versteckt, wenn hideStartend true ist. -->
 <button ion-button (click)="showStartEnd()" [hidden]="hideStartEnd" >Verstanden - Weiter!</button>
 
+<!-- Auswahl der Start- und Endzeitpunkte für das Szenario. Wird eingeblendet, wenn hideStartEnd true ist. -->
 <div [hidden]='!hideStartEnd'>
   <ion-item padding>
   <ion-label>Start Ihres Szenarios</ion-label>
+    <!-- ion-datetime zur Auswahl der Start- und Endzeitpunkte mittels two-way Data binding -->
     <ion-datetime displayFormat="YYYY" pickerFormat="YYYY"
     [(ngModel)]="startSzenario" (ionChange)="updateStartEnd(startSzenario, endSzenario)" #StartSzenario>
     </ion-datetime>
@@ -49,14 +57,15 @@
     [(ngModel)]="endSzenario" (ionChange)="updateStartEnd(startSzenario, endSzenario)" #StartSzenario>
     </ion-datetime>
   </ion-item>
-
+  
+  <!-- Wenn der Button geklickt wird, wird die showDeskriptoren() Funkntion aufgerufen.
+  Der Button wird dadurch ausgeblendet (hideDeskriptoren = true) -->
   <button ion-button (click)="showDeskriptoren()" [hidden]='hideDeskriptoren'
   [disabled]="!endSzenario">Weiter</button>
 </div>
 
-
+<!-- div zur Darstellung der canvas. Wird eingeblendet, wenn hideDeskriptoren=true. -->
 <div [hidden]='!hideDeskriptoren'>
- 
 <div>
 <canvas-whiteboard  #canvasWhiteboard
                        [drawButtonClass]="'fa fa-pencil fa-2x'"
@@ -75,8 +84,12 @@
 </canvas-whiteboard>
 </div>
 
+<!-- canvas wird nur angezeigt, wenn der User bei SchluesselfaktorenPage bei dem entsprechenden
+Schlüsselfaktor einen Haken gesetzt hat. -->
 <div [hidden]="!schluesselfaktor1">
   <canvas #canvas1></canvas>
+  <!-- Buttons, die jeweils Funktionen zum Malen, Radieren oder Zurücksetzen aufrufen. 
+  (6 Stück, alle ähnlich.) -->
   <button ion-button (click)="clearCanvas1()">Zurücksetzen</button>
   <button ion-button (click)="drawCanvas1()">Zeichnen</button>
   <button ion-button (click)="eraseCanvas1()">Radieren</button>
