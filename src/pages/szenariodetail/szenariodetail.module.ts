@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { SzenariodetailPage } from './szenariodetail';
+import { DisqusModule } from 'ngx-disqus';
 
 @NgModule({
   declarations: [
@@ -8,6 +9,7 @@ import { SzenariodetailPage } from './szenariodetail';
   ],
   imports: [
     IonicPageModule.forChild(SzenariodetailPage),
+    DisqusModule.forRoot('thinknario'),
   ],
   exports: [
     SzenariodetailPage

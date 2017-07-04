@@ -29,7 +29,9 @@ export class SzenarioProvider {
 	  });
 	});  
   }
-
+  
+  //Funktion für DeskriptorenanalysePage. Es wird geschaut, ob bei dem aktiven Nutzer
+  // Daten im Storgae hinterlegt sind.
   checkDeskriptorPath():  Promise<any> {
 	return new Promise<any>((resolve, reject) => {
 	  //Zu prüfender Pfad inklusive der Varibalen aus den einzelnen Seiten
@@ -43,6 +45,7 @@ export class SzenarioProvider {
   }
   
   //Sehr ähnlich zu ProfileProvider. Siehe Erklärung dort
+  //Funktion, um die Szenariodaten des aktiven Nutzers abzurufen
   getSzenarioData(): Promise<any> {
 	
     return new  Promise((resolve, reject) => { 
@@ -51,7 +54,16 @@ export class SzenarioProvider {
        resolve(data.val());
       });
     });
-  } 
+  }
+
+//Funktion, um die UID des aktiven Users abzurufen
+
+getUserID(): Promise<any> {
+    return new  Promise((resolve, reject) => { 
+      let UID = firebase.auth().currentUser.uid;
+       resolve(UID);
+    });
+  }
   
   //Alle unteren Funktionen ähneln den .update() Funtionen im ProfileProvider stark
   //Siehe Erklärung dort. Namensgebung hier ist dann selbsterklärend. 

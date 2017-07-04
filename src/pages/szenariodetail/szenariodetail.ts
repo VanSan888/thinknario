@@ -21,7 +21,7 @@ export class SzenariodetailPage {
   //Variable die mit den Daten des Szenarios beschrieben wird.
   public currentSzenario: any;
 
-  public url1;
+  public pageId: string;
 
   //Variable um szenariodetail.html anzupassen, je nach dem, ob der User die Hiflestellung
   //in Anspruch genommen hat oder nicht.
@@ -93,6 +93,10 @@ ionViewDidLoad() {
     canvasEl5.height = this.height;
     canvasEl6.width  = this.width;
     canvasEl6.height = this.height;
+
+    //Festelgen der pageId für Disqus
+    this.pageId = this.navParams.get('szenarioId');
+
 }
   
   ionViewDidEnter(){

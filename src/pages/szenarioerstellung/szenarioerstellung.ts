@@ -19,6 +19,11 @@ export class SzenarioerstellungPage {
 //Variable notwenig zur Navigation	
 szenariobewertungPage = 'SzenariobewertungPage';
 
+
+public pageId: string;
+public pageURL: string = "http://localhost:8100/#/szenarioerstellung";
+
+
 //Variablen notwendig für den Abruf und das Speichern der Eingaben.
 public szenarioData: any;
 public annahme1 : string = "";
@@ -184,9 +189,15 @@ ionViewDidLoad() {
     this.captureEvents(canvasEl5, this.cx5);
     this.captureEvents(canvasEl6, this.cx6);
 
+    //Festelgen der pageId für Disqus
+    this.szenarioProvider.getUserID().then( UID => {
+      this.pageId = UID;
+    });
+
   }
 
   ionViewDidEnter() {
+
 	//Beschreiben der lokalen Variablen mit den Daten aus Firebase.
 	//Siehe auch Erklärung bei ProblemfeldPage.
     this.szenarioProvider.getSzenarioData().then( szenarioSnap => {

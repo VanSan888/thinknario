@@ -447,6 +447,7 @@ wenn die mitHilfeForm gültig ist.-->
 <button ion-button [navPush]="szenariobewertungPage"
 [disabled]="!mitHilfeForm.form.valid" [hidden] = "!hilfeVar">Fertig - zur Bewertung</button>
 
+<p> {{pageId}}</p>
 
 <div padding-top>
   <ion-segment [(ngModel)]="kommunikation">
@@ -483,6 +484,8 @@ wenn die mitHilfeForm gültig ist.-->
   </ion-list> 
 </div>
 
+
+<disqus  [identifier] = "pageId" ></disqus>
 
 
 </ion-content>
