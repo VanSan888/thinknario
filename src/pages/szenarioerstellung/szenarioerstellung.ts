@@ -191,7 +191,7 @@ ionViewDidLoad() {
 
     //Festelgen der pageId für Disqus
     this.szenarioProvider.getUserID().then( UID => {
-      this.pageId = UID;
+      this.pageId = "/" + UID + "/";
     });
 
   }

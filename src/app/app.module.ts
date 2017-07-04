@@ -4,6 +4,8 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { FormsModule }   from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { Routes, RouterModule } from '@angular/router';
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -19,9 +21,7 @@ import { RatingProvider } from '../providers/rating/rating';
 //Validator Import
 import { SzenarioValidator } from '../validators/szenarioValidator';
 
-//Optional für Handykamera
-import { Camera } from '@ionic-native/camera';
-
+const routes: Routes = [];
 
 @NgModule({
   declarations: [
@@ -32,6 +32,7 @@ import { Camera } from '@ionic-native/camera';
     IonicModule.forRoot(MyApp),
 	  FormsModule,
 	  HttpModule,
+    RouterModule.forRoot(routes),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -47,9 +48,7 @@ import { Camera } from '@ionic-native/camera';
   	SzenarioProvider,
 	  RatingProvider,
 	  SzenarioValidator,
-	//Optional für Handycamera
-	Camera,
-       
+ 
   ]
 })
 export class AppModule {}

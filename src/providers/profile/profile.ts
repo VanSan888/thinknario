@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as firebase from 'firebase';
+import firebase from 'firebase';
 
 
 
@@ -84,7 +84,7 @@ export class ProfileProvider {
     const credential =  firebase.auth.EmailAuthProvider
         .credential(firebase.auth().currentUser.email, password);
 
-    return firebase.auth().currentUser.reauthenticate(credential)
+    return firebase.auth().currentUser.reauthenticateWithCredential(credential)
     .then( user => {
       firebase.auth().currentUser.updateEmail(newEmail).then( user => {
         firebase.database().ref('/userProfile')
@@ -98,7 +98,7 @@ export class ProfileProvider {
     const credential =  firebase.auth.EmailAuthProvider
         .credential(firebase.auth().currentUser.email, oldPassword);
 
-    return firebase.auth().currentUser.reauthenticate(credential)
+    return firebase.auth().currentUser.reauthenticateWithCredential(credential)
     .then( user => {
         firebase.auth().currentUser.updatePassword(newPass).then( user => {
             console.log("Password Changed");
@@ -107,5 +107,5 @@ export class ProfileProvider {
         });
     });
   }
-  
+
 }

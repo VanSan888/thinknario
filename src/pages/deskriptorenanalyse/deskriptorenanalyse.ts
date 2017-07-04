@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/operator/pairwise';
+import 'rxjs/add/observable/fromEvent';
 //DomSanitizer und SafeRecourceUrl werden benötigt, um die Youtube-Videos einzubetten und dabei
 //die Sicherheit zu gewährleisten
 import { DomSanitizer, SafeResourceUrl  } from '@angular/platform-browser';
@@ -15,7 +16,6 @@ import { ViewEncapsulation } from '@angular/core';
 import { SzenarioProvider } from '../../providers/szenario/szenario';
 import { CanvasWhiteboardUpdate } from 'ng2-canvas-whiteboard';
 //Alte Ideen müssen in dieser Datei, in der dazugehörigen .hmtl module.ts und in app.module bereinigt werden
-
 
 
 @IonicPage()
