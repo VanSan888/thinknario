@@ -20,11 +20,11 @@ export class MyApp {
   constructor(
   
     public platform: Platform,
-	public statusBar: StatusBar,
-	public splashScreen: SplashScreen) {
+	  public statusBar: StatusBar,
+	  public splashScreen: SplashScreen) {
     this.initializeApp();
-	//firebase Initialisierungund 
-	firebase.initializeApp({
+	  //firebase Initialisierungund 
+	  firebase.initializeApp({
 	  //firebase-Konfiguration
       apiKey: "AIzaSyBY6OTviwlRvdO7Pa6nhgHSHmAGE91klNM",
       authDomain: "thinknario.firebaseapp.com",
@@ -54,11 +54,11 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: 'HomePage' },
       { title: 'Benachrichtigungen', component: 'BenachrichtigungenPage' },
-	  { title: 'Fallstudie', component: 'FallstudiePage' },
-	  { title: 'Mein Szenario', component: 'MeinSzenarioPage' },
-	  { title: 'Bewertungen', component: 'BewertungenPage' },
-	  { title: 'Profileinstellungen', component: 'EinstellungenPage' },
-	  { title: 'Über', component: 'UeberPage' }
+	    { title: 'Fallstudie', component: 'FallstudiePage' },
+	    { title: 'Mein Szenario', component: 'MeinSzenarioPage' },
+	    { title: 'Bewertungen', component: 'BewertungenPage' },
+	    { title: 'Profileinstellungen', component: 'EinstellungenPage' },
+	    { title: 'Über', component: 'UeberPage' }
     ];
 
   }

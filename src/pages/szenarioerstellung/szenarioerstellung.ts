@@ -21,7 +21,9 @@ szenariobewertungPage = 'SzenariobewertungPage';
 
 
 public pageId: string;
-public pageURL: string = "http://localhost:8100/#/szenarioerstellung";
+public url: string;
+
+
 
 
 //Variablen notwendig für den Abruf und das Speichern der Eingaben.
@@ -189,12 +191,17 @@ ionViewDidLoad() {
     this.captureEvents(canvasEl5, this.cx5);
     this.captureEvents(canvasEl6, this.cx6);
 
-    //Festelgen der pageId für Disqus
+    //Festelgen der pageId für Disqus. Die pageId soll der UserID entsprechen.
+    //Durch die getUserID() Funktion des Szenarioproviders wird deswegen der aktuele User abgerufen
     this.szenarioProvider.getUserID().then( UID => {
-      this.pageId = "/" + UID + "/";
-    });
-
+      this.pageId = UID;
+    }).then(pageId => {
+        //Danach wird die URL definiert. Behilfsweise wird www.test.de verwendet.
+        //Wenn die WebSite online ist, muss hier die richtige URL eingesetzt werden.
+        this.url = "http://www.test.de/" + this.pageId + "/";
+      });
   }
+
 
   ionViewDidEnter() {
 

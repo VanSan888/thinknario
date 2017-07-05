@@ -203,7 +203,28 @@
 <button ion-button padding (click)="goToRatingDetail(currentSzenario.id)"
 >Dieses Szenario bewerten und kommentieren</button>
 
-<disqus [url]="'http://localhost:8100/#/szenariodetail/:szenarioID'" [identifier] = "pageId" ></disqus>
+<!-- Einbinden des ngx-discus templates. Identifier und url stellen für jeden
+die richtige Comment Section dar (siehe auch szenarioerstellung.ts) -->
+<disqus [url]="url" [identifier] = "pageId" ></disqus>
+
+<div [ngSwitch]="kommunikation">
+  <div *ngSwitchCase="'kommentare'">
+    <!-- Einbinden des ngx-discus templates. Identifier und url stellen für jeden
+    die richtige Comment Section dar (siehe auch szenarioerstellung.ts) -->
+    <disqus [url]="url" [identifier] = "pageId" ></disqus>
+  </div>
+
+  <ion-list *ngSwitchCase="'statistik'">
+    <ion-item>
+      <h4>Entwicklung</h4>
+	    <p> Punktzahl </p>
+    </ion-item>
+	<ion-item>
+    <h4>Realitätsnahe</h4>
+	    <p> Punktzahl </p>
+      </ion-item>
+  </ion-list> 
+</div>
 
 
 </ion-content>

@@ -22,6 +22,7 @@ export class SzenariodetailPage {
   public currentSzenario: any;
 
   public pageId: string;
+  public url: string;
 
   //Variable um szenariodetail.html anzupassen, je nach dem, ob der User die Hiflestellung
   //in Anspruch genommen hat oder nicht.
@@ -94,9 +95,12 @@ ionViewDidLoad() {
     canvasEl6.width  = this.width;
     canvasEl6.height = this.height;
 
-    //Festelgen der pageId für Disqus
+    //Festelgen der pageId für Disqus. Die pageId soll der UserID des aufgerufenen Szenarios entsprechen.
+    //Durch navParams.get() wird deswegen die ID des Users abgerufen, dessen Szenario aufgerufen wurde
     this.pageId = this.navParams.get('szenarioId');
-
+    //Danach wird die URL definiert. Behilfsweise wird www.test.de verwendet.
+    //Wenn die WebSite online ist, muss hier die richtige URL eingesetzt werden.
+    this.url = "http://www.test.de/" + this.pageId + "/";
 }
   
   ionViewDidEnter(){

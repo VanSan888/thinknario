@@ -19,7 +19,6 @@ problemdefinitionPage = 'ProblemdefinitionPage';
 //Properties für die Formvalidierung
 public problemfeldform 	: FormGroup;
 
-
 //Properties für die Datentransferierung von und zu firebase
 public szenarioData: any;
 public problemfeld1: boolean = false;

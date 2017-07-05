@@ -461,31 +461,24 @@ wenn die mitHilfeForm gültig ist.-->
 </div>
 
 <div [ngSwitch]="kommunikation">
-  <ion-list *ngSwitchCase="'kommentare'">
-    <ion-item>
-      <h4>Kommentar 1</h4>
-	  <button ion-button>Antworten</button>
-    </ion-item>
-	<ion-item>
-      <h4>Kommentar 2</h4>
-	  <button ion-button>Antworten</button>
-    </ion-item>
-  </ion-list>
+  <div *ngSwitchCase="'kommentare'">
+    <!-- Einbinden des ngx-discus templates. Identifier und url stellen für jeden
+    die richtige Comment Section dar (siehe auch szenarioerstellung.ts) -->
+    <disqus  [identifier] = "pageId" [url]="url"></disqus>
+  </div>
 
   <ion-list *ngSwitchCase="'statistik'">
     <ion-item>
       <h4>Entwicklung</h4>
-	  <p> Punktzahl </p>
+	    <p> Punktzahl </p>
     </ion-item>
 	<ion-item>
-      <h4>Realitätsnahe</h4>
-	  <p> Punktzahl </p>
-    </ion-item>
+    <h4>Realitätsnahe</h4>
+	    <p> Punktzahl </p>
+      </ion-item>
   </ion-list> 
 </div>
 
-
-<disqus  [identifier] = "LVHKJvlvzktcckhg17228" ></disqus>
 
 
 
