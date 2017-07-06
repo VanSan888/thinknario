@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 //NavParams kontrollieren die Navigationsparameter
-import { NavController, IonicPage, NavParams } from 'ionic-angular';
+import { NavController, IonicPage, NavParams, AlertController } from 'ionic-angular';
 import { RatingProvider } from '../../providers/rating/rating';
 import { BibliothekProvider } from '../../providers/bibliothek/bibliothek';
-
+import { CommentProvider } from '../../providers/comment/comment';
 
 
 @IonicPage({
@@ -25,6 +25,10 @@ homePage = 'HomePage';
 public ratingData: any;
 //Variable wird benötigt, um in ratingdetail.html den aktuellen Username anzuzeigen
 public currentSzenario: any;
+//Variablen, die benötigt werden, um in "/erstellteBewertungen" einen Wert auszulesen
+//und daraufhin verschiedene Buttons in ratingdetail.html anzuzeigen
+public currentRated: any;
+public showButtons: any;
 //Variable, auf die die einzelnen Berwertungen geschrieben werden
 public ratingList: Array<any>;
 //Variablen die mit den Ratingdaten beschrieben werden
@@ -42,6 +46,9 @@ public userName: string;
 public problemdefinition: string;
 public averageForBewertungen: number;
 
+//Variable zur abhängigen Ausgabe von Subtiteln in den Alerts
+public subTitleText: string;
+
 //Variablen zur Berechnung des Durchschnittswertes
 public v1: number;
 public v2: number;
@@ -57,7 +64,9 @@ public i: number=0
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public ratingProvider: RatingProvider,
-			  public bibliothekProvider: BibliothekProvider) {
+			        public bibliothekProvider: BibliothekProvider,
+              public commentProvider: CommentProvider,
+              public alertCtrl: AlertController) {
 
   }
   
@@ -71,7 +80,6 @@ public i: number=0
 	  //Beschreiben der Variablen mit den Daten des Snapshots aus firebase
       this.currentSzenario = szenarioSnap;
     });
-
   
 	/*
 	Aufruf des RantingProviders und dessen checkPath() Funktion
@@ -87,9 +95,9 @@ public i: number=0
 		dem RatingProvider wird aufgerufen. Wieder wird mit .then() und Arrowfunktion gearbeitet.
 		Es wird ein Snapshot der hinterlegten Ratingdaten erstellt.
 		*/
-        this.ratingProvider.getRatingDataDetail(this.navParams.get('szenarioId')).then( ratingSnap => {
+    this.ratingProvider.getRatingDataDetail(this.navParams.get('szenarioId')).then( ratingSnap => {
 		//Hier wird der Snapshot auf die Hilfsvariable geschrieben.
-        this.ratingData = ratingSnap;
+    this.ratingData = ratingSnap;
 		//Hier werden die einzelnen Variablen mit en einzelnen Daten beschrieben.
         this.entwicklung      = this.ratingData.entwicklung;
         this.realitaetsnaehe  = this.ratingData.realitaetsnaehe;
@@ -100,30 +108,46 @@ public i: number=0
         this.faktenlage       = this.ratingData.faktenlage;
 
 	    });
+
+    //Aufruf der showButton() Funktion.
+    this.showButton();
+
+
 	  } else {
 		  //Wenn keine Daten in dem überprüften Pfad hinterlegt sind, dann wird zunächst
 		  //bei dem User, der das vorliegende Szenario bewerten soll, ein Eintrag in 
 		  // "/ratingData/currentUserID/erstellteBewertungen" erzeugt. Weitere Erklärungen dazu
 		  //in rating.ts unter pushErstellteBewertungen.
-		  this.ratingProvider.getSzenarioDataForErstellteBewertungen(this.navParams.get('szenarioId')).then( snap => {
+		  this.ratingProvider.getSzenarioDataForErstellteBewertungen(this.navParams.get('szenarioId'))
+			.then( snap => {
 		  this.ratingListForBewertungen        = snap;
-          this.userName                        = this.ratingListForBewertungen.userName.userName;
+      this.userName                        = this.ratingListForBewertungen.userName.userName;
 		  this.averageForBewertungen           = this.ratingListForBewertungen.average.average;
 		  this.problemdefinition               = this.ratingListForBewertungen.problemdefinition.problemdefinition;
 		  }).then( snap => {
 		  
 		  this.ratingProvider.updateErstellteBewertungen(this.navParams.get('szenarioId'),
 		                                                 this.userName,
-													     this.averageForBewertungen,
-													     this.problemdefinition);
+													                           this.averageForBewertungen,
+													                           this.problemdefinition);
 		  });
-         
-	  }
+    
+
+      //Aufruf der showButton() Funktion.
+      this.showButton();
+
+	    }
     });
   }
   
   //Update der ratingDaten
-  updateEntwicklungDetail(entwicklung) {
+  updateEntwicklungDetail(entwicklung: number) {
+    if (entwicklung <= 5) {
+      this.begruendungAlert("Entwicklung", "negativ");
+    } else if (entwicklung >= 95) {
+      this.begruendungAlert("Entwicklung", "positiv");
+    }
+
 	// Durch this.navParams.get('szenarioId') wird der Pfad an die Update() Funktion in 
 	// rating.ts übergeben, sodass immer nur die Ratingdaten zum aktuell vorliegenden Szenario
 	// aktualisiert werden
@@ -154,40 +178,110 @@ public i: number=0
     this.ratingProvider.updateFaktenlageDetail(faktenlage, this.navParams.get('szenarioId'));
   }
   
+  //Funktion um verschiedene Buttons anzuzeigen
+  showButton() {
+    //Aufruf der checkPath() Funktion und übergabe der aktuellen Navigationsparameter und des Pfades
+	  //Funktion dient dazu, abhängig vom Datenstand in "/commentData" festzulegen, welche
+    //Buttons angezeigt werden sollen. (Siehe auch ratingdetail.html für Erklärung)
+    this.commentProvider.checkPath(this.navParams.get('szenarioId'), "kombiniertekommentare")
+    .then((result: boolean) => {
+      if(result == true){
+        this.showButtons = true;
+      } else {
+        this.showButtons = false;
+      }
+    });
+  }
+
+  begruendungAlert(rating: string, auspraegung:string ){
+
+  if(rating == "Entwicklung") {
+    this.subTitleText = "Warum finden Sie die Entwicklung dieses Szenarios so " + auspraegung + "?";
+  }
+
+    //Aufruf eines Alarms.	
+    let alert = this.alertCtrl.create({
+	    //Festlegung des Titels und des Untertitels. Abhängig vom input
+      title: 'Extreme Bewertung',
+	    subTitle: this.subTitleText,
+	  //Es soll Inputfeld vorhanden sein.
+	  inputs: [
+        {
+          name: "begruendung",
+          placeholder: 'Hier Begründung eingeben'
+        }
+      ],
+	  //Es soll ein Abbrechen-Button im Alert entahlten sein.
+      buttons: [
+        {
+          text: 'Abbrechen',
+          role: 'cancel',
+		  //Handler für den Abbrechen-Button
+          handler: data => {
+			//Wenn der Abbrechen Knopf gedrückt wird, muss trotzdem die Eingabe für die Annahme gespeichert werden.
+			//Dazu werden der Pfad, die Annahme und deren Begründung an die updateAnnahme() Funktion des
+			//Szenarioproviders übergeben.
+            this.commentProvider.updateEntwicklungKommentar(this.navParams.get('szenarioId'), data)
+          }
+        },
+        {
+		      //Es soll ein Speichern-Button im Alert entahlten sein.
+          text: 'Speichern',
+		      //Handler für den Speichern-Button
+          handler: data => {
+            this.commentProvider.updateEntwicklungKommentar(this.navParams.get('szenarioId'), data)
+          }
+        }
+      ]
+    });
+    //Anzeige des Alerts
+    alert.present();
+  }
   
   //Funktion zur Berechnung des Durchschinitts und zur weitergabe dieses Wertes an die
   //updateAverage() in ratingProvider
   updateAverage() {
-  
-  //Aufruf der getRatingValues() Funktion in ratingProvider
-  this.ratingProvider.getRatingValues(this.navParams.get('szenarioId')).then( ratingListSnap => {
-    //Beschreiben der lokalen Arrays mit den einzelnen erhaltenen Bewertungen
-    this.ratingList = ratingListSnap;
-	//Arrow-Funktion um funktion zu gewährleisten
+    //Aufruf der getRatingValues() Funktion in ratingProvider
+    this.ratingProvider.getRatingValues(this.navParams.get('szenarioId')).then( ratingListSnap => {
+      //Beschreiben der lokalen Arrays mit den einzelnen erhaltenen Bewertungen
+      this.ratingList = ratingListSnap;
+	  //Arrow-Funktion um funktion zu gewährleisten
     }).then( ratingList => {
-	
-	//Iteration durch die einzelnen erhaltenen Bewertungen
-	for (let rating of this.ratingList){
-		//Auslesen der einzelnen Werte einer erhaltenen Bewertung
-		this.v1 = rating.realitaetsnaehe;
-		this.v2 = rating.relevanz;
-		this.v3 = rating.ausfuehrlichkeit;
-		this.v4 = rating.zusammenhaenge;
-		this.v5 = rating.wiedersprueche;
-		this.v6 = rating.faktenlage;
+	    //Iteration durch die einzelnen erhaltenen Bewertungen
+	    for (let rating of this.ratingList){
+		    //Auslesen der einzelnen Werte einer erhaltenen Bewertung
+		    this.v1 = rating.realitaetsnaehe;
+		    this.v2 = rating.relevanz;
+		    this.v3 = rating.ausfuehrlichkeit;
+		    this.v4 = rating.zusammenhaenge;
+		    this.v5 = rating.wiedersprueche;
+		    this.v6 = rating.faktenlage;
 		
-		//Addition aller Werte
-		this.sum = (this.sum + this.v1 + this.v2 + this.v3 + this.v4 + this.v5 + this.v6);
-		//Zähler für die spätere Mittelwertsbildung
-		this.i = this.i+1;
-	}
-	//Bilden des Mittelwerts und Rundung auf ganze Zahlen
-	this.average = Math.floor((this.sum/(600*this.i))*100);
-	
-	//Aufruf der updateAverage() Funktion im ratingProvider
-	this.ratingProvider.updateAverage(this.average, this.navParams.get('szenarioId'));
-	
-	});
+		    //Addition aller Werte
+		    this.sum = (this.sum + this.v1 + this.v2 + this.v3 + this.v4 + this.v5 + this.v6);
+		    //Zähler für die spätere Mittelwertsbildung
+		    this.i = this.i+1;
+	    }
+	    //Bilden des Mittelwerts und Rundung auf ganze Zahlen
+	    this.average = Math.floor((this.sum/(600*this.i))*100);
+	    //Aufruf der updateAverage() Funktion im ratingProvider
+	    this.ratingProvider.updateAverage(this.average, this.navParams.get('szenarioId'));
+	  });
 	
   }
+
+  //Funktion für die Navigation zur Ratingdetailseite
+  goToCommentDetail(szenarioId){
+  //Übergabe des Navigationsparameters an diese Seite.
+	//Der Navigationsparameter entspricht der UserID des Szenarios, welches bewertet werden soll.
+    this.navCtrl.push('commentdetail', { 'szenarioId': szenarioId });
+  }
+
+  //Funktion für die Navigation zur Szenariodetailseite
+  goToSzenarioDetail(szenarioId){ 
+	//Der Navigationsparameter entspricht der UserID des Szenarios, welches bewertet wurde.		
+    this.navCtrl.push('szenariodetail', { 'szenarioId': szenarioId });
+
+  }
+
 }

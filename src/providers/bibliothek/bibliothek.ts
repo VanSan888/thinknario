@@ -80,12 +80,12 @@ export class BibliothekProvider {
 		      ereignisbegruendung2: snapshot.val().ereignisse.ereignis2.begruendung,
 		      ereignisbegruendung3: snapshot.val().ereignisse.ereignis3.begruendung,
 		      ereignisbegruendung4: snapshot.val().ereignisse.ereignis4.begruendung,
-          //deskriptoren: snapshot.deskriptoren.val().deskriptor1,
           szenariotext: snapshot.val().szenariotext.ausgangslage,
 		      ausgangslage: snapshot.val().szenariotext.ausgangslage,
 		      entwicklung: snapshot.val().szenariotext.entwicklung,
 		      endzustand: snapshot.val().szenariotext.endzustand,
-		      hilfe: snapshot.val().szenariotext.hilfe,		  
+		      hilfe: snapshot.val().szenariotext.hilfe,	
+          average: snapshot.val().average.average,
         });
       });
     });
@@ -108,7 +108,7 @@ export class BibliothekProvider {
             id: snap.key,
 			username: snap.val().userName,
 			problemdefinition: snap.val().problemdefinition,
-			average: snap.val().average,			
+			average: snap.val().average.average,			
           });		  
         return false
         });

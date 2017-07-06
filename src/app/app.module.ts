@@ -18,6 +18,7 @@ import { RatingProvider } from '../providers/rating/rating';
 
 //Validator Import
 import { SzenarioValidator } from '../validators/szenarioValidator';
+import { CommentProvider } from '../providers/comment/comment';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { SzenarioValidator } from '../validators/szenarioValidator';
   	SzenarioProvider,
 	  RatingProvider,
 	  SzenarioValidator,
+    CommentProvider,
  
   ]
 })

@@ -926,6 +926,14 @@ ionViewWillLeave(){
 	    });
 
         toast.onDidDismiss(() => {
+          //Damit der szenarioFertig Toast nciht immer wieder aufpoppt, wenn man sein Szenario betrachtet,
+          //wird der endzustandsCounter auf 3 gesetzt.
+          this.endzustandCounter = 3;
+          //Der endzustandDialog() soll ebenfalls aktualisiert werden.
+          this.endzustandDialog(this.endzustandCounter);
+          //Speichern des neuen Counterwertes in firsebase
+          this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);
+          //Ausblenden des Dialogfensters
           this.toggleEndzustand = false;
 		    });
       toast.present(); 

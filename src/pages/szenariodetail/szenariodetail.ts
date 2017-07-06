@@ -2,6 +2,7 @@ import { Component, Input, ElementRef, ViewChild } from '@angular/core';
 //NavParams kontrollieren die Navigationsparameter
 import { IonicPage, NavController, NavParams, AlertController} from 'ionic-angular';
 import { BibliothekProvider } from '../../providers/bibliothek/bibliothek';
+import { RatingProvider } from '../../providers/rating/rating';
 import * as firebase from 'firebase';
 
 
@@ -20,13 +21,18 @@ export class SzenariodetailPage {
   
   //Variable die mit den Daten des Szenarios beschrieben wird.
   public currentSzenario: any;
+  
 
+  //Variablen zur Festelegung des korrekten Disqus-Threads
   public pageId: string;
   public url: string;
 
   //Variable um szenariodetail.html anzupassen, je nach dem, ob der User die Hiflestellung
   //in Anspruch genommen hat oder nicht.
   public hilfeVar: boolean = false;
+
+  public viewComments: boolean;
+  
 
 //a reference to the canvas element from our template
 @ViewChild('canvas1') public canvas1: ElementRef;
@@ -53,7 +59,8 @@ private cx6: CanvasRenderingContext2D;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public alertCtrl: AlertController,
-              public bibliothekProvider: BibliothekProvider) {}
+              public bibliothekProvider: BibliothekProvider,
+              public ratingProvider: RatingProvider) {}
   
 
 ionViewDidLoad() {
@@ -112,6 +119,18 @@ ionViewDidLoad() {
 	  //Beschreiben der Variablen mit den Daten des Snapshots aus firebase
     this.currentSzenario = szenarioSnap;
 	  this.hilfeVar = this.currentSzenario.hilfe;
+    });
+
+   	//Schauen, ob der aktive User schon eine Bewertung für das betrachtete Szenario erstellt hat
+    this.ratingProvider.checkPathforComments(this.navParams.get('szenarioId')).then((result: boolean) => {
+
+		//Wenn ja, dann zeige die Kommentare an.
+        if(result === true) {
+           this.viewComments = true;
+          //Wenn nein, blende die Kommentare aus.
+        } else {
+            this.viewComments = false;
+        }
     });
 
   let storageRef =  firebase.storage().ref().child(this.navParams.get('szenarioId') + '/').child('deskriptor1');

@@ -203,15 +203,25 @@
 <button ion-button padding (click)="goToRatingDetail(currentSzenario.id)"
 >Dieses Szenario bewerten und kommentieren</button>
 
-<!-- Einbinden des ngx-discus templates. Identifier und url stellen für jeden
-die richtige Comment Section dar (siehe auch szenarioerstellung.ts) -->
-<disqus [url]="url" [identifier] = "pageId" ></disqus>
+
+<div padding-top>
+  <ion-segment [(ngModel)]="kommunikation">
+    <ion-segment-button value="kommentare">
+      Kommentare
+    </ion-segment-button>
+    <ion-segment-button value="statistik">
+      Statistik
+    </ion-segment-button>
+  </ion-segment>
+</div>
 
 <div [ngSwitch]="kommunikation">
   <div *ngSwitchCase="'kommentare'">
     <!-- Einbinden des ngx-discus templates. Identifier und url stellen für jeden
-    die richtige Comment Section dar (siehe auch szenarioerstellung.ts) -->
-    <disqus [url]="url" [identifier] = "pageId" ></disqus>
+    die richtige Comment Section dar (siehe auch szenarioerstellung.ts).
+    Die Kommentare sind erst dann sichtbar, wenn eine Bewertung abgegeben wurde. -->
+    <disqus  [identifier] = "pageId" [url]="url" *ngIf="viewComments"></disqus>
+    <p *ngIf="!viewComments">Sie müssen zuerst eine Bewertung zu diesem Szenario abgeben, um es kommentieren zu können.</p>
   </div>
 
   <ion-list *ngSwitchCase="'statistik'">

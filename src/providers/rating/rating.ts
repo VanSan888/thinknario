@@ -36,6 +36,22 @@ public erhalteneBewertungenList: Array<any>;
 	  });
 	});  
   }
+
+  //Promise um Asynchronität zu gewährleisten
+  checkPathforComments(szenarioID: string):  Promise<boolean> {
+	return new Promise<boolean>((resolve, reject) => {
+	  //Zu prüfender Pfad inklusive der Varibalen aus den einzelnen Seiten
+	  firebase.database().ref('/ratingData')
+	  .child(firebase.auth().currentUser.uid).child('erstellteBewertungen')
+    .child(szenarioID)
+	  //.on() inklusive Arrow Funktion und Snapshot("data"), um die Daten auszulesen
+	  .on('value', data => {
+		//.exists() gibt "true" mittels resolve() an das Promise
+		//zurück, wenn Werte in dem angegebenen Pfad existieren
+	    resolve(data.exists());
+	  });
+	});  
+  }
   
   //Sehr ähnlich zu ProfileProvider. Siehe Erklärung dort
   getRatingData(): Promise<any> {
@@ -99,6 +115,7 @@ public erhalteneBewertungenList: Array<any>;
   }
   
   //Ab hier folgen die Funtkionen für die ratingdetail.ts Seiten
+
   checkPathDetail(szenarioId):  Promise<boolean> {
 	return new Promise<boolean>((resolve, reject) => {
 	  //Zu prüfender Pfad inklusive der Varibalen aus den einzelnen Seiten
@@ -113,12 +130,28 @@ public erhalteneBewertungenList: Array<any>;
 	});  
   }
 
+
   //Sehr ähnlich zu ProfileProvider. Siehe Erklärung dort
+  //Funktion, um die Daten abzurufen, die der aktive User für die übergebene szenarioId erstellt hat
   getRatingDataDetail(szenarioId): Promise<any> {
     return new Promise( (resolve, reject) => {
       firebase.database().ref("ratingData/")
       .child(szenarioId).child('erhalteneBewertungen').child(firebase.auth().currentUser.uid)
 	  .on('value', data => {
+       resolve(data.val());
+      });
+    });
+  }
+
+  //Sehr ähnlich zu ProfileProvider. Siehe Erklärung dort
+  //Funktion, um die Daten in "/erstellteBewertungen" abzurufen
+  //Wird benötigt, um zu verschiedenen Zuständen verschiedene Buttons in ratingdetail.html anzuzeigen
+  getRatedAverage(szenarioId): Promise<any> {
+    return new Promise( (resolve, reject) => {
+      firebase.database().ref("ratingData/")
+      .child(firebase.auth().currentUser.uid).child('erstellteBewertungen').child(szenarioId)
+      .child("average")
+	    .on('value', data => {
        resolve(data.val());
       });
     });
@@ -200,15 +233,19 @@ public erhalteneBewertungenList: Array<any>;
   //Diese Daten werden auf der bewertungen.ts Seite abgerufen.
   updateErstellteBewertungen(szenarioId: any,
                              userName: string,
-						     average: number,
-						     problemdefinition: string): firebase.Promise<any> {	
+						                 average: number,
+						                 problemdefinition: string): firebase.Promise<any> {
+    //Aufruf der Update Average Funktion
+    this.updateAverage(average, szenarioId);                            
     return firebase.database().ref('/ratingData').child(firebase.auth().currentUser.uid)
-	.child("erstellteBewertungen").child(szenarioId)
+	  .child("erstellteBewertungen").child(szenarioId)
     .update({
 	  userName: userName,
-	  average: average,
 	  problemdefinition: problemdefinition
     });
+
+
+
   }
   
 
@@ -223,13 +260,13 @@ public erhalteneBewertungenList: Array<any>;
         snapshot.forEach( snap => {
 	      //Beschreiben des Arrays
           rawList.push({
-			//entwicklung wird nicht benötigt, da dieser Wert nicht die Qualität eines Szenarios misst
+			      //entwicklung wird nicht benötigt, da dieser Wert nicht die Qualität eines Szenarios misst
             realitaetsnaehe: snap.val().realitaetsnaehe,
-			relevanz: snap.val().relevanz,
-			ausfuehrlichkeit: snap.val().ausfuehrlichkeit,
-			zusammenhaenge: snap.val().zusammenhaenge,
-			wiedersprueche: snap.val().wiedersprueche,
-			faktenlage: snap.val().faktenlage,
+			      relevanz: snap.val().relevanz,
+			      ausfuehrlichkeit: snap.val().ausfuehrlichkeit,
+			      zusammenhaenge: snap.val().zusammenhaenge,
+			      wiedersprueche: snap.val().wiedersprueche,
+			      faktenlage: snap.val().faktenlage,
           });
 		  
         return false
@@ -252,17 +289,27 @@ public erhalteneBewertungenList: Array<any>;
     })
   */
 	
-	
-	
   //Festlegung der zu aktualisierenden Daten
   let updateData = {average: average};
   
   //Festlegung der verschiedenen Pfade
   let locations = {};
-    locations['/szenarioData/' + szenarioId + '/' + 'average/'] = updateData;
-    locations['/ratingData/' + szenarioId + '/' + 'average/'] = updateData;	
-  //Update der Daten in den verschiedenen Pfaden  
-  return firebase.database().ref().update(locations);
+    
+    //Wenn die SzenarioID gleich der UserID ist, dann nur Update in den folgenden Pfaden
+    if(szenarioId ==  firebase.auth().currentUser.uid) {
+      locations['/szenarioData/' + szenarioId + '/' + 'average/'] = updateData;
+      locations['/ratingData/'   + szenarioId + '/' + 'average/'] = updateData;
+      //Update der Daten in den verschiedenen Pfaden
+      return firebase.database().ref().update(locations);
+    //Ansonsten auch in 'erstellteBewertungen'
+  } else {
+      locations['/szenarioData/' + szenarioId + '/' + 'average/'] = updateData;
+      locations['/ratingData/'   + szenarioId + '/' + 'average/'] = updateData;    
+      locations['/ratingData/'   + firebase.auth().currentUser.uid +
+                '/erstellteBewertungen/' + szenarioId + '/average/'] = updateData;    	
+      //Update der Daten in den verschiedenen Pfaden  
+      return firebase.database().ref().update(locations);
+    }
   } 
   
 

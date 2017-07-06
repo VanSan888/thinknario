@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+	<!-- Ausgabe des Userszenarios, dass kommentiert werden soll. -->
+    <ion-title>Kommentar für {{currentSzenario?.username}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <p>Hier Erklärung einfügen, was passiert, warum Kommentare wichtig für den weiteren verlauf sind usw.</p>
+  <ion-item padding>
+    <ion-label for="KombinierteKommentare" stacked>Bisherige Kommentare:</ion-label>
+    <ion-input type="text" placeholder="Keine Kommentare angegeben"
+    [(ngModel)]="kombinierteKommentare" name="KombinierteKommentare"
+	  (change)="updateKombinierteKommentare(kombinierteKommentare)">
+    </ion-input>
+  </ion-item>
+
+  <disqus  [identifier] = "pageId" [url]="url"></disqus>
+
+  <button ion-button (click)="goToSzenarioDetail(currentSzenario.id)">
+  Szenario von {{currentSzenario?.username}} erneut ansehen</button>
+  <button ion-button [navPush]="homePage">Zur Homepage</button>
+
+</ion-content>

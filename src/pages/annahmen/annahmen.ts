@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController,IonicPage, AlertController } from 'ionic-angular';
+import { NavController, IonicPage, AlertController } from 'ionic-angular';
 import { SzenarioProvider } from '../../providers/szenario/szenario';
 
 
@@ -33,7 +33,7 @@ public toggleVar: boolean= true;
 
   constructor( public navCtrl: NavController,
                public szenarioProvider: SzenarioProvider,
-			   public alertCtrl: AlertController) {
+			         public alertCtrl: AlertController) {
 
   }
 
