@@ -15,13 +15,16 @@
   <ion-list>
     <h4>Entwicklung</h4>
 	<!-- Hier werden die einzelnen Ratingkriterien jeweils als ioin-range
-    abgefragt und eingegeben. Bei Veränderung der Werte wird durch (ionChange)
-	die jeweilige Update() Funktion in ratingdetail.ts aufgerufen.
-	required dient der Formvalidierung-->
+    abgefragt und eingegeben. Bei Veränderung der Werte wird durch (mouseup)
+	die jeweilige Update() Funktion in ratingdetail.ts aufgerufen. (mouseup) wird hier verwendet,
+  da nur ein Event ausgelöst wird, wenn die Maus losgelassen wird. Das sonst verwendete (ionChange),
+  feuert bei jeder Veränderung des Ratings ein Event, was dazu führt, dass allein fünf Alerts
+  ausgelöst werden würden, wenn der User von 0 zu 10 verfährt.
+	(required) dient der Formvalidierung-->
     <p> Hier kurze Erklärung. Wie schätzen Sie die Entwicklung des Szenarios ein? </p>
       <ion-item>
         <ion-range [(ngModel)]="entwicklung" name="Entwicklung"
-	    (ionChange)="updateEntwicklungDetail(entwicklung)" required>
+	    (mouseup)="updateEntwicklungDetail(entwicklung)" required>
           <ion-label range-left>Sehr negativ</ion-label>
           <ion-label range-right>Sehr positiv</ion-label>
         </ion-range>
@@ -30,7 +33,7 @@
     <p> Hier kurze Erklärung. Als wie realistisch schätzen Sie das Szenario ein? </p>
       <ion-item>
         <ion-range [(ngModel)]="realitaetsnaehe" name="Realitaetsnaehe"
-	    (ionChange)="updateRealitaetsnaeheDetail(realitaetsnaehe)" required>
+	      (mouseup)="updateRealitaetsnaeheDetail(realitaetsnaehe)" required>
           <ion-label range-left>Sehr unrealistisch</ion-label>
           <ion-label range-right>Sehr realistisch</ion-label>
         </ion-range>
@@ -39,7 +42,7 @@
     <p> Hier kurze Erklärung. Als wie relavant schätzen Sie das Szenario und dessen Problemdefinition ein? </p>	
       <ion-item>
         <ion-range [(ngModel)]="relevanz" name="Relevanz"
-	    (ionChange)="updateRelevanzDetail(relevanz)" required>
+	      (mouseup)="updateRelevanzDetail(relevanz)" required>
           <ion-label range-left>Sehr irrelevant</ion-label>
           <ion-label range-right>Sehr relevant</ion-label>
         </ion-range>
@@ -48,7 +51,7 @@
     <p> Hier kurze Erklärung. Wie ausführlich wurde das Szenario beschrieben? </p>
       <ion-item>
         <ion-range [(ngModel)]="ausfuehrlichkeit" name="Ausfuehrlichkeit"
-	    (ionChange)="updateAusfuehrlichkeitDetail(ausfuehrlichkeit)" required>
+        (mouseup)="updateAusfuehrlichkeitDetail(ausfuehrlichkeit)" required>
           <ion-label range-left>Sehr oberflächlich</ion-label>
           <ion-label range-right>Sehr ausführlich</ion-label>
         </ion-range>
@@ -59,7 +62,7 @@
     Randbedingungen und überraschenden Ereignissen anschaulich dar. </p>
       <ion-item>
         <ion-range [(ngModel)]="zusammenhaenge" name="Zusammenhaenge"
-	    (ionChange)="updateZusammenhaengeDetail(zusammenhaenge)" required>
+	      (mouseup)="updateZusammenhaengeDetail(zusammenhaenge)" required>
           <ion-label range-left>Lehne stark ab</ion-label>
           <ion-label range-right>Stimme stark zu</ion-label>
         </ion-range>
@@ -69,7 +72,7 @@
     <p> Das Szenario ist widerspruchsfrei und in sich stimmig. </p>
       <ion-item>
         <ion-range [(ngModel)]="wiedersprueche" name="Wiedersprueche"
-	    (ionChange)="updateWiederspruecheDetail(wiedersprueche)" required>
+	      (mouseup)="updateWiederspruecheDetail(wiedersprueche)" required>
           <ion-label range-left>Lehne stark ab</ion-label>
           <ion-label range-right>Stimme stark zu</ion-label>
         </ion-range>
@@ -79,7 +82,7 @@
     <p> Das Szenario enthält hauptsächlich Fakten. Auf Schwafelei wird verzichtet. </p>
       <ion-item>
         <ion-range [(ngModel)]="faktenlage" name="faktenlage"
-	    (ionChange)="updateFaktenlageDetail(faktenlage)" required>
+	      (mouseup)="updateFaktenlageDetail(faktenlage)" required>
           <ion-label range-left>Lehne stark ab</ion-label>
           <ion-label range-right>Stimme stark zu</ion-label>
         </ion-range>
@@ -95,10 +98,10 @@
 <!-- Button kann erst geklickt werden, wenn alle Kriterien bewertet wurden. -->
 <!-- Aufruf der updateAverage() Funktion. -->
 <!-- Wenn showButtons false ist, also in "/commentData/szenarioId" noch keine
-Daten hinterlegt sind, soll der User nur zur commentdetail.html navigieren können -->
+Daten hinterlegt sind, soll der User nur zur commentdetail.html navigieren können *ngIf="showButtons == false"-->
 
 
-<button ion-button *ngIf="showButtons == false"
+<button ion-button 
 [disabled]="!ratingForm.form.valid"
 (click)="updateAverage()" (click)="goToCommentDetail(currentSzenario.id)">Speichern und kommentieren</button>
 

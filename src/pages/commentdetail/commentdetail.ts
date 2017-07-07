@@ -22,6 +22,16 @@ export class CommentdetailPage {
   public pageId: string;
   public url: string;
 
+  //Variablen zum Lesen der Kommentare aus firebase und zum Zusammenfassen als ein Kommentar
+  public entwicklung: string;
+  public ausfuehrlichkeit: string;
+  public faktenlage: string;
+  public realitaetsnaehe: string;
+  public relevanz: string;
+  public wiedersprueche: string;
+  public zusammenhaenge: string;
+  public kombinierteKommentare: string;
+
   //Variable wird benötigt, um in ratingdetail.html den aktuellen Username anzuzeigen
   public currentSzenario: any;
   //Variable zum lesen der Daten aus Firebase
@@ -54,8 +64,21 @@ export class CommentdetailPage {
     this.commentProvider.checkPath(this.navParams.get('szenarioId'), "kombiniertekommentare")
     .then((result: boolean) => {
       if(result === true) {
-        this.commentProvider.getCommentData(this.navParams.get('szenarioId')).then( szenarioSnap => {
-        this.commentData = szenarioSnap;
+        this.commentProvider.getCommentData(this.navParams.get('szenarioId')).then( commentSnap => {
+        this.commentData      = commentSnap;
+        this.entwicklung      = this.commentData.entwicklung.Begründung
+        this.ausfuehrlichkeit = this.commentData.ausfuehrlichkeit.Begründung
+        this.faktenlage       = this.commentData.faktenlage.Begründung
+        this.realitaetsnaehe  = this.commentData.realitaetsnaehe.Begründung
+        this.relevanz         = this.commentData.relevanz.Begründung
+        this.wiedersprueche   = this.commentData.wiedersprueche.Begründung
+        this.zusammenhaenge   = this.commentData.zusammenhaenge.Begründung
+
+        this.kombinierteKommentare = this.entwicklung + "  \n" + this.ausfuehrlichkeit + "  \n" +
+                                     this.faktenlage  + "  \n" + this.realitaetsnaehe  + "  \n" +
+                                     this.relevanz    + "  \n" + this.wiedersprueche   + "  \n" +
+                                     this.zusammenhaenge;
+
         });
       } else {
           this.commentProvider.updateKombinierteKommentare(this.navParams.get('szenarioId'), "");

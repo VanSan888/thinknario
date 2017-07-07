@@ -109,15 +109,16 @@ public i: number=0
 
 	    });
 
-    //Aufruf der showButton() Funktion.
+    //Aufruf der showButton() Funktion zur Darstellung verschiedener Button je nach Datenlage.
     this.showButton();
-
 
 	  } else {
 		  //Wenn keine Daten in dem überprüften Pfad hinterlegt sind, dann wird zunächst
 		  //bei dem User, der das vorliegende Szenario bewerten soll, ein Eintrag in 
 		  // "/ratingData/currentUserID/erstellteBewertungen" erzeugt. Weitere Erklärungen dazu
 		  //in rating.ts unter pushErstellteBewertungen.
+
+      //Daten lesen
 		  this.ratingProvider.getSzenarioDataForErstellteBewertungen(this.navParams.get('szenarioId'))
 			.then( snap => {
 		  this.ratingListForBewertungen        = snap;
@@ -125,16 +126,25 @@ public i: number=0
 		  this.averageForBewertungen           = this.ratingListForBewertungen.average.average;
 		  this.problemdefinition               = this.ratingListForBewertungen.problemdefinition.problemdefinition;
 		  }).then( snap => {
-		  
+		  //Eintrag erstellen
 		  this.ratingProvider.updateErstellteBewertungen(this.navParams.get('szenarioId'),
 		                                                 this.userName,
 													                           this.averageForBewertungen,
 													                           this.problemdefinition);
 		  });
-    
-
-      //Aufruf der showButton() Funktion.
+      //Aufruf der showButton() Funktion zur Darstellung verschiedener Button je nach Datenlage.
       this.showButton();
+      
+      //Außerdem müssen Dummidaten für die Kommentare erstellt werden. Die ist eine Möglichkeit
+      //die Kommentarebei commentdetail.ts in einem gemeinsamem Feld zusammengefasst werden.
+      // Ansonsten müsste in commentdetail.ts eine Abfrage für jeden Pfad erstellt werden.
+      this.commentProvider.updateKommentar(this.navParams.get('szenarioId'), "entwicklung", "");
+      this.commentProvider.updateKommentar(this.navParams.get('szenarioId'), "realitaetsnaehe", "");         
+      this.commentProvider.updateKommentar(this.navParams.get('szenarioId'), "relevanz", "");
+      this.commentProvider.updateKommentar(this.navParams.get('szenarioId'), "ausfuehrlichkeit", "");
+      this.commentProvider.updateKommentar(this.navParams.get('szenarioId'), "zusammenhaenge", "");
+      this.commentProvider.updateKommentar(this.navParams.get('szenarioId'), "wiedersprueche", "");
+      this.commentProvider.updateKommentar(this.navParams.get('szenarioId'), "faktenlage", "");
 
 	    }
     });
@@ -142,39 +152,81 @@ public i: number=0
   
   //Update der ratingDaten
   updateEntwicklungDetail(entwicklung: number) {
+    //Wenn die Bewertung sehr positiv oder sehr negativ ausfällt,
+    //soll der User nach einer Begründung für seine Meinung gefragt werden
     if (entwicklung <= 5) {
-      this.begruendungAlert("Entwicklung", "negativ");
+      //Aufruf des Begründungs-Alert, wenn die Bewertung kleiner als 5 Punkte ist.
+      //Übergabe der Schlagworte Entwicklung und negativ.
+      this.begruendungAlert("entwicklung", "negativ");
     } else if (entwicklung >= 95) {
-      this.begruendungAlert("Entwicklung", "positiv");
+      //Aufruf des Begründungs-Alert, wenn die Bewertung größer als 955 Punkte ist.
+      //Übergabe der Schlagworte Entwicklung und positiv.
+      this.begruendungAlert("entwicklung", "positiv");
     }
-
 	// Durch this.navParams.get('szenarioId') wird der Pfad an die Update() Funktion in 
 	// rating.ts übergeben, sodass immer nur die Ratingdaten zum aktuell vorliegenden Szenario
 	// aktualisiert werden
     this.ratingProvider.updateEntwicklungDetail(entwicklung, this.navParams.get('szenarioId'));
   }
+
    //Siehe Erklärung zu updateEntwicklungDetail()
-  updateRealitaetsnaeheDetail(realitaetsnaehe) {
+  updateRealitaetsnaeheDetail(realitaetsnaehe: number) {
+    if (realitaetsnaehe <= 5) {
+      this.begruendungAlert("realitaetsnaehe", "fern");
+    } else if (realitaetsnaehe >= 95) {
+      this.begruendungAlert("realitaetsnaehe", "nah");
+    }
+
     this.ratingProvider.updateRealitaetsnaeheDetail(realitaetsnaehe, this.navParams.get('szenarioId'));
   }
-  
-  updateRelevanzDetail(relevanz) {
+   //Siehe Erklärung zu updateEntwicklungDetail()  
+  updateRelevanzDetail(relevanz: number) {
+    if (relevanz <= 5) {
+      this.begruendungAlert("relevanz", "ir");
+    } else if (relevanz >= 95) {
+      this.begruendungAlert("relevanz", "");
+    }
+
     this.ratingProvider.updateRelevanzDetail(relevanz, this.navParams.get('szenarioId'));
   }
-  
-  updateAusfuehrlichkeitDetail(ausfuehrlichkeit) {
+   //Siehe Erklärung zu updateEntwicklungDetail()  
+  updateAusfuehrlichkeitDetail(ausfuehrlichkeit: number) {
+    if (ausfuehrlichkeit <= 5) {
+      this.begruendungAlert("ausfuehrlichkeit", "oberflächlich");
+    } else if (ausfuehrlichkeit >= 95) {
+      this.begruendungAlert("ausfuehrlichkeit", "ausführlich");
+    }
+
     this.ratingProvider.updateAusfuehrlichkeitDetail(ausfuehrlichkeit, this.navParams.get('szenarioId'));
   }
-  
-  updateZusammenhaengeDetail(zusammenhaenge) {
+   //Siehe Erklärung zu updateEntwicklungDetail()  
+  updateZusammenhaengeDetail(zusammenhaenge: number) {
+    if (zusammenhaenge <= 5) {
+      this.begruendungAlert("zusammenhaenge", "zusammenhangslos");
+    } else if (zusammenhaenge >= 95) {
+      this.begruendungAlert("zusammenhaenge", "zusammenhängend");
+    }
+
     this.ratingProvider.updateZusammenhaengeDetail(zusammenhaenge, this.navParams.get('szenarioId'));
   }
+   //Siehe Erklärung zu updateEntwicklungDetail()  
+  updateWiederspruecheDetail(wiedersprueche: number) {
+    if (wiedersprueche <= 5) {
+      this.begruendungAlert("wiedersprueche", "wiedersprüchlich");
+    } else if (wiedersprueche >= 95) {
+      this.begruendungAlert("wiedersprueche", "stimmig");
+    }
   
-  updateWiederspruecheDetail(wiedersprueche) {
     this.ratingProvider.updateWiederspruecheDetail(wiedersprueche, this.navParams.get('szenarioId'));
   }
-  
-  updateFaktenlageDetail(faktenlage) {
+    //Siehe Erklärung zu updateEntwicklungDetail() 
+  updateFaktenlageDetail(faktenlage: number) {
+    if (faktenlage <= 5) {
+      this.begruendungAlert("faktenlage", "irritierend");
+    } else if (faktenlage >= 95) {
+      this.begruendungAlert("faktenlage", "ansprechend");
+    }
+
     this.ratingProvider.updateFaktenlageDetail(faktenlage, this.navParams.get('szenarioId'));
   }
   
@@ -192,13 +244,26 @@ public i: number=0
       }
     });
   }
-
+  
+  //Funktion, die Alerts abhängig von dem jeweiligen Rating mit verschiedenen Texten ausgibt.
+  //Erhählt als Argumente jeweils das Rating und die dazugehörige Ausprägung.
   begruendungAlert(rating: string, auspraegung:string ){
-
-  if(rating == "Entwicklung") {
+  //Festlegung der Subtitel
+  if(rating == "entwicklung") {
     this.subTitleText = "Warum finden Sie die Entwicklung dieses Szenarios so " + auspraegung + "?";
+  } else if (rating == "realitaetsnaehe") {
+    this.subTitleText = "Warum finden Sie dieses Szenario so realitäts" + auspraegung + "?";
+  } else if (rating == "relevanz") {
+    this.subTitleText = "Warum finden Sie dieses Szenario so " + auspraegung + "relevant?";
+  } else if (rating == "ausfuehrlichkeit") {
+    this.subTitleText = "Warum denken Sie, dass dieses Szenario sehr " + auspraegung + " ist?";
+  } else if (rating == "zusammenhaenge") {
+    this.subTitleText = "Warum denken Sie, dass dieses Szenario sehr " + auspraegung + " ist?";
+  } else if (rating == "wiedersprueche") {
+    this.subTitleText = "Aus welchem Grund finden Sie dieses Szenario so " + auspraegung + "?";
+  } else if (rating == "faktenlage") {
+    this.subTitleText = "Welche Fakten fanden Sie besonders " + auspraegung + "?";
   }
-
     //Aufruf eines Alarms.	
     let alert = this.alertCtrl.create({
 	    //Festlegung des Titels und des Untertitels. Abhängig vom input
@@ -208,20 +273,17 @@ public i: number=0
 	  inputs: [
         {
           name: "begruendung",
-          placeholder: 'Hier Begründung eingeben'
+          placeholder: 'Hier Antwort eingeben'
         }
       ],
-	  //Es soll ein Abbrechen-Button im Alert entahlten sein.
+	    //Es soll ein Abbrechen-Button im Alert entahlten sein.
       buttons: [
         {
           text: 'Abbrechen',
           role: 'cancel',
-		  //Handler für den Abbrechen-Button
+		      //Handler für den Abbrechen-Button (Keine Funktion)
           handler: data => {
-			//Wenn der Abbrechen Knopf gedrückt wird, muss trotzdem die Eingabe für die Annahme gespeichert werden.
-			//Dazu werden der Pfad, die Annahme und deren Begründung an die updateAnnahme() Funktion des
-			//Szenarioproviders übergeben.
-            this.commentProvider.updateEntwicklungKommentar(this.navParams.get('szenarioId'), data)
+           // this.commentProvider.updateKommentar(this.navParams.get('szenarioId'), rating, data)
           }
         },
         {
@@ -229,7 +291,7 @@ public i: number=0
           text: 'Speichern',
 		      //Handler für den Speichern-Button
           handler: data => {
-            this.commentProvider.updateEntwicklungKommentar(this.navParams.get('szenarioId'), data)
+            this.commentProvider.updateKommentar(this.navParams.get('szenarioId'), rating, data.begruendung)
           }
         }
       ]

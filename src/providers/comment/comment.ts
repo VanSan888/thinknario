@@ -47,10 +47,10 @@ export class CommentProvider {
   }
 
   //Sehr ähnlich zu ProfileProvider. Siehe Erklärung dort  
-  updateEntwicklungKommentar(szenarioId:string, entwicklungskommentar: string): firebase.Promise<any> {	
+  updateKommentar(szenarioId:string, rating: string, kommentar: string): firebase.Promise<any> {	
     return firebase.database().ref('/commentData').child(szenarioId)
-    .child(firebase.auth().currentUser.uid).update({
-      entwicklungskommentar: entwicklungskommentar,
+    .child(firebase.auth().currentUser.uid).child(rating).update({
+      Begründung: kommentar,
     });
   }
 
