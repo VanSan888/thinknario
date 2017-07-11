@@ -19,10 +19,10 @@
     <ion-item>
       <ion-label stacked for="Ereignis1">Ereignis 1</ion-label>
       <ion-textarea type="text" placeholder="Hier Ihr erstes Ereignis eingeben" 
-	  [(ngModel)]="ereignis1" name="Ereignis1"
-	  (change)="updateEreignis('ereignis1', ereignis1, begruendung1)"
-	  required minlength="20" maxlength="100" #Ereignis1="ngModel">
-	  </ion-textarea>
+	    [(ngModel)]="ereignis1" name="Ereignis1"
+	    (change)="updateEreignis('ereignis1', ereignis1, begruendung1)"
+	    required minlength="20" maxlength="100" #Ereignis1="ngModel" fz-elastic>
+	    </ion-textarea>
     </ion-item>
 	<div *ngIf="Ereignis1.errors && (Ereignis1.dirty || Ereignis1.touched)"
     class="alert alert-danger">
@@ -46,10 +46,10 @@
     <ion-item>
       <ion-label stacked for="Ereignis2">Ereignis 2</ion-label>
       <ion-textarea type="text" placeholder="Hier Ihr zweites Ereignis eingeben" 
-	  [(ngModel)]="ereignis2" name="Ereignis2"
-	  (change)="updateEreignis('ereignis2', ereignis2, begruendung2)"
-	  required minlength="20" maxlength="100" #Ereignis2="ngModel">
-	  </ion-textarea>
+	    [(ngModel)]="ereignis2" name="Ereignis2"
+	    (change)="updateEreignis('ereignis2', ereignis2, begruendung2)"
+	    required minlength="20" maxlength="100" #Ereignis2="ngModel" fz-elastic>
+	    </ion-textarea>
     </ion-item>
 	<div *ngIf="Ereignis2.errors && (Ereignis2.dirty || Ereignis2.touched)"
     class="alert alert-danger">
@@ -73,10 +73,10 @@
     <ion-item [hidden]="!ereignis2">
       <ion-label stacked for="Ereignis3">Ereignis 3</ion-label>
       <ion-textarea type="text" placeholder="Optional hier Ihr drittes Ereignis eingeben" 
-	  [(ngModel)]="ereignis3" name="Ereignis3"
-	  (change)="updateEreignis('ereignis3', ereignis3, begruendung3)"
-	  minlength="20" maxlength="100" #Ereignis3="ngModel">
-	  </ion-textarea>
+	    [(ngModel)]="ereignis3" name="Ereignis3"
+	    (change)="updateEreignis('ereignis3', ereignis3, begruendung3)"
+	    minlength="20" maxlength="100" #Ereignis3="ngModel" fz-elastic>
+	    </ion-textarea>
     </ion-item>
 	<div *ngIf="Ereignis3.errors && (Ereignis3.dirty || Ereignis3.touched)"
     class="alert alert-danger">
@@ -97,9 +97,9 @@
     <ion-item [hidden]="!ereignis3">
       <ion-label stacked for="Ereignis4">Ereignis 4</ion-label>
       <ion-textarea type="text" placeholder="Optional hier Ihr viertes Ereignis eingeben" 
-	  [(ngModel)]="ereignis4" name="Ereignis4"
-	  (change)="updateEreignis('ereignis4', ereignis4, begruendung4)"
-	  minlength="20" maxlength="100" #Ereignis4="ngModel">
+	    [(ngModel)]="ereignis4" name="Ereignis4"
+	    (change)="updateEreignis('ereignis4', ereignis4, begruendung4)"
+	    minlength="20" maxlength="100" #Ereignis4="ngModel" fz-elastic>
 	  </ion-textarea>
     </ion-item>
 	<div *ngIf="Ereignis4.errors && (Ereignis4.dirty || Ereignis4.touched)"

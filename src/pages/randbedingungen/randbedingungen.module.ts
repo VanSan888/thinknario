@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { RandbedingungenPage } from './randbedingungen';
+import { ElasticModule } from 'angular2-elastic';
  
 @NgModule({
   declarations: [
@@ -8,6 +9,7 @@ import { RandbedingungenPage } from './randbedingungen';
   ],
   imports: [
     IonicPageModule.forChild(RandbedingungenPage),
+    ElasticModule,
   ],
   exports: [
     RandbedingungenPage

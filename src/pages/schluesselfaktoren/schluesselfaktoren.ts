@@ -44,7 +44,7 @@ public schluesselfaktor6: boolean = false;
 			  schluesselfaktorenform5   : [ false ],
 			  schluesselfaktorenform6   : [ false ],
 			//Abrufen des SzenarioValidators und seiner Methode für "Problemfeld"
-		 }, { validator: _VAL.validateCheckboxesProblemfeld })
+		 }, { validator: _VAL.validateCheckboxesSchluesselfaktoren})
       });
   }
   

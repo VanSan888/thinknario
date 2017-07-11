@@ -8,6 +8,16 @@
 </ion-header>
 
 <ion-content>
-  
+  <p padding-vertical> Auf dieser Seite können Sie alle Kommentare zu Ihrem Szenario sehen.
+  <br> Ihre Benachrichtigungen können Sie durch klicken der Sprechblase neben Ihrem Benutzernamen aufrufen.
+  <br> Neue Benachrichtigungen erkennen Sie an einer roten Sprechblase. </p>
+
+  <disqus  [identifier] = "pageId" [url]="url"></disqus>
+  <!-- 
   <iframe src="https://disqus.com/" style="width:100%; height:100%;"></iframe>
+  -->
+  <p padding-vertical> Oder besuchen Sie Ihr Notification-Center auf folgender Web-Site: </p>
+  <a href="https://disqus.com/home/inbox/" target="_blank">Disqus Benachrichtigungen</a>
+
+
 </ion-content>

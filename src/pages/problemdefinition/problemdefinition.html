@@ -18,10 +18,11 @@
       Bei Veränderung der textarea wird die updateProblemdefinition() Funktion aufgerufen (change).
 	  "name" ist notwendig zur Formvalidierung. Eingabe wird benötigt (required), muss mindestens 20 Zeichen
 	  lang sein (minlength) und darf höchstens 160 Zeichen lang sein (maxlenght)
-	  #Problemdefinition=ngModel wird zur Formvalidierung benötigt-->
+	  #Problemdefinition=ngModel wird zur Formvalidierung benötigt.
+    fz-elastic lässt die teaxtareas je nach deren Inhalt mitwachsen.-->
       <ion-textarea type="text" placeholder="Hier Ihre Problemdefinition eingeben"
 	  [(ngModel)]="problemdefinition" (change)="updateProblemdefinition(problemdefinition)"
-	  name="Problemdefinition" required minlength="20" maxlength="160" #Problemdefinition="ngModel">
+	  name="Problemdefinition" required minlength="20" maxlength="160" #Problemdefinition="ngModel" fz-elastic>
 	  </ion-textarea>
     </ion-item>
     <!-- <div> zur Kontrolle der Form.

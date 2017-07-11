@@ -13,13 +13,13 @@
   <p>Hier Erklärung einfügen, was passiert, warum Kommentare wichtig für den weiteren verlauf sind usw.</p>
   <ion-item padding>
     <ion-label for="KombinierteKommentare" stacked>Bisherige Kommentare:</ion-label>
-    <ion-input type="text" placeholder="Keine Kommentare angegeben"
+    <ion-textarea type="text" placeholder="Keine Kommentare angegeben"
     [(ngModel)]="kombinierteKommentare" name="KombinierteKommentare"
-	  (change)="updateKombinierteKommentare(kombinierteKommentare)">
-    </ion-input>
+	  (change)="updateKombinierteKommentare(kombinierteKommentare)" fz-elastic>
+    </ion-textarea>
   </ion-item>
 
-  <disqus  [identifier] = "pageId" [url]="url"></disqus>
+  <disqus  [identifier]="pageId" [url]="url"></disqus>
 
   <button ion-button (click)="goToSzenarioDetail(currentSzenario.id)">
   Szenario von {{currentSzenario?.username}} erneut ansehen</button>

@@ -19,6 +19,7 @@ export class HomePage {
 bewertungenPage = 'BewertungenPage';
 meinSzenarioPage = 'MeinSzenarioPage';
 bibliothekPage = 'bibliothekpage';
+benachrichtigungenPage = 'BenachrichtigungenPage';
 
 public uid: string;
 

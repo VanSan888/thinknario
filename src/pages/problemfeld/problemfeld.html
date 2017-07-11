@@ -17,30 +17,30 @@
     <ion-list>
       <ion-item>
         <ion-label>Problemfeld 1</ion-label>
-	    <!-- Two-Way Data binding mittels [(ngModel)]. (ionChange) ruft bei jeder Veränderung
-	    die update() Funktion in der problemfeld.ts Datei auf. Zusätzlich wird der
-		Checkbox ein FormControl-Name zugewiesen, um die Werte zu kontrollieren.--> 
+	      <!-- Two-Way Data binding mittels [(ngModel)]. (ionChange) ruft bei jeder Veränderung
+	      die update() Funktion in der problemfeld.ts Datei auf. Zusätzlich wird der
+		    Checkbox ein FormControl-Name zugewiesen, um die Werte zu kontrollieren.--> 
         <ion-checkbox  checked="false" [(ngModel)]="problemfeld1" name="problemfeld1"
-	    (ionChange)="updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4)"
-		formControlName="problemfeldform1"></ion-checkbox>
+	      (ionChange)="updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4)"
+	    	formControlName="problemfeldform1"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Problemfeld 2</ion-label>
         <ion-checkbox  checked="false" [(ngModel)]="problemfeld2" name="problemfeld2"
-	    (ionChange)="updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4)"
-		formControlName="problemfeldform2"></ion-checkbox>
+	      (ionChange)="updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4)"
+		    formControlName="problemfeldform2"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Problemfeld 3</ion-label>
         <ion-checkbox  checked="false" [(ngModel)]="problemfeld3" name="problemfeld3"
-	    (ionChange)="updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4)"
-		formControlName="problemfeldform3"></ion-checkbox>
+	      (ionChange)="updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4)"
+		    formControlName="problemfeldform3"></ion-checkbox>
       </ion-item>
       <ion-item>
         <ion-label>Problemfeld 4</ion-label>
         <ion-checkbox  checked="false" [(ngModel)]="problemfeld4" name="problemfeld4"
-	    (ionChange)="updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4)"
-		formControlName="problemfeldform4"></ion-checkbox>
+	      (ionChange)="updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4)"
+		    formControlName="problemfeldform4"></ion-checkbox>
       </ion-item>  	
     </ion-list>
   </ion-item-group>

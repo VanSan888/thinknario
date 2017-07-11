@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { BenachrichtigungenPage } from './benachrichtigungen';
+import { DisqusModule } from 'ngx-disqus';
+
  
 @NgModule({
   declarations: [
@@ -8,6 +10,7 @@ import { BenachrichtigungenPage } from './benachrichtigungen';
   ],
   imports: [
     IonicPageModule.forChild(BenachrichtigungenPage),
+    DisqusModule.forRoot('thinknarioVersuch2'),
   ],
   exports: [
     BenachrichtigungenPage

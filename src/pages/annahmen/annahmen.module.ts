@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { AnnahmenPage } from './annahmen';
+import { ElasticModule } from 'angular2-elastic';
 
  
 @NgModule({
@@ -9,6 +10,7 @@ import { AnnahmenPage } from './annahmen';
   ],
   imports: [
     IonicPageModule.forChild(AnnahmenPage),
+    ElasticModule,
   ],
   exports: [
     AnnahmenPage

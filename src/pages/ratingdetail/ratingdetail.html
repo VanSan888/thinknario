@@ -98,12 +98,14 @@
 <!-- Button kann erst geklickt werden, wenn alle Kriterien bewertet wurden. -->
 <!-- Aufruf der updateAverage() Funktion. -->
 <!-- Wenn showButtons false ist, also in "/commentData/szenarioId" noch keine
-Daten hinterlegt sind, soll der User nur zur commentdetail.html navigieren können *ngIf="showButtons == false"-->
+Daten hinterlegt sind, soll der User nur zur commentdetail.html navigieren 
+können *ngIf="showButtons == false"-->
 
 
-<button ion-button 
+<button ion-button *ngIf="showButtons == false"
 [disabled]="!ratingForm.form.valid"
-(click)="updateAverage()" (click)="goToCommentDetail(currentSzenario.id)">Speichern und kommentieren</button>
+(click)="updateAverage()" (click)="goToCommentDetail(currentSzenario.id)">
+Speichern und kommentieren</button>
 
 <!-- Sobald Daten hinterlegt sind (also der User die Seite commentdetail schon einmal besucht hat),
 kann er entweder zur SzenariodetailPage der SzenarioID navigieren (und dort ggf.kommentieren)

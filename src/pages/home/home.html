@@ -22,9 +22,9 @@
     <ion-icon name="ios-clipboard-outline" item-left></ion-icon>
       Ihre Bewertungen ansehen
   </button>
-  <button ion-item>
+  <button ion-item [navPush]="benachrichtigungenPage">
     <ion-icon name="ios-chatboxes-outline" item-left></ion-icon>
-      Kommentare und Statistik ansehen
+      Kommentare und Benachrichtigungen ansehen
   </button>
 </ion-list>
 
@@ -38,8 +38,10 @@
 	    <ion-card>
         <ion-card-header>Szenario von {{szenario.username}}</ion-card-header>
         <ion-card-content>
-	      <p>Problemdefinition: {{szenario?.problemdefinition}}</p>
+	        <p>Problemdefinition: {{szenario?.problemdefinition}}</p>
           <p>Kommentare: 3</p>
+          <!-- Evtl. zu benutzen für Comment Count -->
+          <!-- <a href='"http://www.test.de/" + {{szenario?.id}} + "/"' data-disqus-identifier='{{szenario?.id}}'>First article</a> -->
           <p>Durchschnittliche Bewertung: {{szenario?.average}} von 100 Punkten</p>
 	      <button ion-button>Ansehen</button>
         </ion-card-content>

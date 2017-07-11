@@ -19,9 +19,9 @@
     <ion-item>
       <ion-label stacked for="Randbedingung1">Randbedingung 1</ion-label>
       <ion-textarea type="text" placeholder="Hier Ihre erste Randbedingung eingeben" 
-	  [(ngModel)]="randbedingung1" name="Randbedingung1"
-	  (change)="updateRandbedingung('randbedingung1', randbedingung1, begruendung1)"
-	  required minlength="20" maxlength="100" #Randbedingung1="ngModel">
+	    [(ngModel)]="randbedingung1" name="Randbedingung1"
+	    (change)="updateRandbedingung('randbedingung1', randbedingung1, begruendung1)"
+	    required minlength="20" maxlength="100" #Randbedingung1="ngModel" fz-elastic>
 	  </ion-textarea>
     </ion-item>
 	<div *ngIf="Randbedingung1.errors && (Randbedingung1.dirty || Randbedingung1.touched)"
@@ -46,10 +46,10 @@
     <ion-item>
       <ion-label stacked for="Randbedingung2">Randbedingung 2</ion-label>
       <ion-textarea type="text" placeholder="Hier Ihre zweite Randbedingung eingeben" 
-	  [(ngModel)]="randbedingung2" name="Randbedingung2"
-	  (change)="updateRandbedingung('randbedingung2', randbedingung2, begruendung2)"
-	  required minlength="20" maxlength="100" #Randbedingung2="ngModel">
-	  </ion-textarea>
+	    [(ngModel)]="randbedingung2" name="Randbedingung2"
+	    (change)="updateRandbedingung('randbedingung2', randbedingung2, begruendung2)"
+	    required minlength="20" maxlength="100" #Randbedingung2="ngModel" fz-elastic>
+	    </ion-textarea>
     </ion-item>
 	<div *ngIf="Randbedingung2.errors && (Randbedingung2.dirty || Randbedingung2.touched)"
     class="alert alert-danger">
@@ -73,10 +73,10 @@
     <ion-item [hidden]="!randbedingung2">
       <ion-label stacked for="Randbedingung3">Randbedingung 3</ion-label>
       <ion-textarea type="text" placeholder="Optional hier Ihre dritte Randbedingung eingeben" 
-	  [(ngModel)]="randbedingung3" name="Randbedingung3"
-	  (change)="updateRandbedingung('randbedingung3', randbedingung3, begruendung3)"
-	  minlength="20" maxlength="100" #Randbedingung3="ngModel">
-	  </ion-textarea>
+	    [(ngModel)]="randbedingung3" name="Randbedingung3"
+	    (change)="updateRandbedingung('randbedingung3', randbedingung3, begruendung3)"
+	    minlength="20" maxlength="100" #Randbedingung3="ngModel" fz-elastic>
+	    </ion-textarea>
     </ion-item>
 	<div *ngIf="Randbedingung3.errors && (Randbedingung3.dirty || Randbedingung3.touched)"
     class="alert alert-danger">
@@ -97,10 +97,10 @@
     <ion-item [hidden]="!randbedingung3">
       <ion-label stacked for="Randbedingung4">Randbedingung 4</ion-label>
       <ion-textarea type="text" placeholder="Optional hier Ihre vierte Randbedingung eingeben" 
-	  [(ngModel)]="randbedingung4" name="Randbedingung4"
-	  (change)="updateRandbedingung('randbedingung4', randbedingung4, begruendung4)"
-	  minlength="20" maxlength="100" #Randbedingung4="ngModel">
-	  </ion-textarea>
+	    [(ngModel)]="randbedingung4" name="Randbedingung4"
+	    (change)="updateRandbedingung('randbedingung4', randbedingung4, begruendung4)"
+	    minlength="20" maxlength="100" #Randbedingung4="ngModel"  fz-elastic>
+	    </ion-textarea>
     </ion-item>
 	<div *ngIf="Randbedingung4.errors && (Randbedingung4.dirty || Randbedingung4.touched)"
     class="alert alert-danger">

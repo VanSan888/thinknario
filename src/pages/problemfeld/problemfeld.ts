@@ -27,22 +27,23 @@ public problemfeld3: boolean = false;
 public problemfeld4: boolean = false;
 
   constructor(public navCtrl: NavController,
-              //Initialisierung des SzenarioProviders
+              //Initialisierung des Szenario-Providers und Rating-Providers
               public szenarioProvider: SzenarioProvider,
               public ratingProvider: RatingProvider,			  
 			  //Initialisierung der Formbuilder und Validator Module
               private _FB 	   : FormBuilder,
-              private _VAL    : SzenarioValidator)
-  {//Erstellung eines FormBuilder-Objectes
-     this.problemfeldform 			= _FB.group({
-		 //Nested FormGroup zugeordner zu einem key, der "service" heißt
-		 //Zuständig für Checkboxen, initial default value false
-         'service' 			: _FB.group({
-		    problemfeldform1   : [ false ],
-		    problemfeldform2   : [ false ],
-		    problemfeldform3   : [ false ],
-		    problemfeldform4   : [ false ],
-			//Abrufen des SzenarioValidators und seiner Methode für "Problemfeld"
+              private _VAL     : SzenarioValidator)
+  //Erstellung eines FormBuilder-Objectes			  
+  {
+     this.problemfeldform = _FB.group({
+       //Nested FormGroup zugeordner zu einem key, der "service" heißt
+	   //Zuständig für Checkboxen, initial default value false
+       'service' 		  : _FB.group({
+	   problemfeldform1   : [ false ],
+	   problemfeldform2   : [ false ],
+	   problemfeldform3   : [ false ],
+	   problemfeldform4   : [ false ],
+	     //Abrufen des SzenarioValidators und seiner Methode für "Problemfeld"
 		 }, { validator: _VAL.validateCheckboxesProblemfeld })
       });
   }

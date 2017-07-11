@@ -101,14 +101,14 @@ export class BibliothekProvider {
         snapshot.forEach( snap => {
 	      //Beschreiben des Arrays
           rawList.push({
-			//Es werden nur der .key, der username und die Problemdefintion für die
-			//Darstellung auf bibliothekpage.html benötigt
-			//Später soll auch die Anzahl der Kommentare
-			//Auf das Array geschrieben werden und in bibliothekpage.html angezeigt werden.
+			      //Es werden nur der .key, der username und die Problemdefintion für die
+			      //Darstellung auf bibliothekpage.html benötigt
+			      //Später soll auch die Anzahl der Kommentare
+			      //Auf das Array geschrieben werden und in bibliothekpage.html angezeigt werden.
             id: snap.key,
-			username: snap.val().userName,
-			problemdefinition: snap.val().problemdefinition,
-			average: snap.val().average.average,			
+			      username: snap.val().userName,
+			      problemdefinition: snap.val().problemdefinition,
+			      average: snap.val().average.average,			
           });		  
         return false
         });

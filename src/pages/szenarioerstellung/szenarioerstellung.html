@@ -39,9 +39,10 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
    <p>Hier können Sie ihre Annahmen einsehen und bearbeiten</p>
    <ion-item>
      <ion-label stacked>Annahme 1</ion-label>
-     <ion-input type="text" placeholder="Hier Ihre erste Annahme eingeben" 
-	   [(ngModel)]="annahme1" name="annahme1" (change)="updateAnnahme('annahme1', annahme1, annahmebegruendung1)">
-	  </ion-input>
+     <ion-textarea type="text" placeholder="Hier Ihre erste Annahme eingeben" 
+	   [(ngModel)]="annahme1" name="annahme1" 
+     (change)="updateAnnahme('annahme1', annahme1, annahmebegruendung1)" fz-elastic>
+	    </ion-textarea>
     </ion-item>
 	<ion-item [hidden]="!annahmebegruendung1 || !toggleVar">
 	  <ion-label for="Begruendung1">Begründung:</ion-label>
@@ -51,10 +52,11 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
 	  </ion-input>
 	</ion-item>
     <ion-item>
-    <ion-label stacked>Annahme 2</ion-label>
-    <ion-input type="text" placeholder="Hier Ihre zweite Annahme eingeben" 
-	  [(ngModel)]="annahme2" name="annahme2" (change)="updateAnnahme('annahme2', annahme2, annahmebegruendung2)">
-	  </ion-input>
+      <ion-label stacked>Annahme 2</ion-label>
+      <ion-textarea type="text" placeholder="Hier Ihre zweite Annahme eingeben" 
+	    [(ngModel)]="annahme2" name="annahme2"
+      (change)="updateAnnahme('annahme2', annahme2, annahmebegruendung2)" fz-elastic>
+	    </ion-textarea>
     </ion-item>
 	<ion-item [hidden]="!annahmebegruendung2 || !toggleVar" >
 	  <ion-label for="Begruendung2">Begründung:</ion-label>
@@ -64,10 +66,11 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
 	  </ion-input>
 	</ion-item>
     <ion-item [hidden]="!annahme2">
-    <ion-label stacked>Annahme 3</ion-label>
-    <ion-input type="text" placeholder="Optional hier Ihre dritte Annahme eingeben" 
-	  [(ngModel)]="annahme3" name="annahme3" (change)="updateAnnahme('annahme3', annahme3, annahmebegruendung3)">
-	  </ion-input>
+      <ion-label stacked>Annahme 3</ion-label>
+      <ion-textarea type="text" placeholder="Optional hier Ihre dritte Annahme eingeben" 
+	    [(ngModel)]="annahme3" name="annahme3"
+      (change)="updateAnnahme('annahme3', annahme3, annahmebegruendung3)" fz-elastic>
+	    </ion-textarea>
     </ion-item>
     <ion-item [hidden]="!annahmebegruendung3 || !toggleVar">
 	    <ion-label for="Begruendung3">Begründung:</ion-label>
@@ -78,9 +81,10 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
     </ion-item>
     <ion-item [hidden]="!annahme3">
       <ion-label stacked>Annahme 4</ion-label>
-      <ion-input type="text" placeholder="Optional hier Ihre vierte Annahme eingeben" 
-	    [(ngModel)]="annahme4" name="annahme4" (change)="updateAnnahme('annahme4', annahme4, annahmebegruendung4)">
-	    </ion-input>
+      <ion-textarea type="text" placeholder="Optional hier Ihre vierte Annahme eingeben" 
+	    [(ngModel)]="annahme4" name="annahme4"
+      (change)="updateAnnahme('annahme4', annahme4, annahmebegruendung4)" fz-elastic>
+	    </ion-textarea>
     </ion-item>
     <ion-item [hidden]="!annahmebegruendung4 || !toggleVar">
 	    <ion-label for="Begruendung4">Begründung:</ion-label>
@@ -101,10 +105,10 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
     <p>Hier können Sie ihre Randbedingungen einsehen und bearbeiten</p>
     <ion-item>
       <ion-label stacked>Randbedingung 1</ion-label>
-      <ion-input type="text" placeholder="Hier Ihre erste Randbedingung eingeben" 
+      <ion-textarea type="text" placeholder="Hier Ihre erste Randbedingung eingeben" 
 	    [(ngModel)]="randbedingung1" name="randbedingung1"
-	    (change)="updateRandbedingung('randbedingung1', randbedingung1, randbedingungbegruendung1)">
-	    </ion-input>
+	    (change)="updateRandbedingung('randbedingung1', randbedingung1, randbedingungbegruendung1)" fz-elastic>
+	    </ion-textarea>
     </ion-item>
 	<ion-item [hidden]="!randbedingungbegruendung1 || !toggleVar">
 	  <ion-label for="Randbedingungbegruendung1">Begründung:</ion-label>
@@ -115,10 +119,10 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
 	</ion-item>	
     <ion-item>
       <ion-label stacked>Randbedingung 2</ion-label>
-      <ion-input type="text" placeholder="Hier Ihre zweite Randbedingung eingeben" 
+      <ion-textarea type="text" placeholder="Hier Ihre zweite Randbedingung eingeben" 
 	    [(ngModel)]="randbedingung2" name="randbedingung2"
-	    (change)="updateRandbedingung('randbedingung2', randbedingung2, randbedingungbegruendung2)">
-	    </ion-input>
+	    (change)="updateRandbedingung('randbedingung2', randbedingung2, randbedingungbegruendung2)" fz-elastic>
+	    </ion-textarea>
     </ion-item>
 	<ion-item [hidden]="!randbedingungbegruendung2 || !toggleVar">
 	  <ion-label for="Randbedingungbegruendung2">Begründung:</ion-label>
@@ -129,10 +133,10 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
 	</ion-item>	
     <ion-item [hidden]="!randbedingung2">
       <ion-label stacked>Randbedingung 3</ion-label>
-      <ion-input type="text" placeholder="Optional hier Ihre dritte Randbedingung eingeben" 
-	  [(ngModel)]="randbedingung3" name="randbedingung3"
-	  (change)="updateRandbedingung('randbedingung3', randbedingung3, randbedingungbegruendung3)">
-	  </ion-input>
+      <ion-textarea type="text" placeholder="Optional hier Ihre dritte Randbedingung eingeben" 
+	    [(ngModel)]="randbedingung3" name="randbedingung3"
+	    (change)="updateRandbedingung('randbedingung3', randbedingung3, randbedingungbegruendung3)" fz-elastic>
+	    </ion-textarea>
     </ion-item>
 	<ion-item [hidden]="!randbedingungbegruendung3 || !toggleVar">
 	  <ion-label for="Randbedingungbegruendung3">Begründung:</ion-label>
@@ -143,10 +147,10 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
 	</ion-item>	
     <ion-item [hidden]="!randbedingung3">
       <ion-label stacked>Randbedingung 4</ion-label>
-      <ion-input type="text" placeholder="Optional hier Ihre vierte Randbedingung eingeben" 
-	  [(ngModel)]="randbedingung4" name="randbedingung4"
-	  (change)="updateRandbedingung('randbedingung4', randbedingung4, randbedingungbegruendung4)">
-	  </ion-input>
+      <ion-textarea type="text" placeholder="Optional hier Ihre vierte Randbedingung eingeben" 
+	    [(ngModel)]="randbedingung4" name="randbedingung4"
+	    (change)="updateRandbedingung('randbedingung4', randbedingung4, randbedingungbegruendung4)" fz-elastic>
+	    </ion-textarea>
     </ion-item>
 	<ion-item [hidden]="!randbedingungbegruendung4 || !toggleVar">
 	  <ion-label for="Randbedingungbegruendung4">Begründung:</ion-label>
@@ -168,10 +172,10 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
     <p>Hier können Sie ihre überraschenden Ereignisse einsehen und bearbeiten</p>
     <ion-item>
       <ion-label stacked>Ereignis 1</ion-label>
-      <ion-input type="text" placeholder="Hier Ihre erstes Ereignis eingeben" 
-	  [(ngModel)]="ereignis1" name="ereignis1"
-	  (change)="updateEreignis('ereignis1', ereignis1, ereignisbegruendung1)">
-	  </ion-input>
+      <ion-textarea type="text" placeholder="Hier Ihre erstes Ereignis eingeben" 
+	    [(ngModel)]="ereignis1" name="ereignis1"
+	    (change)="updateEreignis('ereignis1', ereignis1, ereignisbegruendung1)" fz-elastic>
+	    </ion-textarea>
     </ion-item>
 	<ion-item [hidden]="!ereignisbegruendung1 || !toggleVar">
 	  <ion-label for="Ereignisbegruendung1">Begründung:</ion-label>
@@ -182,10 +186,10 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
 	</ion-item>
     <ion-item>
       <ion-label stacked>Ereignis 2</ion-label>
-      <ion-input type="text" placeholder="Hier Ihre zweites Ereignis eingeben" 
-	  [(ngModel)]="ereignis2" name="ereignis2"
-	  (change)="updateEreignis('ereignis2', ereignis2, ereignisbegruendung2)">
-	  </ion-input>
+      <ion-textarea type="text" placeholder="Hier Ihre zweites Ereignis eingeben" 
+	    [(ngModel)]="ereignis2" name="ereignis2"
+	    (change)="updateEreignis('ereignis2', ereignis2, ereignisbegruendung2)" fz-elastic>
+	    </ion-textarea>
     </ion-item>
 	<ion-item [hidden]="!ereignisbegruendung2 || !toggleVar">
 	  <ion-label for="Ereignisbegruendung2">Begründung:</ion-label>
@@ -196,10 +200,10 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
 	</ion-item>
     <ion-item [hidden]="!ereignis2">
       <ion-label stacked>Ereignis 3</ion-label>
-      <ion-input type="text" placeholder="Optional hier Ihre drittes Ereignis eingeben" 
-	  [(ngModel)]="ereignis3" name="ereignis3"
-	  (change)="updateEreignis('ereignis3', ereignis3, ereignisbegruendung3)">
-	  </ion-input>
+      <ion-textarea type="text" placeholder="Optional hier Ihre drittes Ereignis eingeben" 
+	    [(ngModel)]="ereignis3" name="ereignis3"
+	    (change)="updateEreignis('ereignis3', ereignis3, ereignisbegruendung3)" fz-elastic>
+	    </ion-textarea>
     </ion-item>
 	<ion-item [hidden]="!ereignisbegruendung3 || !toggleVar">
 	  <ion-label for="Ereignisbegruendung3">Begründung:</ion-label>
@@ -210,10 +214,10 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
 	</ion-item>
     <ion-item [hidden]="!ereignis3">
       <ion-label stacked>Ereignis 4</ion-label>
-      <ion-input type="text" placeholder="Optional hier Ihre viertes Ereignis eingeben" 
-	  [(ngModel)]="ereignis4" name="ereignis4"
-	  (change)="updateEreignis('ereignis4', ereignis4, ereignisbegruendung4)">
-	  </ion-input>
+      <ion-textarea type="text" placeholder="Optional hier Ihre viertes Ereignis eingeben" 
+	    [(ngModel)]="ereignis4" name="ereignis4"
+	    (change)="updateEreignis('ereignis4', ereignis4, ereignisbegruendung4)" fz-elastic>
+	    </ion-textarea>
     </ion-item>
 	<ion-item [hidden]="!ereignisbegruendung4 || !toggleVar">
 	  <ion-label for="Ereignisbegruendung4">Begründung:</ion-label>
@@ -297,8 +301,8 @@ Es wird eine Form zur Kontrolle der Eingaben benutzt.-->
     vorgenommen wird (change). Es wird eine Eingabe benötigt (required) und sie muss mindestens XX Zeichen lang sein-->
     <ion-textarea type="text" placeholder="Beschreiben Sie hier Ihr Szenario"
     [(ngModel)]="szenarioText" name="SzenarioText"
-	(change)="updateSzenariotext(szenarioText, entwicklungText, endzustandText)"
-	required minlength="15" #SzenarioText="ngModel">
+	  (change)="updateSzenariotext(szenarioText, entwicklungText, endzustandText)"
+	  required minlength="15" #SzenarioText="ngModel" fz-elastic>
     </ion-textarea>
   <!-- Wenn die Mindestlänge der Eingabe nicht erreicht ist, wird eine Fehlermeldung ausgegeben. -->
   </ion-item>
@@ -325,8 +329,8 @@ Es wird eine Form zur Kontrolle der Eingaben benutzt.-->
     <ion-label stacked>Ausgangslage</ion-label>
 	<ion-textarea type="text" placeholder="Beschreiben Sie hier Ihre Ausgangslage"
     [(ngModel)]="ausgangslageText" name="AusgangslageText"
-	(change)="updateSzenariotext(ausgangslageText, entwicklungText, endzustandText)"
-	required minlength="15" #AusgangslageText="ngModel">
+	  (change)="updateSzenariotext(ausgangslageText, entwicklungText, endzustandText)"
+	  required minlength="15" #AusgangslageText="ngModel" fz-elastic>
     </ion-textarea>
   </ion-item> 
   <!-- Wenn die Mindestlänge der Eingabe nicht erreicht ist, wird eine Fehlermeldung ausgegeben. -->  
@@ -371,11 +375,11 @@ Es wird eine Form zur Kontrolle der Eingaben benutzt.-->
   <div [hidden]='entwicklungCounter<1'>
    <ion-item  padding-vertical>  
     <ion-label stacked >Entwicklung</ion-label>
-	<!-- Der Rest des Endzustandes ist sehr ähnlich zum Code der Ausgangslage. Siehe Erklärung dort. -->
-	<ion-textarea type="text" placeholder="Beschreiben Sie hier die Entwicklung Ihres Szenarios"
+	  <!-- Der Rest des Endzustandes ist sehr ähnlich zum Code der Ausgangslage. Siehe Erklärung dort. -->
+	  <ion-textarea type="text" placeholder="Beschreiben Sie hier die Entwicklung Ihres Szenarios"
     [(ngModel)]="entwicklungText" name="EntwicklungText"
-	(change)="updateSzenariotext(ausgangslageText, entwicklungText, endzustandText)"
-	required minlength="15" #EntwicklungText="ngModel">
+	  (change)="updateSzenariotext(ausgangslageText, entwicklungText, endzustandText)"
+	  required minlength="15" #EntwicklungText="ngModel" fz-elastic>
     </ion-textarea>
   </ion-item>
  	<div *ngIf="EntwicklungText.errors && (EntwicklungText.dirty || EntwicklungText.touched)"
@@ -408,11 +412,11 @@ Es wird eine Form zur Kontrolle der Eingaben benutzt.-->
   <div [hidden]='endzustandCounter<1'> 
    <ion-item padding-vertical>  
     <ion-label stacked >Endzustand</ion-label>
-	<!-- Der Rest des Endzustandes ist sehr ähnlich zum Code der Ausgangslage. Siehe Erklärung dort. -->
-	<ion-textarea type="text" placeholder="Beschreiben Sie hier die Entwicklung Ihres Szenarios"
+	  <!-- Der Rest des Endzustandes ist sehr ähnlich zum Code der Ausgangslage. Siehe Erklärung dort. -->
+	  <ion-textarea type="text" placeholder="Beschreiben Sie hier die Entwicklung Ihres Szenarios"
     [(ngModel)]="endzustandText" name="EndzustandText"
-	(change)="updateSzenariotext(ausgangslageText, entwicklungText, endzustandText)"
-	required minlength="15" #EndzustandText="ngModel">
+	  (change)="updateSzenariotext(ausgangslageText, entwicklungText, endzustandText)"
+	  required minlength="15" #EndzustandText="ngModel"  fz-elastic>
     </ion-textarea>
   </ion-item>
  	<div *ngIf="EndzustandText.errors && (EndzustandText.dirty || EndzustandText.touched)"

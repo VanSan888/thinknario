@@ -19,12 +19,8 @@ export class SzenarioerstellungPage {
 //Variable notwenig zur Navigation	
 szenariobewertungPage = 'SzenariobewertungPage';
 
-
 public pageId: string;
 public url: string;
-
-
-
 
 //Variablen notwendig für den Abruf und das Speichern der Eingaben.
 public szenarioData: any;
