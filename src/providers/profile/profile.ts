@@ -56,8 +56,7 @@ export class ProfileProvider {
   let locations = {};
     locations['/userProfile/' + uid + '/' + 'userName/'] = updateData;
     locations['/szenarioData/' + uid + '/' + 'userName/'] = updateData;
-    locations['/ratingData/' + uid + '/' + 'userName/'] = updateData;	
-	//Update der Daten in den verschiedenen Pfaden
+	  //Update der Daten in den verschiedenen Pfaden
     return firebase.database().ref().update(locations);
   }
   

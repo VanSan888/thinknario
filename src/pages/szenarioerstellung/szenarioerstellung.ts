@@ -1,5 +1,6 @@
 import { Component, Input, ElementRef, ViewChild } from '@angular/core';
-import { NavController, IonicPage, AlertController, ToastController } from 'ionic-angular';
+import { NavController, IonicPage, AlertController,
+         ToastController,  Loading,  LoadingController } from 'ionic-angular';
 import { SzenarioProvider } from '../../providers/szenario/szenario';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
@@ -15,6 +16,9 @@ import * as firebase from 'firebase';
   styles: ['canvas { border: 1px solid #000; }'],
 })
 export class SzenarioerstellungPage {
+
+//Notwendig um den Ladezustand anzuzeigen
+public loading: Loading;
 
 //Variable notwenig zur Navigation	
 szenariobewertungPage = 'SzenariobewertungPage';
@@ -114,9 +118,22 @@ public schluesselfaktor6: boolean = false;
   constructor(public navCtrl: NavController,
               public szenarioProvider: SzenarioProvider,
 			        public alertCtrl: AlertController,
-			        public toastCtrl: ToastController) {}
+			        public toastCtrl: ToastController,
+              public loadingCtrl: LoadingController,) {}
 
-ionViewDidLoad() {
+  //Frühester Lifecyclehook, um den Loadingcontroller anzuzeigen
+  ionViewWillEnter(){
+    //Erstellung des SVG Elements
+    this.loading = this.loadingCtrl.create({
+    //Anzuzeigender Text
+    content: 'Bitte warten...'
+    });
+    //Anzeige des Loaders
+    this.loading.present();
+  }
+
+
+  ionViewDidLoad() {
     // get the context
     const canvasEl1: HTMLCanvasElement = this.canvas1.nativeElement;
     const canvasEl2: HTMLCanvasElement = this.canvas2.nativeElement;
@@ -136,6 +153,7 @@ ionViewDidLoad() {
       let alert = this.alertCtrl.create({
         title: 'Keine Unterstützung',
         subTitle: 'Ihr System unterstützt diese Funktion nicht. Bitte updaten Sie ihr System',
+        enableBackdropDismiss: false,
         buttons: ['Abbrechen']
       });
       alert.present();	
@@ -340,7 +358,9 @@ ionViewDidLoad() {
         ctx.drawImage(img,0,0); // Or at whatever offset you like
       };
     });
-
+    
+    //Wenn alle Inhalte geladen sind, soll der Loader ausgeblendet werden.
+    this.loading.dismiss();
   }
   
   //Toast1 wird in der Mitte der Seite angezeigt (middle) und fängt an dem User
@@ -381,6 +401,7 @@ ionViewDidLoad() {
     let alert = this.alertCtrl.create({
       title: 'Szenarioerstellung',
       message: 'In dem großen Eingabefeld können Sie nun Ihr Szenario erstllen. Nutzen Sie dafür die von Ihnen gesammelten Informationen, indem Sie Zusammenhänge und Entwicklungen erarbeiten. \n Denken Sie daran, dass Sie Ihren Gedanken und Vorstellungen freien Lauf lassen können. \n \n Wollen Sie alleine vorgehen oder wollen Sie dafür einen Denkanstoß verwenden?',
+      enableBackdropDismiss: false,
       buttons: [
         {
           text: 'Denkanstoß verwenden',
@@ -440,6 +461,7 @@ ionViewDidLoad() {
     let alert = this.alertCtrl.create({
       title: 'Begründung',
 	  subTitle: this.subTitleText,
+    enableBackdropDismiss: false,
 	  inputs: [
         {
           name: "begruendung",
@@ -491,6 +513,7 @@ ionViewDidLoad() {
     let alert = this.alertCtrl.create({
       title: 'Begründung',
 	  subTitle: this.subTitleText,
+    enableBackdropDismiss: false,
 	  inputs: [
         {
           name: "begruendung",
@@ -542,6 +565,7 @@ ionViewDidLoad() {
     let alert = this.alertCtrl.create({
       title: 'Begründung',
 	  subTitle: this.subTitleText,
+    enableBackdropDismiss: false,
 	  inputs: [
         {
           name: "begruendung",
@@ -712,7 +736,12 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
     this.eraseCanvas(this.cx6)
   }
 
-ionViewWillLeave(){
+  ionViewWillLeave(){
+    //Es wird ein Loader angezeigt, solange die Inhalte hochgeladen werden.
+    this.loading = this.loadingCtrl.create({
+    content: 'Bitte warten...'
+    });
+  
     let canvas1 = this.canvas1.nativeElement;
 	  let canvas2 = this.canvas2.nativeElement;
 	  let canvas3 = this.canvas3.nativeElement;
@@ -769,6 +798,9 @@ ionViewWillLeave(){
         var downloadURL = uploadTask.snapshot.downloadURL;
     });
 	*/
+
+  //Wenn alle Inhalte hochgeladen sind, soll der Loader wieder verschwinden.
+  this.loading.dismiss();
   }
 
   

@@ -14,7 +14,7 @@ export class SzenarioProvider {
   Funktion, um beim Aufruf der einzelnen Seiten zu schauen, ob der Pfad schon beschrieben ist.
   Für Erklärung dazu siehe "problemfeld.ts"
   */
-  //Die Funtion bekommt ein Argument, in dem der zu prüfende Pfa steht.
+  //Die Funtion bekommt ein Argument, in dem der zu prüfende Pfad steht.
   //Promise um Asynchronität zu gewährleisten
   checkPath(dataPath):  Promise<boolean> {
 	return new Promise<boolean>((resolve, reject) => {
@@ -56,8 +56,22 @@ export class SzenarioProvider {
     });
   }
 
-//Funktion, um die UID des aktiven Users abzurufen
+  //Funktion ähnlich zu ProfileProvider. Siehe Erklärung dort
+  //Aufgabe: Es sollen die Daten zu userName und Problemdefinition zu dem User abgerufen werden,
+  //der gerade betrachtet wird. Diese Daten werden dann in der pushErstellteBewertungen()
+  //Funktion in den entsprechenden Pfad geschrieben
+  //Diese Funktion könnte auch durch getSzenarioData ersetzt werden.
+  //Dann müsste man aber auch dort ein Argument übergeben, was überall Änderungen erfordern würde.
+  getSzenarioDataForViewedUser(szenarioId: any): Promise<any> {
+    return new  Promise((resolve, reject) => { 
+     firebase.database().ref('/szenarioData').child(szenarioId)
+     .on('value', data => {
+       resolve(data.val());
+      });
+    });
+  } 
 
+//Funktion, um die UID des aktiven Users abzurufen
 getUserID(): Promise<any> {
     return new  Promise((resolve, reject) => { 
       let UID = firebase.auth().currentUser.uid;
@@ -90,7 +104,7 @@ getUserID(): Promise<any> {
   //Festlegung der verschiedenen Pfade
   let locations = {};
     locations['/szenarioData/' + uid + '/' + 'problemdefinition/'] = updateData;
-    locations['/ratingData/' + uid + '/' + 'problemdefinition/'] = updateData;	
+    //hier dann noch den variablen Pfad in "/erstellteBewertungen" einfügen	
 	//Update der Daten in den verschiedenen Pfaden	  
 	return firebase.database().ref().update(locations);
   }
@@ -156,7 +170,8 @@ getUserID(): Promise<any> {
 
   }
   
-  //Funtkion an sich ist gleich den obigen. Hier wird allerdings auch der Pfad (path) mit
+  //Funtkion an sich ist gleich den obigen Update-Funktionen.
+  //Hier wird allerdings auch der Pfad (path) mit
   //übergeben, der aktualisiert werden soll.  
   updateAnnahme(path:string, annahme: string, begruendung?: string) : firebase.Promise<any> {
 	  
@@ -186,11 +201,10 @@ getUserID(): Promise<any> {
     });
   }   
 
-  
+  //Update der einzelnen Szenariotexte
   updateSzenariotext(ausgangslageText: string,
                      entwicklungText: string,
 					           endzustandText: string) : firebase.Promise<any> {
-	  
 	return firebase.database().ref('/szenarioData')
 	.child(firebase.auth().currentUser.uid).child('szenariotext').update({
     ausgangslage: ausgangslageText,
@@ -199,18 +213,20 @@ getUserID(): Promise<any> {
     });
   }
   
-  updateHilfe(hilfeVar: boolean) : firebase.Promise<any> {
-	  
+  //Update der Variablen, die speichert, ob hilfe bei der Szenarioerstellung in Anspruch genommen wurde
+  updateHilfe(hilfeVar: boolean) : firebase.Promise<any> {  
 	return firebase.database().ref('/szenarioData')
 	.child(firebase.auth().currentUser.uid).child('szenariotext').update({
       hilfe: hilfeVar,
     });
   }
   
+  //Speichern der Counter-Variablen für die Szenarioerstellung.
+  //Hört der User mitten in der Szenarioerstellung auf, kann er durch diese Variablen
+  //anschließend genau dort weiter machen, wo er aufgehört hat.
   updateCounter(ausgangslageCounter: number,
                 entwicklungCounter: number,
-				        endzustandCounter: number) : firebase.Promise<any> {
-	  
+				        endzustandCounter: number) : firebase.Promise<any> { 
 	return firebase.database().ref('/szenarioData')
 	.child(firebase.auth().currentUser.uid).child('szenariotext').update({
     ausgangslagecounter: ausgangslageCounter,

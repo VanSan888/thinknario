@@ -85,6 +85,7 @@ public toggleVar: boolean= true;
 	  //Festlegung des Titels und des Untertitels.
       title: 'Begründung',
 	  subTitle: this.subTitleText,
+    enableBackdropDismiss: false,
 	  //Es soll Inputfeld vorhanden sein.
 	  inputs: [
         {
@@ -97,25 +98,25 @@ public toggleVar: boolean= true;
         {
           text: 'Abbrechen',
           role: 'cancel',
-		  //Handler für den Abbrechen-Button
+		      //Handler für den Abbrechen-Button
           handler: data => {
-			//Wenn der Abbrechen Knopf gedrückt wird, muss trotzdem die Eingabe für die Annahme gespeichert werden.
-			//Dazu werden der Pfad, die Annahme und deren Begründung an die updateAnnahme() Funktion des
-			//Szenarioproviders übergeben.
+			      //Wenn der Abbrechen Knopf gedrückt wird, muss trotzdem die Eingabe für die Annahme gespeichert werden.
+			      //Dazu werden der Pfad, die Annahme und deren Begründung an die updateAnnahme() Funktion des
+			      //Szenarioproviders übergeben.
             this.szenarioProvider.updateAnnahme(path, annahme, data.begruendung);
           }
         },
         {
-		  //Es soll ein Speichern-Button im Alert entahlten sein.
+		      //Es soll ein Speichern-Button im Alert entahlten sein.
           text: 'Speichern',
-		  //Handler für den Speichern-Button
+		      //Handler für den Speichern-Button
           handler: data => {
-			//Wenn der Speichern-Button gedrückt wird, werden der Pfad, die Annahme und deren
-			//Begründung an die updateAnnahme() Funktion des Szenarioproviders übergeben.
+			      //Wenn der Speichern-Button gedrückt wird, werden der Pfad, die Annahme und deren
+			      //Begründung an die updateAnnahme() Funktion des Szenarioproviders übergeben.
             this.szenarioProvider.updateAnnahme(path, annahme, data.begruendung).then( data => {
-			  //Danach werden die neuen Daten der Eingabe aus der Datenbank gelesen und auf die lokalen
-			  //Variablen geschrieben. Dieser Schritt ist notwendig, um nach der Eingabe im Alert in Echtzeit
-			  //die neue Begründung zu sehen.
+			        //Danach werden die neuen Daten der Eingabe aus der Datenbank gelesen und auf die lokalen
+			        //Variablen geschrieben. Dieser Schritt ist notwendig, um nach der Eingabe im Alert in Echtzeit
+			        //die neue Begründung zu sehen.
               this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
                 this.szenarioData = szenarioSnap;  
                 this.begruendung1 = this.szenarioData.annahmen.annahme1.begruendung;
@@ -130,8 +131,8 @@ public toggleVar: boolean= true;
     });
     //Anzeige des Alerts
     alert.present();
-	//Wenn das Eingabefeld der Begründung nicht leer ist, wird kein Alert aufgerufen.
-	//In diesem Fall werden der Pfad, die Annahme und deren Begründung an die updateAnnahme() Funktion des
+	  //Wenn das Eingabefeld der Begründung nicht leer ist, wird kein Alert aufgerufen.
+	  //In diesem Fall werden der Pfad, die Annahme und deren Begründung an die updateAnnahme() Funktion des
     //Szenarioproviders übergeben.
     } else {
       this.szenarioProvider.updateAnnahme(path, annahme, begruendung);		       	  

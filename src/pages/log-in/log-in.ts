@@ -22,8 +22,10 @@ public loginForm: FormGroup;
 public loading: Loading;
 
   constructor(public navCtrl: NavController, 
-    public loadingCtrl: LoadingController, public alertCtrl: AlertController,
-    public authData: AuthData, public formBuilder: FormBuilder) {
+              public loadingCtrl: LoadingController,
+              public alertCtrl: AlertController,
+              public authData: AuthData,
+              public formBuilder: FormBuilder) {
 
 	//Form zur E-Mail- und Passwortvalidierung
     this.loginForm = formBuilder.group({
@@ -42,11 +44,11 @@ public loading: Loading;
     this.authData.loginUser(this.loginForm.value.email, 
         this.loginForm.value.password)
     .then( authData => {
-	  //Lade-symbol
+	    //Loader wird nicht mehr angezeigt
       this.loading.dismiss().then( () => {
         this.navCtrl.setRoot('HomePage');
       });
-	//Fehlermeldung bei Fehlgeschlagener Anmeldung
+	  //Fehlermeldung bei Fehlgeschlagener Anmeldung
     }, error => {
       this.loading.dismiss().then( () => {
         let alert = this.alertCtrl.create({
@@ -61,7 +63,9 @@ public loading: Loading;
         alert.present();
       });
     });
+    //Erstellung eines Loaders
     this.loading = this.loadingCtrl.create();
+    //Anzeige des Loaders
     this.loading.present();
   }
 }

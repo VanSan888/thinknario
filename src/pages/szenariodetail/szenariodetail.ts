@@ -1,10 +1,10 @@
 import { Component, Input, ElementRef, ViewChild } from '@angular/core';
 //NavParams kontrollieren die Navigationsparameter
-import { IonicPage, NavController, NavParams, AlertController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Loading,  LoadingController } from 'ionic-angular';
 import { BibliothekProvider } from '../../providers/bibliothek/bibliothek';
 import { RatingProvider } from '../../providers/rating/rating';
+import { SzenarioProvider } from '../../providers/szenario/szenario';
 import * as firebase from 'firebase';
-
 
 @IonicPage({
 	name: 'szenariodetail',
@@ -17,12 +17,14 @@ import * as firebase from 'firebase';
   templateUrl: 'szenariodetail.html',
   styles: ['canvas { border: 1px solid #000; }'],
 })
-export class SzenariodetailPage {
+export class SzenariodetailPage{
+
+  //Notwendig um den Ladezustand anzuzeigen
+  public loading: Loading;
   
   //Variable die mit den Daten des Szenarios beschrieben wird.
   public currentSzenario: any;
   
-
   //Variablen zur Festelegung des korrekten Disqus-Threads
   public pageId: string;
   public url: string;
@@ -31,8 +33,8 @@ export class SzenariodetailPage {
   //in Anspruch genommen hat oder nicht.
   public hilfeVar: boolean = false;
 
+  //Variable, um die Kommentare ein- oder auszublenden
   public viewComments: boolean;
-  
 
 //a reference to the canvas element from our template
 @ViewChild('canvas1') public canvas1: ElementRef;
@@ -60,8 +62,20 @@ private cx6: CanvasRenderingContext2D;
               public navParams: NavParams,
               public alertCtrl: AlertController,
               public bibliothekProvider: BibliothekProvider,
-              public ratingProvider: RatingProvider) {}
-  
+              public ratingProvider: RatingProvider,
+              public loadingCtrl: LoadingController,
+              public szenarioProvider: SzenarioProvider) {}
+
+  //Frühester Lifecyclehook, um den Loadingcontroller anzuzeigen
+  ionViewWillEnter(){
+    //Erstellung des SVG Elements
+    this.loading = this.loadingCtrl.create({
+    //Anzuzeigender Text
+    content: 'Bitte warten...'
+    });
+    //Anzeige des Loaders
+    this.loading.present();
+  }  
 
 ionViewDidLoad() {
     // get the context
@@ -88,7 +102,7 @@ ionViewDidLoad() {
       alert.present();	
 	}
 
-    // set the width and height
+    //Höhe und Breite einstellen
     canvasEl1.width  = this.width;
     canvasEl1.height = this.height;
     canvasEl2.width  = this.width;
@@ -133,19 +147,28 @@ ionViewDidLoad() {
         }
     });
 
-  let storageRef =  firebase.storage().ref().child(this.navParams.get('szenarioId') + '/').child('deskriptor1');
-	  storageRef.getDownloadURL().then( url => {
+    //Aufruf der getDeskriptorURL() Funktion im SzenarioProvider.
+    //6 mal, alle sehr ähnlich
+    this.szenarioProvider.getDeskriptorURL('deskriptor1').then(url => {
+      //Festlegen des Kontext
       let canvas1 = this.canvas1.nativeElement;
 	    let ctx = canvas1.getContext('2d');
+      //Aufruf eines neuen Bildes (Image)
       var img = new Image();
+      //Festlegen der CrossOrigin property. Ohne, wären die Sicherheitsbedingungen nicht erfüllt.
+      //Das Canvas wäre damit "tainted" und kann dadurch nicht mehr hochgeladen werden.
+      //'anonymous' beseitigt dieses Problem
 	    img.crossOrigin = 'anonymous';
+      //Festelgen der Bildquelle (aus firebase)
       img.src = url;
+      //Beschreiben des Canvas mit dem Bild aus firebase
       img.onload = function(){
         ctx.drawImage(img,0,0); // Or at whatever offset you like
       };
     });
-    storageRef =  firebase.storage().ref().child(this.navParams.get('szenarioId') + '/').child('deskriptor2');
-	  storageRef.getDownloadURL().then( url => {
+
+
+    this.szenarioProvider.getDeskriptorURL('deskriptor2').then(url => {
       let canvas2 = this.canvas2.nativeElement;
 	    let ctx = canvas2.getContext('2d');
       var img = new Image();
@@ -155,8 +178,7 @@ ionViewDidLoad() {
         ctx.drawImage(img,0,0); // Or at whatever offset you like
       };
     });
-    storageRef =  firebase.storage().ref().child(this.navParams.get('szenarioId') + '/').child('deskriptor3');
-	  storageRef.getDownloadURL().then( url => {
+    this.szenarioProvider.getDeskriptorURL('deskriptor3').then(url => {
       let canvas3 = this.canvas3.nativeElement;
 	    let ctx = canvas3.getContext('2d');
       var img = new Image();
@@ -166,8 +188,7 @@ ionViewDidLoad() {
         ctx.drawImage(img,0,0); // Or at whatever offset you like
       };
     });
-    storageRef =  firebase.storage().ref().child(this.navParams.get('szenarioId') + '/').child('deskriptor4');
-	  storageRef.getDownloadURL().then( url => {
+    this.szenarioProvider.getDeskriptorURL('deskriptor4').then(url => {
       let canvas4 = this.canvas4.nativeElement;
 	    let ctx = canvas4.getContext('2d');
       var img = new Image();
@@ -177,8 +198,7 @@ ionViewDidLoad() {
         ctx.drawImage(img,0,0); // Or at whatever offset you like
       };
     });
-    storageRef =  firebase.storage().ref().child(this.navParams.get('szenarioId') + '/').child('deskriptor5');
-	  storageRef.getDownloadURL().then( url => {
+    this.szenarioProvider.getDeskriptorURL('deskriptor5').then(url => {
       let canvas5 = this.canvas5.nativeElement;
 	    let ctx = canvas5.getContext('2d');
       var img = new Image();
@@ -188,8 +208,7 @@ ionViewDidLoad() {
         ctx.drawImage(img,0,0); // Or at whatever offset you like
       };
     });
-    storageRef =  firebase.storage().ref().child(this.navParams.get('szenarioId') + '/').child('deskriptor6');
-	  storageRef.getDownloadURL().then( url => {
+    this.szenarioProvider.getDeskriptorURL('deskriptor6').then(url => {
       let canvas6 = this.canvas6.nativeElement;
 	    let ctx = canvas6.getContext('2d');
       var img = new Image();
@@ -199,9 +218,11 @@ ionViewDidLoad() {
         ctx.drawImage(img,0,0); // Or at whatever offset you like
       };
     });
-
-
+    
+    //Wenn alle Inhalte geladen sind, soll der Loader ausgeblendet werden.
+    this.loading.dismiss();
   }
+
 
   toggleSchluesselfaktoren(){
     if(this.toggleVarSchluesselfaktoren == true){
@@ -218,7 +239,7 @@ ionViewDidLoad() {
   //Funktion für die Navigation zur Ratingdetailseite
   goToRatingDetail(szenarioId){
     //Übergabe des Navigationsparameters an diese Seite.
-	//Der Navigationsparameter entspricht der UserID des Szenarios, welches bewertet werden soll.
+	  //Der Navigationsparameter entspricht der UserID des Szenarios, welches bewertet werden soll.
     this.navCtrl.push('ratingdetail', { 'szenarioId': szenarioId });
   }
 

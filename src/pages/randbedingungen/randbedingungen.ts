@@ -69,6 +69,7 @@ public toggleVar: boolean= true;
     let alert = this.alertCtrl.create({
       title: 'Begründung',
 	  subTitle: this.subTitleText,
+    enableBackdropDismiss: false,
 	  inputs: [
         {
           name: "begruendung",

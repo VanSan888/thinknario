@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage } from 'ionic-angular';
 import { RatingProvider } from '../../providers/rating/rating';
+import { SzenarioProvider } from '../../providers/szenario/szenario';
 
 
 @IonicPage()
@@ -14,6 +15,7 @@ export class SzenariobewertungPage {
 homePage = 'HomePage';
 szenarioerstellungPage = 'SzenarioerstellungPage';
 
+//Variablen zum Lesen und Schreiben von Bewertungen
 public ratingData: any;
 public entwicklung: number;
 public realitaetsnaehe: number;
@@ -23,12 +25,23 @@ public zusammenhaenge: number;
 public wiedersprueche: number;
 public faktenlage: number;
 
-  constructor(public navCtrl: NavController, public ratingProvider: RatingProvider) {
+//Variable für die UID
+public uid: string;
+
+
+  constructor(public navCtrl: NavController,
+              public ratingProvider: RatingProvider,
+              public szenarioProvider: SzenarioProvider) {
 
   }
   
   //Lifecyyle event: Wenn Die Seite geladen wurde und die aktive Seite ist.
   ionViewDidEnter() {
+    
+    //Aufruf der getUserID() Funktion, um die UID des aktuellen Users zu ermitteln
+    this.szenarioProvider.getUserID().then( UID => {
+      this.uid = UID;
+    });
 
 	/*
 	Aufruf des RantingProviders und dessen checkPath() Funktion
@@ -91,5 +104,19 @@ public faktenlage: number;
   updateFaktenlage(faktenlage) {
     this.ratingProvider.updateFaktenlage(faktenlage);
   }
-
+  
+  //Es muss für die Hompage und die Bibliothek ein Wert übergeben werden, um dieses Szenario dort
+  //anzeigen zu lassen
+  updateAverage(){
+    //Allerdings nur, wenn noch kein Average vorhanden ist.
+    this.szenarioProvider.checkPath("average").then((result: boolean) => {
+	    //Wenn in dem Pfad Daten hinterlegt sind, dann...
+      if(result === true) {
+        //Tue nichts, denn das Szenario wird ja eh schon angezeigt
+      } else {
+        //Ansonsten wird ein String übergeben, der anderen Usern deutlich macht, dass es noch keine Bewertungen gibt.
+        this.ratingProvider.updateAverage("(Noch keine Bewertung)", this.uid);
+      }
+    });
+  }
 }

@@ -18,22 +18,23 @@ export class BibliothekProvider {
 		//Deklarierung des Arrays
         let rawList = [];
         snapshot.forEach( snap => {
-	      //Beschreiben des Arrays
-          rawList.push({
-			//Es werden nur der .key, der username und die Problemdefintion für die
-			//Darstellung auf bibliothekpage.html benötigt
-			//Später soll auch die Anzahl der Kommentare
-			//Auf das Array geschrieben werden und in bibliothekpage.html angezeigt werden.
-            id: snap.key,
-			username: snap.val().userName.userName,
-            problemdefinition: snap.val().problemdefinition.problemdefinition,
-			average: snap.val().average.average,
-          });
-		  
-        return false
+        //Wenn kein Average angegeben ist, der User also sein eigenes Szenario
+        //noch nicht bewertet hat und es somit noch nicht vollständig ist,
+        //Wird es auch nicht auf der HomePage (in der Bibliothek) angezeigt
+          if(snap.val().average.average){
+            //Beschreiben des Arrays
+            rawList.push({
+			        //Es werden nur der .key, der username, der Average und die Problemdefintion für die
+			        //Darstellung auf bibliothekpage.html benötigt
+              id: snap.key,
+			        username: snap.val().userName.userName,
+              problemdefinition: snap.val().problemdefinition.problemdefinition,
+			        average: snap.val().average.average,
+            });
+            return false
+          }
         });
 		  resolve(rawList);
-        
       });
     });
   }
@@ -123,22 +124,22 @@ export class BibliothekProvider {
   //In den updateUsername() updateAverage() und updateProblemdefinition() Funktionen wird dieses
   //Array benutzt, um auch in "ratingData/currentUser/erstellteBewertungen" den usernamen, den Average
   //und die Problemdefintion zu aktualisieren
+  //--> Noch NICHT Einsatzbereit
   getErhalteneBewertungenList(): Promise<any> {  
     return new Promise( (resolve, reject) => {
       firebase.database().ref("ratingData").child(firebase.auth().currentUser.uid)
 	  .child("erhalteneBewertungen").on('value', snapshot => {
-		//Deklarierung des Arrays
+		    //Deklarierung des Arrays
         let rawList = [];
         snapshot.forEach( snap => {
-	      //Beschreiben des Arrays
+	        //Beschreiben des Arrays
           rawList.push({
-			//Es werden nur der .key, benötigt
+			      //Es werden nur der .key, benötigt
             id: snap.key			
           });		  
         return false
         });
 	      resolve(rawList);
-        
       });
     });
   }  

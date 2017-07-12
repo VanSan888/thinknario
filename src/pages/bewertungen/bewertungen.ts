@@ -30,7 +30,7 @@ public ratedList: Array<any>;
   //Funktion für die Navigation zur Szenariodetailseite
   goToSzenarioDetail(szenarioId){ 
     //Übergabe des Navigationsparameters an diese Szenariodetailseite.
-	//Der Navigationsparameter entspricht der UserID des Szenarios, welches bewertet werden soll.		
+	  //Der Navigationsparameter entspricht der UserID des Szenarios, welches bewertet werden soll.		
     this.navCtrl.push('szenariodetail', { 'szenarioId': szenarioId });
 
   }

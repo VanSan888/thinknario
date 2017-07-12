@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { IonicPage } from 'ionic-angular';
+import { NavController, IonicPage, Loading,  LoadingController } from 'ionic-angular';
 import { BibliothekProvider } from '../../providers/bibliothek/bibliothek';
 import { SzenarioProvider } from '../../providers/szenario/szenario';
 
@@ -15,12 +14,16 @@ import { SzenarioProvider } from '../../providers/szenario/szenario';
 })
 export class HomePage {
 
+//Notwendig um den Ladezustand anzuzeigen
+public loading: Loading;
+
 //Notwendig für Navigation
 bewertungenPage = 'BewertungenPage';
 meinSzenarioPage = 'MeinSzenarioPage';
 bibliothekPage = 'bibliothekpage';
 benachrichtigungenPage = 'BenachrichtigungenPage';
 
+//Variable für die UID
 public uid: string;
 
 //Variable, auf die alle erstellten Szenarien geschrieben werden
@@ -29,7 +32,19 @@ public szenarioList: Array<any>;
 
   constructor(public navCtrl: NavController,
               public szenarioProvider: SzenarioProvider,
-              public bibliothekProvider: BibliothekProvider) {
+              public bibliothekProvider: BibliothekProvider,
+              public loadingCtrl: LoadingController,) {
+  }
+
+  //Frühester Lifecyclehook, um den Loadingcontroller anzuzeigen
+  ionViewWillEnter(){
+    //Erstellung des SVG Elements
+    this.loading = this.loadingCtrl.create({
+    //Anzuzeigender Text
+    content: 'Bitte warten...'
+    });
+    //Anzeige des Loaders
+    this.loading.present();
   }
 
   ionViewDidEnter() {
@@ -43,7 +58,9 @@ public szenarioList: Array<any>;
     this.szenarioProvider.getUserID().then( UID => {
       this.uid = UID;
     });
-	
+
+    //Wenn alle Inhalte geladen sind, soll der Loader ausgeblendet werden.
+    this.loading.dismiss();
   }
   
   //Funktion für die Navigation zur Szenariodetailseite
@@ -56,10 +73,10 @@ public szenarioList: Array<any>;
 		  this.navCtrl.push('SzenarioerstellungPage');
 
 	} else {
-    //Ansonsten soll zu dem gewünschten Szenario navigiert werden:
-    //Übergabe des Navigationsparameters an diese Szenariodetailseite.
-	//Der Navigationsparameter entspricht der UserID des Szenarios, welches bewertet werden soll.		
-    this.navCtrl.push('szenariodetail', { 'szenarioId': szenarioId });
+      //Ansonsten soll zu dem gewünschten Szenario navigiert werden:
+      //Übergabe des Navigationsparameters an diese Szenariodetailseite.
+	    //Der Navigationsparameter entspricht der UserID des Szenarios, welches bewertet werden soll.		
+      this.navCtrl.push('szenariodetail', { 'szenarioId': szenarioId });
 	
     }
   }

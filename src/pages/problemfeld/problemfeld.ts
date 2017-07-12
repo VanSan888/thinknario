@@ -4,7 +4,6 @@ import { SzenarioProvider } from '../../providers/szenario/szenario';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SzenarioValidator } from '../../validators/szenarioValidator';
 import { RatingProvider } from '../../providers/rating/rating';
-import * as firebase from 'firebase';
 
 
 @IonicPage()
@@ -83,35 +82,12 @@ public problemfeld4: boolean = false;
         this.problemfeld4 = this.szenarioData.problemfeld.problemfeld4;
 	    });
 	  } else {
-		//Hier muss der average und die Problemdefinition in die Datenbank geschrieben werden.
-		//Grund dafür ist, dass sobald ein neues Szenario in "/szenarioData" geschrieben wird,
-		//Es auch auf der Homepage und in der Bibliothek angezeigt werden würde.
-		//Die getSzenarioList() Funktion in "bibliothek.ts" schlägt allerdings fehl, wenn
-		//keine Daten in "/szenarioData/average" und "/szenarioData/problemdefinition" enthalten sind.
-		//Leider kann man die dort auszulesenden properties nicht als optional deklarieren.
-		//Genau an dieser Stelle hier wird bei if(){} das erste mal geprüft, ob Daten in 
-		//"/szenarioData/aktuellerUser" enthalten sind. Also sollen hier direkt die beiden wichtigen
-		//Datensätze zu average und problemdefinition als Dummi festgelegt werden, sodass die getSzenarioList()
-		//Funktion nicht fehlschlägt:
-		
-        //Festlegung der aktuellen UserID
-        let uid = firebase.auth().currentUser.uid;
-		//Festlegung des Dummiaverages (null)
-        let dummiaverage: string = "";
-		//Festlegung der Dummiproblemdefinition (null)
-        let dummiproblemdefinition: string = "";
-		
-		this.ratingProvider.updateAverage(dummiaverage, uid);
-		this.szenarioProvider.updateProblemdefinition(dummiproblemdefinition).then( data => {
-		
-		//Zusätzlich werden Dummidaten in "szenarioData/currentUser/problemfeld" geschrieben, wenn der User
-		//diese Seite das erste mal betritt.
+		  //Es werden Dummidaten in "szenarioData/currentUser/problemfeld" geschrieben, wenn der User
+		  //diese Seite das erste mal betritt.
 		  this.szenarioProvider.updateProblemfeld(this.problemfeld1,
 		                                          this.problemfeld2,
 												  this.problemfeld3,
 												  this.problemfeld4);
-		
-		  });
 		}
     });
   }

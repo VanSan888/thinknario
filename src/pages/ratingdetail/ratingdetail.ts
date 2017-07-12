@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { NavController, IonicPage, NavParams, AlertController } from 'ionic-angular';
 import { RatingProvider } from '../../providers/rating/rating';
 import { BibliothekProvider } from '../../providers/bibliothek/bibliothek';
+import { SzenarioProvider } from '../../providers/szenario/szenario';
 import { CommentProvider } from '../../providers/comment/comment';
 
 
@@ -66,6 +67,7 @@ public i: number=0
               public ratingProvider: RatingProvider,
 			        public bibliothekProvider: BibliothekProvider,
               public commentProvider: CommentProvider,
+              public szenarioProvider: SzenarioProvider,
               public alertCtrl: AlertController) {
 
   }
@@ -73,22 +75,18 @@ public i: number=0
   //Lifecyyle event: Wenn Die Seite geladen wurde und die aktive Seite ist.
   ionViewDidEnter() {
     
-	//Aufruf der getSzenarioDetail() Funktion und übergabe der aktuellen Navigationsparameter.
+	//Aufruf der getSzenarioDetail() Funktion und Übergabe der aktuellen Navigationsparameter.
 	//Funktion dient hier nur dazu, den aktuellen User abzufragen und in ratingdetail.html anzuzeigen
     this.bibliothekProvider.getSzenarioDetail(this.navParams.get('szenarioId'))
     .then( szenarioSnap => {
-	  //Beschreiben der Variablen mit den Daten des Snapshots aus firebase
+	    //Beschreiben der Variablen mit den Daten des Snapshots aus firebase
       this.currentSzenario = szenarioSnap;
     });
   
-	/*
-	Aufruf des RantingProviders und dessen checkPath() Funktion
-	Durch die .then(result) Funktion wird der tatsächliche Wert
-	des Promise ausgelesen. Die Arrow-Funktion wird benötigt, um den .then()-Kontext nicht
-	durcheinander zu bringen
-	*/
+
+    //Schauen, ob der Bewerter den zu Bewertenden schon vorher einmal bewertet hat
     this.ratingProvider.checkPathDetail(this.navParams.get('szenarioId')).then((result: boolean) => {
-	 //Wenn in dem Pfad Daten hinterlegt sind, dann...
+	   //Wenn in dem Pfad Daten hinterlegt sind, er ihn also shcon mal bewertet hat, dann...
      if(result === true) {		 
 		/*
 		...lese die Daten aus. getRatingDataDetail() Funktion aus
@@ -119,7 +117,7 @@ public i: number=0
 		  //in rating.ts unter pushErstellteBewertungen.
 
       //Daten lesen
-		  this.ratingProvider.getSzenarioDataForErstellteBewertungen(this.navParams.get('szenarioId'))
+		  this.szenarioProvider.getSzenarioDataForViewedUser(this.navParams.get('szenarioId'))
 			.then( snap => {
 		  this.ratingListForBewertungen        = snap;
       this.userName                        = this.ratingListForBewertungen.userName.userName;
@@ -269,6 +267,7 @@ public i: number=0
 	    //Festlegung des Titels und des Untertitels. Abhängig vom input
       title: 'Extreme Bewertung',
 	    subTitle: this.subTitleText,
+      enableBackdropDismiss: false,
 	  //Es soll Inputfeld vorhanden sein.
 	  inputs: [
         {
@@ -307,7 +306,7 @@ public i: number=0
     this.ratingProvider.getRatingValues(this.navParams.get('szenarioId')).then( ratingListSnap => {
       //Beschreiben der lokalen Arrays mit den einzelnen erhaltenen Bewertungen
       this.ratingList = ratingListSnap;
-	  //Arrow-Funktion um funktion zu gewährleisten
+	  //Arrow-Funktion um Funktion zu gewährleisten
     }).then( ratingList => {
 	    //Iteration durch die einzelnen erhaltenen Bewertungen
 	    for (let rating of this.ratingList){

@@ -81,7 +81,7 @@
     <p> Wie sehr würden Sie der folgenden Aussage zustimmen? </p> 
     <p> Das Szenario enthält hauptsächlich Fakten. Auf Schwafelei wird verzichtet. </p>
       <ion-item>
-        <ion-range [(ngModel)]="faktenlage" name="faktenlage"
+        <ion-range [(ngModel)]="faktenlage" name="Faktenlage"
 	      (mouseup)="updateFaktenlageDetail(faktenlage)" required>
           <ion-label range-left>Lehne stark ab</ion-label>
           <ion-label range-right>Stimme stark zu</ion-label>
@@ -90,7 +90,7 @@
   </ion-list>
   <!-- Fehlernachricht, wenn nicht alle Kriterien bewertet wurden (required).-->
   <div [hidden]="ratingForm.form.valid">
-    <p>Bitte geben Sie für alle Kriterien Ihre Einschätzung ab.</p>
+    <p>Bitte geben Sie für ALLE Kriterien Ihre Einschätzung ab.</p>
   </div>  
 </form>
 

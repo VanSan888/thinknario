@@ -137,7 +137,7 @@ public erhalteneBewertungenList: Array<any>;
     return new Promise( (resolve, reject) => {
       firebase.database().ref("ratingData/")
       .child(szenarioId).child('erhalteneBewertungen').child(firebase.auth().currentUser.uid)
-	  .on('value', data => {
+	    .on('value', data => {
        resolve(data.val());
       });
     });
@@ -209,22 +209,7 @@ public erhalteneBewertungenList: Array<any>;
       faktenlage: faktenlage,
     });
   }
-  
-
-  
-  //Funktion ähnlich zu ProfileProvider. Siehe Erklärung dort
-  //Aufgabe: Es sollen die Daten zu userName und Problemdefinition zu dem User abgerufen werden,
-  //der gerade betrachtet wird. Diese Daten werden dann in der pushErstellteBewertungen()
-  //Funktion in den entsprechenden Pfad geschrieben
-  getSzenarioDataForErstellteBewertungen(szenarioId: any): Promise<any> {
-	
-    return new  Promise((resolve, reject) => { 
-     firebase.database().ref('/ratingData').child(szenarioId)
-     .on('value', data => {
-       resolve(data.val());
-      });
-    });
-  }  
+ 
   
   //Um dem aktiven User, der Bewertungen erstellt, später anzeigen zu können, zu welchen Szenarien er
   //für welche anderen User schon Bewertungen erstellt hat, wird an dieser Stelle eine Liste erstellt.
@@ -295,16 +280,15 @@ public erhalteneBewertungenList: Array<any>;
   //Festlegung der verschiedenen Pfade
   let locations = {};
     
-    //Wenn die SzenarioID gleich der UserID ist, dann nur Update in den folgenden Pfaden
+    //Wenn die SzenarioID gleich der UserID ist (man also sein eignes Szenario bewertet),
+    //dann nur Update in den folgenden Pfaden
     if(szenarioId ==  firebase.auth().currentUser.uid) {
       locations['/szenarioData/' + szenarioId + '/' + 'average/'] = updateData;
-      locations['/ratingData/'   + szenarioId + '/' + 'average/'] = updateData;
       //Update der Daten in den verschiedenen Pfaden
       return firebase.database().ref().update(locations);
     //Ansonsten auch in 'erstellteBewertungen'
   } else {
-      locations['/szenarioData/' + szenarioId + '/' + 'average/'] = updateData;
-      locations['/ratingData/'   + szenarioId + '/' + 'average/'] = updateData;    
+      locations['/szenarioData/' + szenarioId + '/' + 'average/'] = updateData;    
       locations['/ratingData/'   + firebase.auth().currentUser.uid +
                 '/erstellteBewertungen/' + szenarioId + '/average/'] = updateData;    	
       //Update der Daten in den verschiedenen Pfaden  

@@ -57,7 +57,7 @@ export class CommentdetailPage {
   	//Funktion dient hier nur dazu, den aktuellen User abzufragen und in ratingdetail.html anzuzeigen
     this.bibliothekProvider.getSzenarioDetail(this.navParams.get('szenarioId'))
     .then( szenarioSnap => {
-	  //Beschreiben der Variablen mit den Daten des Snapshots aus firebase
+	    //Beschreiben der Variablen mit den Daten des Snapshots aus firebase
       this.currentSzenario = szenarioSnap;
     });
 

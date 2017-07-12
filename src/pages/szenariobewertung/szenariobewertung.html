@@ -91,9 +91,9 @@ Es muss ihm auch erklärt werden, dass seine eigene bewertung nicht in die Gesam
 
  
 <button ion-button [navPush]="homePage"
-[disabled]="!ratingForm.form.valid">Zur Homepage</button>
+[disabled]="!ratingForm.form.valid" (click)="updateAverage()">Zur Homepage</button>
 
 <button ion-button [navPush]="szenarioerstellungPage"
-[disabled]="!ratingForm.form.valid">Eigenes Szenario verändern</button>
+[disabled]="!ratingForm.form.valid" (click)="updateAverage()">Eigenes Szenario verändern</button>
 
 </ion-content>

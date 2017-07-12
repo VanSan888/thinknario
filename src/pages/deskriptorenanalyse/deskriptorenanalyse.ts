@@ -1,6 +1,6 @@
 //Viewchild und ElementRef werden benötigt, um die Canvas mittels JavaScript zu beeinflussen
 import { Component, Input, ElementRef, ViewChild } from '@angular/core';
-import { NavController, IonicPage, AlertController } from 'ionic-angular';
+import { NavController, IonicPage, AlertController, Loading,  LoadingController, } from 'ionic-angular';
 //Das Obervable und die anderen rxjs Komponenten werden für das Zeichnen auf dem Canvas benötigt.
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
@@ -10,10 +10,10 @@ import 'rxjs/add/observable/fromEvent';
 //DomSanitizer und SafeRecourceUrl werden benötigt, um die Youtube-Videos einzubetten und dabei
 //die Sicherheit zu gewährleisten
 import { DomSanitizer, SafeResourceUrl  } from '@angular/platform-browser';
+import { SzenarioProvider } from '../../providers/szenario/szenario';
 
 //Für Canvas aus nmp:
 import { ViewEncapsulation } from '@angular/core';
-import { SzenarioProvider } from '../../providers/szenario/szenario';
 import { CanvasWhiteboardUpdate } from 'ng2-canvas-whiteboard';
 //Alte Ideen müssen in dieser Datei, in der dazugehörigen .hmtl module.ts und in app.module bereinigt werden
 
@@ -27,6 +27,9 @@ import { CanvasWhiteboardUpdate } from 'ng2-canvas-whiteboard';
   encapsulation: ViewEncapsulation.None 
 })
 export class DeskriptorenanalysePage {
+
+//Notwendig um den Ladezustand anzuzeigen
+public loading: Loading;
 
 //Notwendig für Naviigation	
 annahmenPage = 'AnnahmenPage'
@@ -87,7 +90,8 @@ public hideStartEnd: boolean = true;
 constructor(public navCtrl: NavController,
             public alertCtrl: AlertController,
             public szenarioProvider: SzenarioProvider,
-            private _sanitizer: DomSanitizer){
+            private _sanitizer: DomSanitizer,
+            public loadingCtrl: LoadingController,){
   //Festlegen der Youtube-URLs
   let videoURL1 = "https://www.youtube.com/embed/ilVnDcQUra0";
   //mit Hilfe der bypassSecurityTrustResourceUrl() Funktion wird die Sicherheit der
@@ -100,6 +104,18 @@ constructor(public navCtrl: NavController,
 
   }
   
+  //Frühester Lifecyclehook, um den Loadingcontroller anzuzeigen
+  ionViewWillEnter(){
+    //Erstellung des SVG Elements
+    this.loading = this.loadingCtrl.create({
+    //Anzuzeigender Text
+    content: 'Bitte warten...'
+    });
+    //Anzeige des Loaders
+    this.loading.present();
+  }
+
+
   //Lifecyclehook, der besonders für das Festlegen von DOM-Elementen geeignet ist.
   ionViewDidLoad() {
     // Den Kontext der Canvas festlegen
@@ -177,8 +193,7 @@ constructor(public navCtrl: NavController,
     this.captureEvents(canvasEl6, this.cx6);
 
   }
-  
-  
+
   ionViewDidEnter () {
     //Diese Funktion wird benötigt, um beim ersten Aufruf der DeskriptorenanalysePage keinen Fehler
     //zu erzeugen. Theoretisch kannm an diese Funktion auch benutzen, um die gleiche Funktion, wie bei
@@ -186,7 +201,7 @@ constructor(public navCtrl: NavController,
     this.szenarioProvider.checkDeskriptorPath().then((result: any) => {
      if(result) {}
     });
-    //Die Daten für die Schlüsselfaktoren sind definitv schon vorhanden, deswegen muss nciht zuerst
+    //Die Daten für die Schlüsselfaktoren sind definitv schon vorhanden, deswegen muss nicht zuerst
     //kontrolliert werden, ob sie schon da sind.
     this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
       this.szenarioData = szenarioSnap;
@@ -204,7 +219,7 @@ constructor(public navCtrl: NavController,
         this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
           this.szenarioData = szenarioSnap;
            this.startSzenario = this.szenarioData.deskriptorenanalyse.startSzenario;
-           this.endSzenario = this.szenarioData.deskriptorenanalyse.endSzenario;		
+           this.endSzenario   = this.szenarioData.deskriptorenanalyse.endSzenario;		
 	    });
     
     //Deskriptoren werden angezeigt, wenn Daten im Pfad "deskriptorenanalyse" hinterlegt sind.
@@ -283,9 +298,7 @@ constructor(public navCtrl: NavController,
         ctx.drawImage(img,0,0); // Or at whatever offset you like
       };
     });
-
-     // Wenn keine Daten in dem abgefragten Pfad hinterlegt sind, dann ...
-
+    // Wenn keine Daten in dem abgefragten Pfad hinterlegt sind, dann ...
     } else {
        //Zeige leite den User durch die Deskriptorenanalyse (siehe deskriptorenanalyse.html)
        this.hideDeskriptoren = false;
@@ -293,10 +306,14 @@ constructor(public navCtrl: NavController,
        this.toggleHilfe = true;     
        //... beschreibe den Pfad mit Dummidaten.
        this.szenarioProvider.updateStartEnd(this.startSzenario, this.endSzenario);
- 
+
 	   }
-	  });
+	  }).then( loading => {
+    //Wenn alle Inhalte geladen sind, soll der Loader ausgeblendet werden.
+    this.loading.dismiss();
+    });
   }
+
 
 //Alert: siehe title und subtitle zur Erklärung
 showStartEnd(){
@@ -536,6 +553,12 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
 
   //Lifecyclehook, wenn die Seite verlassen wird. Sinnvoll, um Canvas hochzuladen.
   ionViewWillLeave(){
+    //Es wird ein Loader angezeigt, solange die Inhalte hochgeladen werden.
+    this.loading = this.loadingCtrl.create({
+    content: 'Bitte warten...'
+    });
+
+    this.loading.present();
     //Festlegen der Kontexte
     let canvas1 = this.canvas1.nativeElement;
 	  let canvas2 = this.canvas2.nativeElement;
@@ -589,7 +612,9 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
 	    image.crossOrigin="anonymous";
       image.src = blob;
       this.szenarioProvider.uploadDeskriptor(blob, 'deskriptor6');
-    }); 
+    });
+    //Wenn alle Inhalte hochgeladen sind, soll der Loader wieder verschwinden.
+    this.loading.dismiss();
   }
-  
+
 }
