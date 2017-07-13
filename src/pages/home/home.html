@@ -10,7 +10,7 @@
 <ion-content padding>
   <h4>Überblick</h4>
 
-  <p>Wenn Szenario (nachfolgende Liste) fertig, dann gelangt man mit dem einem Klick zur Übersichtsseite </p>
+  <h6 padding-vertical>Was wollen Sie tun? </h6>
   
   <ion-list>
   <button ion-item [navPush]="meinSzenarioPage">
@@ -19,7 +19,7 @@
   </button>  
 
   <button ion-item [navPush]="bewertungenPage">
-    <ion-icon name="ios-clipboard-outline" item-left></ion-icon>
+    <ion-icon name="ios-options-outline" item-left></ion-icon>
       Ihre Bewertungen ansehen
   </button>
   <button ion-item [navPush]="benachrichtigungenPage">
@@ -28,9 +28,8 @@
   </button>
 </ion-list>
 
-<h4>Beliebte Szenarien</h4>
-<p>Bewerten und kommentieren Sie weitere Szenarien, um zusätzliche Punkte zu sammeln:</p>
-
+<h4 padding-top>Beliebte Szenarien</h4>
+<h6 padding-vertical>Bewerten und kommentieren Sie weitere Szenarien, um zusätzliche Punkte zu sammeln:</h6>
 
 <ion-list>
   <div *ngFor="let szenario of szenarioList; let i=index"  (click)="goToSzenarioDetail(szenario.id)">
@@ -43,7 +42,7 @@
           <!-- Evtl. zu benutzen für Comment Count -->
           <!-- <a href='"http://www.test.de/" + {{szenario?.id}} + "/"' data-disqus-identifier='{{szenario?.id}}'>First article</a> -->
           <p>Durchschnittliche Bewertung: {{szenario?.average}} von 100 Punkten</p>
-	      <button ion-button>Ansehen</button>
+	      <button ion-button outline full>Ansehen</button>
         </ion-card-content>
 	    </ion-card>
 	  </ion-item>
@@ -51,6 +50,8 @@
 </ion-list>
 
 
-<button ion-button [navPush]="bibliothekPage">Bibliothek durchsuchen</button>
+<button ion-button [navPush]="bibliothekPage" icon-right padding>
+  <ion-icon name="ios-search"></ion-icon>
+  Bibliothek durchsuchen</button>
 
 </ion-content>

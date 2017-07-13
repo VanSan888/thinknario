@@ -3,7 +3,6 @@ import { NavController,IonicPage } from 'ionic-angular';
 import { SzenarioProvider } from '../../providers/szenario/szenario';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SzenarioValidator } from '../../validators/szenarioValidator';
-import { RatingProvider } from '../../providers/rating/rating';
 
 
 @IonicPage()
@@ -26,10 +25,9 @@ public problemfeld3: boolean = false;
 public problemfeld4: boolean = false;
 
   constructor(public navCtrl: NavController,
-              //Initialisierung des Szenario-Providers und Rating-Providers
-              public szenarioProvider: SzenarioProvider,
-              public ratingProvider: RatingProvider,			  
-			  //Initialisierung der Formbuilder und Validator Module
+              //Initialisierung des Szenario-Providers
+              public szenarioProvider: SzenarioProvider,			  
+			        //Initialisierung der Formbuilder und Validator Module
               private _FB 	   : FormBuilder,
               private _VAL     : SzenarioValidator)
   //Erstellung eines FormBuilder-Objectes			  
@@ -72,12 +70,12 @@ public problemfeld4: boolean = false;
 		dem SzenarioProvider wird aufgerufen. Wieder wird mit .then() und Arrowfunktion gearbeitet.
 		Es wird ein Snapshot der hinterlegten Szenariodaten erstellt.
 		*/
-        this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
-		//Hier wird der Snapshot auf die Hilfsvariable geschrieben.
+      this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
+		    //Hier wird der Snapshot auf die Hilfsvariable geschrieben.
         this.szenarioData = szenarioSnap;
-		//Hier werden die einzelnen Variablen mit en einzelnen Daten beschrieben.
+		    //Hier werden die einzelnen Variablen mit en einzelnen Daten beschrieben.
         this.problemfeld1 = this.szenarioData.problemfeld.problemfeld1;
-	    this.problemfeld2 = this.szenarioData.problemfeld.problemfeld2;
+	      this.problemfeld2 = this.szenarioData.problemfeld.problemfeld2;
         this.problemfeld3 = this.szenarioData.problemfeld.problemfeld3;
         this.problemfeld4 = this.szenarioData.problemfeld.problemfeld4;
 	    });

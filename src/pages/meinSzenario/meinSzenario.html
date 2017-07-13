@@ -7,49 +7,78 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <p>Hier mit NgIf arbeiten. wenn das Szenario noch nicht fertig ist (z.B. kein Text im Szenarioerstellung), dann folgendes</p>
-  <h4>Erklärung der Szenariotechnik</h4>
-  <p>Hier dann kurz beschreiben, was Szenariotechnik ist</p>
-  <img src="www/assets/img/ablauf-szenarioerstellung.png"/>
+<ion-content>
+  <ion-list padding>
+    <h4 padding>
+      Erklärung der Szenariotechnik
+    </h4>
+    <ion-item *ngIf="toggleVar == true" no-lines>
+      <p>Hier dann kurz beschreiben, was Szenariotechnik ist</p>
+      <img src="www/assets/img/ablauf-szenarioerstellung.png"/>
+    </ion-item>
+    <ion-item padding-top>
+      <ion-label>Erklärung der Szenariotechnik ein- und ausblenden:</ion-label>
+      <ion-toggle float-left [(ngModel)]="toggleVar" name="ToggleVarMeinSzenario">
+      </ion-toggle>  
+    </ion-item>
 
- <p>Popupfenster: Starten Sie hier (mit Pfeil auf Problemfeld) oder klicken Sie auf "Weiter"</p>   
- <ion-list>
-  <button ion-item [navPush]="problemfeldPage">
-    <ion-icon name="ios-globe-outline" item-left></ion-icon>
-      Problemfeld
-	<ion-icon name="md-checkmark" item-right></ion-icon>  
-  </button>
-  <button ion-item [navPush]="problemdefinitionPage">
-    <ion-icon name="ios-pin-outline" item-left></ion-icon>
-      Problemdefinition
-  </button>
-  <button ion-item [navPush]="schluesselfaktorenPage">
-    <ion-icon name="md-key" item-left></ion-icon>
-      Schlüsselfaktoren
-  </button>
-  <button ion-item ion-item [navPush]="deskriptorenanalysePage">
-    <ion-icon name="ios-trending-up-outline" item-left></ion-icon>
-      Entwicklung der Schlüsselfaktoren
-  </button>
-  <button ion-item [navPush]="annahmenPage">
-    <ion-icon name="ios-flag-outline" item-left></ion-icon>
-      Annahmen
-  </button>
-  <button ion-item [navPush]="randbedingungenPage">
-    <ion-icon name="ios-filing-outline" item-left></ion-icon>
-      Randbedingungen
-  </button>
-  <button ion-item [navPush]="ereignissePage">
-    <ion-icon name="ios-warning-outline" item-left></ion-icon>
-      Überraschende Ereignisse
-  </button>
-   <button ion-item [navPush]="szenarioerstellungPage">
-    <ion-icon name="ios-paper-outline" item-left></ion-icon>
-      Szenarioerstellung
-  </button>
-</ion-list>
+    <h6 *ngIf="showstartbutton == true" padding>
+      Starten Sie bei dem Problemfeld oder klicken Sie auf "Los geht's!"
+    </h6>
+    <h6 *ngIf="showsbewertungfertig == false"  padding>
+      Machen Sie dort weiter, wo Sie aufgehört haben. Fertige Schritte erkennen Sie an dem Haken.
+    </h6>   
+    <h6 *ngIf="showsbewertungfertig == true"  padding>
+      Ihr Szenario ist fertig! Welchen Schritt wollen Sie erneut ansehen?
+    </h6>
 
-<button ion-button [navPush]="problemfeldPage">Los geht's!</button>
+    <button ion-item [navPush]="problemfeldPage">
+      <ion-icon name="ios-globe-outline" item-left></ion-icon>
+        Problemfeld
+	    <ion-icon name="md-checkmark" item-right *ngIf="showproblemdefinition == true"></ion-icon>  
+    </button>
+    <button ion-item [navPush]="problemdefinitionPage" *ngIf="showproblemdefinition == true">
+      <ion-icon name="ios-pin-outline" item-left></ion-icon>
+        Problemdefinition
+      <ion-icon name="md-checkmark" item-right *ngIf="showschluesselfaktoren == true"></ion-icon>
+    </button>
+    <button ion-item [navPush]="schluesselfaktorenPage" *ngIf="showschluesselfaktoren == true">
+      <ion-icon name="md-key" item-left></ion-icon>
+        Schlüsselfaktoren
+      <ion-icon name="md-checkmark" item-right *ngIf="showdeskriptorenanalyse == true"></ion-icon>
+    </button>
+    <button ion-item ion-item [navPush]="deskriptorenanalysePage"  *ngIf="showdeskriptorenanalyse == true">
+      <ion-icon name="ios-trending-up-outline" item-left></ion-icon>
+        Entwicklung der Schlüsselfaktoren
+      <ion-icon name="md-checkmark" item-right *ngIf="showannahmen == true"></ion-icon>
+    </button>
+    <button ion-item [navPush]="annahmenPage" *ngIf="showannahmen == true">
+      <ion-icon name="ios-flag-outline" item-left></ion-icon>
+        Annahmen
+      <ion-icon name="md-checkmark" item-right *ngIf="showrandbedingungen == true"></ion-icon>
+    </button>
+    <button ion-item [navPush]="randbedingungenPage" *ngIf="showrandbedingungen == true">
+      <ion-icon name="ios-filing-outline" item-left></ion-icon>
+        Randbedingungen
+      <ion-icon name="md-checkmark" item-right *ngIf="showereignisse == true"></ion-icon>
+    </button>
+    <button ion-item [navPush]="ereignissePage" *ngIf="showereignisse == true">
+      <ion-icon name="ios-warning-outline" item-left></ion-icon>
+        Überraschende Ereignisse
+      <ion-icon name="md-checkmark" item-right *ngIf="showszenarioerstellung == true"></ion-icon>
+    </button>
+    <button ion-item [navPush]="szenarioerstellungPage" *ngIf="showszenarioerstellung == true">
+      <ion-icon name="ios-paper-outline" item-left></ion-icon>
+        Szenarioerstellung
+      <ion-icon name="md-checkmark" item-right *ngIf="showszenariobewertung == true"></ion-icon>
+    </button>
+    <button ion-item [navPush]="szenariobewertungPage" *ngIf="showszenariobewertung == true">
+      <ion-icon name="ios-options-outline" item-left></ion-icon>
+        Szenariobewertung
+      <ion-icon name="md-checkmark" item-right *ngIf="showsbewertungfertig == true"></ion-icon>
+    </button>
+  </ion-list>
+
+<button ion-button [navPush]="problemfeldPage" *ngIf="showstartbutton == true">Los geht's!</button>
 
 </ion-content>

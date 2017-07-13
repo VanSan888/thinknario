@@ -4,7 +4,6 @@ import { IonicPage, NavController, NavParams, AlertController, Loading,  Loading
 import { BibliothekProvider } from '../../providers/bibliothek/bibliothek';
 import { RatingProvider } from '../../providers/rating/rating';
 import { SzenarioProvider } from '../../providers/szenario/szenario';
-import * as firebase from 'firebase';
 
 @IonicPage({
 	name: 'szenariodetail',

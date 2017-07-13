@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content padding>
-<p>Bitte beschreiben Sie hier das aus Ihrer Sicht größte Problem der (Fallstudie)</p>
+<h6 padding>Bitte beschreiben Sie hier das aus Ihrer Sicht größte Problem der (Fallstudie)</h6>
   <!-- Deklarierung der Form für die Problemdefinition -->
   <form #problemdefinitionForm="ngForm">
     <ion-item>
@@ -44,7 +44,7 @@
   <!-- Button navigiert zur Schlüsselfaktorenseite. Ist erst klickbar,
   wenn die obige Form den Anforderungen entspricht (.form.valid)-->
 <button ion-button [navPush]="schluesselfaktorenPage"
-[disabled]="!problemdefinitionForm.form.valid">Weiter</button>
+[disabled]="!problemdefinitionForm.form.valid" padding>Weiter</button>
 
 
 

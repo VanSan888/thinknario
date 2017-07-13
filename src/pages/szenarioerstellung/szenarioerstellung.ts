@@ -23,6 +23,7 @@ public loading: Loading;
 //Variable notwenig zur Navigation	
 szenariobewertungPage = 'SzenariobewertungPage';
 
+//Variablen zur Anzeige des richtigen Disqus-Threads
 public pageId: string;
 public url: string;
 
@@ -67,13 +68,13 @@ public hilfeVar: boolean = false;
 
 //Variable für variablen Untertitel in Alert
 public subTitleText: string;
+
 //Variable um über ion-toggle die Begründungen ein- und auszublenden
 public toggleVar: boolean = false;
 
 //Variablen notwendig für die variable Ausgabe der Dialogtexte
 public ausgangslageDialogText: string;
 public ausgangslageCounter: number = 0;
-
 
 public entwicklungDialogText: string;
 public entwicklungCounter: number = 0;
@@ -83,9 +84,9 @@ public endzustandCounter: number = 0;
 
 
 //Variablen notwendig für das Ein- und Ausblenden der Dialogfelder
-public toggleAusgangslage: boolean = true;
-public toggleEntwicklung: boolean = true;
-public toggleEndzustand: boolean = true;
+public toggleAusgangslage: boolean = false;
+public toggleEntwicklung: boolean = false;
+public toggleEndzustand: boolean = false;
 
 //a reference to the canvas element from our template
 @ViewChild('canvas1') public canvas1: ElementRef;
@@ -369,8 +370,8 @@ public schluesselfaktor6: boolean = false;
     let toast = this.toastCtrl.create({
       message: 'Auf dieser Seite finden Sie all Ihre Informationen aus den vorangegangenen Schritten wieder.',
       position: 'middle',
-	  showCloseButton: true,
-	  closeButtonText: 'Weiter',
+	    showCloseButton: true,
+	    closeButtonText: 'Weiter',
 	});
     //Wenn auf 'Weiter' geklickt wird, wird Toast2 aufgerufen.
     toast.onDidDismiss(() => {
@@ -410,10 +411,10 @@ public schluesselfaktor6: boolean = false;
 		  // mit Dialogfeldern statt nur einer ohne Dialogfeld.)
           handler: data => {
             this.hilfeVar = true;
-		    //Dieser Wert wird in der Datenbank gespeichert
-			this.szenarioProvider.updateHilfe(this.hilfeVar);
-			//Danach wird startHilfe() aufgerufen.
-			this.startHilfe();
+		        //Dieser Wert wird in der Datenbank gespeichert
+			      this.szenarioProvider.updateHilfe(this.hilfeVar);
+			      //Danach wird startHilfe() aufgerufen.
+			      this.startHilfe();
           }
         },        
 		{
@@ -818,30 +819,29 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
 	  let toast = this.toastCtrl.create({
         message: 'Ihr Szenario wird in drei Schritten beschrieben: zuerst die Ausgangslage, dann die Entwicklung und zum Schluss der Endzustand. \n Zuerst sollten Sie die Ausgangslage beschreiben. \n Dabei geht es darum, den Anfangszustand ihres Szenarios zu beschreiben. \n Das Dialogfeld wird Ihnen bei dieser Aufgabe helfen.',
         position: 'middle',
-	    showCloseButton: true,
-	    closeButtonText: 'Weiter',
+	      showCloseButton: true,
+	      closeButtonText: 'Weiter',
 	  });
       //Wenn der User auf 'Weiter' klickt, dann wird der ausgangslageText beschrieben.
       toast.onDidDismiss( data => {
-		//Die Variable wird nur beschrieben, falls der Ausgangslagetext noch aus den Dummidaten aus 
-		//ionViewDidEnter besteht. Wenn der User schon ohne Hilfestellung Eingaben getätigt hat,
-		//dann sollen diese nicht überschrieben werden.
-		//Außerdem wird so verhindert, dass der geschriebene Text des Users - auch mit Hilfestellung,
-		//beim erneuten aufrufen der Seite überschrieben wird.
-		if (this.ausgangslageText == "") {
-        this.ausgangslageText= "Startzeitpunkt:" + this.startSzenario;
-		}
-		//Dann wird der ausgangslageCounter auf 1 gesetzt (UI Veränderungen in szenarioerstellung.html). 
-		this.ausgangslageCounter = 1;
-		// Zusätzlich wird der neue Wert in der Datenbank gespeichert. So kann der User beim erneuten aufruf der 
-		//Seite an der gleichen Stelle weiterarbeiten.
+		    //Die Variable wird nur beschrieben, falls der Ausgangslagetext noch aus den Dummidaten aus 
+		    //ionViewDidEnter besteht. Wenn der User schon ohne Hilfestellung Eingaben getätigt hat,
+		    //dann sollen diese nicht überschrieben werden.
+		    //Außerdem wird so verhindert, dass der geschriebene Text des Users - auch mit Hilfestellung,
+		    //beim erneuten aufrufen der Seite überschrieben wird.
+		    if (this.ausgangslageText == "") {
+          this.toggleAusgangslage = true;
+          this.ausgangslageText= "Startzeitpunkt:" + this.startSzenario;
+		    }
+		    //Dann wird der ausgangslageCounter auf 1 gesetzt (UI Veränderungen in szenarioerstellung.html). 
+		    this.ausgangslageCounter = 1;
+		    // Zusätzlich wird der neue Wert in der Datenbank gespeichert. So kann der User beim erneuten aufruf der 
+		    //Seite an der gleichen Stelle weiterarbeiten.
         this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);
         //Übergabe des neuen ausgangslageCounters an die ausgangslageDialog() Funktion.		
-		this.ausgangslageDialog(this.ausgangslageCounter);
+		    this.ausgangslageDialog(this.ausgangslageCounter);
       });
-
     toast.present();  
-
   }
   
   //Funktion, um abhängig vom übergebenen Wert den ausgangslageDialogText in 
@@ -877,15 +877,16 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
 	  });
       //Wenn der User auf weiter klickt ...
       toast.onDidDismiss(() => {
-          //Dann wird der entwicklungCounter auf 1 gesetzt (UI Veränderungen in szenarioerstellung.html). 
-		  this.entwicklungCounter = 1;
-		  // Zusätzlich wird der neue Wert in der Datenbank gespeichert. So kann der User beim erneuten aufruf der 
-		  //Seite an der gleichen Stelle weiterarbeiten.
-      this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);
-      //Übergabe des neuen entwicklungCounter an die entwicklungDialog() Funktion.		  
-		  this.entwicklungDialog(this.entwicklungCounter);
-      //Am Ende des Dialoges soll das Dialogfeld einklappen
-      this.toggleAusgangslage = false;
+        //Dann wird der entwicklungCounter auf 1 gesetzt (UI Veränderungen in szenarioerstellung.html). 
+		    this.entwicklungCounter = 1;
+		    // Zusätzlich wird der neue Wert in der Datenbank gespeichert. So kann der User beim erneuten aufruf der 
+		    //Seite an der gleichen Stelle weiterarbeiten.
+        this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);
+        //Übergabe des neuen entwicklungCounter an die entwicklungDialog() Funktion.		  
+		    this.entwicklungDialog(this.entwicklungCounter);
+        //Am Ende des Dialoges soll das Dialogfeld einklappen
+        this.toggleAusgangslage = false;
+        this.toggleEntwicklung = true;
       });
 
     toast.present();  
@@ -925,6 +926,7 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
         this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);		
 		    this.endzustandDialog(this.endzustandCounter);
         this.toggleEntwicklung = false;
+        this.toggleEndzustand = true;
 		  });
     toast.present();  
     }

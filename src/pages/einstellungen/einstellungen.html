@@ -46,11 +46,11 @@
         [(ngModel)]="birthDate" (ionChange)="updateDOB(birthDate)"></ion-datetime>
     </ion-item>
 	
-    <ion-item>
+    <ion-item no-lines>
       <ion-label>Geschlecht</ion-label>
       <ion-select [(ngModel)]="gender" cancelText="Abbrechen" (ionChange)="updateGender(gender)"  placeholder="Ihr Geschlecht">
         <ion-option value="o">Bitte auswählen</ion-option>
-		<ion-option  value="w">Weiblich</ion-option>
+		    <ion-option  value="w">Weiblich</ion-option>
         <ion-option  value="m">Männlich</ion-option>
       </ion-select>
     </ion-item>	
