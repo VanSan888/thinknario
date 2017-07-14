@@ -11,7 +11,7 @@
 
 
 <ion-content>
-  <h6 padding>Problemdefinition: {{currentSzenario?.problemdefinition}}</h6>
+  <p padding>Problemdefinition: {{currentSzenario?.problemdefinition}}</p>
 
 <div padding>
   <ion-segment [(ngModel)]="hilfen">
@@ -33,36 +33,36 @@
 <div [ngSwitch]="hilfen">
   <ion-list *ngSwitchCase="'Annahmen'">
     <ion-item>
-      <h4>Annahme 1:</h4>
-	  <p>{{currentSzenario?.annahme1}}</p>
+      <h6>Annahme 1:</h6>
+	    <p>{{currentSzenario?.annahme1}}</p>
     </ion-item>
     <ion-item [hidden]="!currentSzenario?.annahmebegruendung1 || !toggleVar">
-      <h4  padding-left>Begründung:</h4>
-	  <p padding-left>{{currentSzenario?.annahmebegruendung1}}</p>
+      <h6  padding-left>Begründung:</h6>
+	    <p padding-left>{{currentSzenario?.annahmebegruendung1}}</p>
     </ion-item>	
     <ion-item>
-      <h4>Annahme 2:</h4>
-	  <p>{{currentSzenario?.annahme2}}</p>
+      <h6>Annahme 2:</h6>
+	    <p>{{currentSzenario?.annahme2}}</p>
     </ion-item>
     <ion-item [hidden]="!currentSzenario?.annahmebegruendung2 || !toggleVar">
-      <h4  padding-left>Begründung:</h4>
-	  <p padding-left>{{currentSzenario?.annahmebegruendung2}}</p>
+      <h6  padding-left>Begründung:</h6>
+	    <p padding-left>{{currentSzenario?.annahmebegruendung2}}</p>
     </ion-item>
     <ion-item [hidden]="!currentSzenario?.annahme3">
-      <h4>Annahme 3:</h4>
+      <h6>Annahme 3:</h6>
 	  <p>{{currentSzenario?.annahme3}}</p>
     </ion-item>
     <ion-item [hidden]="!currentSzenario?.annahmebegruendung3 || !toggleVar">
-      <h4  padding-left>Begründung:</h4>
-	  <p padding-left>{{currentSzenario?.annahmebegruendung4}}</p>
+      <h6  padding-left>Begründung:</h6>
+	    <p padding-left>{{currentSzenario?.annahmebegruendung4}}</p>
     </ion-item>
     <ion-item  [hidden]="!currentSzenario?.annahme4">
-      <h4>Annahme 4:</h4>
-	  <p>{{currentSzenario?.annahme4}}</p>
+      <h6>Annahme 4:</h6>
+	    <p>{{currentSzenario?.annahme4}}</p>
     </ion-item>
     <ion-item [hidden]="!currentSzenario?.annahmebegruendung4 || !toggleVar">
-      <h4  padding-left>Begründung:</h4>
-	  <p padding-left>{{currentSzenario?.annahmebegruendung4}}</p>
+      <h6  padding-left>Begründung:</h6>
+	    <p padding-left>{{currentSzenario?.annahmebegruendung4}}</p>
     </ion-item>
     <div [hidden]="!currentSzenario?.annahmebegruendung1 && !currentSzenario?.annahmebegruendung2
 	&& !currentSzenario?.annahmebegruendung3 && !currentSzenario?.annahmebegruendung4" padding-bottom>
@@ -75,36 +75,36 @@
 <div [ngSwitch]="hilfen">
   <ion-list *ngSwitchCase="'randbedingungen'">
     <ion-item>
-      <h4>Randbedingung 1:</h4>
-	  <p>{{currentSzenario?.randbedingung1}}</p>
+      <h6>Randbedingung 1:</h6>
+	    <p>{{currentSzenario?.randbedingung1}}</p>
     </ion-item>
     <ion-item [hidden]="!currentSzenario?.randbedingungbegruendung1 || !toggleVar">
-      <h4  padding-left>Begründung:</h4>
-	  <p padding-left>{{currentSzenario?.randbedingungbegruendung1}}</p>
+      <h6  padding-left>Begründung:</h6>
+	    <p padding-left>{{currentSzenario?.randbedingungbegruendung1}}</p>
     </ion-item>
     <ion-item>
-      <h4>Randbedingung 2:</h4>
-	  <p>{{currentSzenario?.randbedingung2}}</p>
+      <h6>Randbedingung 2:</h6>
+	    <p>{{currentSzenario?.randbedingung2}}</p>
     </ion-item>
     <ion-item [hidden]="!currentSzenario?.randbedingungbegruendung2 || !toggleVar">
-      <h4  padding-left>Begründung:</h4>
-	  <p padding-left>{{currentSzenario?.randbedingungbegruendung2}}</p>
+      <h6  padding-left>Begründung:</h6>
+	    <p padding-left>{{currentSzenario?.randbedingungbegruendung2}}</p>
     </ion-item>
     <ion-item [hidden]="!currentSzenario?.randbedingung3">
-      <h4>Randbedingung 3:</h4>
-	  <p>{{currentSzenario?.randbedingung3}}</p>
+      <h6>Randbedingung 3:</h6>
+	    <p>{{currentSzenario?.randbedingung3}}</p>
     </ion-item>
     <ion-item [hidden]="!currentSzenario?.randbedingungbegruendung3 || !toggleVar">
-      <h4  padding-left>Begründung:</h4>
-	  <p padding-left>{{currentSzenario?.randbedingungbegruendung3}}</p>
+      <h6  padding-left>Begründung:</h6>
+	    <p padding-left>{{currentSzenario?.randbedingungbegruendung3}}</p>
     </ion-item>
     <ion-item  [hidden]="!currentSzenario?.randbedingung4">
-      <h4>Randbedingung 4:</h4>
-	  <p>{{currentSzenario?.randbedingung4}}</p>
+      <h6>Randbedingung 4:</h6>
+	    <p>{{currentSzenario?.randbedingung4}}</p>
     </ion-item>
     <ion-item [hidden]="!currentSzenario?.randbedingungbegruendung4 || !toggleVar">
-      <h4  padding-left>Begründung:</h4>
-	  <p  padding-left>{{currentSzenario?.randbedingungbegruendung4}}</p>
+      <h6  padding-left>Begründung:</h6>
+	    <p  padding-left>{{currentSzenario?.randbedingungbegruendung4}}</p>
     </ion-item>
     <div [hidden]="!currentSzenario?.randbedingungbegruendung1 && !currentSzenario?.randbedingungbegruendung2
 	&& !currentSzenario?.randbedingungbegruendung3 && !currentSzenario?.randbedingungbegruendung4" padding-bottom>
@@ -117,36 +117,36 @@
 <div [ngSwitch]="hilfen">
   <ion-list *ngSwitchCase="'ereignisse'">
     <ion-item>
-      <h4>Ereignis 1:</h4>
-	  <p>{{currentSzenario?.ereignis1}}</p>
+      <h6>Ereignis 1:</h6>
+	    <p>{{currentSzenario?.ereignis1}}</p>
     </ion-item>
     <ion-item [hidden]="!currentSzenario?.ereignisbegruendung1 || !toggleVar">
-      <h4  padding-left>Begründung:</h4>
-	  <p padding-left>{{currentSzenario?.ereignisbegruendung1}}</p>
+      <h6  padding-left>Begründung:</h6>
+	    <p padding-left>{{currentSzenario?.ereignisbegruendung1}}</p>
     </ion-item>
     <ion-item>
-      <h4>Ereignis 2:</h4>
-	  <p>{{currentSzenario?.ereignis2}}</p>
+      <h6>Ereignis 2:</h6>
+	    <p>{{currentSzenario?.ereignis2}}</p>
     </ion-item>
     <ion-item [hidden]="!currentSzenario?.ereignisbegruendung2 || !toggleVar">
-      <h4  padding-left>Begründung:</h4>
-	  <p  padding-left>{{currentSzenario?.ereignisbegruendung2}}</p>
+      <h6  padding-left>Begründung:</h6>
+	    <p  padding-left>{{currentSzenario?.ereignisbegruendung2}}</p>
     </ion-item>
     <ion-item  [hidden]="!currentSzenario?.ereignis3">
-      <h4>Ereignis 3:</h4>
-	  <p>{{currentSzenario?.ereignis3}}</p>
+      <h6>Ereignis 3:</h6>
+	    <p>{{currentSzenario?.ereignis3}}</p>
     </ion-item>
     <ion-item  [hidden]="!currentSzenario?.ereignisbegruendung3 || !toggleVar">
-      <h4  padding-left>Begründung:</h4>
-	  <p  padding-left>{{currentSzenario?.ereignisbegruendung3}}</p>
+      <h6  padding-left>Begründung:</h6>
+	    <p  padding-left>{{currentSzenario?.ereignisbegruendung3}}</p>
     </ion-item>
     <ion-item   [hidden]="!currentSzenario?.ereignis4">
-      <h4>Ereignis 4:</h4>
-	  <p>{{currentSzenario?.ereignis4}}</p>
+      <h6>Ereignis 4:</h6>
+	    <p>{{currentSzenario?.ereignis4}}</p>
     </ion-item>
     <ion-item  [hidden]="!currentSzenario?.ereignisbegruendung4 || !toggleVar">
-      <h4  padding-left>Begründung:</h4>
-	  <p  padding-left>{{currentSzenario?.ereignisbegruendung4}}</p>
+      <h6  padding-left>Begründung:</h6>
+	    <p  padding-left>{{currentSzenario?.ereignisbegruendung4}}</p>
     </ion-item>
     <div [hidden]="!currentSzenario?.ereignisbegruendung1 && !currentSzenario?.ereignisbegruendung2
 	&& !currentSzenario?.ereignisbegruendung3 && !currentSzenario?.ereignisbegruendung4" padding-bottom>
@@ -186,18 +186,32 @@
 </div>
 
 <h4  padding>Szenario von {{currentSzenario?.username}}</h4>
-<div [hidden]="hilfeVar">
-  <h6 padding-left>{{currentSzenario?.szenariotext}}</h6>
-</div>
-<div [hidden]="!hilfeVar">
-  <h5 padding-top padding-left>Ausgangslage:</h5>
-  <h6 padding-left>{{currentSzenario?.ausgangslage}}</h6>
-  <h5 padding-top padding-left>Entwicklung:</h5>  
-  <h6 padding-left>{{currentSzenario?.entwicklung}}</h6>
-  <h5 padding-top padding-left>Endzustand:</h5>
-  <h6 padding-left>{{currentSzenario?.endzustand}}</h6>
-</div>
 
+<ion-list>
+  <ion-item [hidden]="hilfeVar">
+    {{currentSzenario?.szenariotext}}
+  </ion-item>
+  <div [hidden]="!hilfeVar">
+    <ion-list-header no-lines>
+      Ausgangslage:
+    </ion-list-header>    
+    <ion-item padding-left>
+      {{currentSzenario?.ausgangslage}}
+    </ion-item>
+    <ion-list-header no-lines>
+      Entwicklung:
+    </ion-list-header>    
+    <ion-item padding-leftm>
+      {{currentSzenario?.entwicklung}}
+    </ion-item>
+    <ion-list-header no-lines>
+      Endzustand:
+    </ion-list-header>    
+    <ion-item padding-left>
+      {{currentSzenario?.endzustand}}
+    </ion-item>
+  </div>
+</ion-list>
 
 <!-- Button, der beim clicken die goToRatingDetail() Funktion aufruft und die aktuelle SzenarioID übergibt -->
 <button ion-button padding (click)="goToRatingDetail(currentSzenario.id)"
@@ -226,11 +240,11 @@
 
   <ion-list *ngSwitchCase="'statistik'">
     <ion-item>
-      <h4>Entwicklung</h4>
+      <h6>Entwicklung</h6>
 	    <p> Punktzahl </p>
     </ion-item>
 	<ion-item>
-    <h4>Realitätsnahe</h4>
+    <h6>Realitätsnahe</h6>
 	    <p> Punktzahl </p>
       </ion-item>
   </ion-list> 

@@ -8,6 +8,7 @@
 </ion-header>
 
 <ion-content padding>
+
   <h4>Überblick</h4>
 
   <h6 padding-vertical>Was wollen Sie tun? </h6>
@@ -15,16 +16,16 @@
   <ion-list>
   <button ion-item [navPush]="meinSzenarioPage">
     <ion-icon name="ios-paper-outline" item-left></ion-icon>
-      Ihr Szenario ansehen
+      Mein Szenario ansehen
   </button>  
 
   <button ion-item [navPush]="bewertungenPage">
     <ion-icon name="ios-options-outline" item-left></ion-icon>
-      Ihre Bewertungen ansehen
+      Meine Bewertungen ansehen
   </button>
   <button ion-item [navPush]="benachrichtigungenPage">
     <ion-icon name="ios-chatboxes-outline" item-left></ion-icon>
-      Kommentare und Benachrichtigungen ansehen
+      Meine Kommentare und Benachrichtigungen ansehen
   </button>
 </ion-list>
 
@@ -35,7 +36,7 @@
   <div *ngFor="let szenario of szenarioList; let i=index"  (click)="goToSzenarioDetail(szenario.id)">
     <ion-item *ngIf="i<3">
 	    <ion-card>
-        <ion-card-header>Szenario von {{szenario.username}}</ion-card-header>
+        <ion-card-header class="ion-card-header">Szenario von {{szenario.username}}</ion-card-header>
         <ion-card-content>
 	        <p>Problemdefinition: {{szenario?.problemdefinition}}</p>
           <p>Kommentare: 3</p>
@@ -51,7 +52,8 @@
 
 
 <button ion-button [navPush]="bibliothekPage" icon-right padding>
-  <ion-icon name="ios-search"></ion-icon>
-  Bibliothek durchsuchen</button>
+  <ion-icon name="ios-search" padding-right></ion-icon>
+  Bibliothek durchsuchen
+</button>
 
 </ion-content>

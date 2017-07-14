@@ -49,7 +49,6 @@ export class MyApp {
   });     
 });
 
-
     // used for ngFor and navigation
     this.pages = [
       { title: 'Home', component: 'HomePage' },
@@ -60,7 +59,6 @@ export class MyApp {
 	    { title: 'Profileinstellungen', component: 'EinstellungenPage' },
 	    { title: 'Über', component: 'UeberPage' }
     ];
-
   }
 
   //App initiieren	

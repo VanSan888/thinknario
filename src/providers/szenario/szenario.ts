@@ -9,7 +9,6 @@ export class SzenarioProvider {
 	  
   }
 
- 
   /*
   Funktion, um beim Aufruf der einzelnen Seiten zu schauen, ob der Pfad schon beschrieben ist.
   Für Erklärung dazu siehe "problemfeld.ts"

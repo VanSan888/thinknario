@@ -616,5 +616,4 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
     //Wenn alle Inhalte hochgeladen sind, soll der Loader wieder verschwinden.
     this.loading.dismiss();
   }
-
 }

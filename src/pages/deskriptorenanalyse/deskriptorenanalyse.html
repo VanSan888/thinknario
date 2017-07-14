@@ -8,8 +8,11 @@
 </ion-header>
 
 <ion-content padding>
-<h4>Erklärung</h4>
-  <p>Erklärung, was hier gemacht werden soll. Video/gif und die Eintragung der Graphen in die Koordinatensysteme</p>
+  <h4 padding-left>Beschreibung</h4>
+  <p padding-left padding-bottom>Hier Beschreibung, was auf dieser Seite geschehen soll. </p>
+  <h6 padding-left>
+    Verschaffen Sie sich einen Überblick über die Funktionen auf dieser Seite:
+  </h6>
 
 <!-- slides zur Darstellung der Hilfen, wie man die canvas benutzt.
 toggleHilfe blendet die Hilfen ein und aus (siehe ion-toggle).-->
@@ -35,7 +38,7 @@ toggleHilfe blendet die Hilfen ein und aus (siehe ion-toggle).-->
 
 <!-- ion-toggle zum ein-und ausblenden der Hiflen mittels two-way Data binding -->
   <div>
-    <p float-left>Erklärungen ein- und ausblenden: </p>
+    <p float-left padding-left class="toggle-text">Erklärungen ein- und ausblenden: </p>
     <ion-toggle [(ngModel)]="toggleHilfe" name="ToggleHilfe" float-left></ion-toggle>
   </div>
 
@@ -44,20 +47,21 @@ toggleHilfe blendet die Hilfen ein und aus (siehe ion-toggle).-->
 
 <!-- Auswahl der Start- und Endzeitpunkte für das Szenario. Wird eingeblendet, wenn hideStartEnd true ist. -->
 
-<ion-list [hidden]='!hideStartEnd'>
-  <ion-item padding>
-  <ion-label>Start Ihres Szenarios</ion-label>
-    <!-- ion-datetime zur Auswahl der Start- und Endzeitpunkte mittels two-way Data binding -->
-    <ion-datetime displayFormat="YYYY" pickerFormat="YYYY"
-    [(ngModel)]="startSzenario" (ionChange)="updateStartEnd(startSzenario, endSzenario)" #StartSzenario>
-    </ion-datetime>
-  </ion-item>
-  <ion-item padding>
-  <ion-label>Ende Ihres Szenarios</ion-label>
-    <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" max="2050"
-    [(ngModel)]="endSzenario" (ionChange)="updateStartEnd(startSzenario, endSzenario)" #StartSzenario>
-    </ion-datetime>
-  </ion-item>
+<ion-list [hidden]='!hideStartEnd' padding-vertical>
+  <ion-list-header>Anfangs- und Endzeitpunkt Ihres Szenarios:</ion-list-header>
+    <ion-item>
+      <ion-label>Start Ihres Szenarios</ion-label>
+      <!-- ion-datetime zur Auswahl der Start- und Endzeitpunkte mittels two-way Data binding -->
+      <ion-datetime displayFormat="YYYY" pickerFormat="YYYY"
+      [(ngModel)]="startSzenario" (ionChange)="updateStartEnd(startSzenario, endSzenario)" #StartSzenario>
+      </ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Ende Ihres Szenarios</ion-label>
+      <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" max="2050"
+      [(ngModel)]="endSzenario" (ionChange)="updateStartEnd(startSzenario, endSzenario)" #StartSzenario>
+      </ion-datetime>
+    </ion-item>
   <!-- Wenn der Button geklickt wird, wird die showDeskriptoren() Funktion aufgerufen.
   Der Button wird dadurch ausgeblendet (hideDeskriptoren = true) -->
   <button ion-button (click)="showDeskriptoren()" [hidden]='hideDeskriptoren'
@@ -69,8 +73,9 @@ toggleHilfe blendet die Hilfen ein und aus (siehe ion-toggle).-->
 
 <!-- div zur Darstellung der canvas. Wird eingeblendet, wenn hideDeskriptoren=true. -->
 <div [hidden]='!hideDeskriptoren'>
-<div>
-<canvas-whiteboard  #canvasWhiteboard
+  <!--
+  <div>
+    <canvas-whiteboard padding #canvasWhiteboard
                        [drawButtonClass]="'fa fa-pencil fa-2x'"
                        [drawButtonText]="'Zeichnen'"
                        [clearButtonClass]="'fa fa-eraser fa-2x canvas_whiteboard_button-clear'"
@@ -84,53 +89,53 @@ toggleHilfe blendet die Hilfen ein und aus (siehe ion-toggle).-->
                        (onClear)="onCanvasClear()"
                        (onUndo)="onCanvasUndo($event)"
                        (onRedo)="onCanvasRedo($event)">                    
-</canvas-whiteboard>
-</div>
+    </canvas-whiteboard>
+  </div>
+  -->
+  <!-- canvas wird nur angezeigt, wenn der User bei SchluesselfaktorenPage bei dem entsprechenden
+  Schlüsselfaktor einen Haken gesetzt hat. -->
+  <div [hidden]="!schluesselfaktor1">
+    <canvas #canvas1 class="canvas"></canvas>
+    <!-- Buttons, die jeweils Funktionen zum Malen, Radieren oder Zurücksetzen aufrufen. 
+    (6 Stück, alle ähnlich.) -->
+      <button ion-button (click)="drawCanvas1()" class="draw-button">Zeichnen</button>
+      <button ion-button (click)="eraseCanvas1()" outline class="erase-button">Radieren</button>
+      <button ion-button (click)="clearCanvas1()" color="danger" class="clear-button">Zurücksetzen</button>
+  </div>
+  <div [hidden]="!schluesselfaktor2">
+    <canvas #canvas2 class="canvas"></canvas>
+      <button ion-button (click)="drawCanvas2()" class="draw-button">Zeichnen</button>
+      <button ion-button (click)="eraseCanvas2()" outline class="erase-button">Radieren</button>
+      <button ion-button (click)="clearCanvas2()" color="danger" class="clear-button">Zurücksetzen</button>
+  </div>
+  <div [hidden]="!schluesselfaktor3">
+    <canvas #canvas3 class="canvas"></canvas>
+      <button ion-button (click)="drawCanvas3()" class="draw-button">Zeichnen</button>
+      <button ion-button (click)="eraseCanvas3()" outline class="erase-button">Radieren</button>
+      <button ion-button (click)="clearCanvas3()" color="danger" class="clear-button">Zurücksetzen</button>
+  </div>
+  <div [hidden]="!schluesselfaktor4">
+    <canvas #canvas4 class="canvas"></canvas>
+      <button ion-button (click)="drawCanvas4()" class="draw-button">Zeichnen</button>
+      <button ion-button (click)="eraseCanvas4()" outline class="erase-button">Radieren</button>
+      <button ion-button (click)="clearCanvas4()" color="danger" class="clear-button">Zurücksetzen</button>
+  </div>
+  <div [hidden]="!schluesselfaktor5">
+    <canvas #canvas5 class="canvas"></canvas>
+      <button ion-button (click)="drawCanvas5()" class="draw-button">Zeichnen</button>
+      <button ion-button (click)="eraseCanvas5()" outline class="erase-button">Radieren</button>
+      <button ion-button (click)="clearCanvas5()" color="danger" class="clear-button">Zurücksetzen</button>
+  </div>
+  <div [hidden]="!schluesselfaktor6">
+    <canvas #canvas6 class="canvas"></canvas>
+      <button ion-button (click)="drawCanvas6()" class="draw-button">Zeichnen</button>
+      <button ion-button (click)="eraseCanvas6()" outline class="erase-button">Radieren</button>
+      <button ion-button (click)="clearCanvas6()" color="danger" class="clear-button">Zurücksetzen</button>
+  </div>
 
-<!-- canvas wird nur angezeigt, wenn der User bei SchluesselfaktorenPage bei dem entsprechenden
-Schlüsselfaktor einen Haken gesetzt hat. -->
-<div [hidden]="!schluesselfaktor1">
-  <canvas #canvas1></canvas>
-  <!-- Buttons, die jeweils Funktionen zum Malen, Radieren oder Zurücksetzen aufrufen. 
-  (6 Stück, alle ähnlich.) -->
-  <button ion-button (click)="clearCanvas1()" color="danger">Zurücksetzen</button>
-  <button ion-button (click)="drawCanvas1()">Zeichnen</button>
-  <button ion-button (click)="eraseCanvas1()" outline>Radieren</button>
-</div>
-<div [hidden]="!schluesselfaktor2">
-  <canvas #canvas2></canvas> 
-  <button ion-button (click)="clearCanvas2()" color="danger">Zurücksetzen</button>
-  <button ion-button (click)="drawCanvas2()">Zeichnen</button>
-  <button ion-button (click)="eraseCanvas2()" outline>Radieren</button>
-</div>
-<div [hidden]="!schluesselfaktor3">
-  <canvas #canvas3></canvas> 
-  <button ion-button (click)="clearCanvas3()" color="danger">Zurücksetzen</button>
-  <button ion-button (click)="drawCanvas3()">Zeichnen</button>
-  <button ion-button (click)="eraseCanvas3()">Radieren</button>
-</div>
-<div [hidden]="!schluesselfaktor4">
-  <canvas #canvas4></canvas> 
-  <button ion-button (click)="clearCanvas4()" color="danger">Zurücksetzen</button>
-  <button ion-button (click)="drawCanvas4()">Zeichnen</button>
-  <button ion-button (click)="eraseCanvas4()" outline>Radieren</button>
-</div>
-<div [hidden]="!schluesselfaktor5">
-  <canvas #canvas5></canvas> 
-  <button ion-button (click)="clearCanvas5()" color="danger">Zurücksetzen</button>
-  <button ion-button (click)="drawCanvas5()">Zeichnen</button>
-  <button ion-button (click)="eraseCanvas5()" outline>Radieren</button>
-</div>
-<div [hidden]="!schluesselfaktor6">
-  <canvas #canvas6></canvas> 
-  <button ion-button (click)="clearCanvas6()" color="danger">Zurücksetzen</button>
-  <button ion-button (click)="drawCanvas6()">Zeichnen</button>
-  <button ion-button (click)="eraseCanvas6()" outline>Radieren</button>
-</div>
 
 
-
-<button ion-button [navPush]="annahmenPage">Weiter</button>
+  <button ion-button [navPush]="annahmenPage" class="weiter">Weiter</button>
 </div>
 
 </ion-content>

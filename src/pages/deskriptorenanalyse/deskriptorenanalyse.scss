@@ -1,8 +1,76 @@
-page-deskriptorenanalysepage {
+page-deskriptorenanalyse {
 //Hier dann dynmaisch die Hintergründe für das Canvas anpassen
 
-  ion-button {
-    width: 20%;
-    max-width: 250px;
+  .slides {
+    height: 420px;
+    margin: 0px 0px;
+    padding: 0px 0px;  
   }
+
+  .item-inner {
+    font-size: 1.1em;
+  }
+
+  .toggle-text {
+    width: 280px;
+  }
+
+  .input-cover {
+    color: rgb(0,0,0);
+  }
+
+  .swiper-slide {
+    height: 300px;
+  }
+
+  .swiper-wrapper {
+    height: 10px;
+    margin: 0px 0px;
+    padding:  50px 0px;
+  }
+
+  .canvas{
+    display: block;
+    float: left;
+    clear: left;
+  }
+
+  .draw-button {
+    display: block;
+    float: left;
+    clear: left;
+    position: relative;
+    top: -275px;
+    left: 410px;
+  }
+
+  .erase-button {
+    display: block;
+    float: left;
+    clear: left;
+    position: relative;
+    top: -250px;
+    left: 410px;
+  }
+
+  .clear-button {
+    display: block;
+    float: left;
+    clear: left;
+    position: relative;
+    top: -225px;
+    left: 410px;
+  }
+
+  .weiter {
+    display: block;
+    float: left;
+    clear: left;
+    margin-left: 30px;
+  }
+
+  /*{
+    border: 1px solid rgb(0,0,0);
+  }*/
+
 }

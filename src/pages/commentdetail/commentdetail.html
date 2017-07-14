@@ -10,7 +10,14 @@
 
 
 <ion-content padding>
-  <p>Hier Erklärung einfügen, was passiert, warum Kommentare wichtig für den weiteren verlauf sind usw.</p>
+  <h4 padding-left>Beschreibung</h4>
+  <p padding-left padding-bottom>
+    Im oberen Bereich finden Sie ihre Kommentare wieder, falls Sie schon Kommentare angefertigt haben.
+    Im unteren Bereich finden Sie ein Eingabefeld, das dazu dient, Kommentare an das Szenario
+    von {{currentSzenario?.username}} zu posten.
+    Kopieren dazu einfach Ihre bisherigen Kommentare in das untere Eingabefeld.
+  </p>
+
   <ion-item padding>
     <ion-label for="KombinierteKommentare" stacked>Bisherige Kommentare:</ion-label>
     <ion-textarea type="text" placeholder="Keine Kommentare angegeben"
@@ -19,6 +26,11 @@
     </ion-textarea>
   </ion-item>
 
+  <h6 padding>
+    Hier haben Sie weiterhin die Möglichkeit, weitere Anmerkungen für {{currentSzenario?.username}} 
+    zu hinterlassen und mit {{currentSzenario?.username}}
+    zu diskutieren oder auf Kommentare von anderen zu reagieren.
+  </h6>
   <disqus  [identifier]="pageId" [url]="url"></disqus>
 
   <button ion-button (click)="goToSzenarioDetail(currentSzenario.id)">

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage} from 'ionic-angular';
+import { NavController, IonicPage, Loading,  LoadingController} from 'ionic-angular';
 import { BibliothekProvider } from '../../providers/bibliothek/bibliothek';
 
 @IonicPage()
@@ -9,6 +9,9 @@ import { BibliothekProvider } from '../../providers/bibliothek/bibliothek';
 })
 export class BewertungenPage {
 
+//Notwendig um den Ladezustand anzuzeigen
+public loading: Loading;
+
 //Notwendig für die Navigation
 bibliothekPage = 'bibliothekpage';
 
@@ -16,7 +19,19 @@ bibliothekPage = 'bibliothekpage';
 public ratedList: Array<any>;
 
   constructor(public navCtrl: NavController,
-              public bibliothekProvider: BibliothekProvider) {
+              public bibliothekProvider: BibliothekProvider,
+              public loadingCtrl: LoadingController,) {
+  }
+
+  //Frühester Lifecyclehook, um den Loadingcontroller anzuzeigen
+  ionViewWillEnter(){
+    //Erstellung des SVG Elements
+    this.loading = this.loadingCtrl.create({
+    //Anzuzeigender Text
+    content: 'Bitte warten...'
+    });
+    //Anzeige des Loaders
+    this.loading.present();
   }
   
   ionViewDidEnter() {
@@ -25,6 +40,8 @@ public ratedList: Array<any>;
 	  //Beschreiben der Varibalen mit den einzelnen Szenarien
       this.ratedList = ratedListSnap;
     });
+    //Wenn alle Inhalte geladen sind, soll der Loader ausgeblendet werden.
+    this.loading.dismiss();
   }
   
   //Funktion für die Navigation zur Szenariodetailseite

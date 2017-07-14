@@ -9,12 +9,14 @@
 
 <!-- Für Erklärung zum Code siehe ratingdetail.html. -->
 <ion-content padding>
-<p> Hier muss evtl dann noch eine Page oder wenigstens ein text hin, der dem user erklärt, was als nächstes passiert. <br>
-Evtl. Hier dann auch die Erläuterungen zu den Incentives und diwe man diese bekommt und wie der weitere Plan abläuft.<br>
-Es muss ihm auch erklärt werden, dass seine eigene bewertung nicht in die Gesamtbewertung einbezogen wird </p>
+  <h4 padding-left>Beschreibung</h4>
+  <p padding-left padding-bottom> Hier muss evtl dann noch eine Page oder wenigstens ein text hin, der dem user erklärt, was als nächstes passiert. <br>
+  Evtl. Hier dann auch die Erläuterungen zu den Incentives und diwe man diese bekommt und wie der weitere Plan abläuft.<br>
+  Es muss ihm auch erklärt werden, dass seine eigene Bewertung nicht in die Gesamtbewertung einbezogen wird </p>
+  <h6 padding-left padding-bottom>Bitte geben Sie ihre Einschätzung für die folgenden Kriterien an:</h6>
 <form #ratingForm="ngForm">
-  <ion-list>
-    <h4>Entwicklung</h4>
+  <ion-list padding-left>
+    <h5>Entwicklung</h5>
     <p> Hier kurze Erklärung. Wie schätzen Sie die Entwicklung des Szenarios ein? </p>
       <ion-item>
         <ion-range [(ngModel)]="entwicklung" name="Entwicklung"
@@ -23,7 +25,7 @@ Es muss ihm auch erklärt werden, dass seine eigene bewertung nicht in die Gesam
           <ion-label range-right>Sehr positiv</ion-label>
         </ion-range>
       </ion-item>
-    <h4>Realitätsnähe</h4>
+    <h5>Realitätsnähe</h5>
     <p> Hier kurze Erklärung. Als wie realistisch schätzen Sie das Szenario ein? </p>
       <ion-item>
         <ion-range [(ngModel)]="realitaetsnaehe" name="Realitaetsnaehe"
@@ -32,7 +34,7 @@ Es muss ihm auch erklärt werden, dass seine eigene bewertung nicht in die Gesam
           <ion-label range-right>Sehr realistisch</ion-label>
         </ion-range>
       </ion-item>
-    <h4>Relevanz</h4>
+    <h5>Relevanz</h5>
     <p> Hier kurze Erklärung. Als wie relavant schätzen Sie das Szenario und dessen Problemdefinition ein? </p>	
       <ion-item>
         <ion-range [(ngModel)]="relevanz" name="Relevanz"
@@ -41,7 +43,7 @@ Es muss ihm auch erklärt werden, dass seine eigene bewertung nicht in die Gesam
           <ion-label range-right>Sehr relevant</ion-label>
         </ion-range>
       </ion-item>
-    <h4>Ausführlichkeit</h4>
+    <h5>Ausführlichkeit</h5>
     <p> Hier kurze Erklärung. Wie ausführlich wurde das Szenario beschrieben? </p>
       <ion-item>
         <ion-range [(ngModel)]="ausfuehrlichkeit" name="Ausfuehrlichkeit"
@@ -50,7 +52,7 @@ Es muss ihm auch erklärt werden, dass seine eigene bewertung nicht in die Gesam
           <ion-label range-right>Sehr ausführlich</ion-label>
         </ion-range>
       </ion-item>
-    <h4>Zusammenhänge</h4>
+    <h5>Zusammenhänge</h5>
     <p> Wie sehr würden Sie der folgenden Aussage zustimmen? </p> 
     <p> Das Szenario stellt Zusammenhänge zwischen den Schlüsselfaktoren, Annahmen, <br>
     Randbedingungen und überraschenden Ereignissen anschaulich dar. </p>
@@ -61,7 +63,7 @@ Es muss ihm auch erklärt werden, dass seine eigene bewertung nicht in die Gesam
           <ion-label range-right>Stimme stark zu</ion-label>
         </ion-range>
       </ion-item>	
-    <h4>Wiedersprüche</h4>
+    <h5>Wiedersprüche</h5>
     <p> Wie sehr würden Sie der folgenden Aussage zustimmen? </p> 
     <p> Das Szenario ist widerspruchsfrei und in sich stimmig. </p>
       <ion-item>
@@ -71,7 +73,7 @@ Es muss ihm auch erklärt werden, dass seine eigene bewertung nicht in die Gesam
           <ion-label range-right>Stimme stark zu</ion-label>
         </ion-range>
       </ion-item>	
-    <h4>Faktenlage</h4>
+    <h5>Faktenlage</h5>
     <p> Wie sehr würden Sie der folgenden Aussage zustimmen? </p> 
     <p> Das Szenario enthält keine Fakten. Es besteht zu einem Großteil aus Schwafelei. </p>
       <ion-item>

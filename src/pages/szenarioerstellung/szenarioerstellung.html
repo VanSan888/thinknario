@@ -284,7 +284,7 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
 
 <!-- Ab hier findet die tatsächliche Szenrioerstellung statt. -->
 <div>
-<h4 padding-vertical float-left>Ihr Szenario</h4>
+<h4 padding float-left>Ihr Szenario</h4>
 </div>
 <!-- Das Hilfe-Icon wird nur angezeigt, wenn in SzenarioErstellungPage.hilfeAlert "alleine vorgehen"
 ausgewählt wird. Wenn es angeklickt wird, wird wieder die hilfeAlert() Funktion aufgerufen, damit der User
@@ -367,8 +367,8 @@ Es wird eine Form zur Kontrolle der Eingaben benutzt.-->
    <div>
      <!-- Mit diesem ion-toggle wird über ein two-way data binding toggleAusgangslage zwischen true und
      false hin- und hergeschaltet. Damit wird das Dialogfenster ein- und ausgeblendet. (Siehe vorangegangenes div)-->
-     <p float-left>Dialogfenster ein- und ausblenden: </p>
-	 <ion-toggle [(ngModel)]="toggleAusgangslage" name="ToggleAusgangslage"></ion-toggle>
+     <p float-left padding-left class="toggle-text">Dialogfenster ein- und ausblenden: </p>
+	 <ion-toggle [(ngModel)]="toggleAusgangslage" name="ToggleAusgangslage" float-left></ion-toggle>
    </div>
   <!-- Das folgende div wird erst angezeigt, wenn der entwicklungCounter größer als 1 ist.
   Dies ist der Fall, wenn die entwicklungsHilfe() Funktion aufgerufen wird.  -->
@@ -403,8 +403,8 @@ Es wird eine Form zur Kontrolle der Eingaben benutzt.-->
       </div>
 	</div>
     <div>
-      <p float-left>Dialogfenster ein- und ausblenden: </p>
-	  <ion-toggle [(ngModel)]="toggleEntwicklung" name="ToggleEntwicklung"></ion-toggle>
+      <p float-left padding-left class="toggle-text">Dialogfenster ein- und ausblenden: </p>
+	  <ion-toggle [(ngModel)]="toggleEntwicklung" name="ToggleEntwicklung" float-left></ion-toggle>
     </div>
   </div>
   <!-- Das folgende div wird erst angezeigt, wenn der endzustandCounter größer als 1 ist.
@@ -440,8 +440,8 @@ Es wird eine Form zur Kontrolle der Eingaben benutzt.-->
       </div>
 	</div>
     <div>
-      <p float-left>Dialogfenster ein- und ausblenden: </p>
-	  <ion-toggle [(ngModel)]="toggleEndzustand" name="ToggleEndzustand"></ion-toggle>
+      <p float-left padding-left class="toggle-text">Dialogfenster ein- und ausblenden: </p>
+	  <ion-toggle [(ngModel)]="toggleEndzustand" name="ToggleEndzustand"  float-left></ion-toggle>
     </div>
   </div>
 </form>
@@ -449,7 +449,7 @@ Es wird eine Form zur Kontrolle der Eingaben benutzt.-->
 <!-- Button der für den User mit Hilfestellung (hilfeVar=true) erst dann klickbar ist,
 wenn die mitHilfeForm gültig ist.-->
 <button ion-button [navPush]="szenariobewertungPage"
-[disabled]="!mitHilfeForm.form.valid" [hidden] = "!hilfeVar">Fertig - zur Bewertung</button>
+[disabled]="!mitHilfeForm.form.valid" [hidden] = "!hilfeVar" class="weiter">Fertig - zur Bewertung</button>
 
 
 <div padding-top>

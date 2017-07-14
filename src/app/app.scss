@@ -30,6 +30,21 @@ ion-card {
   max-width: 500px;
 }
 
+.ion-card-header {
+    white-space: inherit;
+    font-size: 1.25em;
+}
+
+p {  
+  font-size: 1.15em;
+  width: 80%;
+  max-width: 800px;
+}
+
+.item-input {
+  color: black;
+}
+
 
 /*.toast-message {
   white-space: pre;

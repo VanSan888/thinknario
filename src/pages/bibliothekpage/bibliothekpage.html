@@ -9,6 +9,7 @@
 
 
 <ion-content padding>
+  <h6 padding-vertical>Bewerten und kommentieren Sie weitere Szenarien, um zusätzliche Punkte zu sammeln:</h6>
   <ion-list>
     <!-- Iteration durch alle Szenarien die erstellt wurden
     wenn auf die ion-cards geklickt wird, wird die zugehörige szenario.id an die 
@@ -17,7 +18,7 @@
 	  <ion-card>
 	    <!-- Anzeige des Usernamens, der Problemdefinition, der Anzahl der Kommentare und der 
 		Durchschnittlichen Bewertung -->
-        <ion-card-header>Szenario von {{szenario.username}}</ion-card-header>
+        <ion-card-header class="ion-card-header">Szenario von {{szenario.username}}</ion-card-header>
         <ion-card-content>
 	      <p>Problemdefinition: {{szenario?.problemdefinition}}</p>
           <p>Kommentare: 3</p>

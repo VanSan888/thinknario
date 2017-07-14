@@ -61,8 +61,10 @@ public szenarioList: Array<any>;
 
     //Wenn alle Inhalte geladen sind, soll der Loader ausgeblendet werden.
     this.loading.dismiss();
+
   }
-  
+
+
   //Funktion für die Navigation zur Szenariodetailseite
   goToSzenarioDetail(szenarioId){ 
 	  //Der User soll nicht zu seiner eigenen SzenarioDetailseite gelangen,
