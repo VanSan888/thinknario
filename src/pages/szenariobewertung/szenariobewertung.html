@@ -86,16 +86,14 @@
 	<!-- Fehlernachricht, wenn nicht alle Kriterien bewertet wurden.-->
   </ion-list>
   <div [hidden]="ratingForm.form.valid">
-    <p>Bitte geben Sie für alle Kriterien Ihre Einschätzung ab.</p>
+    <p class="alert">Bitte geben Sie für alle Kriterien Ihre Einschätzung ab.</p>
   </div>  
 </form>
-
-
  
-<button ion-button [navPush]="homePage"
-[disabled]="!ratingForm.form.valid" (click)="updateAverage()">Zur Homepage</button>
+<button ion-button [disabled]="!ratingForm.form.valid"
+(click)="updateAverage()" (click)="goToRootPage()">Zur Homepage</button>
 
-<button ion-button [navPush]="szenarioerstellungPage"
+<button ion-button (click)="goToSzenarioDetail()"
 [disabled]="!ratingForm.form.valid" (click)="updateAverage()">Eigenes Szenario verändern</button>
 
 </ion-content>

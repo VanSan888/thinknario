@@ -115,8 +115,19 @@ public uid: string;
         //Tue nichts, denn das Szenario wird ja eh schon angezeigt
       } else {
         //Ansonsten wird ein String übergeben, der anderen Usern deutlich macht, dass es noch keine Bewertungen gibt.
-        this.ratingProvider.updateAverage("(Noch keine Bewertung)", this.uid);
+        this.ratingProvider.updateAverage( "(Noch keine Bewertung)" , this.uid);
       }
     });
+  }
+
+  goToRootPage(){
+    this.navCtrl.setRoot('HomePage');
+  }
+
+  //Funktion für die Navigation zur Szenariodetailseite
+  goToSzenarioDetail(){ 
+	//Der Navigationsparameter entspricht der UserID des Szenarios, welches bewertet wurde.		
+    this.navCtrl.pop();
+
   }
 }

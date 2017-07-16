@@ -12,20 +12,20 @@
     <h4 padding>
       Erklärung der Szenariotechnik
     </h4>
-    <ion-item *ngIf="toggleVar == true" no-lines>
+    <ion-item *ngIf="toggleErklaerung == true" no-lines>
       <p>Hier dann kurz beschreiben, was Szenariotechnik ist</p>
       <img src="www/assets/img/ablauf-szenarioerstellung.png"/>
     </ion-item>
     <ion-item padding-top>
       <ion-label>Erklärung der Szenariotechnik ein- und ausblenden:</ion-label>
-      <ion-toggle float-left [(ngModel)]="toggleVar" name="ToggleVarMeinSzenario">
+      <ion-toggle float-left [(ngModel)]="toggleErklaerung" name="ToggleVarErklaerung">
       </ion-toggle>  
     </ion-item>
 
     <h6 *ngIf="showstartbutton == true" padding>
       Starten Sie bei dem Problemfeld oder klicken Sie auf "Los geht's!"
     </h6>
-    <h6 *ngIf="showsbewertungfertig == false"  padding>
+    <h6 *ngIf="showsbewertungfertig == false && showstartbutton == false"  padding>
       Machen Sie dort weiter, wo Sie aufgehört haben. Fertige Schritte erkennen Sie an dem Haken.
     </h6>   
     <h6 *ngIf="showsbewertungfertig == true"  padding>
@@ -79,6 +79,6 @@
     </button>
   </ion-list>
 
-<button ion-button [navPush]="problemfeldPage" *ngIf="showstartbutton == true">Los geht's!</button>
+<button ion-button [navPush]="problemfeldPage" *ngIf="showstartbutton == true" class="los-gehts">Los geht's!</button>
 
 </ion-content>

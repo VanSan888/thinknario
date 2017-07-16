@@ -334,7 +334,7 @@ Es wird eine Form zur Kontrolle der Eingaben benutzt.-->
     </ion-textarea>
   </ion-item> 
   <!-- Wenn die Mindestlänge der Eingabe nicht erreicht ist, wird eine Fehlermeldung ausgegeben. -->  
-	<div *ngIf="AusgangslageText.errors && (AusgangslageText.dirty || AusgangslageText.touched)"
+	  <div *ngIf="AusgangslageText.errors && (AusgangslageText.dirty || AusgangslageText.touched)"
     class="alert alert-danger">
       <div [hidden]="!AusgangslageText.errors.minlength">
         <p>Die Beschreibung Ihrer Ausgangslage sollte mindestens 300 Zeichen lang sein</p>

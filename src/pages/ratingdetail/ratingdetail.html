@@ -93,7 +93,7 @@
   </ion-list>
   <!-- Fehlernachricht, wenn nicht alle Kriterien bewertet wurden (required).-->
   <div [hidden]="ratingForm.form.valid">
-    <p>Bitte geben Sie für ALLE Kriterien Ihre Einschätzung ab.</p>
+    <p class="alert">Bitte geben Sie für ALLE Kriterien Ihre Einschätzung ab.</p>
   </div>  
 </form>
 
@@ -114,13 +114,13 @@ Speichern und kommentieren</button>
 kann er entweder zur SzenariodetailPage der SzenarioID navigieren (und dort ggf.kommentieren)
  oder wieder zurück zu Homepage -->
 <div>
-  <button ion-button [navPush]="homePage" 
+  <button ion-button  *ngIf="showButtons == true"
   [disabled]="!ratingForm.form.valid"
-  (click)="updateAverage()">Zur Homepage</button>
+  (click)="updateAverage()" (click)="goToRootPage()">Zur Homepage</button>
 
   <button ion-button
-  [disabled]="!ratingForm.form.valid"
-  (click)="updateAverage()" (click)="goToSzenarioDetail(currentSzenario.id)">
+  [disabled]="!ratingForm.form.valid" *ngIf="showButtons == true"
+  (click)="updateAverage()" (click)="goToSzenarioDetail()">
   Szenario von {{currentSzenario?.username}} ansehen</button>
 </div>
 

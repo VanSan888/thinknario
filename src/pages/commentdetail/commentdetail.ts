@@ -61,9 +61,6 @@ export class CommentdetailPage {
       this.currentSzenario = szenarioSnap;
     });
 
-    this.commentProvider.checkPath(this.navParams.get('szenarioId'), "kombiniertekommentare")
-    .then((result: boolean) => {
-      if(result === true) {
         this.commentProvider.getCommentData(this.navParams.get('szenarioId')).then( commentSnap => {
         this.commentData      = commentSnap;
         this.entwicklung      = this.commentData.entwicklung.Begründung
@@ -80,23 +77,19 @@ export class CommentdetailPage {
                                      this.zusammenhaenge;
 
         });
-      } else {
-          this.commentProvider.updateKombinierteKommentare(this.navParams.get('szenarioId'), "");
-      }
-    });
-
   }
 
   updateKombinierteKommentare(kombinierteKommentare){
     this.commentProvider.updateKombinierteKommentare(this.navParams.get('szenarioId'), kombinierteKommentare);
   }
 
-  //Funktion für die Navigation zur Szenariodetailseite
-  goToSzenarioDetail(szenarioId){ 
+  goToRootPage(){
+    this.navCtrl.popToRoot();
+  }
 
-	//Der Navigationsparameter entspricht der UserID des Szenarios, welches bewertet wurde.		
-    this.navCtrl.push('szenariodetail', { 'szenarioId': szenarioId });
-
+  ionViewWillLeave(){
+    //Dumidaten in kombiniertekommentare, damit bei ratingdetail die richtigen Buttons angezeigt werden.
+    this.commentProvider.updateKombinierteKommentare(this.navParams.get('szenarioId'), "check");
   }
 
 }

@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 import firebase from 'firebase';
 
-
-
 @Injectable()
 export class BibliothekProvider {
-
-
 
   constructor() {
   }
@@ -15,24 +11,35 @@ export class BibliothekProvider {
     return new Promise( (resolve, reject) => {
       firebase.database().ref("szenarioData")
       .on('value', snapshot => {
-		//Deklarierung des Arrays
+		    //Deklarierung des Arrays
         let rawList = [];
         snapshot.forEach( snap => {
-        //Wenn kein Average angegeben ist, der User also sein eigenes Szenario
-        //noch nicht bewertet hat und es somit noch nicht vollständig ist,
-        //Wird es auch nicht auf der HomePage (in der Bibliothek) angezeigt
-          if(snap.val().average.average){
-            //Beschreiben des Arrays
-            rawList.push({
-			        //Es werden nur der .key, der username, der Average und die Problemdefintion für die
-			        //Darstellung auf bibliothekpage.html benötigt
-              id: snap.key,
-			        username: snap.val().userName.userName,
-              problemdefinition: snap.val().problemdefinition.problemdefinition,
-			        average: snap.val().average.average,
-            });
-            return false
-          }
+          //Hier wird mittels einer Firebase-Abfrage geschaut, ob schon ein Average für das Szenario
+          //verfügbar ist. Sehr ähnlich zu szenarioProvider.checkPath, siehe Erklärung dort.
+          //Wenn kein Average angegeben ist, der User also sein eigenes Szenario
+          //noch nicht bewertet hat und es somit noch nicht vollständig ist,
+          //Wird es auch nicht auf der HomePage (in der Bibliothek) angezeigt
+
+          //Abzufragender Pfad:
+          firebase.database().ref('/szenarioData')
+	        .child(snap.key).child("average")
+	        .on('value', data => {
+            //Wenn ein Wert existiert, dann...
+            if(data.exists()){
+              //Beschreibe das Arrays
+              rawList.push({
+			          //Es werden nur der .key, der username, der Average und die Problemdefintion für die
+			          //Darstellung auf bibliothekpage.html benötigt
+                id: snap.key,
+			          username: snap.val().userName.userName,
+                problemdefinition: snap.val().problemdefinition.problemdefinition,
+			          average: snap.val().average.average,
+              });  
+            }
+          });
+          //Damit der .forEach "snap" => void einen wert returned und damit assignable to type
+          // datasnapshot => boolean wird
+          return false
         });
 		  resolve(rawList);
       });

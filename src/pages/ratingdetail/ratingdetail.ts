@@ -28,7 +28,6 @@ public ratingData: any;
 public currentSzenario: any;
 //Variablen, die benötigt werden, um in "/erstellteBewertungen" einen Wert auszulesen
 //und daraufhin verschiedene Buttons in ratingdetail.html anzuzeigen
-public currentRated: any;
 public showButtons: any;
 //Variable, auf die die einzelnen Berwertungen geschrieben werden
 public ratingList: Array<any>;
@@ -339,10 +338,14 @@ public i: number=0
   }
 
   //Funktion für die Navigation zur Szenariodetailseite
-  goToSzenarioDetail(szenarioId){ 
+  goToSzenarioDetail(){ 
 	//Der Navigationsparameter entspricht der UserID des Szenarios, welches bewertet wurde.		
-    this.navCtrl.push('szenariodetail', { 'szenarioId': szenarioId });
+    this.navCtrl.pop();
 
+  }
+
+  goToRootPage(){
+    this.navCtrl.popToRoot()
   }
 
 }

@@ -28,7 +28,7 @@ szenariobewertungPage   = 'SzenariobewertungPage';
 //Properties für die Datentransferierung von und zu firebase
 //Notwendig für die variable Anzeige der fertiggestellten Prozesschritte
 public szenarioData: any;
-public toggleVar: boolean = true;
+public toggleErklaerung: boolean = true;
 public showstartbutton: boolean = true;
 public showproblemdefinition: boolean = false;
 public showdeskriptorenanalyse: boolean = false;
@@ -63,12 +63,17 @@ public showsbewertungfertig: boolean = false;
 	  Durch die .then(result) Funktion wird der tatsächliche Wert
 	  des Promise ausgelesen. Die Arrow-Funktion wird benötigt, um den .then()-Kontext nicht
 	  durcheinander zu bringen.	*/
-    this.szenarioProvider.checkPath("problemdefinition").then((result: boolean) => {
+    this.szenarioProvider.checkPath("problemfeld").then((result: boolean) => {
 	    //Wenn in dem Pfad Daten hinterlegt sind, dann...
       if(result === true) {
         //Setze die Variable auf true, um die entsprechenden HTML-Elemente anzuzeigen
         this.showstartbutton = false;
-	    }
+        //Blende die Erklärung aus
+        this.toggleErklaerung = false;
+        //Wenn nicht soll auch die Erklärung zur Szenariotechnik noch angezeigt werden 
+	    } else {
+          this.toggleErklaerung = true;
+      }
     });
     this.szenarioProvider.checkPath("problemdefinition").then((result: boolean) => {
 	    //Wenn in dem Pfad Daten hinterlegt sind, dann...
@@ -134,9 +139,6 @@ public showsbewertungfertig: boolean = false;
 	    }
     });
 
-    if(this.showstartbutton == true){
-      this.toggleVar = false;
-    }
     //Wenn alle Inhalte geladen sind, soll der Loader ausgeblendet werden.
     this.loading.dismiss();
   }

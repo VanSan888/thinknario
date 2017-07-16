@@ -22,7 +22,7 @@
     <ion-label for="KombinierteKommentare" stacked>Bisherige Kommentare:</ion-label>
     <ion-textarea type="text" placeholder="Keine Kommentare angegeben"
     [(ngModel)]="kombinierteKommentare" name="KombinierteKommentare"
-	  (change)="updateKombinierteKommentare(kombinierteKommentare)" fz-elastic>
+	  (change)="updateKombinierteKommentare()" fz-elastic>
     </ion-textarea>
   </ion-item>
 
@@ -33,8 +33,6 @@
   </h6>
   <disqus  [identifier]="pageId" [url]="url"></disqus>
 
-  <button ion-button (click)="goToSzenarioDetail(currentSzenario.id)">
-  Szenario von {{currentSzenario?.username}} erneut ansehen</button>
-  <button ion-button [navPush]="homePage">Zur Homepage</button>
+  <button ion-button (click)="goToRootPage()">Zur Homepage</button>
 
 </ion-content>
