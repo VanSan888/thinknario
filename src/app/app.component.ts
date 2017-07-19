@@ -32,22 +32,21 @@ export class MyApp {
       storageBucket: "thinknario.appspot.com",
       messagingSenderId: "320520092415"
     });
-
+  //NgZone lässt Code außerhalb von Angular laufen
 	this.zone = new NgZone({});
-
 	const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-     this.zone.run( () => {
-       //Wenn kein user authentifiziert ist, zu LogInPage
-       if (!user) {
-         this.rootPage = 'LogInPage';
-         unsubscribe();
-	   //wenn ein user authentifiziert ist, zu HomePage
-       } else { 
-       this.rootPage = 'HomePage';
-         unsubscribe();
-    }
-  });     
-});
+    //zone.run startet den Code außerhalb von Angular.
+    this.zone.run(() => {
+      //Wenn kein User authentifiziert ist, zu LogInPage
+      if (!user) {
+        this.rootPage = 'LogInPage';
+        unsubscribe();
+	    //wenn ein user authentifiziert ist, bleibe auf der Page, auf der du bist
+      } else { 
+        unsubscribe();
+      }
+    });     
+  });
 
     // used for ngFor and navigation
     this.pages = [

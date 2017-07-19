@@ -69,8 +69,8 @@ private cx6: CanvasRenderingContext2D;
   ionViewWillEnter(){
     //Erstellung des SVG Elements
     this.loading = this.loadingCtrl.create({
-    //Anzuzeigender Text
-    content: 'Bitte warten...'
+      //Anzuzeigender Text
+      content: 'Bitte warten...'
     });
     //Anzeige des Loaders
     this.loading.present();

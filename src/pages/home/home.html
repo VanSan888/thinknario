@@ -14,7 +14,7 @@
   <h6 padding-vertical>Was wollen Sie tun? </h6>
   
   <ion-list>
-  <button ion-item [navPush]="meinSzenarioPage">
+  <button ion-item (click)="goToMeinSzenario()">
     <ion-icon name="ios-paper-outline" item-left></ion-icon>
       Mein Szenario ansehen
   </button>  

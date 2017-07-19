@@ -12,16 +12,21 @@ export class ProfileProvider {
   //Promise zur Erlangung der aktuellen Nutzerdaten.
   //Promise ist nötig um die Asynchronität zu gewährleisten
   getUserProfile(): Promise<any> {
-
-    return   new  Promise( (resolve, reject) => { 
-	//Angabe des Pfades, der ausgelesen werden soll.
-     firebase.database().ref('/userProfile')
-	.child(firebase.auth().currentUser.uid)
-	 //.on() inklusive Arrow Funktion und Snapshot("data"), um die Daten auszulesen
-     .on('value', data => {
-		//gibt die ausgelesenen Werte an das Promise zurück
-        resolve(data.val());
-      });
+    return   new  Promise( (resolve, reject) => {
+      //Es wird ein Observer auf das Auth object gesetzt
+      firebase.auth().onAuthStateChanged((user) => {
+        //Wenn ein user angemeldet ist, dann
+        if(user){
+	        //Angabe des Pfades, der ausgelesen werden soll.
+          firebase.database().ref('/userProfile')
+	        .child(firebase.auth().currentUser.uid)
+	        //.on() inklusive Arrow Funktion und Snapshot("data"), um die Daten auszulesen
+          .on('value', data => {
+		        //gibt die ausgelesenen Werte an das Promise zurück
+            resolve(data.val());
+          });
+        }
+      });  
     });
   }
 

@@ -19,14 +19,13 @@ schluesselfaktorenPage = 'SchluesselfaktorenPage';
 public szenarioData: any;
 public problemdefinition : string = "";
 
-  constructor(public navCtrl: NavController, public szenarioProvider: SzenarioProvider) {
+  constructor(public navCtrl: NavController,
+              public szenarioProvider: SzenarioProvider) {
 
   }
 
   ionViewDidEnter() {
-
-    let problemdefinitionpath = "problemdefinition";
-    this.szenarioProvider.checkPath(problemdefinitionpath).then((result: boolean) => {
+    this.szenarioProvider.checkPath("problemdefinition").then((result: boolean) => {
      if(result === true) {  
       this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
         this.szenarioData = szenarioSnap;

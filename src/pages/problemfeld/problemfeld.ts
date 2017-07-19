@@ -32,17 +32,17 @@ public problemfeld4: boolean = false;
               private _VAL     : SzenarioValidator)
   //Erstellung eines FormBuilder-Objectes			  
   {
-     this.problemfeldform = _FB.group({
-       //Nested FormGroup zugeordner zu einem key, der "service" heißt
-	   //Zuständig für Checkboxen, initial default value false
-       'service' 		  : _FB.group({
-	   problemfeldform1   : [ false ],
-	   problemfeldform2   : [ false ],
-	   problemfeldform3   : [ false ],
-	   problemfeldform4   : [ false ],
-	     //Abrufen des SzenarioValidators und seiner Methode für "Problemfeld"
-		 }, { validator: _VAL.validateCheckboxesProblemfeld })
-      });
+    this.problemfeldform = _FB.group({
+      //Nested FormGroup zugeordner zu einem key, der "service" heißt
+	    //Zuständig für Checkboxen, initial default value false
+      'service' 		  : _FB.group({
+	      problemfeldform1   : [ false ],
+	      problemfeldform2   : [ false ],
+	      problemfeldform3   : [ false ],
+	      problemfeldform4   : [ false ],
+	      //Abrufen des SzenarioValidators und seiner Methode für "Problemfeld"
+		  }, { validator: _VAL.validateCheckboxesProblemfeld })
+    });
   }
   
 
@@ -63,30 +63,30 @@ public problemfeld4: boolean = false;
 	durcheinander zu bringen
 	*/
     this.szenarioProvider.checkPath("problemfeld").then((result: boolean) => {
-	 //Wenn in dem Pfad Daten hinterlegt sind, dann...
-     if(result === true) {
-		/*
-		...lese die Daten aus. getSzenarioData() Funktion aus
-		dem SzenarioProvider wird aufgerufen. Wieder wird mit .then() und Arrowfunktion gearbeitet.
-		Es wird ein Snapshot der hinterlegten Szenariodaten erstellt.
-		*/
-      this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
-		    //Hier wird der Snapshot auf die Hilfsvariable geschrieben.
-        this.szenarioData = szenarioSnap;
-		    //Hier werden die einzelnen Variablen mit en einzelnen Daten beschrieben.
-        this.problemfeld1 = this.szenarioData.problemfeld.problemfeld1;
-	      this.problemfeld2 = this.szenarioData.problemfeld.problemfeld2;
-        this.problemfeld3 = this.szenarioData.problemfeld.problemfeld3;
-        this.problemfeld4 = this.szenarioData.problemfeld.problemfeld4;
-	    });
-	  } else {
-		  //Es werden Dummidaten in "szenarioData/currentUser/problemfeld" geschrieben, wenn der User
-		  //diese Seite das erste mal betritt.
-		  this.szenarioProvider.updateProblemfeld(this.problemfeld1,
-		                                          this.problemfeld2,
-												  this.problemfeld3,
-												  this.problemfeld4);
-		}
+	    //Wenn in dem Pfad Daten hinterlegt sind, dann...
+      if(result === true) {
+		    /*
+		    ...lese die Daten aus. getSzenarioData() Funktion aus
+		  dem SzenarioProvider wird aufgerufen. Wieder wird mit .then() und Arrowfunktion gearbeitet.
+		  Es wird ein Snapshot der hinterlegten Szenariodaten erstellt.
+		  */
+        this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
+		      //Hier wird der Snapshot auf die Hilfsvariable geschrieben.
+          this.szenarioData = szenarioSnap;
+		      //Hier werden die einzelnen Variablen mit en einzelnen Daten beschrieben.
+          this.problemfeld1 = this.szenarioData.problemfeld.problemfeld1;
+	        this.problemfeld2 = this.szenarioData.problemfeld.problemfeld2;
+          this.problemfeld3 = this.szenarioData.problemfeld.problemfeld3;
+          this.problemfeld4 = this.szenarioData.problemfeld.problemfeld4;
+	      });
+	    } else {
+		    //Es werden Dummidaten in "szenarioData/currentUser/problemfeld" geschrieben, wenn der User
+		    //diese Seite das erste mal betritt.
+		    this.szenarioProvider.updateProblemfeld(this.problemfeld1,
+		                                            this.problemfeld2,
+												                        this.problemfeld3,
+												                        this.problemfeld4);
+		  }
     });
   }
 

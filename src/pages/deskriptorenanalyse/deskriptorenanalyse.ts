@@ -92,16 +92,15 @@ constructor(public navCtrl: NavController,
             public szenarioProvider: SzenarioProvider,
             private _sanitizer: DomSanitizer,
             public loadingCtrl: LoadingController,){
-  //Festlegen der Youtube-URLs
-  let videoURL1 = "https://www.youtube.com/embed/ilVnDcQUra0";
-  //mit Hilfe der bypassSecurityTrustResourceUrl() Funktion wird die Sicherheit der
-  //Youtube-URLs sichergestellt und auf eine neue Variable geschrieben (3 mal sehr ähnlich)
-  this.safeURL1 = this._sanitizer.bypassSecurityTrustResourceUrl(videoURL1);
-  let videoURL2 = "https://www.youtube.com/embed/PAsEDOFKUfI";
-  this.safeURL2 = this._sanitizer.bypassSecurityTrustResourceUrl(videoURL2);
-  let videoURL3 = "https://www.youtube.com/embed/v4yZ58aTVoI";
-  this.safeURL3 = this._sanitizer.bypassSecurityTrustResourceUrl(videoURL3);
-
+    //Festlegen der Youtube-URLs
+    let videoURL1 = "https://www.youtube.com/embed/ilVnDcQUra0";
+    //mit Hilfe der bypassSecurityTrustResourceUrl() Funktion wird die Sicherheit der
+    //Youtube-URLs sichergestellt und auf eine neue Variable geschrieben (3 mal sehr ähnlich)
+    this.safeURL1 = this._sanitizer.bypassSecurityTrustResourceUrl(videoURL1);
+    let videoURL2 = "https://www.youtube.com/embed/PAsEDOFKUfI";
+    this.safeURL2 = this._sanitizer.bypassSecurityTrustResourceUrl(videoURL2);
+    let videoURL3 = "https://www.youtube.com/embed/v4yZ58aTVoI";
+    this.safeURL3 = this._sanitizer.bypassSecurityTrustResourceUrl(videoURL3);
   }
   
   //Frühester Lifecyclehook, um den Loadingcontroller anzuzeigen

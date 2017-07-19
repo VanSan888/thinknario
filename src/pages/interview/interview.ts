@@ -22,33 +22,23 @@ export class InterviewPage {
   public gender: string = "o";
 
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController,
-  public profileProvider: ProfileProvider, public authData: AuthData) {
+  constructor(public navCtrl: NavController,
+              public alertCtrl: AlertController,
+              public profileProvider: ProfileProvider,
+              public authData: AuthData) {
   }
   
-  ionViewDidEnter() {
-    this.profileProvider.getUserProfile().then( profileSnap => {
-      this.userProfile = profileSnap;
-    });
+ 
+  updateFirstname(firstName){	
+	  this.profileProvider.updateFirstname(firstName); 
   }
  
-  updateFirstname(firstName){
-		
-	this.profileProvider.updateFirstname(firstName);
-	 
-  }
- 
-  updateLastname(lastName){
-	
-	this.profileProvider.updateLastname(lastName);
-	 
+  updateLastname(lastName){	
+	  this.profileProvider.updateLastname(lastName);	 
   }
   
-  updateUsername(userName){
-	
-	this.profileProvider.updateUsername(userName);
-
-	 
+  updateUsername(userName){	
+	  this.profileProvider.updateUsername(userName);	 
   }  
  
   updateDOB(birthDate){

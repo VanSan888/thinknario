@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController,IonicPage, AlertController } from 'ionic-angular';
+import { NavController,IonicPage, AlertController, Loading,  LoadingController } from 'ionic-angular';
 import { SzenarioProvider } from '../../providers/szenario/szenario';
 
 //Für Erklärungen siehe annahmen.ts (sehr ähnlicher Code/gleiche Funktion).
@@ -10,7 +10,8 @@ import { SzenarioProvider } from '../../providers/szenario/szenario';
   templateUrl: 'ereignisse.html'
 })
 export class EreignissePage {
-	
+//Notwendig um den Ladezustand anzuzeigen
+public loading: Loading;	
 //Notwendig für Navigation
 szenarioerstellungPage = 'SzenarioerstellungPage';
 
@@ -28,32 +29,46 @@ public toggleVar: boolean= true;
 
   constructor( public navCtrl: NavController,
                public szenarioProvider: SzenarioProvider,
-			   public alertCtrl: AlertController) {
+			         public alertCtrl: AlertController,
+               public loadingCtrl: LoadingController,) {
 
   }
-  
-  ionViewDidEnter() {
-	
-    this.szenarioProvider.checkPath("ereignisse").then((result: boolean) => {
-     if(result === true) {   	
-      this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
-        this.szenarioData = szenarioSnap;
-        this.ereignis1 = this.szenarioData.ereignisse.ereignis1.ereignis;
-        this.ereignis2 = this.szenarioData.ereignisse.ereignis2.ereignis;
-	    this.ereignis3 = this.szenarioData.ereignisse.ereignis3.ereignis;
-        this.ereignis4 = this.szenarioData.ereignisse.ereignis4.ereignis;
-        this.begruendung1 = this.szenarioData.ereignisse.ereignis1.begruendung;
-        this.begruendung2 = this.szenarioData.ereignisse.ereignis2.begruendung;
-	    this.begruendung3 = this.szenarioData.ereignisse.ereignis3.begruendung;
-        this.begruendung4 = this.szenarioData.ereignisse.ereignis4.begruendung;
-	  });	
-     } else {
-	     this.szenarioProvider.updateEreignis("ereignis1", "", "");
-	     this.szenarioProvider.updateEreignis("ereignis2", "", "");
-	     this.szenarioProvider.updateEreignis("ereignis3", "", "");
-	     this.szenarioProvider.updateEreignis("ereignis4", "", "");
-	  }
+
+  //Frühester Lifecyclehook, um den Loadingcontroller anzuzeigen
+  ionViewWillEnter(){
+    //Erstellung des SVG Elements
+    this.loading = this.loadingCtrl.create({
+      //Anzuzeigender Text
+      content: 'Bitte warten...'
     });
+    //Anzeige des Loaders
+    this.loading.present();
+  }
+
+  //Sehr ähnlich zu AnnahmenPage. Siehe Erklörung dort.
+  ionViewDidEnter() {
+    this.szenarioProvider.checkPath("ereignisse").then((result: boolean) => {
+      if(result === true) {   	
+        this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
+          this.szenarioData = szenarioSnap;
+          this.ereignis1 = this.szenarioData.ereignisse.ereignis1.ereignis;
+          this.ereignis2 = this.szenarioData.ereignisse.ereignis2.ereignis;
+	        this.ereignis3 = this.szenarioData.ereignisse.ereignis3.ereignis;
+          this.ereignis4 = this.szenarioData.ereignisse.ereignis4.ereignis;
+          this.begruendung1 = this.szenarioData.ereignisse.ereignis1.begruendung;
+          this.begruendung2 = this.szenarioData.ereignisse.ereignis2.begruendung;
+	        this.begruendung3 = this.szenarioData.ereignisse.ereignis3.begruendung;
+          this.begruendung4 = this.szenarioData.ereignisse.ereignis4.begruendung;
+	      });	
+      } else {
+	        this.szenarioProvider.updateEreignis("ereignis1", "", "");
+	        this.szenarioProvider.updateEreignis("ereignis2", "", "");
+	        this.szenarioProvider.updateEreignis("ereignis3", "", "");
+	        this.szenarioProvider.updateEreignis("ereignis4", "", "");
+	    }
+    });
+    //Wenn alle Inhalte geladen sind, soll der Loader ausgeblendet werden.
+    this.loading.dismiss();
   }	
 
   updateEreignis(path, ereignis, begruendung) {

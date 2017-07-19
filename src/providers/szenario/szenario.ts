@@ -4,10 +4,8 @@ import * as firebase from 'firebase';
 
 @Injectable()
 export class SzenarioProvider {
-	
-  constructor() {
-	  
-  }
+
+  constructor() {}
 
   /*
   Funktion, um beim Aufruf der einzelnen Seiten zu schauen, ob der Pfad schon beschrieben ist.
@@ -16,17 +14,23 @@ export class SzenarioProvider {
   //Die Funtion bekommt ein Argument, in dem der zu prüfende Pfad steht.
   //Promise um Asynchronität zu gewährleisten
   checkPath(dataPath):  Promise<boolean> {
-	return new Promise<boolean>((resolve, reject) => {
-	  //Zu prüfender Pfad inklusive der Varibalen aus den einzelnen Seiten
-	  firebase.database().ref('/szenarioData')
-	  .child(firebase.auth().currentUser.uid).child(dataPath)
-	  //.on() inklusive Arrow Funktion und Snapshot("data"), um die Daten auszulesen
-	  .on('value', data => {
-		//.exists() gibt "true" mittels resolve() an das Promise
-		//zurück, wenn Werte in dem angegebenen Pfad existieren
-	    resolve(data.exists());
-	  });
-	});  
+	  return new Promise<boolean>((resolve, reject) => {
+      //Es wird ein Observer auf das Auth object gesetzt
+      firebase.auth().onAuthStateChanged((user) => {
+        //Wenn ein user angemeldet ist, dann
+        if(user){
+	        //prüfe den Pfad mit den Varibalen aus den einzelnen Seiten
+	        firebase.database().ref('/szenarioData')
+	        .child(firebase.auth().currentUser.uid).child(dataPath)
+	        //.on() inklusive Arrow Funktion und Snapshot("data"), um die Daten auszulesen
+	        .on('value', data => {
+		        //.exists() gibt "true" mittels resolve() an das Promise
+		        //zurück, wenn Werte in dem angegebenen Pfad existieren
+	          resolve(data.exists());
+	        });
+        }
+      });
+	  });  
   }
   
   //Funktion für DeskriptorenanalysePage. Es wird geschaut, ob bei dem aktiven Nutzer
@@ -46,12 +50,15 @@ export class SzenarioProvider {
   //Sehr ähnlich zu ProfileProvider. Siehe Erklärung dort
   //Funktion, um die Szenariodaten des aktiven Nutzers abzurufen
   getSzenarioData(): Promise<any> {
-	
     return new  Promise((resolve, reject) => { 
-     firebase.database().ref('/szenarioData').child(firebase.auth().currentUser.uid)
-     .on('value', data => {
-       resolve(data.val());
-      });
+      firebase.auth().onAuthStateChanged((user) => {
+        if(user){
+          firebase.database().ref('/szenarioData').child(firebase.auth().currentUser.uid)
+          .on('value', data => {
+            resolve(data.val());
+          });
+        }
+      }); 
     });
   }
 
@@ -73,8 +80,12 @@ export class SzenarioProvider {
 //Funktion, um die UID des aktiven Users abzurufen
 getUserID(): Promise<any> {
     return new  Promise((resolve, reject) => { 
-      let UID = firebase.auth().currentUser.uid;
-       resolve(UID);
+      firebase.auth().onAuthStateChanged((user) => {
+        if(user){
+          let UID = firebase.auth().currentUser.uid;     
+          resolve(UID);
+        }
+      }); 
     });
   }
   
@@ -136,10 +147,15 @@ getUserID(): Promise<any> {
   // Es wird die URL des entsprechenden Canvas (Festlegung über dataPath) aus firebase runtergeladen und an
   //DeskriptorenanalysePage als Promise weitergegeben.
   getDeskriptorURL(dataPath: string): Promise<any>{
-    return new  Promise((resolve, reject) => { 
-    let storageRef =  firebase.storage().ref().child(firebase.auth().currentUser.uid + '/').child(dataPath);
-	    storageRef.getDownloadURL().then( url => {
-       resolve(url);
+    return new  Promise((resolve, reject) => {
+      firebase.auth().onAuthStateChanged((user) => {
+        if(user){
+          let storageRef =  firebase.storage().ref().child(firebase.auth().currentUser.uid + '/')
+          .child(dataPath);
+	        storageRef.getDownloadURL().then( url => {
+            resolve(url);
+          });
+        }
       });
     });
   }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage, AlertController } from 'ionic-angular';
+import { NavController, IonicPage, AlertController, Loading,  LoadingController  } from 'ionic-angular';
 import { SzenarioProvider } from '../../providers/szenario/szenario';
 
 
@@ -9,6 +9,9 @@ import { SzenarioProvider } from '../../providers/szenario/szenario';
   templateUrl: 'annahmen.html'
 })
 export class AnnahmenPage {
+
+//Notwendig um den Ladezustand anzuzeigen
+public loading: Loading;
 	
 //notwendig für Navigation	
 randbedingungenPage = 'RandbedingungenPage';
@@ -33,13 +36,24 @@ public toggleVar: boolean= true;
 
   constructor( public navCtrl: NavController,
                public szenarioProvider: SzenarioProvider,
-			         public alertCtrl: AlertController) {
+			         public alertCtrl: AlertController,
+               public loadingCtrl: LoadingController,) {
 
   }
 
-  ionViewDidEnter() {
-	
-	//Siehe Erklärung bei ProblemfeldPage
+  //Frühester Lifecyclehook, um den Loadingcontroller anzuzeigen
+  ionViewWillEnter(){
+    //Erstellung des SVG Elements
+    this.loading = this.loadingCtrl.create({
+      //Anzuzeigender Text
+      content: 'Bitte warten...'
+    });
+    //Anzeige des Loaders
+    this.loading.present();
+  }
+
+  ionViewDidEnter() {	
+	  //Siehe Erklärung bei ProblemfeldPage
     this.szenarioProvider.checkPath("annahmen").then((result: boolean) => {
      if(result === true) {	
       this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
@@ -52,15 +66,17 @@ public toggleVar: boolean= true;
         this.begruendung2 = this.szenarioData.annahmen.annahme2.begruendung;
 	      this.begruendung3 = this.szenarioData.annahmen.annahme3.begruendung;
         this.begruendung4 = this.szenarioData.annahmen.annahme4.begruendung;		
+	    });
+    // Wenn keine Daten in dem abgefragten Pfad hinterlegt sind, dann beschreibe den Pfad mit Dummidaten	 
+      } else {
+	       this.szenarioProvider.updateAnnahme("annahme1", "", "");
+	       this.szenarioProvider.updateAnnahme("annahme2", "", "");
+	       this.szenarioProvider.updateAnnahme("annahme3", "", "");
+	       this.szenarioProvider.updateAnnahme("annahme4", "", "");
+	    }
 	  });
-     // Wenn keine Daten in dem abgefragten Pfad hinterlegt sind, dann beschreibe den Pfad mit Dummidaten	 
-     } else {
-	     this.szenarioProvider.updateAnnahme("annahme1", "", "");
-	     this.szenarioProvider.updateAnnahme("annahme2", "", "");
-	     this.szenarioProvider.updateAnnahme("annahme3", "", "");
-	     this.szenarioProvider.updateAnnahme("annahme4", "", "");
-	 }
-	});
+    //Wenn alle Inhalte geladen sind, soll der Loader ausgeblendet werden.
+    this.loading.dismiss();
   }
 
   /*

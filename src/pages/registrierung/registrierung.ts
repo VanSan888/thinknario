@@ -21,9 +21,11 @@ public signupForm: FormGroup;
 //Variable für die Anzeige, dass die Seite lädt
 loading: Loading;
 
-  constructor(public navCtrl: NavController, public authData: AuthData,
-    public formBuilder: FormBuilder, public loadingCtrl: LoadingController, 
-    public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController,
+              public authData: AuthData,
+              public formBuilder: FormBuilder,
+              public loadingCtrl: LoadingController, 
+              public alertCtrl: AlertController) {
     
 	//FormValidation
     this.signupForm = formBuilder.group({

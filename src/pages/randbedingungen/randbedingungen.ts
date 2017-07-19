@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage, AlertController  } from 'ionic-angular';
+import { NavController, IonicPage, AlertController, Loading,  LoadingController  } from 'ionic-angular';
 import { SzenarioProvider } from '../../providers/szenario/szenario';
 
 //Für Erklärungen siehe annahmen.ts (sehr ähnlicher Code/gleiche Funktion).
@@ -10,7 +10,10 @@ import { SzenarioProvider } from '../../providers/szenario/szenario';
   templateUrl: 'randbedingungen.html'
 })
 export class RandbedingungenPage {
-	
+
+//Notwendig um den Ladezustand anzuzeigen
+public loading: Loading;
+//Notwendig für die Navigation	
 ereignissePage = 'EreignissePage';
 
 public szenarioData: any;
@@ -28,32 +31,46 @@ public toggleVar: boolean= true;
 
   constructor( public navCtrl: NavController,
                public szenarioProvider: SzenarioProvider,
-			   public alertCtrl: AlertController) {
+			         public alertCtrl: AlertController,
+               public loadingCtrl: LoadingController,) {
 
+  }
+
+  //Frühester Lifecyclehook, um den Loadingcontroller anzuzeigen
+  ionViewWillEnter(){
+    //Erstellung des SVG Elements
+    this.loading = this.loadingCtrl.create({
+      //Anzuzeigender Text
+      content: 'Bitte warten...'
+    });
+    //Anzeige des Loaders
+    this.loading.present();
   }
   
   ionViewDidEnter() {
 	  
     this.szenarioProvider.checkPath("randbedingungen").then((result: boolean) => {
-     if(result === true) {	  
-      this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
-        this.szenarioData = szenarioSnap;
-        this.randbedingung1 = this.szenarioData.randbedingungen.randbedingung1.randbedingung;
-        this.randbedingung2 = this.szenarioData.randbedingungen.randbedingung2.randbedingung;
-	    this.randbedingung3 = this.szenarioData.randbedingungen.randbedingung3.randbedingung;
-        this.randbedingung4 = this.szenarioData.randbedingungen.randbedingung4.randbedingung;
-		this.begruendung1 = this.szenarioData.randbedingungen.randbedingung1.begruendung;
-        this.begruendung2 = this.szenarioData.randbedingungen.randbedingung2.begruendung;
-	    this.begruendung3 = this.szenarioData.randbedingungen.randbedingung3.begruendung;
-        this.begruendung4 = this.szenarioData.randbedingungen.randbedingung4.begruendung;
-	  });	
-     } else {
+      if(result === true) {	  
+        this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
+          this.szenarioData = szenarioSnap;
+          this.randbedingung1 = this.szenarioData.randbedingungen.randbedingung1.randbedingung;
+          this.randbedingung2 = this.szenarioData.randbedingungen.randbedingung2.randbedingung;
+	        this.randbedingung3 = this.szenarioData.randbedingungen.randbedingung3.randbedingung;
+          this.randbedingung4 = this.szenarioData.randbedingungen.randbedingung4.randbedingung;
+		      this.begruendung1 = this.szenarioData.randbedingungen.randbedingung1.begruendung;
+          this.begruendung2 = this.szenarioData.randbedingungen.randbedingung2.begruendung;
+	        this.begruendung3 = this.szenarioData.randbedingungen.randbedingung3.begruendung;
+          this.begruendung4 = this.szenarioData.randbedingungen.randbedingung4.begruendung;
+	      });	
+      } else {
 	     this.szenarioProvider.updateRandbedingung("randbedingung1", "", "");
 	     this.szenarioProvider.updateRandbedingung("randbedingung2", "", "");
 	     this.szenarioProvider.updateRandbedingung("randbedingung3", "", "");
 	     this.szenarioProvider.updateRandbedingung("randbedingung4", "", "");
-	 }
-	});
+	    }
+	  });
+    //Wenn alle Inhalte geladen sind, soll der Loader ausgeblendet werden.
+    this.loading.dismiss();
   }
 
   updateRandbedingung(path, randbedingung, begruendung) {

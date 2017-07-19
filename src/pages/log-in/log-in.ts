@@ -70,7 +70,7 @@ public loading: Loading;
   }
 }
 
-//Notwendig für Navigation
+//Navigationsfunktionen. es wird eine neue Seite auf das Stack gepackt
 goToSignup(): void { this.navCtrl.push('RegistrierungPage'); }
 
 goToResetPassword(): void { this.navCtrl.push('ResetPasswordPage'); }

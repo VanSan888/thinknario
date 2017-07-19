@@ -11,7 +11,8 @@ import { SzenarioProvider } from '../../providers/szenario/szenario';
   templateUrl: 'benachrichtigungen.html'
 })
 export class BenachrichtigungenPage {
-  
+  jsonp: any;
+
   //Notwendig. um den richtigen Disqus-thread anzeigen zu lassen
   public pageId: string;
   public url: string;
@@ -32,6 +33,6 @@ export class BenachrichtigungenPage {
       //Wenn die WebSite online ist, muss hier die richtige URL eingesetzt werden.
       this.url = "http://www.test.de/" + this.pageId + "/";
     });
-}
+  }
 
 }

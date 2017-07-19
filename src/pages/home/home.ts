@@ -4,9 +4,6 @@ import { BibliothekProvider } from '../../providers/bibliothek/bibliothek';
 import { SzenarioProvider } from '../../providers/szenario/szenario';
 
 
-
-
-
 @IonicPage()
 @Component({
   selector: 'page-home',
@@ -19,7 +16,6 @@ public loading: Loading;
 
 //Notwendig für Navigation
 bewertungenPage = 'BewertungenPage';
-meinSzenarioPage = 'MeinSzenarioPage';
 bibliothekPage = 'bibliothekpage';
 benachrichtigungenPage = 'BenachrichtigungenPage';
 
@@ -33,8 +29,7 @@ public szenarioList: Array<any>;
   constructor(public navCtrl: NavController,
               public szenarioProvider: SzenarioProvider,
               public bibliothekProvider: BibliothekProvider,
-              public loadingCtrl: LoadingController,) {
-  }
+              public loadingCtrl: LoadingController,) {}
 
   //Frühester Lifecyclehook, um den Loadingcontroller anzuzeigen
   ionViewWillEnter(){
@@ -64,6 +59,12 @@ public szenarioList: Array<any>;
 
   }
 
+  //Methode zur Navigation. Es wird nicht zu den Stacks der Views hinzugefügt,
+  //Sondern eine neue rootPage festgelegt.
+  goToMeinSzenario(){
+    this.navCtrl.setRoot('MeinSzenarioPage');
+  }
+  
 
   //Funktion für die Navigation zur Szenariodetailseite
   goToSzenarioDetail(szenarioId){ 
