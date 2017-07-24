@@ -3,11 +3,12 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Benachrichtigungen</ion-title>
+    <ion-title>Benachrichtigungen und Statistik</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+  <h4 padding> Benachrichtigungen zu Ihrem Szenario </h4>
   <h6 padding> Auf dieser Seite können Sie alle Kommentare zu Ihrem Szenario sehen.</h6>
 
   <h6 padding-horizontal>Info:</h6>
@@ -16,12 +17,50 @@
     Neue Benachrichtigungen erkennen Sie daran, dass die Sprechblase rot ist.
   </p>
 
-  <disqus  [identifier] = "pageId" [url]="url" padding></disqus>
+  <disqus [identifier]="pageId" padding></disqus>
+  
+  <!-- <disqus [url]="url" [identifier]="pageId" padding></disqus> -->
+
+  <p>Test 4 unterhalb</p>
+  <a href="https://thinknario.firebaseapp.com/benachrichtigungen/#disqus_thread">Second article</a>
   <!-- 
   <iframe src="https://disqus.com/" style="width:100%; height:100%;"></iframe>
   -->
   <h6 padding> Oder besuchen Sie Ihr Notification-Center auf folgender Web-Site: </h6>
   <a href="https://disqus.com/home/inbox/" target="_blank" padding>Disqus Benachrichtigungen</a>
+
+  <h4 padding> Statistiken zu Ihrem Szenario </h4>
+  <h6 padding> Hier sehen Sie die Durchschnittswerte der einzelnen Kategorien</h6>
+  <ion-list>
+    <ion-list-header>Entwicklung (0: extrem negativ / 100: extrem positiv)</ion-list-header>
+    <ion-item no-lines>
+      Score: {{averageV0}}
+    </ion-item>
+    <ion-list-header>Realitätsnähe (0: sehr unrealistisch / 100: sehr realistisch)</ion-list-header>
+    <ion-item no-lines>
+      Score: {{averageV1}}
+    </ion-item>
+    <ion-list-header>Relevanz (0: sehr irrelevant / 100: sehr relevant)</ion-list-header>
+    <ion-item no-lines>
+      Score: {{averageV2}}
+    </ion-item>
+    <ion-list-header>Ausführlichkeit (0: sehr oberflächlich / 100: sehr ausführlich)</ion-list-header>
+    <ion-item no-lines>
+      Score: {{averageV3}}
+    </ion-item>
+    <ion-list-header>Zusammenhänge (0: sehr zusammenhangslos / 100: sehr viele Zusammenhänge)</ion-list-header>
+    <ion-item no-lines>
+      Score: {{averageV4}}
+    </ion-item>
+    <ion-list-header>Widersprüche (0: sehr widersprüchlich / 100: sehr widerspruchsfrei)</ion-list-header>
+    <ion-item no-lines>
+      Score: {{averageV5}}
+    </ion-item>
+    <ion-list-header>Faktenlage (0: sehr wenig Fakten / 100: sehr viele Fakten)</ion-list-header>
+    <ion-item>
+      Score: {{averageV5}}
+    </ion-item>
+  </ion-list>
 
 
 </ion-content>

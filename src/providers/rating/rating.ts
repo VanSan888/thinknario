@@ -251,15 +251,17 @@ public erhalteneBewertungenList: Array<any>;
         snapshot.forEach( snap => {
 	      //Beschreiben des Arrays
           rawList.push({
-			      //entwicklung wird nicht benötigt, da dieser Wert nicht die Qualität eines Szenarios misst
+            //entwicklung wird nicht für die Bildung eines Durchschnitts benötigt,
+            //da dieser Wert nicht die Qualität eines Szenarios misst. Für die 
+            //Statistik ist dieser Wert aber relevant
+            entwicklung: snap.val().entwicklung,
             realitaetsnaehe: snap.val().realitaetsnaehe,
 			      relevanz: snap.val().relevanz,
 			      ausfuehrlichkeit: snap.val().ausfuehrlichkeit,
 			      zusammenhaenge: snap.val().zusammenhaenge,
 			      wiedersprueche: snap.val().wiedersprueche,
 			      faktenlage: snap.val().faktenlage,
-          });
-		  
+          });		  
         return false
         });
 		  resolve(rawList);

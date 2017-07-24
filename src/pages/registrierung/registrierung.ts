@@ -3,7 +3,8 @@ import { IonicPage,
   NavController, 
   Loading,
   LoadingController,
-  AlertController } from 'ionic-angular';
+  AlertController,
+  MenuController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthData } from '../../providers/auth/auth';
 import { EmailValidator } from '../../validators/email';
@@ -25,7 +26,8 @@ loading: Loading;
               public authData: AuthData,
               public formBuilder: FormBuilder,
               public loadingCtrl: LoadingController, 
-              public alertCtrl: AlertController) {
+              public alertCtrl: AlertController,
+              public menuCtrl: MenuController) {
     
 	//FormValidation
     this.signupForm = formBuilder.group({
@@ -36,6 +38,8 @@ loading: Loading;
 	  //und wird benötigt (required)
       password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
     });
+    //Menu soll an dieser Stelle nicht angezeigt werden
+    this.menuCtrl.enable(false, 'menuId');
   }
 
 //Funktion, um einen neuen User-Accout zu erstellen  

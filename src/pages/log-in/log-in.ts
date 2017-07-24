@@ -4,7 +4,8 @@ import {
   Loading,
   LoadingController, 
   NavController,
-  AlertController } from 'ionic-angular';
+  AlertController,
+  MenuController } from 'ionic-angular';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 //import des Validators für sinnvolle E-Mail-Adressen
 import { EmailValidator } from '../../validators/email';
@@ -25,7 +26,8 @@ public loading: Loading;
               public loadingCtrl: LoadingController,
               public alertCtrl: AlertController,
               public authData: AuthData,
-              public formBuilder: FormBuilder) {
+              public formBuilder: FormBuilder,
+              public menuCtrl: MenuController) {
 
 	//Form zur E-Mail- und Passwortvalidierung
     this.loginForm = formBuilder.group({
@@ -34,6 +36,9 @@ public loading: Loading;
       password: ['', Validators.compose([Validators.minLength(6), 
         Validators.required])]
     });
+    //Menu soll an dieser Stelle nicht angezeigt werden
+    this.menuCtrl.enable(false, 'menuId');
+
   }
 
   loginUser(): void {
@@ -46,7 +51,10 @@ public loading: Loading;
     .then( authData => {
 	    //Loader wird nicht mehr angezeigt
       this.loading.dismiss().then( () => {
-        this.navCtrl.setRoot('HomePage');
+        //Menu ab jetzt wieder einblenden
+        this.menuCtrl.enable(true, 'menuId');
+        //HomePage als rootPage
+        this.navCtrl.setRoot('HomePage'); 
       });
 	  //Fehlermeldung bei Fehlgeschlagener Anmeldung
     }, error => {
@@ -74,5 +82,6 @@ public loading: Loading;
 goToSignup(): void { this.navCtrl.push('RegistrierungPage'); }
 
 goToResetPassword(): void { this.navCtrl.push('ResetPasswordPage'); }
+
 
 }

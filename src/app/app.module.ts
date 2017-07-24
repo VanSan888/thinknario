@@ -27,7 +27,7 @@ import { CommentProvider } from '../providers/comment/comment';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, /*{locationStrategy: 'path'}*/),
 	  FormsModule,
 	  HttpModule,
   ],
@@ -45,8 +45,7 @@ import { CommentProvider } from '../providers/comment/comment';
   	SzenarioProvider,
 	  RatingProvider,
 	  SzenarioValidator,
-    CommentProvider,
- 
+    CommentProvider, 
   ]
 })
 export class AppModule {}

@@ -52,6 +52,17 @@ export class BibliothekPage {
     //Wenn alle Inhalte geladen sind, soll der Loader ausgeblendet werden.
     this.loading.dismiss();
   }
+
+  //Hole erneut die Liste aller bisher erstellten Szenarios
+  doRefresh(refresher) {
+	  //Aufruf der getSzenarioList() Funktion in bibliothek.ts
+    this.bibliothekProvider.getSzenarioList().then( szenarioListSnap => {
+	  //Beschreiben der Varibalen mit den einzelnen Szenarien
+      this.szenarioList = szenarioListSnap;
+    });
+    //Beende den refresher
+    refresher.complete();
+  }
   
   //Funktion für die Navigation zur Szenariodetailseite
   goToSzenarioDetail(szenarioId){ 

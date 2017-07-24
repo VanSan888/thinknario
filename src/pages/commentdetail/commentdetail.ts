@@ -7,7 +7,7 @@ import { CommentProvider } from '../../providers/comment/comment';
   name: 'commentdetail',
 	//Hier wird eine Instanz dieser Seite mittels der SzenarioID aufgerufen
 	//SzenarioID wird in ratingdetail.ts an diese Seite übergeben
-  segment: 'ratingdetail/:szenarioID'
+  segment: 'commentdetail/:szenarioId'
 })  
 @Component({
   selector: 'page-commentdetail',
@@ -49,7 +49,7 @@ export class CommentdetailPage {
     this.pageId = this.navParams.get('szenarioId');
     //Danach wird die URL definiert. Behilfsweise wird www.test.de verwendet.
     //Wenn die WebSite online ist, muss hier die richtige URL eingesetzt werden.
-    this.url = "http://www.test.de/" + this.pageId + "/";
+    /*this.url = "http://www.test.de/" + this.pageId + "/";*/
   }
 
   ionViewDidEnter(){

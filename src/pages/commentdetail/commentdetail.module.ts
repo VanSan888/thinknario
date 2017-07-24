@@ -10,7 +10,8 @@ import { ElasticModule } from 'angular2-elastic';
   ],
   imports: [
     IonicPageModule.forChild(CommentdetailPage),
-    DisqusModule.forRoot('thinknarioVersuch2'),
+    DisqusModule.forRoot('thinknario-1'),
+    //DisqusModule.forRoot('thinknarioVersuch2')
     ElasticModule,
   ],
   exports: [

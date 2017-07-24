@@ -11,7 +11,7 @@ import { CommentProvider } from '../../providers/comment/comment';
     name: 'ratingdetail',
 	//Hier wird eine Instanz dieser Seite mittels der SzenarioID aufgerufen
 	//SzenarioID wird in szenariodetail.ts an diese Seite übergeben
-	segment: 'ratingdetail/:szenarioID'
+	segment: 'ratingdetail/:szenarioId'
 })
 @Component({
   selector: 'page-ratingdetail',
@@ -58,7 +58,7 @@ public v5: number;
 public v6: number;
 public sum: number= 0;
 public average: number=0;
-public i: number=0
+public i: number=0;
  
   //NavParams sind notwendig, um die Weiterleitung von der Bibliothekpage zu gewährleisten
   constructor(public navCtrl: NavController,
@@ -327,7 +327,6 @@ public i: number=0
 	    //Aufruf der updateAverage() Funktion im ratingProvider
 	    this.ratingProvider.updateAverage(this.average, this.navParams.get('szenarioId'));
 	  });
-	
   }
 
   //Funktion für die Navigation zur Ratingdetailseite

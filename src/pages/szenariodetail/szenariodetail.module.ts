@@ -9,7 +9,7 @@ import { DisqusModule } from 'ngx-disqus';
   ],
   imports: [
     IonicPageModule.forChild(SzenariodetailPage),
-    DisqusModule.forRoot('thinknarioVersuch2'),
+    DisqusModule.forRoot('thinknario-1'),
   ],
   exports: [
     SzenariodetailPage

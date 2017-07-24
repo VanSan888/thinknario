@@ -9,6 +9,12 @@
 
 
 <ion-content padding>
+  <!-- Refresher mit pull-to-refresh Funktionalität. -->
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      refreshingText="Aktualisieren...">
+    </ion-refresher-content>
+  </ion-refresher>  
   <h6 padding-vertical>Bewerten und kommentieren Sie weitere Szenarien, um zusätzliche Punkte zu sammeln:</h6>
   <ion-list>
     <!-- Iteration durch alle Szenarien die erstellt wurden

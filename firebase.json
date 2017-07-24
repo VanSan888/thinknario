@@ -2,10 +2,32 @@
   "database": {
     "rules": "database.rules.json"
   },
-  "headers": [ {
-    "source" : "*",
-    "headers" : [ {
-      "key" : "Access-Control-Allow-Origin",
-      "value" : "*"
-    } ]
+  "hosting": {
+    "public": "www",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+  "rewrites": [{
+    "source": "**",
+    "destination": "/index.html"
+  }],
+  "redirects": [ {
+	  "source" : "https://thinknario.firebaseapp.com",
+	  "destination" : "/index.html",
+	  "type" : 301
+  }],
+    "headers": [
+      {
+        "source": "*",
+        "headers": [
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          }
+        ]
+      }
+    ]
+  }
 }

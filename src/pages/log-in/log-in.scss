@@ -1,9 +1,12 @@
 page-log-in {
   form {
     margin-bottom: 32px;
-    button {
-      margin-top: 20px;
-    }
+
+  }
+  button {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 700px;
   }
 
   p {

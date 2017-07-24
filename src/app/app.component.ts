@@ -42,7 +42,7 @@ export class MyApp {
         this.rootPage = 'LogInPage';
         unsubscribe();
 	    //wenn ein user authentifiziert ist, bleibe auf der Page, auf der du bist
-      } else { 
+      } else {
         unsubscribe();
       }
     });     
@@ -51,7 +51,7 @@ export class MyApp {
     // used for ngFor and navigation
     this.pages = [
       { title: 'Home', component: 'HomePage' },
-      { title: 'Benachrichtigungen', component: 'BenachrichtigungenPage' },
+      { title: 'Benachrichtigungen und Statistik', component: 'BenachrichtigungenPage' },
 	    { title: 'Fallstudie', component: 'FallstudiePage' },
 	    { title: 'Mein Szenario', component: 'MeinSzenarioPage' },
 	    { title: 'Bewertungen', component: 'BewertungenPage' },

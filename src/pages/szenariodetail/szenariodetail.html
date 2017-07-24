@@ -234,19 +234,40 @@
     <!-- Einbinden des ngx-discus templates. Identifier und url stellen für jeden
     die richtige Comment Section dar (siehe auch szenarioerstellung.ts).
     Die Kommentare sind erst dann sichtbar, wenn eine Bewertung abgegeben wurde. -->
-    <disqus  [identifier] = "pageId" [url]="url" *ngIf="viewComments"></disqus>
+    <!-- <disqus  [identifier] = "pageId" [url]="url" *ngIf="viewComments"></disqus> -->
+    <disqus  [identifier] = "pageId" *ngIf="viewComments"></disqus>
     <p *ngIf="!viewComments">Sie müssen zuerst eine Bewertung zu diesem Szenario abgeben, um es kommentieren zu können.</p>
   </div>
 
   <ion-list *ngSwitchCase="'statistik'">
-    <ion-item>
-      <h6>Entwicklung</h6>
-	    <p> Punktzahl </p>
+    <ion-list-header>Entwicklung (0: extrem negativ / 100: extrem positiv)</ion-list-header>
+    <ion-item no-lines>
+      Score: {{averageV0}}
     </ion-item>
-	<ion-item>
-    <h6>Realitätsnahe</h6>
-	    <p> Punktzahl </p>
-      </ion-item>
+    <ion-list-header>Realitätsnähe (0: sehr unrealistisch / 100: sehr realistisch)</ion-list-header>
+    <ion-item no-lines>
+      Score: {{averageV1}}
+    </ion-item>
+    <ion-list-header>Relevanz (0: sehr irrelevant / 100: sehr relevant)</ion-list-header>
+    <ion-item no-lines>
+      Score: {{averageV2}}
+    </ion-item>
+    <ion-list-header>Ausführlichkeit (0: sehr oberflächlich / 100: sehr ausführlich)</ion-list-header>
+    <ion-item no-lines>
+      Score: {{averageV3}}
+    </ion-item>
+    <ion-list-header>Zusammenhänge (0: sehr zusammenhangslos / 100: sehr viele Zusammenhänge)</ion-list-header>
+    <ion-item no-lines>
+      Score: {{averageV4}}
+    </ion-item>
+    <ion-list-header>Widersprüche (0: sehr widersprüchlich / 100: sehr widerspruchsfrei)</ion-list-header>
+    <ion-item no-lines>
+      Score: {{averageV5}}
+    </ion-item>
+    <ion-list-header>Faktenlage (0: sehr wenig Fakten / 100: sehr viele Fakten)</ion-list-header>
+    <ion-item>
+      Score: {{averageV5}}
+    </ion-item>
   </ion-list> 
 </div>
 

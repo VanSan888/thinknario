@@ -10,7 +10,7 @@ import { DisqusModule } from 'ngx-disqus';
   ],
   imports: [
     IonicPageModule.forChild(BenachrichtigungenPage),
-    DisqusModule.forRoot('thinknarioVersuch2'),
+    DisqusModule.forRoot('thinknario-1'),
   ],
   exports: [
     BenachrichtigungenPage

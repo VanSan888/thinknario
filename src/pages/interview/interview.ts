@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, MenuController } from 'ionic-angular';
 import { AuthData } from '../../providers/auth/auth';
 import { ProfileProvider } from '../../providers/profile/profile';
 
@@ -25,7 +25,10 @@ export class InterviewPage {
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
               public profileProvider: ProfileProvider,
-              public authData: AuthData) {
+              public authData: AuthData,
+              public menuCtrl: MenuController) {
+    //Menu soll an dieser Stelle nicht angezeigt werden
+    this.menuCtrl.enable(false, 'menuId');    
   }
   
  
@@ -47,6 +50,10 @@ export class InterviewPage {
   
   updateGender(gender) {
 	  this.profileProvider.updateGender(gender);
+  }
+
+  goToFallstudie() {
+    this.navCtrl.setRoot("FallstudiePage")
   }
   
 }
