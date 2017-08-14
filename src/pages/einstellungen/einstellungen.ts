@@ -21,6 +21,10 @@ export class EinstellungenPage {
   public lastName: string;
   public userName: string;
   public gender: string = "o";
+  public wohnOrt: string;
+  public ausbildung: string;
+  public beruf: string = "o";
+  public interessen: string = "o";
 
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController,
@@ -34,11 +38,16 @@ export class EinstellungenPage {
 	//und beschreiben der notwendigen Variablen für two-way-binding
     this.profileProvider.getUserProfile().then( profileSnap => {
       this.userProfile = profileSnap;
-      this.birthDate = this.userProfile.birthDate;
-	  this.firstName = this.userProfile.firstName;
-	  this.lastName = this.userProfile.lastName;
-	  this.userName = this.userProfile.userName.userName;
-	  this.gender = this.userProfile.gender;
+      this.birthDate   = this.userProfile.birthDate;
+	    this.firstName   = this.userProfile.firstName;
+	    this.lastName    = this.userProfile.lastName;
+	    this.userName    = this.userProfile.userName.userName;
+      this.gender      = this.userProfile.gender;
+      this.wohnOrt     = this.userProfile.wohnort;
+      this.beruf       = this.userProfile.beruf;
+      this.ausbildung  = this.userProfile.ausbildung;
+      this.interessen  = this.userProfile.interessen
+
 	  });
   }
   
@@ -81,6 +90,22 @@ export class EinstellungenPage {
   //Übergabe des Geschlechtsparameters an den profileProvider-Service für update
   updateGender(gender) {
 	  this.profileProvider.updateGender(gender);
+  }
+
+  updateWohnort(wohnOrt) {
+    this.profileProvider.updateWohnort(wohnOrt);
+  }
+
+  updateAusbildung(ausbildung){
+    this.profileProvider.updateAusbildung(ausbildung);
+  }
+
+  updateBeruf(beruf){
+    this.profileProvider.updateBeruf(beruf);
+  }
+
+  updateInteressen(interessen){
+    this.profileProvider.updateInteressen(interessen);
   }
   
 //Funktion zum ändern der E-Mail-Adresse

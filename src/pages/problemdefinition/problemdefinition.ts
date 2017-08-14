@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController,IonicPage } from 'ionic-angular';
 import { SzenarioProvider } from '../../providers/szenario/szenario';
-import { ElasticModule } from 'angular2-elastic';
-
 
 
 

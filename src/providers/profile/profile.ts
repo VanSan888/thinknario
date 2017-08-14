@@ -82,6 +82,39 @@ export class ProfileProvider {
       gender: gender,
     });
   }
+
+  //Funktion für Firebaseupdate für Wohnort
+  //genauere Beschreibung kann aus updateFirstname entnommen werden
+  updateWohnort(wohnOrt: string): firebase.Promise<any> {
+    return firebase.database().ref('/userProfile')
+    .child(firebase.auth().currentUser.uid).update({
+      wohnort: wohnOrt,
+    });
+  }
+
+  //Funktion für Firebaseupdate für Ausbildung
+  updateAusbildung(ausbildung: string): firebase.Promise<any> {
+    return firebase.database().ref('/userProfile')
+    .child(firebase.auth().currentUser.uid).update({
+      ausbildung: ausbildung,
+    });
+  }
+
+  //Funktion für Firebaseupdate für Beruf
+  updateBeruf(beruf: string): firebase.Promise<any> {
+    return firebase.database().ref('/userProfile')
+    .child(firebase.auth().currentUser.uid).update({
+      beruf: beruf,
+    });
+  }
+
+  //Funktion für Firebaseupdate für persönliche Interessen
+  updateInteressen(interessen: string): firebase.Promise<any> {
+    return firebase.database().ref('/userProfile')
+    .child(firebase.auth().currentUser.uid).update({
+      interessen: interessen,
+    });
+  }
   
   //Funktion für Firebaseupdate für E-Mail mittels Passwort
   updateEmail(newEmail: string, password: string): firebase.Promise<any> {

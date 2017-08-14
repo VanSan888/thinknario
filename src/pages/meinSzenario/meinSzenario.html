@@ -12,10 +12,24 @@
     <h4 padding>
       Erklärung der Szenariotechnik
     </h4>
-    <ion-item *ngIf="toggleErklaerung == true" no-lines>
-      <p>Hier dann kurz beschreiben, was Szenariotechnik ist</p>
-      <img src="/src/assets/img/ablauf-szenarioerstellung.png"/>
-    </ion-item>
+    <div *ngIf="toggleErklaerung == true" no-lines padding>
+      <p>Die Szenariotechnik, stellt die die Grundlage für die Erzählung Ihrer Geschichte dar.</p>
+      <p>Vorrausschau in die Zukunft. Zitat für Definition.</p>
+      <p>Es geht dabei einzig und allein um Ihre Meinungen und Vorstellungen, nicht um die Meinungen und Vorstellungen
+         der Mehrheit der Menschen. Dabei steht nicht die einzige richtige Lösung im Mittelpunkt,
+         sondern viel mehr der Wunsch, Erkenntnisse über mögliche Entwicklungen und deren Beeinflussung
+         zu gewinnen.
+      </p>
+      <p>
+         Szenarien können dabei zwei verschiedene Extremformen annehmen:<br>
+      </p>
+      <p> Negatives Extremszenario: Die negativste Entwicklung, die Sie sich für Ihre Geschichte ausdenken könnten. </p>
+      <p> Positives Extremszenario: Die positivste Entwicklung, die Sie sich für Ihre Geschichte ausdenken könnten. </p>
+      <p>   
+         Es ist Ihnen überlassen, welche Form sie wählen oder ob sie eine Zwischenlösung beschreiben wollen.
+         Lassen Sie ihrer Kreativität und Ihren Gedanken freien Lauf!
+      </p>
+    </div>
     <ion-item padding-top>
       <ion-label>Erklärung der Szenariotechnik ein- und ausblenden:</ion-label>
       <ion-toggle float-left [(ngModel)]="toggleErklaerung" name="ToggleVarErklaerung">
@@ -23,13 +37,16 @@
     </ion-item>
 
     <h6 *ngIf="showstartbutton == true" padding>
-      Starten Sie bei dem Problemfeld oder klicken Sie auf "Los geht's!"
+        Ihr Szenario entwickelt sich in neun Schritten, bis schließlich ein möglichst vollständiges
+        Bild Ihrer Wünsche, Bedürfnisse und Vorstellungen entstanden ist. <br>
+        Starten Sie bei Schritt 1 - Problemfeld oder klicken Sie auf "Los geht's!"
     </h6>
     <h6 *ngIf="showsbewertungfertig == false && showstartbutton == false"  padding>
-      Machen Sie dort weiter, wo Sie aufgehört haben. Fertige Schritte erkennen Sie an dem Haken.
+      Machen Sie bei dem Schritt weiter, bei dem Sie aufgehört haben. <br>
+      Fertige Schritte erkennen Sie an dem Haken rechts:
     </h6>   
     <h6 *ngIf="showsbewertungfertig == true"  padding>
-      Ihr Szenario ist fertig! Welchen Schritt wollen Sie erneut ansehen?
+      Ihr Szenario ist fertig! Welchen Schritt wollen Sie erneut ansehen oder verändern?
     </h6>
 
     <button ion-item [navPush]="problemfeldPage">

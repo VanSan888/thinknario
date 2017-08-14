@@ -55,6 +55,67 @@
       </ion-select>
     </ion-item>	
 
+    <ion-item>
+        <ion-label stacked>Wohnort</ion-label>
+        <ion-input type="text" placeholder="Hier Ihren Wohnort eingeben" 
+        [(ngModel)]="wohnOrt" (change)="updateWohnort(wohnOrt)" name="Wohnort">
+        </ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Ausbildung</ion-label>
+        <ion-select [(ngModel)]="ausbildung" name="Ausbildung" cancelText="Abbrechen" (ionChange)="updateAusbildung(ausbildung)">
+          <ion-option value="o">Bitte auswählen</ion-option>
+          <ion-option value="hauptschule">Hauptschulabschluss</ion-option>
+          <ion-option value="realschule">Mittlere Reife (Realschulabschluss)</ion-option>
+          <ion-option value="abitur">Abitur oder Fachabitur</ion-option>
+          <ion-option value="hochschule">Hochschul- oder Universitätsabschluss</ion-option>
+          <ion-option value="ausbildung">Ausbildung</ion-option>
+          <ion-option value="meister">Meisterschule</ion-option>
+          <ion-option value="promoviert">Promotion</ion-option>
+        </ion-select>
+      </ion-item>
+  
+      <ion-item>
+          <ion-label>Beruf</ion-label>
+          <ion-select [(ngModel)]="beruf" name="Beruf" cancelText="Abbrechen" (ionChange)="updateBeruf(beruf)">
+            <ion-option value="o">Bitte auswählen</ion-option>
+            <ion-option value="schueler">Schüler</ion-option>
+            <ion-option value="student">Student</ion-option>
+            <ion-option value="arbeitslos">Arbeitssuchend</ion-option>
+            <ion-option value="oeffentlicherDienst">Öffentlicher Dienst</ion-option>
+            <ion-option value="selbstständig">Selbstständige Tätigkeit</ion-option>
+            <ion-option value="ingenieur">Ingenieurstätigkeiten</ion-option>
+            <ion-option value="arzt">(Fach-) Arzt</ion-option>
+            <ion-option value="baugewerbe">Hoch- oder Tiefbau</ion-option>
+            <ion-option value="personal">Personalwirtschaft</ion-option>
+            <ion-option value="pflegedienst">Pflegedienst/Krankenhauspersonal</ion-option>
+            <ion-option value="meister">Meisterschule</ion-option>
+            <ion-option value="promoviert">Promotion</ion-option>
+            <ion-option value="finanzwirtschaft">Finanzwirtschaft</ion-option>
+            <ion-option value="versicherungswirtschaft">Versicherungswirtschaft</ion-option>
+            <ion-option value="produktion">Produktionstätigkeiten</ion-option>
+            <ion-option value="handwerk">Handwerk</ion-option>
+            <ion-option value="gastronomie">Gastronomie</ion-option>
+            <ion-option value="verkaeufer">Verkäufer</ion-option>
+          </ion-select>
+        </ion-item>
+  
+        <ion-item>
+            <ion-label>Persönliche Interessen</ion-label>
+            <ion-select [(ngModel)]="interessen" name="Interessen" cancelText="Abbrechen" 
+            (ionChange)="updateInteressen(interessen)" multiple="true">
+              <ion-option value="o">Mehrfachauswahl möglich</ion-option>
+              <ion-option value="sport">Sport</ion-option>
+              <ion-option value="musik">Musik</ion-option>
+              <ion-option value="reisen">Reisen</ion-option>
+              <ion-option value="kunst">Kunst</ion-option>
+              <ion-option value="literatur">Literatur</ion-option>
+              <ion-option value="politik">Politik</ion-option>
+              <ion-option value="wirtschaft">Wirtschaft</ion-option>
+            </ion-select>
+          </ion-item>	
+
     <ion-list-header>
       Account Informationen
     </ion-list-header>	
@@ -96,9 +157,9 @@
     </ion-item>
   </ion-list>
 
-
+  <!-- 
   <p>Diesen Button wieder löschen:</p>
   <button ion-button [navPush]="interviewPage">Zum Interview</button>
- 
+  -->
  
 </ion-content>

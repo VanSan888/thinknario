@@ -5,11 +5,13 @@
 </ion-header>
 
 <ion-content padding>
-	<p> Rechtlicher Hinweis (jan nach einem wissenschaftlichen beleg dafür fragen): <br>
-    Die folgenden Daten werden innerhalb dieser App verarbeitet und nicht an Dritte <br>
-    weitergegeben. Nur ihr Username wird für andere sichtbar sein. <br>
-    Bitte geben Sie diese also.mögöivhst vollständig an. Die Produktqualität <br>
-    kann dadurch verbessert werden. </p>
+  <h4>Rechtlicher Hinweis</h4>
+	<p> Die folgenden Daten werden innerhalb dieser App verarbeitet und nicht an Dritte <br>
+      weitergegeben. Nur Ihr Username wird für andere sichtbar sein. <br>
+      Wenn Sie Ihre Daten vollständig anfangen, können wir Ihre Ergebnisse besser verwerten. <br>
+      Dadurch bekommen Sie am Ende ein besseres Produkt. </p>
+
+<form #interviewForm="ngForm">
  <ion-list>
     <ion-list-header>
       Persönliche Informationen
@@ -18,43 +20,117 @@
     <ion-item>
       <ion-label stacked>Vorname</ion-label>
       <ion-input type="text" placeholder="Ihr Vorname" 
-	  [(ngModel)]="firstName" (change)="updateFirstname(firstName)" name="vorname">
-	  </ion-input>
+	    [(ngModel)]="firstName" (change)="updateFirstname(firstName)" name="vorname">
+	    </ion-input>
     </ion-item>
 	
-	<ion-item>
+	  <ion-item>
       <ion-label stacked>Nachname</ion-label>
       <ion-input type="text" placeholder="Ihr Nachname" 
-	  [(ngModel)]="lastName" (change)="updateLastname(lastName)" name="nachname">
-	  </ion-input>
+	    [(ngModel)]="lastName" (change)="updateLastname(lastName)" name="nachname">
+	    </ion-input>
     </ion-item>
 	
-	<ion-item>
-      <ion-label stacked>User-Name</ion-label>
+	  <ion-item>
+      <ion-label stacked for="Username">Username</ion-label>
       <ion-input type="text" placeholder="Gewünschter User-Name" 
-	  [(ngModel)]="userName" (change)="updateUsername(userName)" name="username">
-	  </ion-input>
-	  <!-- ErrorMessage: Der username dient der Anonymität für die folgenden Schirtte.
-	  Bitte geben Sie einen Usernamen ein.-->
-    </ion-item>	
+      [(ngModel)]="userName" name="Username" #Username="ngModel" (change)="updateUsername(userName)" 
+      required minlength="5" >
+	    </ion-input>
+    </ion-item>
+    <div *ngIf="Username.errors && (Username.dirty || Username.touched)"
+    class="alert alert-danger">
+	    <div [hidden]="!Username.errors.required">
+        <p>Der Username dient der Anonymität für die folgenden Schritte. <br>
+	         Bitte geben Sie einen Usernamen ein.</p>
+      </div>
+      <div [hidden]="!Username.errors.minlength">
+        <p>Ihre Username sollte mindestens 5 Zeichen lang sein</p>
+      </div>
+    </div>
 
     <ion-item>
       <ion-label>Geburtstag</ion-label>
       <ion-datetime displayFormat="MMM D, YYYY" pickerFormat="D MMM YYYY"
-        [(ngModel)]="birthDate" (ionChange)="updateDOB(birthDate)" placeholder="Ihr Geburtsdatum"></ion-datetime>
+        [(ngModel)]="birthDate" name="Birthdate" (ionChange)="updateDOB(birthDate)" placeholder="Ihr Geburtsdatum"></ion-datetime>
     </ion-item>
 	
     <ion-item>
       <ion-label>Geschlecht</ion-label>
-      <ion-select [(ngModel)]="gender"  cancelText="Abbrechen" (ionChange)="updateGender(gender)">
+      <ion-select [(ngModel)]="gender" name="Gender" cancelText="Abbrechen" (ionChange)="updateGender(gender)">
         <ion-option value="o">Bitte auswählen</ion-option>
-		<ion-option value="w">Weiblich</ion-option>
+		    <ion-option value="w">Weiblich</ion-option>
         <ion-option value="m">Männlich</ion-option>
       </ion-select>
     </ion-item>	
+
+    <ion-item>
+      <ion-label stacked>Wohnort</ion-label>
+      <ion-input type="text" placeholder="Hier Ihren Wohnort eingeben" 
+	    [(ngModel)]="wohnOrt" (change)="updateWohnort(wohnOrt)" name="Wohnort">
+	    </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Ausbildung</ion-label>
+      <ion-select [(ngModel)]="ausbildung" name="Ausbildung" cancelText="Abbrechen" (ionChange)="updateAusbildung(ausbildung)">
+        <ion-option value="o">Bitte auswählen</ion-option>
+        <ion-option value="hauptschule">Hauptschulabschluss</ion-option>
+        <ion-option value="realschule">Mittlere Reife (Realschulabschluss)</ion-option>
+        <ion-option value="abitur">Abitur oder Fachabitur</ion-option>
+        <ion-option value="hochschule">Hochschul- oder Universitätsabschluss</ion-option>
+        <ion-option value="ausbildung">Ausbildung</ion-option>
+        <ion-option value="meister">Meisterschule</ion-option>
+        <ion-option value="promoviert">Promotion</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Beruf</ion-label>
+        <ion-select [(ngModel)]="beruf" name="Beruf" cancelText="Abbrechen" (ionChange)="updateBeruf(beruf)">
+          <ion-option value="o">Bitte auswählen</ion-option>
+          <ion-option value="schueler">Schüler</ion-option>
+          <ion-option value="student">Student</ion-option>
+          <ion-option value="arbeitslos">Arbeitssuchend</ion-option>
+          <ion-option value="oeffentlicherDienst">Öffentlicher Dienst</ion-option>
+          <ion-option value="selbstständig">Selbstständige Tätigkeit</ion-option>
+          <ion-option value="ingenieur">Ingenieurstätigkeiten</ion-option>
+          <ion-option value="arzt">(Fach-) Arzt</ion-option>
+          <ion-option value="baugewerbe">Hoch- oder Tiefbau</ion-option>
+          <ion-option value="personal">Personalwirtschaft</ion-option>
+          <ion-option value="pflegedienst">Pflegedienst/Krankenhauspersonal</ion-option>
+          <ion-option value="meister">Meisterschule</ion-option>
+          <ion-option value="promoviert">Promotion</ion-option>
+          <ion-option value="finanzwirtschaft">Finanzwirtschaft</ion-option>
+          <ion-option value="versicherungswirtschaft">Versicherungswirtschaft</ion-option>
+          <ion-option value="produktion">Produktionstätigkeiten</ion-option>
+          <ion-option value="handwerk">Handwerk</ion-option>
+          <ion-option value="gastronomie">Gastronomie</ion-option>
+          <ion-option value="verkaeufer">Verkäufer</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+          <ion-label>Persönliche Interessen</ion-label>
+          <ion-select [(ngModel)]="interessen" name="Interessen" cancelText="Abbrechen" 
+          (ionChange)="updateInteressen(interessen)" multiple="true">
+            <ion-option value="o">Mehrfachauswahl möglich</ion-option>
+            <ion-option value="sport">Sport</ion-option>
+            <ion-option value="musik">Musik</ion-option>
+            <ion-option value="reisen">Reisen</ion-option>
+            <ion-option value="kunst">Kunst</ion-option>
+            <ion-option value="literatur">Literatur</ion-option>
+            <ion-option value="politik">Politik</ion-option>
+            <ion-option value="wirtschaft">Wirtschaft</ion-option>
+          </ion-select>
+        </ion-item>	
+
   </ion-list>
-  
-  <button ion-button (click)="goToFallstudie()">Bestätigen und weiter</button>
+</form>
+
+
+  <button ion-button (click)="goToFallstudie()"
+  [disabled]="!interviewForm.form.valid">Bestätigen und weiter</button>
 
   
  </ion-content>

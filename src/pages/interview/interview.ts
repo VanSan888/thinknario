@@ -52,6 +52,22 @@ export class InterviewPage {
 	  this.profileProvider.updateGender(gender);
   }
 
+  updateWohnort(wohnOrt) {
+    this.profileProvider.updateWohnort(wohnOrt);
+  }
+
+  updateAusbildung(ausbildung){
+    this.profileProvider.updateAusbildung(ausbildung);
+  }
+
+  updateBeruf(beruf){
+    this.profileProvider.updateBeruf(beruf);
+  }
+
+  updateInteressen(interessen){
+    this.profileProvider.updateInteressen(interessen);
+  }
+
   goToFallstudie() {
     this.navCtrl.setRoot("FallstudiePage")
   }
