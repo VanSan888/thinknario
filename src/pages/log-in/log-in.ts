@@ -10,6 +10,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 //import des Validators für sinnvolle E-Mail-Adressen
 import { EmailValidator } from '../../validators/email';
 import { AuthData } from '../../providers/auth/auth';
+import { SzenarioProvider } from '../../providers/szenario/szenario';
 
 @IonicPage()
 @Component({
@@ -27,18 +28,21 @@ public loading: Loading;
               public alertCtrl: AlertController,
               public authData: AuthData,
               public formBuilder: FormBuilder,
-              public menuCtrl: MenuController) {
+              public menuCtrl: MenuController,
+              public szenarioProvider: SzenarioProvider) {
 
 	//Form zur E-Mail- und Passwortvalidierung
     this.loginForm = formBuilder.group({
-      email: ['', Validators.compose([Validators.required, 
-        EmailValidator.isValid])],
-      password: ['', Validators.compose([Validators.minLength(6), 
-        Validators.required])]
+      email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
+      password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
     });
     //Menu soll an dieser Stelle nicht angezeigt werden
     this.menuCtrl.enable(false, 'menuId');
 
+  }
+
+  ionViewDidEnter(){
+    
   }
 
   loginUser(): void {
@@ -51,10 +55,18 @@ public loading: Loading;
     .then( authData => {
 	    //Loader wird nicht mehr angezeigt
       this.loading.dismiss().then( () => {
+        this.szenarioProvider.checkPath("average").then((result: boolean) => {
+	        //Wenn in dem Pfad Daten hinterlegt sind, dann...
+          if(result === true) {
+            //HomePage als rootPage
+            this.navCtrl.setRoot('HomePage');
+          } else {
+              //Ansonsten Mein Szenario als rootpage
+              this.navCtrl.setRoot('MeinSzenarioPage');
+          }
+        });    
         //Menu ab jetzt wieder einblenden
-        this.menuCtrl.enable(true, 'menuId');
-        //HomePage als rootPage
-        this.navCtrl.setRoot('HomePage'); 
+        this.menuCtrl.enable(true, 'menuId');         
       });
 	  //Fehlermeldung bei Fehlgeschlagener Anmeldung
     }, error => {

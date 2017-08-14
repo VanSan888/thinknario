@@ -3,7 +3,7 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import * as firebase from 'firebase';
-
+import { SzenarioProvider } from '../providers/szenario/szenario';
 
 
 @Component({
@@ -15,13 +15,20 @@ export class MyApp {
   rootPage: any;
   zone: NgZone;
 
-  pages: Array<{title: string, component: any}>;
+  public hideHome: boolean = true;
+  public hideBenachrichtigungen: boolean = true;
+  public hideBewertungen: boolean = true;
+
+
+  pages: Array<{title: string, component: any, hidden: boolean}>;
 
   constructor(
   
     public platform: Platform,
 	  public statusBar: StatusBar,
-	  public splashScreen: SplashScreen) {
+    public splashScreen: SplashScreen,
+    public szenarioProvider: SzenarioProvider) {
+
     this.initializeApp();
 	  //firebase Initialisierungund 
 	  firebase.initializeApp({
@@ -32,32 +39,43 @@ export class MyApp {
       storageBucket: "thinknario.appspot.com",
       messagingSenderId: "320520092415"
     });
-  //NgZone lässt Code außerhalb von Angular laufen
-	this.zone = new NgZone({});
-	const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-    //zone.run startet den Code außerhalb von Angular.
-    this.zone.run(() => {
-      //Wenn kein User authentifiziert ist, zu LogInPage
-      if (!user) {
-        this.rootPage = 'LogInPage';
-        unsubscribe();
-	    //wenn ein user authentifiziert ist, bleibe auf der Page, auf der du bist
+    
+    //NgZone lässt Code außerhalb von Angular laufen
+	  this.zone = new NgZone({});
+	  const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      //zone.run startet den Code außerhalb von Angular.
+      this.zone.run(() => {
+        //Wenn kein User authentifiziert ist, zu LogInPage
+        if (!user) {
+          this.rootPage = 'LogInPage';
+          unsubscribe();
+	      //wenn ein user authentifiziert ist, bleibe auf der Page, auf der du bist
+        } else {
+          unsubscribe();
+        }
+      });     
+    });
+    this.szenarioProvider.checkPath("average").then((result: boolean) => {
+	    //Wenn in dem Pfad Daten hinterlegt sind, dann...
+      if(result === true) {    
+        this.hideHome = false;
+        this.hideBenachrichtigungen = false;
+        this.hideBewertungen = false;
       } else {
-        unsubscribe();
+          this.rootPage = 'MeinSzenarioPage';
       }
-    });     
-  });
-
-    // used for ngFor and navigation
-    this.pages = [
-      { title: 'Home', component: 'HomePage' },
-      { title: 'Benachrichtigungen und Statistik', component: 'BenachrichtigungenPage' },
-	    { title: 'Fallstudie', component: 'FallstudiePage' },
-	    { title: 'Mein Szenario', component: 'MeinSzenarioPage' },
-	    { title: 'Bewertungen', component: 'BewertungenPage' },
-	    { title: 'Profileinstellungen', component: 'EinstellungenPage' },
-	    { title: 'Über', component: 'UeberPage' }
-    ];
+    }).then( result => {
+      // used for ngFor and navigation
+      this.pages = [
+        { title: 'Home', component: 'HomePage', hidden: this.hideHome },
+        { title: 'Benachrichtigungen und Statistik', component: 'BenachrichtigungenPage', hidden: this.hideBenachrichtigungen },
+	      { title: 'Fallstudie', component: 'FallstudiePage', hidden: false },
+	      { title: 'Mein Szenario', component: 'MeinSzenarioPage', hidden: false },
+	      { title: 'Bewertungen', component: 'BewertungenPage', hidden: this.hideBewertungen },
+	      { title: 'Profileinstellungen', component: 'EinstellungenPage', hidden: false },
+	      { title: 'Über', component: 'UeberPage', hidden: false }
+      ];
+    });
   }
 
   //App initiieren	

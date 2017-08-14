@@ -27,7 +27,7 @@ import { CommentProvider } from '../providers/comment/comment';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp, /*{locationStrategy: 'path'}*/),
+    IonicModule.forRoot(MyApp, {locationStrategy: 'path'}),
 	  FormsModule,
 	  HttpModule,
   ],

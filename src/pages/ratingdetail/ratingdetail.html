@@ -32,13 +32,13 @@
           <ion-label range-right>Sehr positiv</ion-label>
         </ion-range>
       </ion-item>
-    <h5>Realitätsnähe</h5>
-    <p> Hier kurze Erklärung. Als wie realistisch schätzen Sie das Szenario ein? </p>
+    <h5>Eintrittswahrscheinlichkeit</h5>
+    <p> Hier kurze Erklärung. Mit welcher Wahrscheinlichkeit wird dieses Szenario eintreten? </p>
       <ion-item>
         <ion-range [(ngModel)]="realitaetsnaehe" name="Realitaetsnaehe"
 	      (mouseup)="updateRealitaetsnaeheDetail(realitaetsnaehe)" required>
-          <ion-label range-left>Sehr unrealistisch</ion-label>
-          <ion-label range-right>Sehr realistisch</ion-label>
+          <ion-label range-left> Niemals </ion-label>
+          <ion-label range-right>Sehr wahrscheinlich</ion-label>
         </ion-range>
       </ion-item>
     <h5>Relevanz</h5>
