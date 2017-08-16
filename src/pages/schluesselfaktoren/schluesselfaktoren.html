@@ -8,52 +8,54 @@
 </ion-header>
 
 <ion-content padding>
-  <h4 padding-left>Beschreibung</h4>
-  <p padding-left padding-bottom>Hier Beschreibung, was mit Problemdefinition gemeint ist. </p>
+  <h4>Beschreibung</h4>
+  <p padding-left padding-bottom>In diesem Schritt sollen Sie Faktoren auswählen,
+    die Ihrer Meinung nach, die größten Einfluss auf den Umgang mit Ihrem Rucksack haben.
+  </p>
   <h6 padding-left>
-    Wählen bis zu vier Schlüsselfaktoren aus, die für sie die meiste Relevanz haben:
+    Wählen bis zu vier Schlüsselfaktoren aus!
   </h6>
 
 <!-- Für Erklärung siehe problemfeld.html -->
 <form [formGroup]="schluesselfaktorenform">
   <ion-item-group formGroupName="service">
     <ion-item>
-      <ion-label>Schlüsselfaktor 1</ion-label>
+      <ion-label>Gewicht</ion-label>
       <ion-checkbox  checked="false" [(ngModel)]="schluesselfaktor1" 
       (ionChange)="updateSchluesselfaktor(schluesselfaktor1, schluesselfaktor2,
 	  schluesselfaktor3, schluesselfaktor4, schluesselfaktor5, schluesselfaktor6)"
       name="schluesselfaktor1" formControlName="schluesselfaktorenform1"></ion-checkbox>
     </ion-item>
     <ion-item>
-      <ion-label>Schlüsselfaktor 2</ion-label>
+      <ion-label>Tragekomfort</ion-label>
       <ion-checkbox  checked="false" [(ngModel)]="schluesselfaktor2"
       (ionChange)="updateSchluesselfaktor(schluesselfaktor1, schluesselfaktor2,
 	  schluesselfaktor3, schluesselfaktor4, schluesselfaktor5, schluesselfaktor6)"
       name="schluesselfaktor2" formControlName="schluesselfaktorenform2"></ion-checkbox>
     </ion-item>
     <ion-item>
-      <ion-label>Schlüsselfaktor 3</ion-label>
+      <ion-label>Funktionalität</ion-label>
       <ion-checkbox  checked="false" [(ngModel)]="schluesselfaktor3"
       (ionChange)="updateSchluesselfaktor(schluesselfaktor1, schluesselfaktor2,
 	    schluesselfaktor3, schluesselfaktor4, schluesselfaktor5, schluesselfaktor6)"
       name="schluesselfaktor3" formControlName="schluesselfaktorenform3"></ion-checkbox>
     </ion-item>
     <ion-item>
-      <ion-label>Schlüsselfaktor 4</ion-label>
+      <ion-label>Sicherheit</ion-label>
       <ion-checkbox  checked="false" [(ngModel)]="schluesselfaktor4"
       (ionChange)="updateSchluesselfaktor(schluesselfaktor1, schluesselfaktor2,
 	  schluesselfaktor3, schluesselfaktor4, schluesselfaktor5, schluesselfaktor6)"
       name="schluesselfaktor4" formControlName="schluesselfaktorenform4"></ion-checkbox>
     </ion-item>
     <ion-item>
-      <ion-label>Schlüsselfaktor 5</ion-label>
+      <ion-label>Haltbarkeit/Lebensdauer</ion-label>
       <ion-checkbox  checked="false" [(ngModel)]="schluesselfaktor5"
       (ionChange)="updateSchluesselfaktor(schluesselfaktor1, schluesselfaktor2,
 	  schluesselfaktor3, schluesselfaktor4, schluesselfaktor5, schluesselfaktor6)"
       name="schluesselfaktor5" formControlName="schluesselfaktorenform5"></ion-checkbox>
     </ion-item>
     <ion-item>
-      <ion-label>Schlüsselfaktor 6</ion-label>
+      <ion-label>Packvolumen</ion-label>
       <ion-checkbox  checked="false" [(ngModel)]="schluesselfaktor6"
       (ionChange)="updateSchluesselfaktor(schluesselfaktor1, schluesselfaktor2,
 	  schluesselfaktor3, schluesselfaktor4, schluesselfaktor5, schluesselfaktor6)"

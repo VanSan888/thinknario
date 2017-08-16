@@ -23,6 +23,10 @@ public problemfeld1: boolean = false;
 public problemfeld2: boolean = false;
 public problemfeld3: boolean = false;
 public problemfeld4: boolean = false;
+public problemfeld5: boolean = false;
+public aktivitaet: string = "";
+
+public toggleBeschreibung: boolean = false;
 
   constructor(public navCtrl: NavController,
               //Initialisierung des Szenario-Providers
@@ -39,7 +43,8 @@ public problemfeld4: boolean = false;
 	      problemfeldform1   : [ false ],
 	      problemfeldform2   : [ false ],
 	      problemfeldform3   : [ false ],
-	      problemfeldform4   : [ false ],
+        problemfeldform4   : [ false ],
+        problemfeldform5   : [ false ],
 	      //Abrufen des SzenarioValidators und seiner Methode für "Problemfeld"
 		  }, { validator: _VAL.validateCheckboxesProblemfeld })
     });
@@ -78,14 +83,20 @@ public problemfeld4: boolean = false;
 	        this.problemfeld2 = this.szenarioData.problemfeld.problemfeld2;
           this.problemfeld3 = this.szenarioData.problemfeld.problemfeld3;
           this.problemfeld4 = this.szenarioData.problemfeld.problemfeld4;
-	      });
+          this.problemfeld5 = this.szenarioData.problemfeld.problemfeld5;
+          this.aktivitaet   = this.szenarioData.problemfeld.aktivitaet.aktivitaet;
+        });
+        
+        this.toggleBeschreibung = true;
 	    } else {
 		    //Es werden Dummidaten in "szenarioData/currentUser/problemfeld" geschrieben, wenn der User
 		    //diese Seite das erste mal betritt.
 		    this.szenarioProvider.updateProblemfeld(this.problemfeld1,
 		                                            this.problemfeld2,
 												                        this.problemfeld3,
-												                        this.problemfeld4);
+                                                this.problemfeld4,
+                                                this.problemfeld5);
+        this.szenarioProvider.updateBeschreibungAktivitaet(this.aktivitaet);
 		  }
     });
   }
@@ -94,10 +105,19 @@ public problemfeld4: boolean = false;
   Hier werden die Eingaben aus der problemfeld.html Datei an die jeweiligen
   .update() Funktionen im SzenarioProvider weitergegeben.
   */
-  updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4) {
-	  this.szenarioProvider.updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4);
+  updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4, problemfeld5) {
+	  this.szenarioProvider.updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4, problemfeld5);
 
-  }	  
+  }
+
+  showBeschreibung(){
+    this.toggleBeschreibung = true;
+  }
+
+  updateBeschreibungAktivitaet(aktivitaet){
+    this.szenarioProvider.updateBeschreibungAktivitaet(aktivitaet);
+  }
+
 }
 
 

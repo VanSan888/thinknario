@@ -3,15 +3,18 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Problemfeld</ion-title>
+    <ion-title>Kategorie und Aktivität</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h4 padding-left>Beschreibung</h4>
-  <p padding-left padding-bottom>Hier Beschreibung, was mit Problemfeld gemeint ist. </p>
+  <h4>Beschreibung</h4>
+  <p padding-left> Nun sollen Sie anfangen, die Problemstellung auf sich zu beziehen. </p>
+  <p padding-left padding-bottom>Dazu gilt es zunächst Aktivitäten ausfindig zu machen,
+    bei denen Sie vorwiegend Rucksäcke verwenden.</p>
   <h6 padding-left>
-    Wählen bis zu zwei Problemfelder aus, die für sie die meiste Relevanz haben:
+    Schauen Sie sich die folgenden Kategorien an.
+    Wählen Sie bis zu 2 Kategorien aus, für die Sie vorwiegend Rucksäcke verwenden würden!
   </h6>
 
 <!-- Forminitiierung zur Validierung der Inputs -->
@@ -20,40 +23,80 @@
   <ion-item-group formGroupName="service">
     <ion-list>
       <ion-item>
-        <ion-label>Problemfeld 1</ion-label>
+        <ion-label>Hobby</ion-label>
 	      <!-- Two-Way Data binding mittels [(ngModel)]. (ionChange) ruft bei jeder Veränderung
 	      die update() Funktion in der problemfeld.ts Datei auf. Zusätzlich wird der
 		    Checkbox ein FormControl-Name zugewiesen, um die Werte zu kontrollieren.--> 
         <ion-checkbox  checked="false" [(ngModel)]="problemfeld1" name="problemfeld1"
-	      (ionChange)="updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4)"
+	      (ionChange)="updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4, problemfeld5)"
 	    	formControlName="problemfeldform1"></ion-checkbox>
       </ion-item>
       <ion-item>
-        <ion-label>Problemfeld 2</ion-label>
+        <ion-label>Beruf</ion-label>
         <ion-checkbox  checked="false" [(ngModel)]="problemfeld2" name="problemfeld2"
-	      (ionChange)="updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4)"
+	      (ionChange)="updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4, problemfeld5)"
 		    formControlName="problemfeldform2"></ion-checkbox>
       </ion-item>
       <ion-item>
-        <ion-label>Problemfeld 3</ion-label>
+        <ion-label>Alltag</ion-label>
         <ion-checkbox  checked="false" [(ngModel)]="problemfeld3" name="problemfeld3"
-	      (ionChange)="updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4)"
+	      (ionChange)="updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4, problemfeld5)"
 		    formControlName="problemfeldform3"></ion-checkbox>
       </ion-item>
       <ion-item>
-        <ion-label>Problemfeld 4</ion-label>
+        <ion-label>Reisen</ion-label>
         <ion-checkbox  checked="false" [(ngModel)]="problemfeld4" name="problemfeld4"
-	      (ionChange)="updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4)"
+	      (ionChange)="updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4, problemfeld5)"
 		    formControlName="problemfeldform4"></ion-checkbox>
-      </ion-item>  	
+      </ion-item> 
+      <ion-item>
+        <ion-label>Freizeit</ion-label>
+        <ion-checkbox  checked="false" [(ngModel)]="problemfeld5" name="problemfeld5"
+        (ionChange)="updateProblemfeld(problemfeld1, problemfeld2, problemfeld3, problemfeld4, problemfeld5)"
+        formControlName="problemfeldform5"></ion-checkbox>
+      </ion-item> 	
     </ion-list>
   </ion-item-group>
 </form>
 
+<button ion-button
+[disabled]="!problemfeldform.valid" (click)="showBeschreibung()" *ngIf="!toggleBeschreibung" padding>Weiter</button>
+<div  [hidden]="!toggleBeschreibung">
+  <h4>Beschreibung der Aktivität</h4>
+  <p padding-left>Gehen Sie nun einen Schritt weiter:</p>
+  <p padding-left padding-bottom>
+    Für welche der beiden Kategorien können Sie sich eine Aktivität vorstellen,
+    bei der ein speziell angepasster Rucksack vorteilhaft wäre?
+  </p>
+  <h6 padding-left>
+    Beschreiben Sie diese Aktivität kurz!
+  </h6>
+</div>
+
+<form #aktivitaetBeschreibungForm="ngForm"  [hidden]="!toggleBeschreibung">
+  <ion-item>
+  <ion-label for="Aktivitaet" stacked>Ihre Aktivität</ion-label>
+    <ion-textarea  type="text" placeholder="Hier Ihre Aktivität bescheiben"
+    [(ngModel)]="aktivitaet" (change)="updateBeschreibungAktivitaet(aktivitaet)"
+    name="Aktivitaet" required minlength="20" maxlength="160" #Aktivitaet="ngModel" fz-elastic>
+    </ion-textarea>
+  </ion-item>
+  <div *ngIf="Aktivitaet.errors && (Aktivitaet.dirty || Aktivitaet.touched)"
+  class="alert alert-danger">
+  <!-- Fehlernachricht, wenn die Eingabe zu kurz ist -->
+    <div [hidden]="!Aktivitaet.errors.minlength">
+      <p>Die Beschreibung Ihrer Aktivität sollte mindestens 20 Zeichen lang sein</p>
+    </div>
+  <!-- Fehlernachricht, wenn die Eingabe zu lang ist -->
+    <div [hidden]="!Aktivitaet.errors.maxlength">
+      <p>Die Beschreibung Ihrer Aktivität sollte nicht länger als 160 Zeichen sein</p>
+    </div>
+  </div>  
+</form>
 <!-- Button navigiert zur Problemdefinitionseite. Ist erst klickbar,
 wenn die obige Form den Anforderungen entspricht (.valid)-->
-<button ion-button [navPush]="problemdefinitionPage"
-[disabled]="!problemfeldform.valid" padding>Weiter</button>
+<button ion-button [navPush]="problemdefinitionPage" *ngIf="toggleBeschreibung"
+[disabled]="!aktivitaetBeschreibungForm.form.valid" padding>Weiter</button>
 
 
 </ion-content>

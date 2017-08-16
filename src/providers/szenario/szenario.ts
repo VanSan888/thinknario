@@ -94,13 +94,23 @@ getUserID(): Promise<any> {
   updateProblemfeld(problemfeld1: boolean,
                     problemfeld2: boolean,
 					          problemfeld3: boolean,
-					          problemfeld4: boolean): firebase.Promise<any> {	
+                    problemfeld4: boolean,
+                    problemfeld5: boolean,): firebase.Promise<any> {	
     return firebase.database().ref('/szenarioData')
     .child(firebase.auth().currentUser.uid).child("problemfeld").update({
     problemfeld1: problemfeld1,
 	  problemfeld2: problemfeld2,
 	  problemfeld3: problemfeld3,
-	  problemfeld4: problemfeld4,
+    problemfeld4: problemfeld4,
+    problemfeld5: problemfeld5,
+    });
+  }
+
+  updateBeschreibungAktivitaet(aktivitaet: string) : firebase.Promise<any> {
+	  
+	return firebase.database().ref('/szenarioData')
+	.child(firebase.auth().currentUser.uid).child("problemfeld").child("aktivitaet").update({
+    aktivitaet: aktivitaet,
     });
   }
 

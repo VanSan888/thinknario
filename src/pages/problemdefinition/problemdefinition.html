@@ -8,10 +8,11 @@
 </ion-header>
 
 <ion-content padding>
-  <h4 padding-left>Beschreibung</h4>
-  <p padding-left padding-bottom>Hier Beschreibung, was mit Problemdefinition gemeint ist. </p>
+  <h4>Beschreibung</h4>
+  <p padding-left padding-bottom>Versetzen Sie sich in die Lage der Aktivität aus dem vorherigen Schritt.</p>
   <h6 padding-left>
-    Bitte beschreiben Sie hier das aus Ihrer Sicht größte Problem der (Fallstudie):
+    Wenn Sie in Bezug auf diese Aktivität an Ihren Rucksack denken: <br>
+    Was wird Ihrer Meinung nach das größte Problem sein? Beschreiben Sie dies kurz!
   </h6>
 
   <!-- Deklarierung der Form für die Problemdefinition -->
@@ -26,9 +27,9 @@
 	  #Problemdefinition=ngModel wird zur Formvalidierung benötigt.
     fz-elastic lässt die teaxtareas je nach deren Inhalt mitwachsen.-->
       <ion-textarea type="text" placeholder="Hier Ihre Problemdefinition eingeben"
-	  [(ngModel)]="problemdefinition" (change)="updateProblemdefinition(problemdefinition)"
-	  name="Problemdefinition" required minlength="20" maxlength="160" #Problemdefinition="ngModel" fz-elastic>
-	  </ion-textarea>
+	    [(ngModel)]="problemdefinition" (change)="updateProblemdefinition(problemdefinition)"
+	    name="Problemdefinition" required minlength="20" maxlength="160" #Problemdefinition="ngModel" fz-elastic>
+	    </ion-textarea>
     </ion-item>
     <!-- <div> zur Kontrolle der Form.
 	Wenn die Form einen Fehler beinhaltet, zeige die entsprechenden Fehlernachrichten

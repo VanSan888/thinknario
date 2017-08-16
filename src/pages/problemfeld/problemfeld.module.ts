@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ProblemfeldPage } from './problemfeld';
+import { ElasticModule } from 'angular2-elastic';
  
 @NgModule({
   declarations: [
@@ -8,6 +9,7 @@ import { ProblemfeldPage } from './problemfeld';
   ],
   imports: [
     IonicPageModule.forChild(ProblemfeldPage),
+    ElasticModule,
   ],
   exports: [
     ProblemfeldPage

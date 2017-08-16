@@ -33,11 +33,12 @@ export class MyApp {
 	  //firebase Initialisierungund 
 	  firebase.initializeApp({
 	  //firebase-Konfiguration
-      apiKey: "AIzaSyBY6OTviwlRvdO7Pa6nhgHSHmAGE91klNM",
-      authDomain: "thinknario.firebaseapp.com",
-      databaseURL: "https://thinknario.firebaseio.com",
-      storageBucket: "thinknario.appspot.com",
-      messagingSenderId: "320520092415"
+      apiKey: "AIzaSyAVvrLRDJ5-RHNe4EWP5mS4XyFgliJpzEs",
+      authDomain: "thinknario-backpack.firebaseapp.com",
+      databaseURL: "https://thinknario-backpack.firebaseio.com",
+      projectId: "thinknario-backpack",
+      storageBucket: "",
+      messagingSenderId: "454647154724"
     });
     
     //NgZone lässt Code außerhalb von Angular laufen
