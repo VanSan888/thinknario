@@ -1,6 +1,6 @@
 import { Component, Input, ElementRef, ViewChild } from '@angular/core';
 import { NavController, IonicPage, AlertController,
-         ToastController,  Loading,  LoadingController } from 'ionic-angular';
+         ToastController,  Loading,  LoadingController, reorderArray } from 'ionic-angular';
 import { SzenarioProvider } from '../../providers/szenario/szenario';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
@@ -54,6 +54,9 @@ public ereignisbegruendung2 : any = "";
 public ereignisbegruendung3 : any = "";
 public ereignisbegruendung4 : any = "";
 
+//Array zum sortieren der Schlüsselfaktoren
+factors: Array<{show: boolean, name: string}>;
+
 public szenarioText: string = "";
 public ausgangslageText: string = "";
 public entwicklungText: string = "";
@@ -61,10 +64,6 @@ public endzustandText: string = "";
 
 public startSzenario: string;
 public endSzenario: string;
-
-//Notwendig, für das Speichern und Abrufen, ob der User den Denkantoß verwendet oder nicht
-//Zu Beginn ist hilfeVar=false. Das heißt, dass keine Hilfestellung benutzt wird.
-public hilfeVar: boolean = false;
 
 //Variable für variablen Untertitel in Alert
 public subTitleText: string;
@@ -92,22 +91,17 @@ public toggleEndzustand: boolean = false;
 @ViewChild('canvas1') public canvas1: ElementRef;
 @ViewChild('canvas2') public canvas2: ElementRef;
 @ViewChild('canvas3') public canvas3: ElementRef;
-@ViewChild('canvas4') public canvas4: ElementRef;
-@ViewChild('canvas5') public canvas5: ElementRef;
-@ViewChild('canvas6') public canvas6: ElementRef;
 
 // setting a width and height for the canvas
 @Input() public width = 400;
 @Input() public height = 300;
 
+//Variable zum togglen der Schlüsselfaktoren
 public toggleVarSchluesselfaktoren: boolean = false;
 
 private cx1: CanvasRenderingContext2D;
 private cx2: CanvasRenderingContext2D;
 private cx3: CanvasRenderingContext2D;
-private cx4: CanvasRenderingContext2D;
-private cx5: CanvasRenderingContext2D;
-private cx6: CanvasRenderingContext2D;
 
 public schluesselfaktor1: boolean = false;
 public schluesselfaktor2: boolean = false;
@@ -139,18 +133,13 @@ public schluesselfaktor6: boolean = false;
     const canvasEl1: HTMLCanvasElement = this.canvas1.nativeElement;
     const canvasEl2: HTMLCanvasElement = this.canvas2.nativeElement;
     const canvasEl3: HTMLCanvasElement = this.canvas3.nativeElement;
-    const canvasEl4: HTMLCanvasElement = this.canvas4.nativeElement;
-    const canvasEl5: HTMLCanvasElement = this.canvas5.nativeElement;
-    const canvasEl6: HTMLCanvasElement = this.canvas6.nativeElement;
+
     this.cx1 = canvasEl1.getContext('2d');
     this.cx2 = canvasEl2.getContext('2d');
     this.cx3 = canvasEl3.getContext('2d');
-    this.cx4 = canvasEl4.getContext('2d');
-    this.cx5 = canvasEl5.getContext('2d');
-    this.cx6 = canvasEl6.getContext('2d');	
 	
-	if ( this.cx1 == null || this.cx2 == null || this.cx3 == null || this.cx4 == null || 
-       this.cx5 == null || this.cx6 == null) {
+	
+	if ( this.cx1 == null || this.cx2 == null || this.cx3 == null ) {
       let alert = this.alertCtrl.create({
         title: 'Keine Unterstützung',
         subTitle: 'Ihr System unterstützt diese Funktion nicht. Bitte updaten Sie ihr System',
@@ -167,12 +156,7 @@ public schluesselfaktor6: boolean = false;
     canvasEl2.height = this.height;
     canvasEl3.width  = this.width;
     canvasEl3.height = this.height;
-    canvasEl4.width  = this.width;
-    canvasEl4.height = this.height;
-    canvasEl5.width  = this.width;
-    canvasEl5.height = this.height;
-    canvasEl6.width  = this.width;
-    canvasEl6.height = this.height;
+
 	  //this.canvasWhiteboard.canvas.width = this.width;
     //this.canvasWhiteboard.canvas.height = this.height;
 
@@ -186,35 +170,18 @@ public schluesselfaktor6: boolean = false;
     this.cx2.strokeStyle = '#000';
     this.cx3.lineWidth = 3;
     this.cx3.lineCap = 'round';
-    this.cx3.strokeStyle = '#000';
-    this.cx4.lineWidth = 3;
-    this.cx4.lineCap = 'round';
-    this.cx4.strokeStyle = '#000';
-    this.cx5.lineWidth = 3;
-    this.cx5.lineCap = 'round';
-    this.cx5.strokeStyle = '#000';
-    this.cx6.lineWidth = 3;
-    this.cx6.lineCap = 'round';
-    this.cx6.strokeStyle = '#000';
-	
+    this.cx3.strokeStyle = '#000';	
     
     // we'll implement this method to start capturing mouse events
     this.captureEvents(canvasEl1, this.cx1);
 	  this.captureEvents(canvasEl2, this.cx2);
     this.captureEvents(canvasEl3, this.cx3);
-    this.captureEvents(canvasEl4, this.cx4);
-    this.captureEvents(canvasEl5, this.cx5);
-    this.captureEvents(canvasEl6, this.cx6);
 
     //Festelgen der pageId für Disqus. Die pageId soll der UserID entsprechen.
     //Durch die getUserID() Funktion des Szenarioproviders wird deswegen der aktuele User abgerufen
     this.szenarioProvider.getUserID().then( UID => {
       this.pageId = UID;
-    }).then(pageId => {
-        //Danach wird die URL definiert. Behilfsweise wird www.test.de verwendet.
-        //Wenn die WebSite online ist, muss hier die richtige URL eingesetzt werden.
-        this.url = "http://www.test.de/" + this.pageId + "/";
-      });
+    });
   }
 
 
@@ -255,11 +222,12 @@ public schluesselfaktor6: boolean = false;
       this.schluesselfaktor5 = this.szenarioData.schluesselfaktoren.schluesselfaktor5;
 		  this.schluesselfaktor6 = this.szenarioData.schluesselfaktoren.schluesselfaktor6;
       this.startSzenario = this.szenarioData.deskriptorenanalyse.startSzenario;
-      this.endSzenario = this.szenarioData.deskriptorenanalyse.endSzenario;
+      this.endSzenario   = this.szenarioData.deskriptorenanalyse.endSzenario;
+      this.factors       = this.szenarioData.schluesselfaktoren.orderedfactors;
 	  //Schauen, ob Daten im Pfad "szenariotext" hinterlegt sind.
       this.szenarioProvider.checkPath("szenariotext").then((result: boolean) => {
 		//Wenn ja, dann auslesen dieser Daten
-        if(result === true) {
+        if( result === true ) {
 		  //szenarioText (ohne Hilfestellung) wird genau wie ausgangslageText aus
 		  //szenariotext.ausgangslage beschrieben. So kann später gewährleistet werden,
 		  //dass auch bei einem Wechsel von ohne zu mit Hilfestellung die bisherigen Eingaben des Users in
@@ -268,7 +236,6 @@ public schluesselfaktor6: boolean = false;
 		  this.ausgangslageText = this.szenarioData.szenariotext.ausgangslage;
 		  this.entwicklungText = this.szenarioData.szenariotext.entwicklung;
 		  this.endzustandText = this.szenarioData.szenariotext.endzustand;
-		  this.hilfeVar = this.szenarioData.szenariotext.hilfe;
 		  this.ausgangslageCounter = this.szenarioData.szenariotext.ausgangslagecounter;
 		  this.entwicklungCounter = this.szenarioData.szenariotext.entwicklungcounter;
 		  this.endzustandCounter = this.szenarioData.szenariotext.endzustandcounter;
@@ -284,9 +251,6 @@ public schluesselfaktor6: boolean = false;
 		   //die Szenariotexte ("") und setze die DiologCounter auf 0.
 		   this.szenarioProvider.updateSzenariotext("", "", "");
 		   this.szenarioProvider.updateCounter(0,0,0);
-		   //HilfeVar dient zur Unterscheidung zwischen Usern, die eine Hilfestellung wollen und denen
-		   //die keine wollen.
-		   this.szenarioProvider.updateHilfe(this.hilfeVar);
 		   //Dann rufe Toast1 auf.
            this.toast1Present(); 
 		  }
@@ -325,41 +289,7 @@ public schluesselfaktor6: boolean = false;
       img.onload = function(){
         ctx.drawImage(img,0,0); // Or at whatever offset you like
       };
-    });
-    storageRef =  firebase.storage().ref().child(firebase.auth().currentUser.uid + '/').child('deskriptor4');
-	  storageRef.getDownloadURL().then( url => {
-      let canvas4 = this.canvas4.nativeElement;
-	    let ctx = canvas4.getContext('2d');
-      var img = new Image();
-	    img.crossOrigin = 'anonymous';
-      img.src = url;
-      img.onload = function(){
-        ctx.drawImage(img,0,0); // Or at whatever offset you like
-      };
-    });
-    storageRef =  firebase.storage().ref().child(firebase.auth().currentUser.uid + '/').child('deskriptor5');
-	  storageRef.getDownloadURL().then( url => {
-      let canvas5 = this.canvas5.nativeElement;
-	    let ctx = canvas5.getContext('2d');
-      var img = new Image();
-	    img.crossOrigin = 'anonymous';
-      img.src = url;
-      img.onload = function(){
-        ctx.drawImage(img,0,0); // Or at whatever offset you like
-      };
-    });
-    storageRef =  firebase.storage().ref().child(firebase.auth().currentUser.uid + '/').child('deskriptor6');
-	  storageRef.getDownloadURL().then( url => {
-      let canvas6 = this.canvas6.nativeElement;
-	    let ctx = canvas6.getContext('2d');
-      var img = new Image();
-	    img.crossOrigin = 'anonymous';
-      img.src = url;
-      img.onload = function(){
-        ctx.drawImage(img,0,0); // Or at whatever offset you like
-      };
-    });
-    
+    });    
     //Wenn alle Inhalte geladen sind, soll der Loader ausgeblendet werden.
     this.loading.dismiss();
   }
@@ -368,7 +298,7 @@ public schluesselfaktor6: boolean = false;
   //die SzenarioerstellungPage zu erklären (siehe message).
   toast1Present() {
     let toast = this.toastCtrl.create({
-      message: 'Auf dieser Seite finden Sie all Ihre Informationen aus den vorangegangenen Schritten wieder.',
+      message: 'Ihre Informationssammlung ist nun komplett. Auf dieser Seite finden Sie all die Informationen aus den vorangegangenen Schritten wieder.',
       position: 'middle',
 	    showCloseButton: true,
 	    closeButtonText: 'Weiter',
@@ -401,53 +331,23 @@ public schluesselfaktor6: boolean = false;
   hilfeAlert() {
     let alert = this.alertCtrl.create({
       title: 'Szenarioerstellung',
-      message: 'In dem großen Eingabefeld können Sie nun Ihr Szenario erstllen. Nutzen Sie dafür die von Ihnen gesammelten Informationen, indem Sie Zusammenhänge und Entwicklungen erarbeiten. \n Denken Sie daran, dass Sie Ihren Gedanken und Vorstellungen freien Lauf lassen können. \n \n Wollen Sie alleine vorgehen oder wollen Sie dafür einen Denkanstoß verwenden?',
+      message: 'Sie können nun anfangen, die Ihrer Geschichte Leben einzuhauchen. Dazu werden sie die Phasen vor, während und nach der Aktivität beschreiben.  \n Sie können diese Beschreibung jederzeit unterbrechen und zu einer anderen Zeit fortfahren. /n Denken Sie daran, dass Sie Ihren Gedanken und Vorstellungen freien Lauf zu lassen!',
       enableBackdropDismiss: false,
       buttons: [
         {
-          text: 'Denkanstoß verwenden',
-		  //Wenn der User den Denkanstoß verwenden will, wird hilfeVar auf true gesetzt.
-		  //Dadurch wird die UI verändert. (siehe szenarioerstellung.html: 3 Textareas mit
-		  // mit Dialogfeldern statt nur einer ohne Dialogfeld.)
+          text: 'Los geht es!',
+		      //Wenn der User den Denkanstoß verwenden will, wird hilfeVar auf true gesetzt.
+		      //Dadurch wird die UI verändert. (siehe szenarioerstellung.html: 3 Textareas mit
+		      // mit Dialogfeldern statt nur einer ohne Dialogfeld.)
           handler: data => {
-            this.hilfeVar = true;
-		        //Dieser Wert wird in der Datenbank gespeichert
-			      this.szenarioProvider.updateHilfe(this.hilfeVar);
-			      //Danach wird startHilfe() aufgerufen.
 			      this.startHilfe();
           }
         },        
-		{
-          text: 'Alleine vorgehen',
-          role: 'cancel',
-		  //Wenn der User keine Starthilfe haben will, wird Toast 3 aufgerufen.
-          handler: () => {
-            this.toast3Present();
-          }
-        }
-
       ]
     });
     alert.present();
   }
   
-  //Toast3 wird in der Mitte der Seite angezeigt (top) und erklärt dem User, dass er mit einem Klick
-  //auf das Fragezeichensymbol (siehe szenarioerstellung.html: ion-icon) auch noch entscheiden kann,
-  //die Hilfestellung zu benutzen (siehe Message).
-  toast3Present() {
-    let toast = this.toastCtrl.create({
-      message: 'Falls Sie doch noch einen Denkanstoß verwenden wollen, klicken Sie einfach auf das Fragezeichensymbol neben "Ihr Szenario"',
-      position: 'middle',
-	  showCloseButton: true,
-	  closeButtonText: 'Weiter',
-	});
-
-    toast.onDidDismiss(() => {
-      //this.hilfeAlert();
-    });
-
-    toast.present();	  
-  } 
   
   updateAnnahme(path, annahme, begruendung) {
 	  
@@ -589,7 +489,7 @@ public schluesselfaktor6: boolean = false;
                 this.szenarioData = szenarioSnap;  
                 this.ereignisbegruendung1 = this.szenarioData.ereignisse.ereignis1.begruendung;
                 this.ereignisbegruendung2 = this.szenarioData.ereignisse.ereignis2.begruendung;
-	            this.ereignisbegruendung3 = this.szenarioData.ereignisse.ereignis3.begruendung;
+	              this.ereignisbegruendung3 = this.szenarioData.ereignisse.ereignis3.begruendung;
                 this.ereignisbegruendung4 = this.szenarioData.ereignisse.ereignis4.begruendung;		
 	          }); 			  
 		    });
@@ -602,6 +502,11 @@ public schluesselfaktor6: boolean = false;
     } else {
       this.szenarioProvider.updateEreignis(path, ereignis, begruendung);		       	  
       }  
+  }
+
+  reorderItems(indexes) {
+    this.factors = reorderArray(this.factors, indexes);
+    this.szenarioProvider.updateOrderedFactors(this.factors);
   }
 
 private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
@@ -679,15 +584,6 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
   clearCanvas3(){
     this.clearCanvas(this.cx3);
   }
-  clearCanvas4(){
-    this.clearCanvas(this.cx4);
-  }
-  clearCanvas5(){
-    this.clearCanvas(this.cx5);
-  }
-  clearCanvas6(){
-    this.clearCanvas(this.cx6);
-  }
 	
   drawCanvas(ctx : CanvasRenderingContext2D){
     ctx.lineWidth = 3;
@@ -703,15 +599,7 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
   drawCanvas3(){
     this.drawCanvas(this.cx3)
   }
-  drawCanvas4(){
-    this.drawCanvas(this.cx4)
-  }
-  drawCanvas5(){
-    this.drawCanvas(this.cx5)
-  }
-  drawCanvas6(){
-    this.drawCanvas(this.cx6)
-  }
+
 
   eraseCanvas(ctx : CanvasRenderingContext2D){
     ctx.lineWidth = 15;
@@ -727,15 +615,6 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
   eraseCanvas3() {
     this.eraseCanvas(this.cx3)
   }
-  eraseCanvas4() {
-    this.eraseCanvas(this.cx4)
-  }
-  eraseCanvas5() {
-    this.eraseCanvas(this.cx5)
-  }
-  eraseCanvas6() {
-    this.eraseCanvas(this.cx6)
-  }
 
   ionViewWillLeave(){
     //Es wird ein Loader angezeigt, solange die Inhalte hochgeladen werden.
@@ -746,9 +625,6 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
     let canvas1 = this.canvas1.nativeElement;
 	  let canvas2 = this.canvas2.nativeElement;
 	  let canvas3 = this.canvas3.nativeElement;
-    let canvas4 = this.canvas4.nativeElement;
-    let canvas5 = this.canvas5.nativeElement;
-    let canvas6 = this.canvas6.nativeElement;
 
     var storageRef = firebase.storage().ref().child(firebase.auth().currentUser.uid);	
 	  canvas1.toBlob(blob => {
@@ -768,24 +644,6 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
 	  image.crossOrigin="anonymous";
       image.src = blob;
       /*var uploadTask =*/ storageRef.child("deskriptor3").put(blob);
-    });
-	  canvas4.toBlob(blob => {
-      var image = new Image();
-	  image.crossOrigin="anonymous";
-      image.src = blob;
-      /*var uploadTask =*/ storageRef.child("deskriptor4").put(blob);
-    });
-	  canvas5.toBlob(blob => {
-      var image = new Image();
-	  image.crossOrigin="anonymous";
-      image.src = blob;
-      /*var uploadTask =*/ storageRef.child("deskriptor5").put(blob);
-    });
-	  canvas6.toBlob(blob => {
-      var image = new Image();
-	  image.crossOrigin="anonymous";
-      image.src = blob;
-      /*var uploadTask =*/ storageRef.child("deskriptor6").put(blob);
     });
 	/*
     uploadTask.on('state_changed', function(snapshot){
@@ -808,7 +666,7 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
   //Funktion zum Updaten der Szenariotexte für die Ausgangslage, die Entwicklung und den Endzustand
   updateSzenariotext(ausgangslageText: string,
                      entwicklungText: string,
-					 endzustandText: string) {
+					           endzustandText: string) {
 	  this.szenarioProvider.updateSzenariotext(ausgangslageText, entwicklungText, endzustandText);
   }
   
@@ -817,7 +675,7 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
   startHilfe() {
 
 	  let toast = this.toastCtrl.create({
-        message: 'Ihr Szenario wird in drei Schritten beschrieben: zuerst die Ausgangslage, dann die Entwicklung und zum Schluss der Endzustand. \n Zuerst sollten Sie die Ausgangslage beschreiben. \n Dabei geht es darum, den Anfangszustand ihres Szenarios zu beschreiben. \n Das Dialogfeld wird Ihnen bei dieser Aufgabe helfen.',
+        message: 'Zuerst geht es um die Zeit vor Ihrer Aktivität. \n Stellen Sie sich vor, dass das Datum Ihrer Aktivität fest steht und Sie mit Ihren Vorbereitungen beginnen. \n Das Dialogfeld unter dem Eingabefeld begleitet Sie mit Fragen, die Sie beantworten sollen. Sie können auch jederzeit Ideen aufschreiben, die darüber hinaus gehen!',
         position: 'middle',
 	      showCloseButton: true,
 	      closeButtonText: 'Weiter',
@@ -830,8 +688,8 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
 		    //Außerdem wird so verhindert, dass der geschriebene Text des Users - auch mit Hilfestellung,
 		    //beim erneuten aufrufen der Seite überschrieben wird.
 		    if (this.ausgangslageText == "") {
-          this.toggleAusgangslage = true;
-          this.ausgangslageText= "Startzeitpunkt:" + this.startSzenario;
+            this.toggleAusgangslage = true;
+            this.ausgangslageText= "Packliste:";
 		    }
 		    //Dann wird der ausgangslageCounter auf 1 gesetzt (UI Veränderungen in szenarioerstellung.html). 
 		    this.ausgangslageCounter = 1;
@@ -847,19 +705,19 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
   //Funktion, um abhängig vom übergebenen Wert den ausgangslageDialogText in 
   //szenarioerstelung.html festelgt.
   ausgangslageDialog (counter) {
-	if (counter == 0) {
+	  if (counter == 0) {
 		
-	} else if (counter == 1) {
-	  this.ausgangslageDialogText = "Ausgehend vom Startzeitpunkt ihres Szenarios (" + this.startSzenario + ") ..."
-	} else if (counter == 2) {
-        this.ausgangslageDialogText = 'Nun sollen Sie die wichtigsten Aspekte der Situation, in der sich [das Produkt oder die Dienstleistung] befindet beschreiben. \n Beziehen Sie die Annahmen und deren Begründungen auf [das Produkt oder die Dienstleistung] und die Ausgangslage?'
-	} else if (counter == 3) {
-        this.ausgangslageDialogText = 'Welchen Einfluss haben die Randbedingungen und deren Begründungen auf [das Produkt oder die Dienstleistung] und die Ausgangslage?'	
-	} else {
-        this.ausgangslageDialogText = 'Welchen Einfluss haben die Randbedingungen und deren Begründungen auf [das Produkt oder die Dienstleistung] und die Ausgangslage?'
+	  } else if (counter == 1) {
+	      this.ausgangslageDialogText = "Beschreiben Sie zu Beginn, welche Gegenstände und Utensilien werden sie auf jeden Fall benötigen bzw. einpacken werden."
+	  } else if (counter == 2) {
+        this.ausgangslageDialogText = 'Schauen Sie sich Ihre Packliste genau an. Gibt es Funktionalitäten, die Sie für das Packen benötigen? Wenn ja, bitte beschreiben Sie kurz, wie Sie diese verwenden würden. (Falls Sie diese Funktionalitäten bisher noch nicht als Information gespeichert haben, können Sie dies auch auf dieser Seite noch tun.)'
+	  } else if (counter == 3) {
+        this.ausgangslageDialogText = 'Wie viel Zeit wird zwischen dem Packen und der Abreise zur Aktivität vergehen?'	
+	  } else {
+        this.ausgangslageDialogText = 'Wie viel Zeit wird zwischen dem Packen und der Abreise zur Aktivität vergehen?'
         //Wenn alle Fragen vom User bearbeitet worden sind, wird die entwicklungsHilfe() Funktion aufgerufen.	
-		this.entwicklungHilfe();
-	}
+		    this.entwicklungHilfe();
+	  }
   }
   
   //In der entwicklungHilfe() Funktion wird ein Toast in der Mitte der Seite (middle) aufgerufen,
@@ -870,7 +728,7 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
 	//nachträglich verändern will, immer wieder den Toast wegklicken muss.
     if (this.entwicklungText == "") {
 	  let toast = this.toastCtrl.create({
-        message: 'Sie haben Ihr Ausgangslage fertiggestellt! Sie können jedoch trotzdem jederzeit Verfeinerungen vornehmen.\nSie können bei Bedarf ebenfalls das Dialogfeld wieder einblenden. \Nun entwickeln Sie Ihr Szenario von der Ausgangslage aus weiter. \n Das Dialogfeld wird Ihnen auch hier helfen',
+        message: 'Ihr Beschreibung für die erste Phase ist beendet! Sie können jedoch trotzdem jederzeit Verfeinerungen vornehmen.\n Sie können bei Bedarf ebenfalls das Dialogfeld wieder einblenden. \n Im nächsten Schritt geht es darum Ihre Geschichte während der Aktivität zu beschreiben! \n Das Dialogfeld wird Ihnen auch hier behilflich sein.',
         position: 'middle',
 	    showCloseButton: true,
 	    closeButtonText: 'Weiter',
@@ -888,7 +746,6 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
         this.toggleAusgangslage = false;
         this.toggleEntwicklung = true;
       });
-
     toast.present();  
 	}
 
@@ -899,9 +756,9 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
 	if (counter == 0) {
 		
     } else if (counter == 1) {
-	  this.entwicklungDialogText = "Frage 1"
+	  this.entwicklungDialogText = "Betrachten Sie zu Beginn Ihre Randbedingungen: Wie ist der Rucksack an die jeweilige Randbedingung angepasst?"
 	} else if (counter == 2) {
-        this.entwicklungDialogText = 'Frage 2'
+        this.entwicklungDialogText = 'Werfen Sie nun einen Blick auf Ihre Schlüsselfatoren und deren Entwicklung. Wenn Sie gedanklich von Anfang bis Ende durch die Aktivität gehen: In welchen Situationen greifen sie auf Ihren Rucksack zu? Beschreiben Sie diese kurz.'
 	} else if (counter == 3) {
         this.entwicklungDialogText = 'Frage 3'	
 	} else {

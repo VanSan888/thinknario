@@ -1,6 +1,7 @@
 //Viewchild und ElementRef werden benötigt, um die Canvas mittels JavaScript zu beeinflussen
 import { Component, Input, ElementRef, ViewChild } from '@angular/core';
-import { NavController, IonicPage, AlertController, Loading,  LoadingController, } from 'ionic-angular';
+import { NavController, IonicPage, AlertController,
+         ToastController, Loading,  LoadingController, reorderArray } from 'ionic-angular';
 //Das Obervable und die anderen rxjs Komponenten werden für das Zeichnen auf dem Canvas benötigt.
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
@@ -31,9 +32,6 @@ export class DeskriptorenanalysePage {
 //Notwendig um den Ladezustand anzuzeigen
 public loading: Loading;
 
-//Notwendig für Naviigation	
-annahmenPage = 'AnnahmenPage'
-
 //Url-Variablen für die Youtube-Videos
 public safeURL1: SafeResourceUrl;
 public safeURL2: SafeResourceUrl;
@@ -47,9 +45,6 @@ public toggleHilfe: boolean = false;
 @ViewChild('canvas1') public canvas1: ElementRef;
 @ViewChild('canvas2') public canvas2: ElementRef;
 @ViewChild('canvas3') public canvas3: ElementRef;
-@ViewChild('canvas4') public canvas4: ElementRef;
-@ViewChild('canvas5') public canvas5: ElementRef;
-@ViewChild('canvas6') public canvas6: ElementRef;
 
 //@ViewChild('nameOfRef') canvasWhiteboard: CanvasWhiteboardComponent;
 
@@ -61,9 +56,6 @@ public toggleHilfe: boolean = false;
 private cx1: CanvasRenderingContext2D;
 private cx2: CanvasRenderingContext2D;
 private cx3: CanvasRenderingContext2D;
-private cx4: CanvasRenderingContext2D;
-private cx5: CanvasRenderingContext2D;
-private cx6: CanvasRenderingContext2D;
 
 //private cx3: CanvasRenderingContext2D;
 
@@ -78,20 +70,25 @@ public schluesselfaktor5: boolean = false;
 public schluesselfaktor6: boolean = false;
 
 //Variablen zum hoch- und runterladen der Start- und Endzeitpunkte der Szenarien
-public startSzenario:string = "";
-public endSzenario:string = "";
+public timeScale: string;
+public startSzenario: string = "";
+public endSzenario:   string = "";
 
 //Variablen, um den Kunden besser durch den Prozess zu leiten.
 //Werden benötigt, um DOM-Elemente ein- und auszublenden
 public hideDeskriptoren: boolean;
 public hideStartEnd: boolean = true;
 
+//Array zum sortieren der Schlüsselfaktoren
+factors: Array<{show: boolean, name: string}>;
+
 
 constructor(public navCtrl: NavController,
             public alertCtrl: AlertController,
             public szenarioProvider: SzenarioProvider,
             private _sanitizer: DomSanitizer,
-            public loadingCtrl: LoadingController,){
+            public loadingCtrl: LoadingController,
+            public toastCtrl: ToastController,){
     //Festlegen der Youtube-URLs
     let videoURL1 = "https://www.youtube.com/embed/ilVnDcQUra0";
     //mit Hilfe der bypassSecurityTrustResourceUrl() Funktion wird die Sicherheit der
@@ -121,22 +118,17 @@ constructor(public navCtrl: NavController,
     const canvasEl1: HTMLCanvasElement = this.canvas1.nativeElement;
     const canvasEl2: HTMLCanvasElement = this.canvas2.nativeElement;
     const canvasEl3: HTMLCanvasElement = this.canvas3.nativeElement;
-    const canvasEl4: HTMLCanvasElement = this.canvas4.nativeElement;
-    const canvasEl5: HTMLCanvasElement = this.canvas5.nativeElement;
-    const canvasEl6: HTMLCanvasElement = this.canvas6.nativeElement;
+
 	  //const canvasEl3: HTMLCanvasElement = this.canvas3.nativeElement;
     //Kontext wird auf 2d festgelegt.
     this.cx1 = canvasEl1.getContext('2d');
     this.cx2 = canvasEl2.getContext('2d');
     this.cx3 = canvasEl3.getContext('2d');
-    this.cx4 = canvasEl4.getContext('2d');
-    this.cx5 = canvasEl5.getContext('2d');
-    this.cx6 = canvasEl6.getContext('2d');
+
     //this.cx3 =  this.canvasWhiteboard.canvas.nativeElement.getContext('2d');	
 	 
     //Fehlermeldung, wenn das verwendete System HTML5 Canvas nicht unterstützt.
-	  if( this.cx1 == null || this.cx2 == null || this.cx3 == null || this.cx4 == null || 
-        this.cx5 == null || this.cx6 == null) {
+	  if( this.cx1 == null || this.cx2 == null || this.cx3 == null) {
       let alert = this.alertCtrl.create({
         title: 'Keine Unterstützung',
         subTitle: 'Ihr System unterstützt diese Funktion nicht. Bitte updaten Sie ihr System',
@@ -152,12 +144,7 @@ constructor(public navCtrl: NavController,
     canvasEl2.height = this.height;
     canvasEl3.width  = this.width;
     canvasEl3.height = this.height;
-    canvasEl4.width  = this.width;
-    canvasEl4.height = this.height;
-    canvasEl5.width  = this.width;
-    canvasEl5.height = this.height;
-    canvasEl6.width  = this.width;
-    canvasEl6.height = this.height;
+
 	  //this.canvasWhiteboard.canvas.width = this.width;
     //this.canvasWhiteboard.canvas.height = this.height;
 
@@ -172,24 +159,13 @@ constructor(public navCtrl: NavController,
     this.cx3.lineWidth = 3;
     this.cx3.lineCap = 'round';
     this.cx3.strokeStyle = '#000';
-    this.cx4.lineWidth = 3;
-    this.cx4.lineCap = 'round';
-    this.cx4.strokeStyle = '#000';
-    this.cx5.lineWidth = 3;
-    this.cx5.lineCap = 'round';
-    this.cx5.strokeStyle = '#000';
-    this.cx6.lineWidth = 3;
-    this.cx6.lineCap = 'round';
-    this.cx6.strokeStyle = '#000';
+
 	
     
     // Methode, um die Mausevents einzufangen
     this.captureEvents(canvasEl1, this.cx1);
 	  this.captureEvents(canvasEl2, this.cx2);
     this.captureEvents(canvasEl3, this.cx3);
-    this.captureEvents(canvasEl4, this.cx4);
-    this.captureEvents(canvasEl5, this.cx5);
-    this.captureEvents(canvasEl6, this.cx6);
 
   }
 
@@ -210,8 +186,8 @@ constructor(public navCtrl: NavController,
       this.schluesselfaktor4 = this.szenarioData.schluesselfaktoren.schluesselfaktor4;
       this.schluesselfaktor5 = this.szenarioData.schluesselfaktoren.schluesselfaktor5;
 		  this.schluesselfaktor6 = this.szenarioData.schluesselfaktoren.schluesselfaktor6;
-    });
-    
+      this.factors           = this.szenarioData.schluesselfaktoren.orderedfactors;
+      });
     //Siehe Erklärung bei AnnahmenPage
     this.szenarioProvider.checkPath("deskriptorenanalyse").then((result: boolean) => {
       if(result === true) {	
@@ -267,36 +243,7 @@ constructor(public navCtrl: NavController,
         ctx.drawImage(img,0,0); // Or at whatever offset you like
       };
     });
-    this.szenarioProvider.getDeskriptorURL('deskriptor4').then(url => {
-      let canvas4 = this.canvas4.nativeElement;
-	    let ctx = canvas4.getContext('2d');
-      var img = new Image();
-	    img.crossOrigin = 'anonymous';
-      img.src = url;
-      img.onload = function(){
-        ctx.drawImage(img,0,0); // Or at whatever offset you like
-      };
-    });
-    this.szenarioProvider.getDeskriptorURL('deskriptor5').then(url => {
-      let canvas5 = this.canvas5.nativeElement;
-	    let ctx = canvas5.getContext('2d');
-      var img = new Image();
-	    img.crossOrigin = 'anonymous';
-      img.src = url;
-      img.onload = function(){
-        ctx.drawImage(img,0,0); // Or at whatever offset you like
-      };
-    });
-    this.szenarioProvider.getDeskriptorURL('deskriptor6').then(url => {
-      let canvas6 = this.canvas6.nativeElement;
-	    let ctx = canvas6.getContext('2d');
-      var img = new Image();
-	    img.crossOrigin = 'anonymous';
-      img.src = url;
-      img.onload = function(){
-        ctx.drawImage(img,0,0); // Or at whatever offset you like
-      };
-    });
+
     // Wenn keine Daten in dem abgefragten Pfad hinterlegt sind, dann ...
     } else {
        //Zeige leite den User durch die Deskriptorenanalyse (siehe deskriptorenanalyse.html)
@@ -318,7 +265,7 @@ constructor(public navCtrl: NavController,
 showStartEnd(){
   let alert = this.alertCtrl.create({
     title: 'Start und Ende ihres Szenarios',
-    subTitle: 'Wann soll ihr Szenario starten? Wann soll es enden? Bitte wählen Sie entsprechend aus!',
+    subTitle: 'Wann soll Ihre Aktivität starten? Wann soll Sie enden? Bitte wählen Sie die entsprechenden Zeiten aus!',
     buttons: ['Weiter']
       });
       alert.present();  
@@ -330,6 +277,16 @@ showStartEnd(){
 
 //Anzeige der Deskriptoren
 showDeskriptoren() {
+  let toast = this.toastCtrl.create({
+    message: 'Nun geht das darum, Ihre Schlüsselfaktoren über den Verlauf Ihrer Aktivität zu beschreiben.',
+    position: 'middle',
+    showCloseButton: true,
+    closeButtonText: 'Weiter',
+  });
+  //Wenn auf 'Weiter' geklickt wird, wird Toast2 aufgerufen.
+  toast.onDidDismiss(() => {
+  });
+  toast.present();
   this.hideDeskriptoren = true;
 }
 
@@ -340,12 +297,9 @@ updateStartEnd(startSzenario, endSzenario) {
   //Wenn die Start- und Endzeitpunkte veränder werden, müssen auch die x-Achsen
   //der Canvas neu bezeichnet werden. Deswegen wird hier die drawCoordinates Funktion
   //für jedes der Canvas aufgerufen. Es werden die Daten für x- und y-Achse übergeben
-  this.drawCoordinates(this.cx1, "Operationalisiertes Bsp.1");
-  this.drawCoordinates(this.cx2, "Operationalisiertes Bsp.2");
-  this.drawCoordinates(this.cx3, "Operationalisiertes Bsp.3");
-  this.drawCoordinates(this.cx4, "Operationalisiertes Bsp.4");
-  this.drawCoordinates(this.cx5, "Operationalisiertes Bsp.5");
-  this.drawCoordinates(this.cx6, "Operationalisiertes Bsp.6");
+  this.drawCoordinates(this.cx1, "Gefühltes Gewicht");
+  this.drawCoordinates(this.cx2, "Wichtigkeit des Tragekomforts");
+  this.drawCoordinates(this.cx3, "Wichtigkeit der Funktionalität");
 }
 
 //Funktion, um die Koordinatensysteme der Canvas zu zeichnen und zu aktualisieren.
@@ -479,23 +433,15 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
   
   //Funktion des Buttons (Zurücksstzen) für das erste bis sechste Canvas.
   clearCanvas1(){
-    this.clearCanvas(this.cx1, "Operationalisiertes Bsp.1");
+    this.clearCanvas(this.cx1, "Gefühltes Gewicht");
   }
   clearCanvas2(){
-    this.clearCanvas(this.cx2, "Operationalisiertes Bsp.2");
+    this.clearCanvas(this.cx2, "Wichtigkeit des Tragekomforts");
   }
   clearCanvas3(){
-    this.clearCanvas(this.cx3, "Operationalisiertes Bsp.3");
+    this.clearCanvas(this.cx3, "Wichtigkeit der Funktionalität");
   }
-  clearCanvas4(){
-    this.clearCanvas(this.cx4, "Operationalisiertes Bsp.4");
-  }
-  clearCanvas5(){
-    this.clearCanvas(this.cx5, "Operationalisiertes Bsp.5");
-  }
-  clearCanvas6(){
-    this.clearCanvas(this.cx6, "Operationalisiertes Bsp.6");
-  }
+
 	
   //Funktion, um auf dem Canvas zu zeichen. benötigt den Kontext des Canvas
   drawCanvas(ctx : CanvasRenderingContext2D){
@@ -516,15 +462,7 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
   drawCanvas3(){
     this.drawCanvas(this.cx3)
   }
-  drawCanvas4(){
-    this.drawCanvas(this.cx4)
-  }
-  drawCanvas5(){
-    this.drawCanvas(this.cx5)
-  }
-  drawCanvas6(){
-    this.drawCanvas(this.cx6)
-  }
+
   //Funktion, um zu radieren (malen in weiß). Siehe drawCanvas
   eraseCanvas(ctx : CanvasRenderingContext2D){
     ctx.lineWidth = 15;
@@ -540,15 +478,25 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
   eraseCanvas3() {
     this.eraseCanvas(this.cx3)
   }
-  eraseCanvas4() {
-    this.eraseCanvas(this.cx4)
+  
+  /*Funktion zum ordnen der Schlüsselfaktoren
+  reorderItems(indexes) {
+    let element = this.factors[indexes.from];
+    this.factors.splice(indexes.from, 1);
+    this.factors.splice(indexes.to, 0, element);
+    let test = indexes.to;
   }
-  eraseCanvas5() {
-    this.eraseCanvas(this.cx5)
+  */
+
+  reorderItems(indexes) {
+    this.factors = reorderArray(this.factors, indexes);
+    this.szenarioProvider.updateOrderedFactors(this.factors);
   }
-  eraseCanvas6() {
-    this.eraseCanvas(this.cx6)
+
+  goToAnnahmenPage(){
+      this.navCtrl.push('AnnahmenPage');
   }
+  
 
   //Lifecyclehook, wenn die Seite verlassen wird. Sinnvoll, um Canvas hochzuladen.
   ionViewWillLeave(){
@@ -562,9 +510,6 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
     let canvas1 = this.canvas1.nativeElement;
 	  let canvas2 = this.canvas2.nativeElement;
 	  let canvas3 = this.canvas3.nativeElement;
-    let canvas4 = this.canvas4.nativeElement;
-    let canvas5 = this.canvas5.nativeElement;
-    let canvas6 = this.canvas6.nativeElement;
     
     //Sechs mal Funktion, um canvas in blob umzuwandeln.
     //Nur so kann Firebase die Daten speichern. Als reines Canvas ist dies nicht möglich
@@ -593,24 +538,6 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
 	    image.crossOrigin="anonymous";
       image.src = blob;
       this.szenarioProvider.uploadDeskriptor(blob, 'deskriptor3');
-    });
-	  canvas4.toBlob(blob => {
-      var image = new Image();
-	    image.crossOrigin="anonymous";
-      image.src = blob;
-      this.szenarioProvider.uploadDeskriptor(blob, 'deskriptor4');
-    });
-	  canvas5.toBlob(blob => {
-      var image = new Image();
-	    image.crossOrigin="anonymous";
-      image.src = blob;
-      this.szenarioProvider.uploadDeskriptor(blob, 'deskriptor5');
-    });
-	  canvas6.toBlob(blob => {
-      var image = new Image();
-	    image.crossOrigin="anonymous";
-      image.src = blob;
-      this.szenarioProvider.uploadDeskriptor(blob, 'deskriptor6');
     });
     //Wenn alle Inhalte hochgeladen sind, soll der Loader wieder verschwinden.
     this.loading.dismiss();

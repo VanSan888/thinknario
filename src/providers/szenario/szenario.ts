@@ -36,15 +36,21 @@ export class SzenarioProvider {
   //Funktion für DeskriptorenanalysePage. Es wird geschaut, ob bei dem aktiven Nutzer
   // Daten im Storgae hinterlegt sind.
   checkDeskriptorPath():  Promise<any> {
-	return new Promise<any>((resolve, reject) => {
-	  //Zu prüfender Pfad inklusive der Varibalen aus den einzelnen Seiten
-	  let storageRef = firebase.storage().ref().child(firebase.auth().currentUser.uid).child('deskriptor1');
-    storageRef.getDownloadURL().then(function(url) {
-          resolve(url);
-        }).catch(function(error) {
-          resolve(error);
-        });
-  	});  
+	  return new Promise<any>((resolve, reject) => {
+      firebase.auth().onAuthStateChanged((user) => {
+        //Wenn ein user angemeldet ist, dann
+        if(user){
+	        //Zu prüfender Pfad inklusive der Varibalen aus den einzelnen Seiten
+          let storageRef = firebase.storage().ref()
+          .child(firebase.auth().currentUser.uid).child('deskriptor1');
+          storageRef.getDownloadURL().then(function(url) {
+            resolve(url);
+          }).catch(function(error) {
+            resolve(error);
+          });
+        }
+      });
+    }); 
   }
   
   //Sehr ähnlich zu ProfileProvider. Siehe Erklärung dort
@@ -192,7 +198,13 @@ getUserID(): Promise<any> {
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         var downloadURL = uploadTask.snapshot.downloadURL;
     }); */
+  }
 
+  updateOrderedFactors(factors: any): firebase.Promise<any> {
+    return firebase.database().ref('/szenarioData').child(firebase.auth().currentUser.uid)
+    .child("schluesselfaktoren").update({
+      orderedfactors: factors,
+    });
   }
   
   //Funtkion an sich ist gleich den obigen Update-Funktionen.

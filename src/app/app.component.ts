@@ -37,7 +37,7 @@ export class MyApp {
       authDomain: "thinknario-backpack.firebaseapp.com",
       databaseURL: "https://thinknario-backpack.firebaseio.com",
       projectId: "thinknario-backpack",
-      storageBucket: "",
+      storageBucket: "thinknario-backpack.appspot.com",
       messagingSenderId: "454647154724"
     });
     

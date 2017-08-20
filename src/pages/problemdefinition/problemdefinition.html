@@ -36,6 +36,9 @@
 	.dirty und .touched verhindern das Anzeigen von Fehlernachrichten, wären der User noch seine Eingabe tätigt-->
     <div *ngIf="Problemdefinition.errors && (Problemdefinition.dirty || Problemdefinition.touched)"
     class="alert alert-danger">
+      <div [hidden]="!Problemdefinition.errors.required">
+        <p>Bitte geben Sie eine Problemdefinition ein.</p>
+      </div>
 	  <!-- Fehlernachricht, wenn die Eingabe zu kurz ist -->
       <div [hidden]="!Problemdefinition.errors.minlength">
         <p>Ihre Problemdefinition sollte mindestens 20 Zeichen lang sein</p>

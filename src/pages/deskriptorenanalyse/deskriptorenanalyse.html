@@ -9,7 +9,11 @@
 
 <ion-content padding>
   <h4 padding-left>Beschreibung</h4>
-  <p padding-left padding-bottom>Hier Beschreibung, was auf dieser Seite geschehen soll. </p>
+  <p padding-left padding-bottom>
+    Auf dieser Seite werden Sie sich weiter mit den Schlüsselfaktoren beschäftigen. <br>
+    Dabei werden Sie Ihre Schlüsselfaktoren über einen Zeitverlauf entwickeln sowie
+    in eine Rangfolge bringen.
+  </p>
   <h6 padding-left>
     Verschaffen Sie sich einen Überblick über die Funktionen auf dieser Seite:
   </h6>
@@ -34,6 +38,11 @@ toggleHilfe blendet die Hilfen ein und aus (siehe ion-toggle).-->
     <p> Zurücksetzen </p>
     <iframe width="400px" height="300px" [src]="safeURL3" frameborder="0" allowfullscreen></iframe>
   </ion-slide>
+  <ion-slide>
+      <p> Für weitere Erkärungen einfach die Videos hin- und herschieben. </p>
+      <p> Faktoren ordnen (Video noch einfügen) </p>
+      <iframe width="400px" height="300px" [src]="" frameborder="0" allowfullscreen></iframe>
+    </ion-slide>  
 </ion-slides>
 
 <!-- ion-toggle zum ein-und ausblenden der Hiflen mittels two-way Data binding -->
@@ -48,18 +57,28 @@ toggleHilfe blendet die Hilfen ein und aus (siehe ion-toggle).-->
 <!-- Auswahl der Start- und Endzeitpunkte für das Szenario. Wird eingeblendet, wenn hideStartEnd true ist. -->
 
 <ion-list [hidden]='!hideStartEnd' padding-vertical>
-  <ion-list-header>Anfangs- und Endzeitpunkt Ihres Szenarios:</ion-list-header>
-    <ion-item>
-      <ion-label>Start Ihres Szenarios</ion-label>
+  <ion-list-header>Anfangs- und Endzeitpunkt Ihrer Aktivität:</ion-list-header>
+  <ion-item>
+      <ion-label>Wählen Sie zunächst Ihre Zeitskala aus:</ion-label>
       <!-- ion-datetime zur Auswahl der Start- und Endzeitpunkte mittels two-way Data binding -->
-      <ion-datetime displayFormat="YYYY" pickerFormat="YYYY"
+      <ion-select [(ngModel)]="timeScale" name="TimeScale" cancelText="Abbrechen">
+        <ion-option value="HH:mm">Stunden</ion-option>
+        <ion-option value="DD">Tage</ion-option>
+        <ion-option value="MM">Monate</ion-option>
+        <ion-option value="YYYY">Jahre</ion-option>
+      </ion-select>
+    </ion-item>  
+    <ion-item>
+      <ion-label>Start Ihrer Aktivität [in {{timeScale}}]</ion-label>
+      <!-- ion-datetime zur Auswahl der Start- und Endzeitpunkte mittels two-way Data binding -->
+      <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm"
       [(ngModel)]="startSzenario" (ionChange)="updateStartEnd(startSzenario, endSzenario)" #StartSzenario>
       </ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label>Ende Ihres Szenarios</ion-label>
-      <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" max="2050"
-      [(ngModel)]="endSzenario" (ionChange)="updateStartEnd(startSzenario, endSzenario)" #StartSzenario>
+      <ion-label>Ende Ihres Szenarios [in {{timeScale}}]</ion-label>
+      <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm"
+      [(ngModel)]="endSzenario" (ionChange)="updateStartEnd(startSzenario, endSzenario)" #EndSzenario>
       </ion-datetime>
     </ion-item>
   <!-- Wenn der Button geklickt wird, wird die showDeskriptoren() Funktion aufgerufen.
@@ -95,6 +114,8 @@ toggleHilfe blendet die Hilfen ein und aus (siehe ion-toggle).-->
   <!-- canvas wird nur angezeigt, wenn der User bei SchluesselfaktorenPage bei dem entsprechenden
   Schlüsselfaktor einen Haken gesetzt hat. -->
   <div [hidden]="!schluesselfaktor1">
+    <h6>Das gefühlte Gewicht Ihres Rucksackes kann sich während deAktivitä verändern! <br>
+        Bitte zeichnen Sie den Verlauf des gefühlten Gewichts während Ihrer Aktivität ein.</h6>
     <canvas #canvas1 class="canvas"></canvas>
     <!-- Buttons, die jeweils Funktionen zum Malen, Radieren oder Zurücksetzen aufrufen. 
     (6 Stück, alle ähnlich.) -->
@@ -103,39 +124,37 @@ toggleHilfe blendet die Hilfen ein und aus (siehe ion-toggle).-->
       <button ion-button (click)="clearCanvas1()" color="danger" class="clear-button">Zurücksetzen</button>
   </div>
   <div [hidden]="!schluesselfaktor2">
+    <h6>Bitte zeichnen Sie in das folge Feld ein, wie wichtig Ihnen der Tragekomfort während der Aktivität ist</h6>
     <canvas #canvas2 class="canvas"></canvas>
       <button ion-button (click)="drawCanvas2()" class="draw-button">Zeichnen</button>
       <button ion-button (click)="eraseCanvas2()" outline class="erase-button">Radieren</button>
       <button ion-button (click)="clearCanvas2()" color="danger" class="clear-button">Zurücksetzen</button>
   </div>
   <div [hidden]="!schluesselfaktor3">
+    <h6>In dieses Feld sollen Sie einzeichnen, zu welchen Zeitpunkten Ihrer Aktivität die Funktionalitäten
+        Ihres Rucksackes wichtig werden. Je wichtiger, desto weiter oben soll die Linie verlaufen.
+    </h6>
     <canvas #canvas3 class="canvas"></canvas>
       <button ion-button (click)="drawCanvas3()" class="draw-button">Zeichnen</button>
       <button ion-button (click)="eraseCanvas3()" outline class="erase-button">Radieren</button>
       <button ion-button (click)="clearCanvas3()" color="danger" class="clear-button">Zurücksetzen</button>
   </div>
-  <div [hidden]="!schluesselfaktor4">
-    <canvas #canvas4 class="canvas"></canvas>
-      <button ion-button (click)="drawCanvas4()" class="draw-button">Zeichnen</button>
-      <button ion-button (click)="eraseCanvas4()" outline class="erase-button">Radieren</button>
-      <button ion-button (click)="clearCanvas4()" color="danger" class="clear-button">Zurücksetzen</button>
-  </div>
-  <div [hidden]="!schluesselfaktor5">
-    <canvas #canvas5 class="canvas"></canvas>
-      <button ion-button (click)="drawCanvas5()" class="draw-button">Zeichnen</button>
-      <button ion-button (click)="eraseCanvas5()" outline class="erase-button">Radieren</button>
-      <button ion-button (click)="clearCanvas5()" color="danger" class="clear-button">Zurücksetzen</button>
-  </div>
-  <div [hidden]="!schluesselfaktor6">
-    <canvas #canvas6 class="canvas"></canvas>
-      <button ion-button (click)="drawCanvas6()" class="draw-button">Zeichnen</button>
-      <button ion-button (click)="eraseCanvas6()" outline class="erase-button">Radieren</button>
-      <button ion-button (click)="clearCanvas6()" color="danger" class="clear-button">Zurücksetzen</button>
-  </div>
+
+
+  <ion-list>
+    <h6>An dieser Stelle gilt es, alle Schlüsselfaktoren zu sortieren. Diejenigen Faktoren, die Ihnen
+        am wichtigsten sind, sollen oben erscheinen.
+    </h6>
+      <ion-item-group reorder="true" (ionItemReorder)="reorderItems($event)">
+        <div *ngFor="let factor of factors">
+          <ion-item *ngIf="factor.show">{{ factor.name }}</ion-item>
+        </div>
+      </ion-item-group>
+  </ion-list>
 
 
 
-  <button ion-button [navPush]="annahmenPage" class="weiter">Weiter</button>
+  <button ion-button (click)="goToAnnahmenPage()" class="weiter" [hidden]='!hideDeskriptoren'>Weiter</button>
 </div>
 
 </ion-content>

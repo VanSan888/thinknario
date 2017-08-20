@@ -11,8 +11,6 @@ import { SzenarioValidator } from '../../validators/szenarioValidator';
   templateUrl: 'schluesselfaktoren.html'
 })
 export class SchluesselfaktorenPage {
-//Notwendig zur Navigation	
-deskriptorenanalysePage = 'DeskriptorenanalysePage';
 
 //Properties für die Formvalidierung
 public schluesselfaktorenform: FormGroup;
@@ -25,6 +23,9 @@ public schluesselfaktor3: boolean = false;
 public schluesselfaktor4: boolean = false;
 public schluesselfaktor5: boolean = false;
 public schluesselfaktor6: boolean = false;
+
+//Array zum sortieren der Schlüsselfaktoren
+factors: Array<{show: boolean, name: string}>;
 
   constructor(public navCtrl: NavController,
               //Initialisierung des SzenarioProviders
@@ -85,6 +86,19 @@ public schluesselfaktor6: boolean = false;
 						                                     schluesselfaktor4,
 						                                     schluesselfaktor5,
 						                                     schluesselfaktor6);
+  }
+
+  goToDeskriptorenanalysePage(){
+    this.factors = [
+      { show: this.schluesselfaktor1, name: 'Gewicht' },
+      { show: this.schluesselfaktor2, name: 'Tragekomfort' },          
+      { show: this.schluesselfaktor3, name: 'Funktionalität' },
+      { show: this.schluesselfaktor4, name: 'Sicherheit' },
+      { show: this.schluesselfaktor5, name: 'Haltbarkeit/Lebensdauer'},
+      { show: this.schluesselfaktor6, name: 'Packvolumen'},
+    ];
+    this.szenarioProvider.updateOrderedFactors(this.factors);
+    this.navCtrl.push('DeskriptorenanalysePage');
   }
 
 }

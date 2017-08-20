@@ -64,7 +64,7 @@
     </ion-item-group>
 </form>
 
-<button ion-button [navPush]="deskriptorenanalysePage"
+<button ion-button (click)="goToDeskriptorenanalysePage()"
 [disabled]="!schluesselfaktorenform.valid">Weiter</button>
 
 

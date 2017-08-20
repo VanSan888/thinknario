@@ -236,6 +236,13 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
 
 <div [hidden]='!toggleVarSchluesselfaktoren'>
     <ion-slides>
+      <ion-slide>
+        <ion-item-group reorder="true" (ionItemReorder)="reorderItems($event)">
+          <div *ngFor="let factor of factors">
+            <ion-item *ngIf="factor.show">{{ factor.name }}</ion-item>
+          </div>
+        </ion-item-group>        
+      </ion-slide>
       <ion-slide [hidden]='!schluesselfaktor1'>
         <p>Nach links oder rechts schieben, um andere Schlüsselfaktoren anzuzeigen</p>
         <canvas #canvas1></canvas>
@@ -257,27 +264,6 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
         <button ion-button (click)="drawCanvas3()">Zeichnen</button>
         <button ion-button (click)="eraseCanvas3()">Radieren</button>
       </ion-slide>
-      <ion-slide [hidden]='!schluesselfaktor4'>
-        <p>Nach links oder rechts schieben, um andere Schlüsselfaktoren anzuzeigen</p>
-        <canvas #canvas4></canvas> 
-        <button ion-button (click)="clearCanvas4()">Zurücksetzen</button>
-        <button ion-button (click)="drawCanvas4()">Zeichnen</button>
-        <button ion-button (click)="eraseCanvas4()">Radieren</button>
-      </ion-slide>
-      <ion-slide [hidden]='!schluesselfaktor5'>
-        <p>Nach links oder rechts schieben, um andere Schlüsselfaktoren anzuzeigen</p>
-        <canvas #canvas5></canvas> 
-        <button ion-button (click)="clearCanvas5()">Zurücksetzen</button>
-        <button ion-button (click)="drawCanvas5()">Zeichnen</button>
-        <button ion-button (click)="eraseCanvas5()">Radieren</button>
-      </ion-slide>
-      <ion-slide [hidden]='!schluesselfaktor6'>
-        <p>Nach links oder rechts schieben, um andere Schlüsselfaktoren anzuzeigen</p>
-        <canvas #canvas6></canvas> 
-        <button ion-button (click)="clearCanvas6()">Zurücksetzen</button>
-        <button ion-button (click)="drawCanvas6()">Zeichnen</button>
-        <button ion-button (click)="eraseCanvas6()">Radieren</button>
-      </ion-slide>
     </ion-slides>
 </div>
 
@@ -286,43 +272,12 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
 <div>
 <h4 padding float-left>Ihr Szenario</h4>
 </div>
-<!-- Das Hilfe-Icon wird nur angezeigt, wenn in SzenarioErstellungPage.hilfeAlert "alleine vorgehen"
-ausgewählt wird. Wenn es angeklickt wird, wird wieder die hilfeAlert() Funktion aufgerufen, damit der User
-notfalls zur Szenarioerstellung mit hilfe wechseln kann.-->
-<div [hidden]="hilfeVar">
-  <ion-icon name="help" float-left (click)="hilfeAlert()" padding-left></ion-icon>
-</div>
 
-<!-- Wenn der User sein Szenario ohne Hilfe erstellen will, wird ihm nur eine Textarea angezeigt (hilfeVar=false).
-Es wird eine Form zur Kontrolle der Eingaben benutzt.-->
-<form #ohneHilfeForm="ngForm">
-  <ion-item [hidden]= "hilfeVar">
-    <!-- Two-way data binding mittels ngModel und Aufruf der updateSzenariotext() Funktion, sobald eine Veränderung
-    vorgenommen wird (change). Es wird eine Eingabe benötigt (required) und sie muss mindestens XX Zeichen lang sein-->
-    <ion-textarea type="text" placeholder="Beschreiben Sie hier Ihr Szenario"
-    [(ngModel)]="szenarioText" name="SzenarioText"
-	  (change)="updateSzenariotext(szenarioText, entwicklungText, endzustandText)"
-	  required minlength="15" #SzenarioText="ngModel" fz-elastic>
-    </ion-textarea>
-  <!-- Wenn die Mindestlänge der Eingabe nicht erreicht ist, wird eine Fehlermeldung ausgegeben. -->
-  </ion-item>
-	<div *ngIf="SzenarioText.errors && (SzenarioText.dirty || SzenarioText.touched)"
-    class="alert alert-danger">
-      <div [hidden]="!SzenarioText.errors.minlength">
-        <p>Ihr Szenario sollte mindestens 300 Zeichen lang sein</p>
-      </div>
-    </div>
-</form>
-
-<!-- Button der für den User ohne Hilfestellung (hilfeVar=false) erst dann klickbar ist,
-wenn die ohneHilfeForm gültig ist.-->
-<button ion-button [navPush]="szenariobewertungPage"
-[disabled]="!ohneHilfeForm.form.valid" [hidden]="hilfeVar">Fertig - zur Bewertung</button>
 
 <!-- Wenn der User sein Szenario mit Hilfe erstellen will, werden ihm drei Textareas angezeigt (hilfeVar=true), 
 je eine für die Ausgangslage, für die Entwicklung und für den Endzustand seines Szenarios.
 Es wird eine Form zur Kontrolle der Eingaben benutzt.-->
-<form #mitHilfeForm="ngForm" [hidden]="!hilfeVar">  
+<form #mitHilfeForm="ngForm">  
   <ion-item  padding-bottom>
     <!-- Two-way data binding mittels ngModel und Aufruf der updateSzenariotext() Funktion, sobald eine Veränderung
     vorgenommen wird (change). Es wird eine Eingabe benötigt (required) und sie muss mindestens XX Zeichen lang sein-->
