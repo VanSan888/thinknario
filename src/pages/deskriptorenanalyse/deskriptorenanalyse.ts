@@ -34,11 +34,10 @@ public loading: Loading;
 //Notwendig für Naviigation	
 annahmenPage = 'AnnahmenPage'
 
-//Url-Variablen für die Youtube-Videos
+//Url-Variablen für die Youtube-Videos als Typ SafeResourceUrl
 public safeURL1: SafeResourceUrl;
 public safeURL2: SafeResourceUrl;
 public safeURL3: SafeResourceUrl;
-public safeURL4: SafeResourceUrl;
 
 //Wird benötigt, um die Hilfe-Videos ein- und auszublenden
 public toggleHilfe: boolean = false;
@@ -94,8 +93,8 @@ constructor(public navCtrl: NavController,
             public loadingCtrl: LoadingController,){
     //Festlegen der Youtube-URLs
     let videoURL1 = "https://www.youtube.com/embed/ilVnDcQUra0";
-    //mit Hilfe der bypassSecurityTrustResourceUrl() Funktion wird die Sicherheit der
-    //Youtube-URLs sichergestellt und auf eine neue Variable geschrieben (3 mal sehr ähnlich)
+    //Mit Hilfe der bypassSecurityTrustResourceUrl() Funktion wird die Sicherheit der
+    //Youtube-URLs sichergestellt und auf eine neue Variable geschrieben.
     this.safeURL1 = this._sanitizer.bypassSecurityTrustResourceUrl(videoURL1);
     let videoURL2 = "https://www.youtube.com/embed/PAsEDOFKUfI";
     this.safeURL2 = this._sanitizer.bypassSecurityTrustResourceUrl(videoURL2);

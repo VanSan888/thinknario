@@ -14,11 +14,11 @@ loginUser(email: string, password: string): firebase.Promise<any> {
     return firebase.auth().signInWithEmailAndPassword(email, password);
 }
 
-//Funktion für Firebase-Signup mit E-Mail und Passwort
+//Funktion für Firebase-Registrierung mit E-Mail und Passwort
 signupUser(email: string, password: string): firebase.Promise<any> {
     return firebase.auth().createUserWithEmailAndPassword(email, password)
     .then( newUser => {
-		//Anlegen der Datenstruktur in Firebase: E-Mail wird in /userProfile gespeichert
+		    //E-Mail-Adresse wird in /userProfile gespeichert
         firebase.database().ref('/userProfile').child(newUser.uid)
         .set({ email: email });
   });

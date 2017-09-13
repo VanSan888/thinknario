@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import * as firebase from 'firebase';
 import { SzenarioProvider } from '../providers/szenario/szenario';
 
-
 @Component({
   templateUrl: 'app.html'
 })
@@ -20,6 +19,8 @@ export class MyApp {
   public hideBewertungen: boolean = true;
 
 
+
+
   pages: Array<{title: string, component: any, hidden: boolean}>;
 
   constructor(
@@ -30,7 +31,7 @@ export class MyApp {
     public szenarioProvider: SzenarioProvider) {
 
     this.initializeApp();
-	  //firebase Initialisierungund 
+	  //firebase Initialisierung und 
 	  firebase.initializeApp({
 	  //firebase-Konfiguration
       apiKey: "AIzaSyBY6OTviwlRvdO7Pa6nhgHSHmAGE91klNM",
@@ -40,16 +41,16 @@ export class MyApp {
       messagingSenderId: "320520092415"
     });
     
-    //NgZone lässt Code außerhalb von Angular laufen
+    //NgZone lässt den folgenden Code außerhalb von Angular laufen
 	  this.zone = new NgZone({});
 	  const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       //zone.run startet den Code außerhalb von Angular.
       this.zone.run(() => {
-        //Wenn kein User authentifiziert ist, zu LogInPage
+        //Wenn kein Nutzer authentifiziert ist, zu LogInPage
         if (!user) {
           this.rootPage = 'LogInPage';
           unsubscribe();
-	      //wenn ein user authentifiziert ist, bleibe auf der Page, auf der du bist
+	      //Wenn ein Nutzer authentifiziert ist, bleibe auf der Page, auf der du bist
         } else {
           unsubscribe();
         }

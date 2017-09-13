@@ -29,15 +29,16 @@ loading: Loading;
               public alertCtrl: AlertController,
               public menuCtrl: MenuController) {
     
-	//FormValidation
+	  //FormValidation
     this.signupForm = formBuilder.group({
-	  //E-Mail wird standardmäßig auf '' gesetzt, wird benötigt (required)
-	  //und wird vom E-Mail-Validator kontrolliert (siehe validators/email")
+	    //E-Mail wird standardmäßig auf '' gesetzt, wird benötigt (required)
+	    //und wird vom E-Mail-Validator kontrolliert (siehe validators/email")
       email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
-	  //Passwort wird standardmäßig auf '' gesetzt, muss mindestens 6 Zeichen lang sein
-	  //und wird benötigt (required)
+	    //Passwort wird standardmäßig auf '' gesetzt, muss mindestens sechs Zeichen lang sein
+	    //und wird benötigt (required)
       password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
     });
+
     //Menu soll an dieser Stelle nicht angezeigt werden
     this.menuCtrl.enable(false, 'menuId');
   }
@@ -75,7 +76,7 @@ signupUser(){
         alert.present();
       });
     });
-	//Erstellung und Anzeige des Ladesymbols
+	  //Erstellung und Anzeige des Ladesymbols
     this.loading = this.loadingCtrl.create();
     this.loading.present();
   }

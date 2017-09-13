@@ -28,49 +28,43 @@ export class EinstellungenPage {
 
   }
   
-  //Lädt, wenn die Seite betreten und zur aktiven Seite wird
+  //Löst aus, wenn die Seite betreten und zur aktiven Seite wird
   ionViewDidEnter() {
-	//Erstellung eines Abbildes des User-Profils mit .than und arrows-function
-	//und beschreiben der notwendigen Variablen für two-way-binding
+	  //Erstellung eines Abbildes des User-Profils mit .then und Arrow-Funktion
+	  //und beschreiben der notwendigen Variablen für Two-Way Data Binding
     this.profileProvider.getUserProfile().then( profileSnap => {
+      //Beschreiben der lokalen Variablen
       this.userProfile = profileSnap;
       this.birthDate = this.userProfile.birthDate;
-	  this.firstName = this.userProfile.firstName;
-	  this.lastName = this.userProfile.lastName;
-	  this.userName = this.userProfile.userName.userName;
-	  this.gender = this.userProfile.gender;
+	    this.firstName = this.userProfile.firstName;
+	    this.lastName = this.userProfile.lastName;
+	    this.userName = this.userProfile.userName.userName;
+	    this.gender = this.userProfile.gender;
 	  });
   }
   
   
   //Aufruf der Logout-Funktion von Firebase in authData und navigation zur LogInPage
   logOut(): void {
-	this.authData.logoutUser().then( () => {
-    this.navCtrl.setRoot('LogInPage');
+	  this.authData.logoutUser().then( () => {
+      this.navCtrl.setRoot('LogInPage');
     });
   }
     
   //Übergabe des Vornamenparameters an den profileProvider-Service für update
-  updateFirstname(firstName){
-		
-	this.profileProvider.updateFirstname(firstName);
-	 
+  updateFirstname(firstName){	
+	  this.profileProvider.updateFirstname(firstName); 
   }
  
   //Übergabe des Nachnamenparameters an den profileProvider-Service für update
-  updateLastname(lastName){
-	
-	this.profileProvider.updateLastname(lastName);
-	 
+  updateLastname(lastName){	
+    this.profileProvider.updateLastname(lastName);	 
   }
   
   //Übergabe des Usernamenparameters an den profileProvider-Service für update
-  updateUsername(userName){
-	
-	this.profileProvider.updateUsername(userName);
-	//this.profileProvider.updateUsernameSzenario(userName);
-
-	 
+  updateUsername(userName){	
+	  this.profileProvider.updateUsername(userName);
+	  //this.profileProvider.updateUsernameSzenario(userName);
   }  
  
   //Übergabe des Usernamenparameters an den profileProvider-Service für update

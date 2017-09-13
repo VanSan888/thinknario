@@ -9,8 +9,8 @@ export class ProfileProvider {
   constructor() {
   }
   
-  //Promise zur Erlangung der aktuellen Nutzerdaten.
-  //Promise ist nötig um die Asynchronität zu gewährleisten
+  //Methode zur Erlangung der aktuellen Nutzerdaten.
+  //Promise ist nötig, um die Asynchronität zu gewährleisten
   getUserProfile(): Promise<any> {
     return   new  Promise( (resolve, reject) => {
       //Es wird ein Observer auf das Auth object gesetzt
@@ -20,9 +20,10 @@ export class ProfileProvider {
 	        //Angabe des Pfades, der ausgelesen werden soll.
           firebase.database().ref('/userProfile')
 	        .child(firebase.auth().currentUser.uid)
-	        //.on() inklusive Arrow Funktion und Snapshot("data"), um die Daten auszulesen
+          //.on() inklusive Arrow Funktion und Snapshot("data"),
+          //um die Daten auszulesen
           .on('value', data => {
-		        //gibt die ausgelesenen Werte an das Promise zurück
+		        //gibt die ausgelesenen Werte via Promise ("resolve") zurück
             resolve(data.val());
           });
         }
@@ -36,16 +37,18 @@ export class ProfileProvider {
 	//Festlegung des Pfades der geupdated werden soll
     return firebase.database().ref('/userProfile')
     .child(firebase.auth().currentUser.uid).update({
-	  //Beschreiben der properties; firstName: "Anna"
+	    //Beschreiben der properties; firstName: "Anna"
       firstName: firstName,
     });
   }
   
-  //Funktion für Firebaseupdate für Nachnamen
-  //genauere Beschreibung kann aus updateFirstname entnommen werden
+  //Funktion für Firebaseupdate für Nachnamen. Promise zur Gewährleistung
+  //der Asynchronität
   updateLastname(lastName: string): firebase.Promise<any> {
+    //Festlegung des Pfades der geupdated werden soll
     return firebase.database().ref('/userProfile')
     .child(firebase.auth().currentUser.uid).update({
+      //Beschreiben der properties; lastName: "Mueller"
       lastName: lastName,
     });
   }  
