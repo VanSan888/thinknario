@@ -12,7 +12,7 @@ export class SzenarioValidator {
 
    }
 
-   validateCheckboxesProblemfeld(boxes: FormControl, untereGrenze, obereGrenze)
+   validateCheckboxesProblemfeld(boxes: FormControl)
    {
       var valid : boolean = false;
       var k     : any;

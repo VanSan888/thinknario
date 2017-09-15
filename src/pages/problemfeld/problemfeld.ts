@@ -80,8 +80,8 @@ public problemfeld4: boolean = false;
           this.problemfeld4 = this.szenarioData.problemfeld.problemfeld4;
 	      });
 	    } else {
-		    //Es werden Dummidaten in "szenarioData/currentUser/problemfeld" geschrieben, wenn der User
-		    //diese Seite das erste mal betritt.
+        //Es werden Dummi-Daten in "szenarioData/currentUser/problemfeld" geschrieben,
+        //wenn der User diese Seite das erste Mal betritt.
 		    this.szenarioProvider.updateProblemfeld(this.problemfeld1,
 		                                            this.problemfeld2,
 												                        this.problemfeld3,
