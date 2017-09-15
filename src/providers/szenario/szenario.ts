@@ -19,13 +19,13 @@ export class SzenarioProvider {
       firebase.auth().onAuthStateChanged((user) => {
         //Wenn ein user angemeldet ist, dann
         if(user){
-	        //prüfe den Pfad mit den Varibalen aus den einzelnen Seiten
+	        //Prüfe den Pfad mit dem übergebenen Parameter ("dataPath")
 	        firebase.database().ref('/szenarioData')
 	        .child(firebase.auth().currentUser.uid).child(dataPath)
 	        //.on() inklusive Arrow Funktion und Snapshot("data"), um die Daten auszulesen
 	        .on('value', data => {
-		        //.exists() gibt "true" mittels resolve() an das Promise
-		        //zurück, wenn Werte in dem angegebenen Pfad existieren
+		        //.exists() gibt "true" mittels resolve() zurück,
+		        //wenn Werte in dem angegebenen Pfad existieren
 	          resolve(data.exists());
 	        });
         }
