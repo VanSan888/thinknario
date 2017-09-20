@@ -27,7 +27,7 @@ export class InterviewPage {
               public profileProvider: ProfileProvider,
               public authData: AuthData,
               public menuCtrl: MenuController) {
-    //Menu soll an dieser Stelle nicht angezeigt werden
+    // Das Menu soll an dieser Stelle nicht angezeigt werden
     this.menuCtrl.enable(false, 'menuId');    
   }
   

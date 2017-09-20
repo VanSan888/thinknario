@@ -18,32 +18,32 @@
   <!-- Deklarierung der Form für die Problemdefinition -->
   <form #problemdefinitionForm="ngForm">
     <ion-item>
-	  <!-- Überschrift für die ion-textarea und Zuweisung zur FormValidierung (Problemdefintion) -->
+	    <!-- Überschrift für die ion-textarea und Zuweisung zur FormValidierung (Problemdefintion) -->
       <ion-label for="Problemdefinition" stacked>Ihre Problemdefinition</ion-label>
-	  <!-- Textfeld mit Typ und Platzhalter. [(ngModel)] für two-way data Biding in das Model und aus dem Modell.
+	    <!-- Textfeld mit Typ und Platzhalter. [(ngModel)] für two-way data Biding in das Model und aus dem Modell.
       Bei Veränderung der textarea wird die updateProblemdefinition() Funktion aufgerufen (change).
-	  "name" ist notwendig zur Formvalidierung. Eingabe wird benötigt (required), muss mindestens 20 Zeichen
-	  lang sein (minlength) und darf höchstens 160 Zeichen lang sein (maxlenght)
-	  #Problemdefinition=ngModel wird zur Formvalidierung benötigt.
-    fz-elastic lässt die teaxtareas je nach deren Inhalt mitwachsen.-->
+	    "name" ist notwendig zur Formvalidierung. Eingabe wird benötigt (required), muss mindestens 20 Zeichen
+	    lang sein (minlength) und darf höchstens 160 Zeichen lang sein (maxlenght)
+	    #Problemdefinition=ngModel wird zur Formvalidierung benötigt.
+      fz-elastic lässt die teaxtareas je nach deren Inhalt mitwachsen.-->
       <ion-textarea type="text" placeholder="Hier Ihre Problemdefinition eingeben"
 	    [(ngModel)]="problemdefinition" (change)="updateProblemdefinition(problemdefinition)"
 	    name="Problemdefinition" required minlength="20" maxlength="160" #Problemdefinition="ngModel" fz-elastic>
 	    </ion-textarea>
     </ion-item>
     <!-- <div> zur Kontrolle der Form.
-	Wenn die Form einen Fehler beinhaltet, zeige die entsprechenden Fehlernachrichten
-	.dirty und .touched verhindern das Anzeigen von Fehlernachrichten, wären der User noch seine Eingabe tätigt-->
+	  Wenn die Form einen Fehler beinhaltet, zeige die entsprechenden Fehlernachrichten
+	  .dirty und .touched verhindern das Anzeigen von Fehlernachrichten, wären der User noch seine Eingabe tätigt-->
     <div *ngIf="Problemdefinition.errors && (Problemdefinition.dirty || Problemdefinition.touched)"
     class="alert alert-danger">
       <div [hidden]="!Problemdefinition.errors.required">
         <p>Bitte geben Sie eine Problemdefinition ein.</p>
       </div>
-	  <!-- Fehlernachricht, wenn die Eingabe zu kurz ist -->
+	    <!-- Fehlernachricht, wenn die Eingabe zu kurz ist -->
       <div [hidden]="!Problemdefinition.errors.minlength">
         <p>Ihre Problemdefinition sollte mindestens 20 Zeichen lang sein</p>
       </div>
-	  <!-- Fehlernachricht, wenn die Eingabe zu lang ist -->
+	    <!-- Fehlernachricht, wenn die Eingabe zu lang ist -->
       <div [hidden]="!Problemdefinition.errors.maxlength">
         <p>Ihre Problemdefinition sollte nicht länger als 160 Zeichen sein</p>
       </div>
