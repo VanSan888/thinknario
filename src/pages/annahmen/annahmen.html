@@ -3,24 +3,14 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Annahmen zur Funktionalität</ion-title>
+    <ion-title>Annahmen</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <h4 padding-left>Beschreibung</h4>
-  <p padding-left>Die Problemreflexion ist damit abgeschlossen. Nun geht es darum, Ihr eigenes Szenario zu erstellen. 
-    Dazu werden Sie im Folgenden zunächst verschiedene Informationen sammeln, 
-    die letztendlich in ihrem Szenario zusammengefasst werden. Los geht es mit den Funktionalitäten:
-  </p>
-  <p padding-left padding-bottom>
-    Während Ihrer Aktivität werden verschiedene Funktionalitäten 
-    an Ihrem Rucksack benötigt. Versetzen Sie sich in die Lage der Aktivität:
-  </p>
-  <h6 padding-left>
-    Welche Funktionalitäten stellen Sie sich bei Ihrem idealen Rucksack vor? <br>
-    Geben Sie mindestens 2 Annahmen zu Funktionalitäten ein:
-  </h6>
+  <p padding-left padding-bottom>Hier Beschreibung, was mit Annahmen gemeint ist. </p>
+  <h6 padding-left>Welche Annahmen treffen Sie für Ihr Szenario? Geben Sie mindestens 2 Annahmen ein:</h6>
 
 <!-- Form zur Überprüfung der Eingabefelder. -->
 <form #annahmenForm="ngForm">
@@ -34,7 +24,8 @@
 		  Es ist eine Eingabe erforderlich (required), die mindestens 20 und maximal 100 Zeichen lang
 		  sein darf (min- und maxlenght). -->
       <ion-textarea type="text" placeholder="Hier Ihre erste Annahme eingeben" 
-	    [(ngModel)]="annahme1" name="Annahme1" (change)="updateAnnahme('annahme1', annahme1, begruendung1)"
+      [(ngModel)]="annahme1" name="Annahme1"
+      (change)="updateAnnahme('annahme1', annahme1, begruendung1)"
 	    required minlength="20" maxlength="100" #Annahme1="ngModel" fz-elastic>
 	    </ion-textarea>
     </ion-item>
@@ -44,15 +35,15 @@
 	<div *ngIf="Annahme1.errors && (Annahme1.dirty || Annahme1.touched)"
     class="alert alert-danger">
 	  <div [hidden]="!Annahme1.errors.required">
-      <p>Bitte geben Sie eine Annahme ein.</p>
+        <p>Bitte geben Sie eine Annahme ein.</p>
+      </div>
+      <div [hidden]="!Annahme1.errors.minlength">
+        <p>Ihre Annahme sollte mindestens 20 Zeichen lang sein</p>
+      </div>
+      <div [hidden]="!Annahme1.errors.maxlength">
+        <p>Ihre Annahme sollte nicht länger als 100 Zeichen  sein</p>
+      </div>
     </div>
-    <div [hidden]="!Annahme1.errors.minlength">
-      <p>Ihre Annahme sollte mindestens 20 Zeichen lang sein</p>
-    </div>
-    <div [hidden]="!Annahme1.errors.maxlength">
-      <p>Ihre Annahme sollte nicht länger als 100 Zeichen  sein</p>
-    </div>
-  </div>
 	<!-- Das Eingabefeld der Begründung ist versteckt, solange keine Begründung eingegeben wurde oder
   wenn ein Button gedrückt wird, der toggleVar auf true stellt. (Siehe Button am ende der ion-list)
   Auch die Begründung wird bei jeder Änderung innerhalb des Eingabefeldes durch updateAnnahme() aktualisiert. -->
@@ -113,28 +104,6 @@
 	   (change)="updateAnnahme('annahme3', annahme3, begruendung3)" padding-left>
      </ion-input>
    </ion-item>
-   <ion-item [hidden]="!annahme3">
-    <ion-label stacked for="Annahme4">Annahme 4</ion-label>
-      <ion-textarea type="text" placeholder="Optional hier Ihre vierte Annahme eingeben" 
-	    [(ngModel)]="annahme4" name="Annahme4" (change)="updateAnnahme('annahme4', annahme4, begruendung4)"
-	    minlength="20" maxlength="100" #Annahme4="ngModel" fz-elastic>
-	    </ion-textarea>
-    </ion-item>
-	<div *ngIf="Annahme4.errors && (Annahme4.dirty || Annahme4.touched)"
-    class="alert alert-danger">
-      <div [hidden]="!Annahme4.errors.minlength">
-        <p>Ihre Annahme sollte mindestens 20 Zeichen lang sein</p>
-      </div>
-      <div [hidden]="!Annahme4.errors.maxlength">
-        <p>Ihre Annahme sollte nicht länger als 100 Zeichen  sein</p>
-      </div>
-   </div>
-   <ion-item [hidden]="!begruendung4 || !toggleVar">
-     <ion-label for="Begruendung4">Begründung:</ion-label>
-     <ion-input type="text" placeholder="Hier Ihre Begründung eingeben"
-     [(ngModel)]="begruendung4" name="Begruendung4"
-	   (change)="updateAnnahme('annahme4', annahme4, begruendung4)" padding-left>
-     </ion-input>
    <ion-item [hidden]="!annahme3">
     <ion-label stacked for="Annahme4">Annahme 4</ion-label>
       <ion-textarea type="text" placeholder="Optional hier Ihre vierte Annahme eingeben" 

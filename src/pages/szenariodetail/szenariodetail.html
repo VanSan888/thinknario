@@ -185,13 +185,11 @@
     </ion-slides>
 </div>
 
-<h4  padding>Szenario von {{currentSzenario?.username}}</h4>
+<h4 padding> Szenario von {{currentSzenario?.username}}</h4>
 
 <ion-list>
-  <ion-item [hidden]="hilfeVar">
-    {{currentSzenario?.szenariotext}}
-  </ion-item>
-  <div [hidden]="!hilfeVar">
+
+  <div>
     <ion-list-header no-lines>
       Ausgangslage:
     </ion-list-header>    

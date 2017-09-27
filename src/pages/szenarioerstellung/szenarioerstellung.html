@@ -306,16 +306,16 @@ Es wird eine Form zur Kontrolle der Eingaben benutzt.-->
        </ion-item>   
      </div>
      <div>
-       <ion-item>
-	     <!-- Der nachfolgende Button wird erst angezeigt, wenn der Ausgangslagedialog schon bei der 
-         zweiten Frage angekommen ist. Wird er geklickt, so wird die countBackward() Funktion aufgerufen.
-		 An diese Funktion wird ein Argument übergeben, sodass die Funktion nur den ausgangslageCounter runter zählt-->
-         <button ion-button [hidden]="ausgangslageCounter<2" (click)='countBackward("ausgangslage")'>Zurück</button>
-	     <!-- Der nachfolgende Button wird nicht mehr angezeigt, wenn der Ausgangslagedialog bei der 
-         letzten Frage angekommen ist. Wird er geklickt, so wird die countForward() Funktion aufgerufen.
-		 An diese Funktion wird ein Argument übergeben, sodass die Funktion nur den ausgangslageCounter hoch zählt-->		 
-         <button ion-button float-right [hidden]="ausgangslageCounter>3"
-	     (click)='countForward("ausgangslage")'>Weiter</button>
+        <ion-item>
+	        <!-- Der nachfolgende Button wird erst angezeigt, wenn der Ausgangslagedialog schon bei der 
+          zweiten Frage angekommen ist. Wird er geklickt, so wird die countBackward() Funktion aufgerufen.
+		      An diese Funktion wird ein Argument übergeben, sodass die Funktion nur den ausgangslageCounter runter zählt-->
+          <button ion-button [hidden]="ausgangslageCounter<2" (click)='countBackward("ausgangslage")'>Zurück</button>
+	        <!-- Der nachfolgende Button wird nicht mehr angezeigt, wenn der Ausgangslagedialog bei der 
+          letzten Frage angekommen ist. Wird er geklickt, so wird die countForward() Funktion aufgerufen.
+		      An diese Funktion wird ein Argument übergeben, sodass die Funktion nur den ausgangslageCounter hoch zählt-->		 
+          <button ion-button float-right [hidden]="ausgangslageCounter>3"
+	        (click)='countForward("ausgangslage")'>Weiter</button>
 	   </ion-item>
      </div>
    </div>
@@ -329,7 +329,7 @@ Es wird eine Form zur Kontrolle der Eingaben benutzt.-->
   Dies ist der Fall, wenn die entwicklungsHilfe() Funktion aufgerufen wird.  -->
   <div [hidden]='entwicklungCounter<1'>
    <ion-item  padding-vertical>  
-    <ion-label stacked >Entwicklung</ion-label>
+    <ion-label stacked> Entwicklung </ion-label>
 	  <!-- Der Rest des Endzustandes ist sehr ähnlich zum Code der Ausgangslage. Siehe Erklärung dort. -->
 	  <ion-textarea type="text" placeholder="Beschreiben Sie hier die Entwicklung Ihres Szenarios"
     [(ngModel)]="entwicklungText" name="EntwicklungText"
@@ -366,7 +366,7 @@ Es wird eine Form zur Kontrolle der Eingaben benutzt.-->
   Dies ist der Fall, wenn die endzustandHilfe() Funktion aufgerufen wird.  -->
   <div [hidden]='endzustandCounter<1'> 
    <ion-item padding-vertical>  
-    <ion-label stacked >Endzustand</ion-label>
+    <ion-label stacked> Endzustand </ion-label>
 	  <!-- Der Rest des Endzustandes ist sehr ähnlich zum Code der Ausgangslage. Siehe Erklärung dort. -->
 	  <ion-textarea type="text" placeholder="Beschreiben Sie hier die Entwicklung Ihres Szenarios"
     [(ngModel)]="endzustandText" name="EndzustandText"
@@ -404,6 +404,6 @@ Es wird eine Form zur Kontrolle der Eingaben benutzt.-->
 <!-- Button der für den User mit Hilfestellung (hilfeVar=true) erst dann klickbar ist,
 wenn die mitHilfeForm gültig ist.-->
 <button ion-button [navPush]="szenariobewertungPage"
-[disabled]="!mitHilfeForm.form.valid" [hidden] = "!hilfeVar" class="weiter">Fertig - zur Bewertung</button>
+[disabled]="!mitHilfeForm.form.valid" class="weiter">Fertig - zur Bewertung</button>
 
 </ion-content>

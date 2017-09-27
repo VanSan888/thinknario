@@ -159,14 +159,11 @@ constructor(public navCtrl: NavController,
     this.cx3.lineWidth = 3;
     this.cx3.lineCap = 'round';
     this.cx3.strokeStyle = '#000';
-
-	
     
     // Methode, um die Mausevents einzufangen
     this.captureEvents(canvasEl1, this.cx1);
 	  this.captureEvents(canvasEl2, this.cx2);
     this.captureEvents(canvasEl3, this.cx3);
-
   }
 
   ionViewDidEnter () {
@@ -193,8 +190,8 @@ constructor(public navCtrl: NavController,
       if(result === true) {	
         this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
           this.szenarioData = szenarioSnap;
-           this.startSzenario = this.szenarioData.deskriptorenanalyse.startSzenario;
-           this.endSzenario   = this.szenarioData.deskriptorenanalyse.endSzenario;		
+          this.startSzenario = this.szenarioData.deskriptorenanalyse.startSzenario;
+          this.endSzenario   = this.szenarioData.deskriptorenanalyse.endSzenario;		
 	    });
     
     //Deskriptoren werden angezeigt, wenn Daten im Pfad "deskriptorenanalyse" hinterlegt sind.
@@ -230,7 +227,7 @@ constructor(public navCtrl: NavController,
 	    img.crossOrigin = 'anonymous';
       img.src = url;
       img.onload = function(){
-        ctx.drawImage(img,0,0); // Or at whatever offset you like
+        ctx.drawImage(img,0,0);
       };
     });
     this.szenarioProvider.getDeskriptorURL('deskriptor3').then(url => {
@@ -342,7 +339,6 @@ drawCoordinates(ctx: CanvasRenderingContext2D, yText: string) {
   ctx.fillText(yText, 170, 25);
   //Wiederherstellen des ursprünglichen Bezugssystems
   ctx.restore();
-
 }
 
  
@@ -361,32 +357,30 @@ drawCoordinates(ctx: CanvasRenderingContext2D, yText: string) {
   }
 
 
-//Mausevents einfangen. Wird benötigt, um auf dem Canvas zu zeichnen, sobald die linke Maustaste gedrückt
-//wird und solange sie nicht losgelassen wird.
+//Diese Funktion fängt Maus-Events ein. Sie wird benötigt, um auf dem Canvas zu zeichnen,
+//sobald die linke Maustaste gedrückt wird und solange sie nicht losgelassen wird.
 private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
   Observable
-    //Einfangen aller mousedown events des Canvas-Elements
+    //Einfangen aller 'mousedown' Events des entsprechenden Canvas-Elements
     .fromEvent(canvasEl, 'mousedown')
     .switchMap((e) => {
       return Observable
         //Nach mousedown, werden alle Mausbewegungen aufgezeichnet
         .fromEvent(canvasEl, 'mousemove')
-        //Stoppen und unsubscriben, sobald der SUer die Maustaste loslässt
+        //Stoppen und unsubscriben, sobald der User die Maustaste loslässt
         // Das löst das mouseup Event aus
         .takeUntil(Observable.fromEvent(canvasEl, 'mouseup'))
-        // Mittels pairwise kann man den vorherigen Wert bestimmen,
-        // von dem eine Linie zu dem aktuellen Punkt gezeichnet wird
+        //pairwise() gruppiert aufeinanderfolgende Werte und gibt diese als
+        //Array wieder aus.
         .pairwise()
     })
     .subscribe((res: [MouseEvent, MouseEvent]) => {
-      const rect = canvasEl.getBoundingClientRect();
-      
+      const rect = canvasEl.getBoundingClientRect();     
       //Vorherige und aktuelle Position mit offset
       const prevPos = {
         x: res[0].clientX - rect.left,
         y: res[0].clientY - rect.top
       };
-
       const currentPos = {
         x: res[1].clientX - rect.left,
         y: res[1].clientY - rect.top

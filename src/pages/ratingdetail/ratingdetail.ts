@@ -153,16 +153,16 @@ public i: number=0;
     //soll der User nach einer Begründung für seine Meinung gefragt werden
     if (entwicklung <= 5) {
       //Aufruf des Begründungs-Alert, wenn die Bewertung kleiner als 5 Punkte ist.
-      //Übergabe der Schlagworte Entwicklung und negativ.
+      //Übergabe des Schlagworts 'entwicklung' sowie der Ausprägung 'negativ'.
       this.begruendungAlert("entwicklung", "negativ");
     } else if (entwicklung >= 95) {
-      //Aufruf des Begründungs-Alert, wenn die Bewertung größer als 955 Punkte ist.
-      //Übergabe der Schlagworte Entwicklung und positiv.
+      //Aufruf des Begründungs-Alarms, wenn die Bewertung größer als 95 Punkte ist.
+      //Übergabe der Schlagworts 'entwicklung' sowie der Ausprägung 'positiv'.
       this.begruendungAlert("entwicklung", "positiv");
     }
-	// Durch this.navParams.get('szenarioId') wird der Pfad an die Update() Funktion in 
-	// rating.ts übergeben, sodass immer nur die Ratingdaten zum aktuell vorliegenden Szenario
-	// aktualisiert werden
+	  //Durch this.navParams.get('szenarioId') wird der Pfad an die Update()-Methode im 
+	  //Rating-Provider übergeben, sodass immer nur die Ratingdaten zum aktuell vorliegenden Szenario
+	  //aktualisiert werden
     this.ratingProvider.updateEntwicklungDetail(entwicklung, this.navParams.get('szenarioId'));
   }
 
@@ -243,7 +243,7 @@ public i: number=0;
   }
   
   //Funktion, die Alerts abhängig von dem jeweiligen Rating mit verschiedenen Texten ausgibt.
-  //Erhählt als Argumente jeweils das Rating und die dazugehörige Ausprägung.
+  //Erhählt als Parameter jeweils das Rating und die dazugehörige Ausprägung.
   begruendungAlert(rating: string, auspraegung:string ){
   //Festlegung der Subtitel
   if(rating == "entwicklung") {
@@ -330,17 +330,16 @@ public i: number=0;
   }
 
   //Funktion für die Navigation zur Ratingdetailseite
-  goToCommentDetail(szenarioId){
-  //Übergabe des Navigationsparameters an diese Seite.
-	//Der Navigationsparameter entspricht der UserID des Szenarios, welches bewertet werden soll.
+  goToCommentDetail(szenarioId) {
+    //Übergabe des Navigationsparameters an diese Seite.
+	  //Der Navigationsparameter entspricht der UserID des Szenarios, welches bewertet werden soll.
     this.navCtrl.push('commentdetail', { 'szenarioId': szenarioId });
   }
 
   //Funktion für die Navigation zur Szenariodetailseite
   goToSzenarioDetail(){ 
-	//Der Navigationsparameter entspricht der UserID des Szenarios, welches bewertet wurde.		
+	  //Der Navigationsparameter entspricht der UserID des Szenarios, welches bewertet wurde.		
     this.navCtrl.pop();
-
   }
 
   goToRootPage(){

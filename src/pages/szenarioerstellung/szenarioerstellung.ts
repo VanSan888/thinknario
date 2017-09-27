@@ -705,10 +705,9 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
   //Funktion, um abhängig vom übergebenen Wert den ausgangslageDialogText in 
   //szenarioerstelung.html festelgt.
   ausgangslageDialog (counter) {
-	  if (counter == 0) {
-		
+	  if (counter == 0) {		
 	  } else if (counter == 1) {
-	      this.ausgangslageDialogText = "Beschreiben Sie zu Beginn, welche Gegenstände und Utensilien werden sie auf jeden Fall benötigen bzw. einpacken werden."
+	      this.ausgangslageDialogText = 'Beschreiben Sie zu Beginn, welche Gegenstände und Utensilien sie auf jeden Fall benötigen bzw. einpacken werden.'
 	  } else if (counter == 2) {
         this.ausgangslageDialogText = 'Schauen Sie sich Ihre Packliste genau an. Gibt es Funktionalitäten, die Sie für das Packen benötigen? Wenn ja, bitte beschreiben Sie kurz, wie Sie diese verwenden würden. (Falls Sie diese Funktionalitäten bisher noch nicht als Information gespeichert haben, können Sie dies auch auf dieser Seite noch tun.)'
 	  } else if (counter == 3) {
@@ -829,16 +828,19 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
   
   //Funktion, um abhängig vom übergebenen Argument den entsprechenden Counter hochzuzählen.
   countForward(identifier) {
-	//Wenn der identifier der ausgangslage entspricht und kleiner als 4 ist (es gibt nur 3 Fragen
-	//und bei einem zusätzlichen Klick den entwicklungHilfe-Toast), dann
+  //Wenn der 'identifier' der 'ausgangslage' entspricht und kleiner als 4 ist (es gibt nur
+  //drei beispielhafte Fragen), dann ...
 	if(identifier == "ausgangslage" && this.ausgangslageCounter < 4) {
-	  //Zähle den ausgangslageCounter um eine Zahl nach oben.
-      this.ausgangslageCounter = this.ausgangslageCounter + 1;
-	  //und übergebe diesen neuen Wert an die ausgangslageDialog() Funktion
+	  //zähle den 'ausgangslageCounter' um eine Zahl nach oben ...
+    this.ausgangslageCounter = this.ausgangslageCounter + 1;
+	  //... und übergebe diesen neuen Wert an die ausgangslageDialog()-Methode.
 	  this.ausgangslageDialog(this.ausgangslageCounter);
-	  //Dann update den neuen ausgangslageCounter-Wert in der Datenbank.
-	  this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);
-	//Der Rest der Funktion funktionert in gleicher Art und Weise nur für die anderen Counter.
+	  //Danach erfolgt ein Update des neuen ausgangslageCounter-Wertes in der Datenbank.
+    this.szenarioProvider.updateCounter(
+      this.ausgangslageCounter,
+      this.entwicklungCounter,
+      this.endzustandCounter);
+	  //Der Rest der Funktion funktionert in gleicher Art und Weise nur für die anderen Counter.
 	} else if (identifier == "entwicklung" && this.entwicklungCounter < 4) {
 		this.entwicklungCounter = this.entwicklungCounter + 1;
 		this.entwicklungDialog(this.entwicklungCounter);

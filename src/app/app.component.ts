@@ -56,12 +56,18 @@ export class MyApp {
         }
       });     
     });
+    this.refreshNavMenu();
+
+  }
+
+  refreshNavMenu(){
     this.szenarioProvider.checkPath("average").then((result: boolean) => {
 	    //Wenn in dem Pfad Daten hinterlegt sind, dann...
       if(result === true) {    
         this.hideHome = false;
         this.hideBenachrichtigungen = false;
         this.hideBewertungen = false;
+        this.rootPage = 'HomePage';
       } else {
           this.rootPage = 'MeinSzenarioPage';
       }

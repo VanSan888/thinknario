@@ -90,7 +90,7 @@ public loading: Loading;
   }
 }
 
-//Navigationsfunktionen. es wird eine neue Seite auf das Stack gepackt
+//Navigationsfunktion. es wird eine neue Seite auf das Stack gestapelt.
 goToSignup(): void { this.navCtrl.push('RegistrierungPage'); }
 
 goToResetPassword(): void { this.navCtrl.push('ResetPasswordPage'); }

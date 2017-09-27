@@ -13,23 +13,15 @@ export class BibliothekProvider {
       .on('value', snapshot => {
 		    //Deklarierung des Arrays
         let rawList = [];
+        //Iteration durch die einzelnen Knoten des Schnappschusses
         snapshot.forEach( snap => {
-          //Hier wird mittels einer Firebase-Abfrage geschaut, ob schon ein Average für das Szenario
-          //verfügbar ist. Sehr ähnlich zu szenarioProvider.checkPath, siehe Erklärung dort.
-          //Wenn kein Average angegeben ist, der User also sein eigenes Szenario
-          //noch nicht bewertet hat und es somit noch nicht vollständig ist,
-          //Wird es auch nicht auf der HomePage (in der Bibliothek) angezeigt
-
-          //Abzufragender Pfad:
-          firebase.database().ref('/szenarioData')
-	        .child(snap.key).child("average")
+          //Abfrage, ob die Szenarioerstellung beendet wurde ('average' vorhanden)
+          firebase.database().ref('/szenarioData').child(snap.key).child("average")
 	        .on('value', data => {
             //Wenn ein Wert existiert, dann...
             if(data.exists()){
               //Beschreibe das Arrays
               rawList.push({
-			          //Es werden nur der .key, der username, der Average und die Problemdefintion für die
-			          //Darstellung auf bibliothekpage.html benötigt
                 id: snap.key,
 			          username: snap.val().userName.userName,
                 problemdefinition: snap.val().problemdefinition.problemdefinition,

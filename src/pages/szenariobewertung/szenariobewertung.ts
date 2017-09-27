@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, IonicPage } from 'ionic-angular';
 import { RatingProvider } from '../../providers/rating/rating';
 import { SzenarioProvider } from '../../providers/szenario/szenario';
+import { MyApp } from '../../app/app.component';
 
 
 @IonicPage()
@@ -31,7 +32,8 @@ public uid: string;
 
   constructor(public navCtrl: NavController,
               public ratingProvider: RatingProvider,
-              public szenarioProvider: SzenarioProvider) {
+              public szenarioProvider: SzenarioProvider,
+              public myApp: MyApp) {
 
   }
   
@@ -121,13 +123,10 @@ public uid: string;
   }
 
   goToRootPage(){
-    this.navCtrl.setRoot('HomePage');
+    this.myApp.refreshNavMenu();
   }
 
-  //Funktion für die Navigation zur Szenariodetailseite
   goToSzenarioDetail(){ 
-	//Der Navigationsparameter entspricht der UserID des Szenarios, welches bewertet wurde.		
     this.navCtrl.pop();
-
   }
 }

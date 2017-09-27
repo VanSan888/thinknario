@@ -91,37 +91,35 @@ public toggleVar: boolean= true;
     } else {
       this.subTitleText = 'Warum haben Sie genau diese Annahme getroffen?';
     }
-    
 	//Wenn das Eingabefeld der Begründung leer ist, soll ein Alert erscheinen, der dem User
 	//den Zweck von Begründungen erklärt.
     if (begruendung == "") {
-	
-    //Aufruf eines Alarms.	
-    let alert = this.alertCtrl.create({
-	  //Festlegung des Titels und des Untertitels.
-      title: 'Begründung',
-	  subTitle: this.subTitleText,
-    enableBackdropDismiss: false,
-	  //Es soll Inputfeld vorhanden sein.
-	  inputs: [
-        {
-          name: "begruendung",
-          placeholder: 'Hier Begründung eingeben'
-        }
-      ],
-	  //Es soll ein Abbrechen-Button im Alert entahlten sein.
-      buttons: [
-        {
-          text: 'Abbrechen',
-          role: 'cancel',
-		      //Handler für den Abbrechen-Button
-          handler: data => {
-			      //Wenn der Abbrechen Knopf gedrückt wird, muss trotzdem die Eingabe für die Annahme gespeichert werden.
-			      //Dazu werden der Pfad, die Annahme und deren Begründung an die updateAnnahme() Funktion des
-			      //Szenarioproviders übergeben.
-            this.szenarioProvider.updateAnnahme(path, annahme, data.begruendung);
+      //Aufruf eines Alarms.	
+      let alert = this.alertCtrl.create({
+	      //Festlegung des Titels und des Untertitels.
+        title: 'Begründung',
+	      subTitle: this.subTitleText,
+        enableBackdropDismiss: false,
+	      //Es soll Inputfeld vorhanden sein.
+	      inputs: [
+          {
+            name: "begruendung",
+            placeholder: 'Hier Begründung eingeben'
           }
-        },
+        ],
+	      //Es soll ein Abbrechen-Button im Alert entahlten sein.
+        buttons: [
+          {
+            text: 'Abbrechen',
+            role: 'cancel',
+		        //Handler für den Abbrechen-Button
+            handler: data => {
+			        //Wenn der Abbrechen Knopf gedrückt wird, muss trotzdem die Eingabe für die Annahme gespeichert werden.
+			        //Dazu werden der Pfad, die Annahme und deren Begründung an die updateAnnahme() Funktion des
+			        //Szenarioproviders übergeben.
+              this.szenarioProvider.updateAnnahme(path, annahme, data.begruendung);
+            }
+          },
         {
 		      //Es soll ein Speichern-Button im Alert entahlten sein.
           text: 'Speichern',

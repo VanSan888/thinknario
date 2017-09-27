@@ -85,13 +85,11 @@ public szenarioList: Array<any>;
 	  if (this.uid === szenarioId) {
 		  //Wenn ja, dann Navigiere zur Szenarioerstellung der aktuellen Users
 		  this.navCtrl.push('SzenarioerstellungPage');
-
 	} else {
       //Ansonsten soll zu dem gewünschten Szenario navigiert werden:
       //Übergabe des Navigationsparameters an diese Szenariodetailseite.
-	    //Der Navigationsparameter entspricht der UserID des Szenarios, welches bewertet werden soll.		
-      this.navCtrl.push('szenariodetail', { 'szenarioId': szenarioId });
-	
+	    //Der Navigationsparameter entspricht der UID des Szenarios, welches bewertet werden soll.		
+      this.navCtrl.push('szenariodetail', { 'szenarioId': szenarioId });	
     }
   }
 
