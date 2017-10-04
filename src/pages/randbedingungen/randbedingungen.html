@@ -20,7 +20,9 @@
 
 <!-- Für Erklärungen siehe annahmen.html (sehr ähnlicher Code) -->
 <ion-fab right middle>
-  <button ion-fab color="light"><ion-icon name="bulb"></ion-icon></button>
+  <button ion-fab color="light">
+    <ion-icon name="bulb"></ion-icon>
+  </button>
     <ion-fab-list side="left">
       <button>Klima in der Umgebung der Aktivität</button>
       <button>Region & Umwelt (Berge, Wald, Stadt, Büro, Uni) </button>
@@ -35,7 +37,7 @@
       <ion-textarea type="text" placeholder="Hier Ihre erste Randbedingung eingeben" 
 	    [(ngModel)]="randbedingung1" name="Randbedingung1"
 	    (change)="updateRandbedingung('randbedingung1', randbedingung1, begruendung1)"
-	    required minlength="20" maxlength="100" #Randbedingung1="ngModel" fz-elastic>
+	    required minlength="50" maxlength="350" #Randbedingung1="ngModel" fz-elastic>
 	  </ion-textarea>
     </ion-item>
 	<div *ngIf="Randbedingung1.errors && (Randbedingung1.dirty || Randbedingung1.touched)"
@@ -44,10 +46,10 @@
         <p>Bitte geben Sie eine Randbedingung ein.</p>
       </div>
       <div [hidden]="!Randbedingung1.errors.minlength">
-        <p>Ihre Randbedingung sollte mindestens 20 Zeichen lang sein</p>
+        <p>Ihre Randbedingung sollte mindestens 50 Zeichen lang sein</p>
       </div>
       <div [hidden]="!Randbedingung1.errors.maxlength">
-        <p>Ihre Randbedingung sollte nicht länger als 100 Zeichen  sein</p>
+        <p>Ihre Randbedingung sollte nicht länger als 350 Zeichen  sein</p>
       </div>
     </div>
 	<ion-item [hidden]="!begruendung1 || !toggleVar">
@@ -62,7 +64,7 @@
       <ion-textarea type="text" placeholder="Hier Ihre zweite Randbedingung eingeben" 
 	    [(ngModel)]="randbedingung2" name="Randbedingung2"
 	    (change)="updateRandbedingung('randbedingung2', randbedingung2, begruendung2)"
-	    required minlength="20" maxlength="100" #Randbedingung2="ngModel" fz-elastic>
+	    required minlength="50" maxlength="350" #Randbedingung2="ngModel" fz-elastic>
 	    </ion-textarea>
     </ion-item>
 	<div *ngIf="Randbedingung2.errors && (Randbedingung2.dirty || Randbedingung2.touched)"
@@ -71,10 +73,10 @@
         <p>Bitte geben Sie eine Randbedingung ein.</p>
       </div>
       <div [hidden]="!Randbedingung2.errors.minlength">
-        <p>Ihre Randbedingung sollte mindestens 20 Zeichen lang sein</p>
+        <p>Ihre Randbedingung sollte mindestens 50 Zeichen lang sein</p>
       </div>
       <div [hidden]="!Randbedingung2.errors.maxlength">
-        <p>Ihre Randbedingung sollte nicht länger als 100 Zeichen  sein</p>
+        <p>Ihre Randbedingung sollte nicht länger als 350 Zeichen  sein</p>
       </div>
     </div>
 	<ion-item [hidden]="!begruendung2 || !toggleVar">
@@ -89,16 +91,16 @@
       <ion-textarea type="text" placeholder="Optional hier Ihre dritte Randbedingung eingeben" 
 	    [(ngModel)]="randbedingung3" name="Randbedingung3"
 	    (change)="updateRandbedingung('randbedingung3', randbedingung3, begruendung3)"
-	    minlength="20" maxlength="100" #Randbedingung3="ngModel" fz-elastic>
+	    minlength="50" maxlength="350" #Randbedingung3="ngModel" fz-elastic>
 	    </ion-textarea>
     </ion-item>
 	<div *ngIf="Randbedingung3.errors && (Randbedingung3.dirty || Randbedingung3.touched)"
     class="alert alert-danger">
       <div [hidden]="!Randbedingung3.errors.minlength">
-        <p>Ihre Randbedingung sollte mindestens 20 Zeichen lang sein</p>
+        <p>Ihre Randbedingung sollte mindestens 50 Zeichen lang sein</p>
       </div>
       <div [hidden]="!Randbedingung3.errors.maxlength">
-        <p>Ihre Randbedingung sollte nicht länger als 100 Zeichen  sein</p>
+        <p>Ihre Randbedingung sollte nicht länger als 350 Zeichen  sein</p>
       </div>
     </div>
 	<ion-item [hidden]="!begruendung3 || !toggleVar">
@@ -113,16 +115,16 @@
       <ion-textarea type="text" placeholder="Optional hier Ihre vierte Randbedingung eingeben" 
 	    [(ngModel)]="randbedingung4" name="Randbedingung4"
 	    (change)="updateRandbedingung('randbedingung4', randbedingung4, begruendung4)"
-	    minlength="20" maxlength="100" #Randbedingung4="ngModel"  fz-elastic>
+	    minlength="50" maxlength="350" #Randbedingung4="ngModel"  fz-elastic>
 	    </ion-textarea>
     </ion-item>
 	<div *ngIf="Randbedingung4.errors && (Randbedingung4.dirty || Randbedingung4.touched)"
     class="alert alert-danger">
       <div [hidden]="!Randbedingung4.errors.minlength">
-        <p>Ihre Randbedingung sollte mindestens 20 Zeichen lang sein</p>
+        <p>Ihre Randbedingung sollte mindestens 50 Zeichen lang sein</p>
       </div>
       <div [hidden]="!Randbedingung4.errors.maxlength">
-        <p>Ihre Randbedingung sollte nicht länger als 100 Zeichen  sein</p>
+        <p>Ihre Randbedingung sollte nicht länger als 350 Zeichen  sein</p>
       </div>
     </div>
 	<ion-item [hidden]="!begruendung4 || !toggleVar">

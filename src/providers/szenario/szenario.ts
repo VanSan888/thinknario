@@ -151,9 +151,16 @@ getUserID(): Promise<any> {
 	  schluesselfaktor6: schluesselfaktor6,
     });
   }
-  
+
+  updateTimeScale(timeScale: string): firebase.Promise<any> {
+    return firebase.database().ref('/szenarioData').child(firebase.auth().currentUser.uid)
+    .child("deskriptorenanalyse").update({
+      timeScale: timeScale,
+    });
+  }
+
   //Update der Start- und Endzeitpunkte des Szenarios. Für Erklärung siehe ProfileProvider
-  updateStartEnd(startSzenario: string, endSzenario: string): firebase.Promise<any> {
+  updateStartEnd(startSzenario: any, endSzenario: any): firebase.Promise<any> {
     return firebase.database().ref('/szenarioData').child(firebase.auth().currentUser.uid)
     .child("deskriptorenanalyse").update({
       startSzenario: startSzenario,

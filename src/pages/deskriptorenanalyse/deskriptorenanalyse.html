@@ -61,23 +61,23 @@ toggleHilfe blendet die Hilfen ein und aus (siehe ion-toggle).-->
   <ion-item>
       <ion-label>Wählen Sie zunächst Ihre Zeitskala aus:</ion-label>
       <!-- ion-datetime zur Auswahl der Start- und Endzeitpunkte mittels two-way Data binding -->
-      <ion-select [(ngModel)]="timeScale" name="TimeScale" cancelText="Abbrechen">
-        <ion-option value="HH:mm">Stunden</ion-option>
-        <ion-option value="DD">Tage</ion-option>
-        <ion-option value="MM">Monate</ion-option>
+      <ion-select [(ngModel)]="timeScale" (ionChange)="updateTimeScale(timeScale)" name="TimeScale" cancelText="Abbrechen">
+        <ion-option value="HH">Stunden</ion-option>
+        <ion-option value="DDDD">Tage</ion-option>
+        <ion-option value="MMMM">Monate</ion-option>
         <ion-option value="YYYY">Jahre</ion-option>
       </ion-select>
     </ion-item>  
     <ion-item>
       <ion-label>Start Ihrer Aktivität [in {{timeScale}}]</ion-label>
       <!-- ion-datetime zur Auswahl der Start- und Endzeitpunkte mittels two-way Data binding -->
-      <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm"
+      <ion-datetime displayFormat={{timeScale}}
       [(ngModel)]="startSzenario" (ionChange)="updateStartEnd(startSzenario, endSzenario)" #StartSzenario>
       </ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label>Ende Ihres Szenarios [in {{timeScale}}]</ion-label>
-      <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm"
+      <ion-datetime displayFormat={{timeScale}} 
       [(ngModel)]="endSzenario" (ionChange)="updateStartEnd(startSzenario, endSzenario)" #EndSzenario>
       </ion-datetime>
     </ion-item>
@@ -114,7 +114,7 @@ toggleHilfe blendet die Hilfen ein und aus (siehe ion-toggle).-->
   <!-- canvas wird nur angezeigt, wenn der User bei SchluesselfaktorenPage bei dem entsprechenden
   Schlüsselfaktor einen Haken gesetzt hat. -->
   <div [hidden]="!schluesselfaktor1">
-    <h6>Das gefühlte Gewicht Ihres Rucksackes kann sich während deAktivitä verändern! <br>
+    <h6>Das gefühlte Gewicht Ihres Rucksackes kann sich während der Aktivität verändern! <br>
         Bitte zeichnen Sie den Verlauf des gefühlten Gewichts während Ihrer Aktivität ein.</h6>
     <canvas #canvas1 class="canvas"></canvas>
     <!-- Buttons, die jeweils Funktionen zum Malen, Radieren oder Zurücksetzen aufrufen. 
@@ -124,14 +124,14 @@ toggleHilfe blendet die Hilfen ein und aus (siehe ion-toggle).-->
       <button ion-button (click)="clearCanvas1()" color="danger" class="clear-button">Zurücksetzen</button>
   </div>
   <div [hidden]="!schluesselfaktor2">
-    <h6>Bitte zeichnen Sie in das folge Feld ein, wie wichtig Ihnen der Tragekomfort während der Aktivität ist</h6>
+    <h6>Bitte zeichnen Sie in das folgende Feld ein, wie wichtig Ihnen der Tragekomfort im Verlauf der Aktivität ist. </h6>
     <canvas #canvas2 class="canvas"></canvas>
       <button ion-button (click)="drawCanvas2()" class="draw-button">Zeichnen</button>
       <button ion-button (click)="eraseCanvas2()" outline class="erase-button">Radieren</button>
       <button ion-button (click)="clearCanvas2()" color="danger" class="clear-button">Zurücksetzen</button>
   </div>
   <div [hidden]="!schluesselfaktor3">
-    <h6>In dieses Feld sollen Sie einzeichnen, zu welchen Zeitpunkten Ihrer Aktivität die Funktionalitäten
+    <h6>In dieses Feld sollen Sie einzeichnen, zu welchen Zeitpunkten Ihrer Aktivität die Funktionalitäten <br>
         Ihres Rucksackes wichtig werden. Je wichtiger, desto weiter oben soll die Linie verlaufen.
     </h6>
     <canvas #canvas3 class="canvas"></canvas>
@@ -142,8 +142,8 @@ toggleHilfe blendet die Hilfen ein und aus (siehe ion-toggle).-->
 
 
   <ion-list>
-    <h6>An dieser Stelle gilt es, alle Schlüsselfaktoren zu sortieren. Diejenigen Faktoren, die Ihnen
-        am wichtigsten sind, sollen oben erscheinen.
+    <h6>An dieser Stelle gilt es, alle Schlüsselfaktoren zu sortieren.
+        Faktoren, die Ihnen am wichtigsten sind, sollen oben erscheinen.
     </h6>
       <ion-item-group reorder="true" (ionItemReorder)="reorderItems($event)">
         <div *ngFor="let factor of factors">

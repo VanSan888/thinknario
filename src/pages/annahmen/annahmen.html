@@ -9,8 +9,14 @@
 
 <ion-content padding>
   <h4 padding-left>Beschreibung</h4>
-  <p padding-left padding-bottom>Hier Beschreibung, was mit Annahmen gemeint ist. </p>
-  <h6 padding-left>Welche Annahmen treffen Sie für Ihr Szenario? Geben Sie mindestens 2 Annahmen ein:</h6>
+  <p padding-left padding-bottom>
+    Jeder Rucksack hat spezielle Funktionen, die ihn zum idealen Wegbegleiter machen.
+    Nun geht es darum, dass Sie sich in ihre Aktivität hinein versetzen und folgende Frage beantworten:
+  </p>
+  <h6 padding-left>
+    Welche Funktionalitäten stellen Sie sich an Ihrem idealen Rucksack vor und wie könnte man diese umsetzen? <br>
+    Beschreiben Sie mindestens 2 Funktionalitäten:
+  </h6>
 
 <!-- Form zur Überprüfung der Eingabefelder. -->
 <form #annahmenForm="ngForm">
@@ -26,7 +32,7 @@
       <ion-textarea type="text" placeholder="Hier Ihre erste Annahme eingeben" 
       [(ngModel)]="annahme1" name="Annahme1"
       (change)="updateAnnahme('annahme1', annahme1, begruendung1)"
-	    required minlength="20" maxlength="100" #Annahme1="ngModel" fz-elastic>
+	    required minlength="50" maxlength="350" #Annahme1="ngModel" fz-elastic>
 	    </ion-textarea>
     </ion-item>
 	<!-- Wenn die Anforderungen an die Annahmen nicht erfüllt sind, werden unter dem Eingabefeld entsprechende
@@ -38,10 +44,10 @@
         <p>Bitte geben Sie eine Annahme ein.</p>
       </div>
       <div [hidden]="!Annahme1.errors.minlength">
-        <p>Ihre Annahme sollte mindestens 20 Zeichen lang sein</p>
+        <p>Ihre Annahme sollte mindestens 50 Zeichen lang sein</p>
       </div>
       <div [hidden]="!Annahme1.errors.maxlength">
-        <p>Ihre Annahme sollte nicht länger als 100 Zeichen  sein</p>
+        <p>Ihre Annahme sollte nicht länger als 350 Zeichen sein</p>
       </div>
     </div>
 	<!-- Das Eingabefeld der Begründung ist versteckt, solange keine Begründung eingegeben wurde oder
@@ -58,7 +64,7 @@
       <ion-label stacked for="Annahme2">Annahme 2</ion-label>
       <ion-textarea type="text" placeholder="Hier Ihre zweite Annahme eingeben" 
 	    [(ngModel)]="annahme2" name="Annahme2" (change)="updateAnnahme('annahme2', annahme2, begruendung2)"
-	    required minlength="20" maxlength="100" #Annahme2="ngModel" fz-elastic>
+	    required minlength="50" maxlength="350" #Annahme2="ngModel" fz-elastic>
 	    </ion-textarea>
     </ion-item>
 	<div *ngIf="Annahme2.errors && (Annahme2.dirty || Annahme2.touched)"
@@ -67,10 +73,10 @@
         <p>Bitte geben Sie eine Annahme ein.</p>
       </div>	  
       <div [hidden]="!Annahme2.errors.minlength">
-        <p>Ihre Annahme sollte mindestens 20 Zeichen lang sein</p>
+        <p>Ihre Annahme sollte mindestens 50 Zeichen lang sein</p>
       </div>
       <div [hidden]="!Annahme2.errors.maxlength">
-        <p>Ihre Annahme sollte nicht länger als 100 Zeichen  sein</p>
+        <p>Ihre Annahme sollte nicht länger als 350 Zeichen  sein</p>
       </div>
     </div>
 	<ion-item [hidden]="!begruendung2 || !toggleVar">
@@ -85,16 +91,16 @@
       <ion-label stacked for="Annahme3">Annahme 3</ion-label>
       <ion-textarea type="text" placeholder="Optional hier Ihre dritte Annahme eingeben" 
 	    [(ngModel)]="annahme3" name="Annahme3" (change)="updateAnnahme('annahme3', annahme3, begruendung3)"
-	    minlength="20" maxlength="100" #Annahme3="ngModel" fz-elastic>
+	    minlength="50" maxlength="350" #Annahme3="ngModel" fz-elastic>
 	    </ion-textarea>
     </ion-item>
 	<div *ngIf="Annahme3.errors && (Annahme3.dirty || Annahme3.touched)"
     class="alert alert-danger">
       <div [hidden]="!Annahme3.errors.minlength">
-        <p>Ihre Annahme sollte mindestens 20 Zeichen lang sein</p>
+        <p>Ihre Annahme sollte mindestens 50 Zeichen lang sein</p>
       </div>
       <div [hidden]="!Annahme3.errors.maxlength">
-        <p>Ihre Annahme sollte nicht länger als 100 Zeichen  sein</p>
+        <p>Ihre Annahme sollte nicht länger als 350 Zeichen  sein</p>
       </div>
    </div>
    <ion-item [hidden]="!begruendung3 || !toggleVar">
@@ -108,16 +114,16 @@
     <ion-label stacked for="Annahme4">Annahme 4</ion-label>
       <ion-textarea type="text" placeholder="Optional hier Ihre vierte Annahme eingeben" 
 	    [(ngModel)]="annahme4" name="Annahme4" (change)="updateAnnahme('annahme4', annahme4, begruendung4)"
-	    minlength="20" maxlength="100" #Annahme4="ngModel" fz-elastic>
+	    minlength="50" maxlength="350" #Annahme4="ngModel" fz-elastic>
 	    </ion-textarea>
     </ion-item>
 	<div *ngIf="Annahme4.errors && (Annahme4.dirty || Annahme4.touched)"
     class="alert alert-danger">
       <div [hidden]="!Annahme4.errors.minlength">
-        <p>Ihre Annahme sollte mindestens 20 Zeichen lang sein</p>
+        <p>Ihre Annahme sollte mindestens 50 Zeichen lang sein</p>
       </div>
       <div [hidden]="!Annahme4.errors.maxlength">
-        <p>Ihre Annahme sollte nicht länger als 100 Zeichen  sein</p>
+        <p>Ihre Annahme sollte nicht länger als 350 Zeichen  sein</p>
       </div>
    </div>
    <ion-item [hidden]="!begruendung4 || !toggleVar">

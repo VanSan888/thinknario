@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, MenuController } from 'ionic-angular';
 import { SzenarioProvider } from '../../providers/szenario/szenario';
+import { DomSanitizer, SafeResourceUrl  } from '@angular/platform-browser';
 
 
 @IonicPage()
@@ -13,9 +14,20 @@ export class FallstudiePage {
   //Notwendig für Navigation
   meinSzenarioPage = 'MeinSzenarioPage'
 
+  //Url-Variablen für die Youtube-Videos
+  public safeURL1: SafeResourceUrl;
+
   constructor(public navCtrl: NavController,
               public menuCtrl: MenuController,
-              public szenarioProvider: SzenarioProvider,) {}
+              public szenarioProvider: SzenarioProvider,
+              private _sanitizer: DomSanitizer,) {
+
+      //Festlegen der Youtube-URLs
+      let videoURL1 = "https://www.youtube.com/embed/7Kr8xbh0E5Q";
+      //mit Hilfe der bypassSecurityTrustResourceUrl() Funktion wird die Sicherheit der
+      //Youtube-URLs sichergestellt und auf eine neue Variable geschrieben (3 mal sehr ähnlich)
+      this.safeURL1 = this._sanitizer.bypassSecurityTrustResourceUrl(videoURL1);
+  }
 
   //Lifecyyle event: Wenn Die Seite geladen wurde und die aktive Seite ist.
   ionViewDidEnter() {

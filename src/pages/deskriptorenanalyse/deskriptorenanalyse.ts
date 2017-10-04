@@ -71,8 +71,8 @@ public schluesselfaktor6: boolean = false;
 
 //Variablen zum hoch- und runterladen der Start- und Endzeitpunkte der Szenarien
 public timeScale: string;
-public startSzenario: string = "";
-public endSzenario:   string = "";
+public startSzenario: any = "";
+public endSzenario:   any = "";
 
 //Variablen, um den Kunden besser durch den Prozess zu leiten.
 //Werden benötigt, um DOM-Elemente ein- und auszublenden
@@ -189,9 +189,10 @@ constructor(public navCtrl: NavController,
     this.szenarioProvider.checkPath("deskriptorenanalyse").then((result: boolean) => {
       if(result === true) {	
         this.szenarioProvider.getSzenarioData().then( szenarioSnap => {
-          this.szenarioData = szenarioSnap;
+          this.szenarioData  = szenarioSnap;
+          this.timeScale     = this.szenarioData.deskriptorenanalyse.timeScale;
           this.startSzenario = this.szenarioData.deskriptorenanalyse.startSzenario;
-          this.endSzenario   = this.szenarioData.deskriptorenanalyse.endSzenario;		
+          this.endSzenario   = this.szenarioData.deskriptorenanalyse.endSzenario;	
 	    });
     
     //Deskriptoren werden angezeigt, wenn Daten im Pfad "deskriptorenanalyse" hinterlegt sind.
@@ -272,6 +273,7 @@ showStartEnd(){
   this.toggleHilfe = false;
 }
 
+
 //Anzeige der Deskriptoren
 showDeskriptoren() {
   let toast = this.toastCtrl.create({
@@ -287,11 +289,17 @@ showDeskriptoren() {
   this.hideDeskriptoren = true;
 }
 
+
+updateTimeScale(scala){
+  this.timeScale = scala;
+  this.szenarioProvider.updateTimeScale(this.timeScale);
+}
+
 //Aufruf der updateStartEnd() Funktion im SzenarioProvider
 updateStartEnd(startSzenario, endSzenario) {
   this.szenarioProvider.updateStartEnd(startSzenario, endSzenario);
   
-  //Wenn die Start- und Endzeitpunkte veränder werden, müssen auch die x-Achsen
+  //Wenn die Start- und Endzeitpunkte verändert werden, müssen auch die x-Achsen
   //der Canvas neu bezeichnet werden. Deswegen wird hier die drawCoordinates Funktion
   //für jedes der Canvas aufgerufen. Es werden die Daten für x- und y-Achse übergeben
   this.drawCoordinates(this.cx1, "Gefühltes Gewicht");
