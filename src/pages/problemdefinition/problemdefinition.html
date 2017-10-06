@@ -28,7 +28,7 @@
       fz-elastic lässt die teaxtareas je nach deren Inhalt mitwachsen.-->
       <ion-textarea type="text" placeholder="Hier Ihre Problemdefinition eingeben"
 	    [(ngModel)]="problemdefinition" (change)="updateProblemdefinition(problemdefinition)"
-	    name="Problemdefinition" required minlength="20" maxlength="160" #Problemdefinition="ngModel" fz-elastic>
+	    name="Problemdefinition" required minlength="50" maxlength="200" #Problemdefinition="ngModel" fz-elastic>
 	    </ion-textarea>
     </ion-item>
     <!-- <div> zur Kontrolle der Form.
@@ -41,11 +41,11 @@
       </div>
 	    <!-- Fehlernachricht, wenn die Eingabe zu kurz ist -->
       <div [hidden]="!Problemdefinition.errors.minlength">
-        <p>Ihre Problemdefinition sollte mindestens 20 Zeichen lang sein</p>
+        <p>Ihre Problemdefinition sollte mindestens 50 Zeichen lang sein</p>
       </div>
 	    <!-- Fehlernachricht, wenn die Eingabe zu lang ist -->
       <div [hidden]="!Problemdefinition.errors.maxlength">
-        <p>Ihre Problemdefinition sollte nicht länger als 160 Zeichen sein</p>
+        <p>Ihre Problemdefinition sollte nicht länger als 200 Zeichen sein</p>
       </div>
     </div>  
   </form>	

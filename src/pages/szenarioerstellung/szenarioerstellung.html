@@ -270,9 +270,8 @@ wiedergegeben. Sind sind hier weiterhin bearbeitbar. Danach findet die tatsächl
 
 <!-- Ab hier findet die tatsächliche Szenrioerstellung statt. -->
 <div>
-<h4 padding float-left>Ihr Szenario</h4>
+  <h4 padding float-left>Ihr Szenario</h4>
 </div>
-
 
 <!-- Wenn der User sein Szenario mit Hilfe erstellen will, werden ihm drei Textareas angezeigt (hilfeVar=true), 
 je eine für die Ausgangslage, für die Entwicklung und für den Endzustand seines Szenarios.
@@ -282,10 +281,10 @@ Es wird eine Form zur Kontrolle der Eingaben benutzt.-->
     <!-- Two-way data binding mittels ngModel und Aufruf der updateSzenariotext() Funktion, sobald eine Veränderung
     vorgenommen wird (change). Es wird eine Eingabe benötigt (required) und sie muss mindestens XX Zeichen lang sein-->
     <ion-label stacked>Ausgangslage</ion-label>
-	<ion-textarea type="text" placeholder="Beschreiben Sie hier Ihre Ausgangslage"
+	  <ion-textarea type="text" placeholder="Beschreiben Sie hier Ihre Ausgangslage"
     [(ngModel)]="ausgangslageText" name="AusgangslageText"
 	  (change)="updateSzenariotext(ausgangslageText, entwicklungText, endzustandText)"
-	  required minlength="15" #AusgangslageText="ngModel" fz-elastic>
+	  required minlength="300" #AusgangslageText="ngModel" fz-elastic>
     </ion-textarea>
   </ion-item> 
   <!-- Wenn die Mindestlänge der Eingabe nicht erreicht ist, wird eine Fehlermeldung ausgegeben. -->  
@@ -295,68 +294,64 @@ Es wird eine Form zur Kontrolle der Eingaben benutzt.-->
         <p>Die Beschreibung Ihrer Ausgangslage sollte mindestens 300 Zeichen lang sein</p>
       </div>
     </div>
-   <!-- Dieses div wird nur angezeigt, wenn toggleAusgangslage=true ist. ToggleAusgangslage kann durch
-   das ion-toggle nach diesem div zwischen true und false hin- und hergeschaltet werden.   -->
-   <div [hidden]="!toggleAusgangslage">
-     <div>
-       <ion-item float-left>
-	     <!-- Hier wird ein variabler Text für das Dialogfeld angezeigt. Siehe 
-		 SzenarioErstellungPage.ausgangslageDialog()-->
-         <h5>{{ausgangslageDialogText}}</h5>
-       </ion-item>   
-     </div>
-     <div>
-        <ion-item>
-	        <!-- Der nachfolgende Button wird erst angezeigt, wenn der Ausgangslagedialog schon bei der 
-          zweiten Frage angekommen ist. Wird er geklickt, so wird die countBackward() Funktion aufgerufen.
-		      An diese Funktion wird ein Argument übergeben, sodass die Funktion nur den ausgangslageCounter runter zählt-->
-          <button ion-button [hidden]="ausgangslageCounter<2" (click)='countBackward("ausgangslage")'>Zurück</button>
-	        <!-- Der nachfolgende Button wird nicht mehr angezeigt, wenn der Ausgangslagedialog bei der 
-          letzten Frage angekommen ist. Wird er geklickt, so wird die countForward() Funktion aufgerufen.
-		      An diese Funktion wird ein Argument übergeben, sodass die Funktion nur den ausgangslageCounter hoch zählt-->		 
-          <button ion-button float-right [hidden]="ausgangslageCounter>3"
-	        (click)='countForward("ausgangslage")'>Weiter</button>
-	   </ion-item>
-     </div>
-   </div>
-   <div>
-     <!-- Mit diesem ion-toggle wird über ein two-way data binding toggleAusgangslage zwischen true und
-     false hin- und hergeschaltet. Damit wird das Dialogfenster ein- und ausgeblendet. (Siehe vorangegangenes div)-->
-     <p float-left padding-left class="toggle-text">Dialogfenster ein- und ausblenden: </p>
-	 <ion-toggle [(ngModel)]="toggleAusgangslage" name="ToggleAusgangslage" float-left></ion-toggle>
-   </div>
+  <!-- Dieses div wird nur angezeigt, wenn toggleAusgangslage=true ist. ToggleAusgangslage kann durch
+  das ion-toggle nach diesem div zwischen true und false hin- und hergeschaltet werden.   -->
+  <div [hidden]="!toggleAusgangslage">
+    <div>
+	    <!-- Hier wird ein variabler Text für das Dialogfeld angezeigt. Siehe 
+		  SzenarioErstellungPage.ausgangslageDialog()-->
+      <h6 padding-left>{{ausgangslageDialogText}}</h6>
+    </div>
+    <div>
+      <ion-item>
+	      <!-- Der nachfolgende Button wird erst angezeigt, wenn der Ausgangslagedialog schon bei der 
+        zweiten Frage angekommen ist. Wird er geklickt, so wird die countBackward() Funktion aufgerufen.
+		    An diese Funktion wird ein Argument übergeben, sodass die Funktion nur den ausgangslageCounter runter zählt-->
+        <button ion-button [hidden]="ausgangslageCounter<2" (click)='countBackward("ausgangslage")'>Zurück</button>
+	      <!-- Der nachfolgende Button wird nicht mehr angezeigt, wenn der Ausgangslagedialog bei der 
+        letzten Frage angekommen ist. Wird er geklickt, so wird die countForward() Funktion aufgerufen.
+		    An diese Funktion wird ein Argument übergeben, sodass die Funktion nur den ausgangslageCounter hoch zählt-->		 
+        <button ion-button float-right [hidden]="ausgangslageCounter>4"
+	      (click)='countForward("ausgangslage")'>Weiter</button>
+	    </ion-item>
+    </div>
+  </div>
+  <div>
+    <!-- Mit diesem ion-toggle wird über ein two-way data binding toggleAusgangslage zwischen true und
+    false hin- und hergeschaltet. Damit wird das Dialogfenster ein- und ausgeblendet. (Siehe vorangegangenes div)-->
+    <p float-left padding-left class="toggle-text">Dialogfenster ein- und ausblenden: </p>
+	  <ion-toggle [(ngModel)]="toggleAusgangslage" name="ToggleAusgangslage" float-left></ion-toggle>
+  </div>
   <!-- Das folgende div wird erst angezeigt, wenn der entwicklungCounter größer als 1 ist.
   Dies ist der Fall, wenn die entwicklungsHilfe() Funktion aufgerufen wird.  -->
   <div [hidden]='entwicklungCounter<1'>
-   <ion-item  padding-vertical>  
-    <ion-label stacked> Entwicklung </ion-label>
-	  <!-- Der Rest des Endzustandes ist sehr ähnlich zum Code der Ausgangslage. Siehe Erklärung dort. -->
-	  <ion-textarea type="text" placeholder="Beschreiben Sie hier die Entwicklung Ihres Szenarios"
-    [(ngModel)]="entwicklungText" name="EntwicklungText"
-	  (change)="updateSzenariotext(ausgangslageText, entwicklungText, endzustandText)"
-	  required minlength="15" #EntwicklungText="ngModel" fz-elastic>
-    </ion-textarea>
-  </ion-item>
- 	<div *ngIf="EntwicklungText.errors && (EntwicklungText.dirty || EntwicklungText.touched)"
+    <ion-item  padding-vertical>  
+      <ion-label stacked> Entwicklung </ion-label>
+	    <!-- Der Rest des Endzustandes ist sehr ähnlich zum Code der Ausgangslage. Siehe Erklärung dort. -->
+	    <ion-textarea type="text" placeholder="Beschreiben Sie hier die Entwicklung Ihres Szenarios"
+      [(ngModel)]="entwicklungText" name="EntwicklungText"
+	    (change)="updateSzenariotext(ausgangslageText, entwicklungText, endzustandText)"
+	    required minlength="500" #EntwicklungText="ngModel" fz-elastic>
+      </ion-textarea>
+    </ion-item>
+ 	  <div *ngIf="EntwicklungText.errors && (EntwicklungText.dirty || EntwicklungText.touched)"
     class="alert alert-danger">
       <div [hidden]="!EntwicklungText.errors.minlength">
-        <p>Die Beschreibung Ihrer Entwicklung sollte mindestens 300 Zeichen lang sein</p>
+        <p>Die Beschreibung Ihrer Entwicklung sollte mindestens 500 Zeichen lang sein</p>
       </div>
     </div>
-	<div [hidden]="!toggleEntwicklung">
-	  <div>
-        <ion-item float-left >
-          <h5>{{entwicklungDialogText}}</h5>
-        </ion-item>   
+	  <div [hidden]="!toggleEntwicklung">
+	    <div>
+        <h6 padding-left>{{entwicklungDialogText}}</h6>
       </div>
       <div>
-	    <ion-item>
+	      <ion-item>
           <button ion-button [hidden]="entwicklungCounter<2" (click)='countBackward("entwicklung")'>Zurück</button>
-          <button ion-button float-right  [hidden]="entwicklungCounter>3"
-		  (click)='countForward("entwicklung")'>Weiter</button>
-	    </ion-item>
+          <button ion-button float-right  [hidden]="entwicklungCounter>5"
+		      (click)='countForward("entwicklung")'>Weiter</button>
+	      </ion-item>
       </div>
-	</div>
+	  </div>
     <div>
       <p float-left padding-left class="toggle-text">Dialogfenster ein- und ausblenden: </p>
 	  <ion-toggle [(ngModel)]="toggleEntwicklung" name="ToggleEntwicklung" float-left></ion-toggle>
@@ -365,38 +360,36 @@ Es wird eine Form zur Kontrolle der Eingaben benutzt.-->
   <!-- Das folgende div wird erst angezeigt, wenn der endzustandCounter größer als 1 ist.
   Dies ist der Fall, wenn die endzustandHilfe() Funktion aufgerufen wird.  -->
   <div [hidden]='endzustandCounter<1'> 
-   <ion-item padding-vertical>  
-    <ion-label stacked> Endzustand </ion-label>
-	  <!-- Der Rest des Endzustandes ist sehr ähnlich zum Code der Ausgangslage. Siehe Erklärung dort. -->
-	  <ion-textarea type="text" placeholder="Beschreiben Sie hier die Entwicklung Ihres Szenarios"
-    [(ngModel)]="endzustandText" name="EndzustandText"
-	  (change)="updateSzenariotext(ausgangslageText, entwicklungText, endzustandText)"
-	  required minlength="15" #EndzustandText="ngModel"  fz-elastic>
-    </ion-textarea>
-  </ion-item>
- 	<div *ngIf="EndzustandText.errors && (EndzustandText.dirty || EndzustandText.touched)"
+    <ion-item padding-vertical>  
+      <ion-label stacked> Endzustand </ion-label>
+	    <!-- Der Rest des Endzustandes ist sehr ähnlich zum Code der Ausgangslage. Siehe Erklärung dort. -->
+	    <ion-textarea type="text" placeholder="Beschreiben Sie hier die Entwicklung Ihres Szenarios"
+      [(ngModel)]="endzustandText" name="EndzustandText"
+	    (change)="updateSzenariotext(ausgangslageText, entwicklungText, endzustandText)"
+	    required minlength="300" #EndzustandText="ngModel"  fz-elastic>
+      </ion-textarea>
+    </ion-item>
+ 	  <div *ngIf="EndzustandText.errors && (EndzustandText.dirty || EndzustandText.touched)"
     class="alert alert-danger">
       <div [hidden]="!EndzustandText.errors.minlength">
         <p>Die Beschreibung Ihres Endzustandes sollte mindestens 300 Zeichen lang sein</p>
       </div>
     </div>
-	<div [hidden]="!toggleEndzustand">
-	  <div>
-        <ion-item float-left>
-          <h5>{{endzustandDialogText}}</h5>
-        </ion-item>   
+	  <div [hidden]="!toggleEndzustand">
+	    <div>
+        <h6 padding>{{endzustandDialogText}}</h6>
       </div>
       <div>
-	    <ion-item>
+	      <ion-item>
           <button ion-button [hidden]="endzustandCounter<2" (click)='countBackward("endzustand")'>Zurück</button>
-          <button ion-button float-right [hidden]="endzustandCounter>3"
-		  (click)='countForward("endzustand")'>Weiter</button>
-	    </ion-item>
+          <button ion-button float-right [hidden]="endzustandCounter>4"
+		      (click)='countForward("endzustand")'>Weiter</button>
+	      </ion-item>
       </div>
-	</div>
+	  </div>
     <div>
       <p float-left padding-left class="toggle-text">Dialogfenster ein- und ausblenden: </p>
-	  <ion-toggle [(ngModel)]="toggleEndzustand" name="ToggleEndzustand"  float-left></ion-toggle>
+	    <ion-toggle [(ngModel)]="toggleEndzustand" name="ToggleEndzustand"  float-left></ion-toggle>
     </div>
   </div>
 </form>

@@ -673,9 +673,8 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
   //In der startHilfe Funktion wird ein Toast in der Mitte der Seite (middle) aufgerufen,
   //der den groben folgenden Ablauf der Szenarioerstellung erklärt.
   startHilfe() {
-
 	  let toast = this.toastCtrl.create({
-        message: 'Zuerst geht es um die Zeit vor Ihrer Aktivität. \n Stellen Sie sich vor, dass das Datum Ihrer Aktivität fest steht und Sie mit Ihren Vorbereitungen beginnen. \n Das Dialogfeld unter dem Eingabefeld begleitet Sie mit Fragen, die Sie beantworten sollen. Sie können auch jederzeit Ideen aufschreiben, die darüber hinaus gehen!',
+        message: 'Zuerst geht es um die Zeit vor Ihrer Aktivität. \n Stellen Sie sich vor, dass das Datum Ihrer Aktivität feststeht und Sie mit Ihren Vorbereitungen beginnen. \n Das Dialogfeld unter dem Eingabefeld begleitet Sie mit Fragen, die Sie beantworten sollen. Sie können auch jederzeit Ideen aufschreiben, die darüber hinaus gehen!',
         position: 'middle',
 	      showCloseButton: true,
 	      closeButtonText: 'Weiter',
@@ -711,9 +710,11 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
 	  } else if (counter == 2) {
         this.ausgangslageDialogText = 'Schauen Sie sich Ihre Packliste genau an. Gibt es Funktionalitäten, die Sie für das Packen benötigen? Wenn ja, bitte beschreiben Sie kurz, wie Sie diese verwenden würden. (Falls Sie diese Funktionalitäten bisher noch nicht als Information gespeichert haben, können Sie dies auch auf dieser Seite noch tun.)'
 	  } else if (counter == 3) {
-        this.ausgangslageDialogText = 'Wie viel Zeit wird zwischen dem Packen und der Abreise zur Aktivität vergehen?'	
-	  } else {
         this.ausgangslageDialogText = 'Wie viel Zeit wird zwischen dem Packen und der Abreise zur Aktivität vergehen?'
+    } else if (counter == 4) {
+        this.ausgangslageDialogText = 'Was ist Ihnen vor der Aktivität in Bezug auf den Rucksack noch wichtig?'        
+	  } else {
+        this.ausgangslageDialogText = 'Fertig! Ihr Text sollte sich nun lesen lassen wie eine kurze Geschichte.'
         //Wenn alle Fragen vom User bearbeitet worden sind, wird die entwicklungsHilfe() Funktion aufgerufen.	
 		    this.entwicklungHilfe();
 	  }
@@ -722,16 +723,16 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
   //In der entwicklungHilfe() Funktion wird ein Toast in der Mitte der Seite (middle) aufgerufen,
   //der dem User den weiteren Ablauf erklärt (siehe Message).
   entwicklungHilfe() {
-	//Der Toast wird nur dann aufgerufen, wenn der Ausgangslagetext noch aus den Dummidaten aus 
+	  //Der Toast wird nur dann aufgerufen, wenn der Ausgangslagetext noch aus den Dummidaten aus 
     //ionViewDidEnter besteht. So wird verhindert, dass der User, der sein Szenario nur noch einmal 
-	//nachträglich verändern will, immer wieder den Toast wegklicken muss.
+	  //nachträglich verändern will, immer wieder den Toast wegklicken muss.
     if (this.entwicklungText == "") {
-	  let toast = this.toastCtrl.create({
-        message: 'Ihr Beschreibung für die erste Phase ist beendet! Sie können jedoch trotzdem jederzeit Verfeinerungen vornehmen.\n Sie können bei Bedarf ebenfalls das Dialogfeld wieder einblenden. \n Im nächsten Schritt geht es darum Ihre Geschichte während der Aktivität zu beschreiben! \n Das Dialogfeld wird Ihnen auch hier behilflich sein.',
+	    let toast = this.toastCtrl.create({
+        message: 'Die Beschreibung der ersten Phase ist beendet! Sie können jedoch trotzdem jederzeit Verfeinerungen vornehmen.\n Sie können bei Bedarf ebenfalls das Dialogfeld wieder einblenden. \n Im nächsten Schritt geht es darum Ihre Geschichte während der Aktivität zu beschreiben! \n Das Dialogfeld wird Ihnen auch hier behilflich sein.',
         position: 'middle',
 	    showCloseButton: true,
 	    closeButtonText: 'Weiter',
-	  });
+	    });
       //Wenn der User auf weiter klickt ...
       toast.onDidDismiss(() => {
         //Dann wird der entwicklungCounter auf 1 gesetzt (UI Veränderungen in szenarioerstellung.html). 
@@ -746,7 +747,7 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
         this.toggleEntwicklung = true;
       });
     toast.present();  
-	}
+	  }
 
   }
   
@@ -755,14 +756,18 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
 	if (counter == 0) {
 		
     } else if (counter == 1) {
-	  this.entwicklungDialogText = "Betrachten Sie zu Beginn Ihre Randbedingungen: Wie ist der Rucksack an die jeweilige Randbedingung angepasst?"
+	  this.entwicklungDialogText   = "Welche Anpassungsmöglichkeiten an Ihren eignen Körper muss der Rucksack Ihrer Vorstellungnach haben, um während der Aktivität möglichst komfortabel zu sitzen?"
 	} else if (counter == 2) {
-        this.entwicklungDialogText = 'Werfen Sie nun einen Blick auf Ihre Schlüsselfatoren und deren Entwicklung. Wenn Sie gedanklich von Anfang bis Ende durch die Aktivität gehen: In welchen Situationen greifen sie auf Ihren Rucksack zu? Beschreiben Sie diese kurz.'
+      this.entwicklungDialogText = 'Betrachten Sie nun Ihre Randbedingungen: Wie ist der Rucksack an die jeweilige Randbedingung angepasst?'
 	} else if (counter == 3) {
-        this.entwicklungDialogText = 'Frage 3'	
+      this.entwicklungDialogText = 'Werfen Sie nun einen Blick auf Ihre Schlüsselfatoren und deren Entwicklung. Wenn Sie mit Hilfe der Graphen gedanklich von Anfang bis Ende durch die Aktivität gehen: In welchen Situationen greifen sie auf Ihren Rucksack zu? Beschreiben Sie diese kurz.'
+  } else if (counter == 4) {
+      this.entwicklungDialogText = 'Welche Funktionalitäten sind für die jeweiligen Situationen besonders wichtig? (Versuchen Sie den Umgang mit diesen Funktionalitäten möglichst genau zu beschreiben.)'  
+  } else if (counter == 5) {
+      this.entwicklungDialogText = 'Wenn Sie an Ihre überraschenden Ereignisse denken: Wie müsste der Rucksack gestaltet sein, damit er die diese Ereignisse nach Ihren Vorstellungen meistert?' 
 	} else {
-        this.entwicklungDialogText = 'Frage 3'
-		    this.endzustandHilfe();
+      this.entwicklungDialogText = 'Die Beschreibung der zweiten Phase ist fertig. Auch hier sollte sich der text lesen lassen wie eine kurze Geschichte.'
+		  this.endzustandHilfe();
 	}
   }
 
@@ -770,14 +775,13 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
   endzustandHilfe() {
     if(this.endzustandText == "") {
 	  let toast = this.toastCtrl.create({
-        message: 'Text nach Entwicklung und für Endzustand \n Das Dialogfeld wird Ihnen auch hier helfen',
+        message: "Sie haben Ihre Aktivität beendet (" + this.endSzenario +") und sind nun wieder zuhause angekommen. Nun geht es darum, was nach der Aktivität mit dem Rucksack geschieht.",
         position: 'middle',
 	    showCloseButton: true,
 	    closeButtonText: 'Weiter',
 	  });
 
       toast.onDidDismiss(() => {
-        this.endzustandText= "Endzeitpunkt:" + this.endSzenario;
 		    this.endzustandCounter = 1;
         this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);		
 		    this.endzustandDialog(this.endzustandCounter);
@@ -791,13 +795,15 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
   //Siehe Erklärung zu ausgangslageDialog  
   endzustandDialog (counter) {
 	  if (counter == 1) {
-	    this.endzustandDialogText = "Sie sind am Ende Ihres Szenarios angekommen (" + this.endSzenario +") ..."
+	    this.endzustandDialogText   = "Wann räumen Sie den Rucksack aus?"
 	  } else if (counter == 2) {
-        this.endzustandDialogText = 'Frage 2'
+        this.endzustandDialogText = 'Wann und wie intensiv reinigen Sie den Rucksack?'
 	  } else if (counter == 3) {
-        this.endzustandDialogText = 'Frage 3'	
+        this.endzustandDialogText = 'Welche Eigenschaften und Funktionen würden Ihnen bei der Reinigung helfen?'
+    } else if (counter == 4) {
+        this.endzustandDialogText = 'Unter welchen Bedingungen lagern Sie den Rucksack ein?'
 	  } else {
-        this.endzustandDialogText = 'Frage 3'
+        this.endzustandDialogText = 'Sie haben Ihr Szenario beendet. Sie können nun selbstständig Feinheiten hinzufügen oder ändern.'
 		    this.szenarioFertig();
 	  }
   }
@@ -805,16 +811,16 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
   szenarioFertig(){
     if(this.endzustandText !== ""){
   	  let toast = this.toastCtrl.create({
-        message: 'Herzlichen Glückwunsch: Sie haben ihr Szenario erstellt! \n Wenn Sie wollen, können Sie nun selbstständig weitre Verfeinerungen und Ergänzungen vornehmen.',
+        message: 'Herzlichen Glückwunsch: Sie haben ihr Szenario erstellt! \n Nun können Sie selbstständig weitere Verfeinerungen und Ergänzungen nach Ihren eigenen Vorstellungen vornehmen!',
         position: 'middle',
 	      showCloseButton: true,
 	      closeButtonText: 'Weiter',
 	    });
 
         toast.onDidDismiss(() => {
-          //Damit der szenarioFertig Toast nciht immer wieder aufpoppt, wenn man sein Szenario betrachtet,
-          //wird der endzustandsCounter auf 3 gesetzt.
-          this.endzustandCounter = 3;
+          //Damit der szenarioFertig Toast nicht immer wieder aufpoppt, wenn man sein Szenario betrachtet,
+          //wird der endzustandsCounter auf 4 gesetzt.
+          this.endzustandCounter = 4;
           //Der endzustandDialog() soll ebenfalls aktualisiert werden.
           this.endzustandDialog(this.endzustandCounter);
           //Speichern des neuen Counterwertes in firsebase
@@ -828,9 +834,9 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
   
   //Funktion, um abhängig vom übergebenen Argument den entsprechenden Counter hochzuzählen.
   countForward(identifier) {
-  //Wenn der 'identifier' der 'ausgangslage' entspricht und kleiner als 4 ist (es gibt nur
-  //drei beispielhafte Fragen), dann ...
-	if(identifier == "ausgangslage" && this.ausgangslageCounter < 4) {
+  //Wenn der 'identifier' der 'ausgangslage' entspricht und kleiner als 5 ist (es gibt nur
+  //vier beispielhafte Fragen), dann ...
+	if(identifier == "ausgangslage" && this.ausgangslageCounter < 5) {
 	  //zähle den 'ausgangslageCounter' um eine Zahl nach oben ...
     this.ausgangslageCounter = this.ausgangslageCounter + 1;
 	  //... und übergebe diesen neuen Wert an die ausgangslageDialog()-Methode.
@@ -841,11 +847,11 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
       this.entwicklungCounter,
       this.endzustandCounter);
 	  //Der Rest der Funktion funktionert in gleicher Art und Weise nur für die anderen Counter.
-	} else if (identifier == "entwicklung" && this.entwicklungCounter < 4) {
+	} else if (identifier == "entwicklung" && this.entwicklungCounter < 6) {
 		this.entwicklungCounter = this.entwicklungCounter + 1;
 		this.entwicklungDialog(this.entwicklungCounter);
 		this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);
-    } else if (identifier == "endzustand"  && this.endzustandCounter < 4) {
+    } else if (identifier == "endzustand"  && this.endzustandCounter < 5) {
 		this.endzustandCounter = this.endzustandCounter + 1;
 		this.endzustandDialog(this.endzustandCounter);
         this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);		
@@ -866,26 +872,26 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
 	//Hier soll der Counter um 2 reduziert werden, wenn der Counter gleich 4 ist.
 	//Hintergrund ist, dass man sonst zwei mal auf zurück klicken müsste, wenn der Counter
 	//auf 4 steht, um die Frage 2 zu sehen.
-	} else if (this.ausgangslageCounter == 4 && identifier == "ausgangslage") {
+	} else if (this.ausgangslageCounter == 5 && identifier == "ausgangslage") {
 	    this.ausgangslageCounter = this.ausgangslageCounter -2;
-		this.entwicklungDialog(this.ausgangslageCounter);
-        this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);
-    //Der Rest der Funktion funktionert in gleicher Art und Weise nur für die anderen Counter.		
-	}else if (identifier == "entwicklung") {
-		this.entwicklungCounter = this.entwicklungCounter - 1;
-		this.entwicklungDialog(this.entwicklungCounter);
-		this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);
-    } else if (identifier == "entwicklung" && this.entwicklungCounter == 4) {
+		  this.entwicklungDialog(this.ausgangslageCounter);
+      this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);
+      //Der Rest der Funktion funktionert in gleicher Art und Weise nur für die anderen Counter.		
+	} else if (identifier == "entwicklung") {
+		  this.entwicklungCounter = this.entwicklungCounter - 1;
+		  this.entwicklungDialog(this.entwicklungCounter);
+	  	this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);
+  } else if (identifier == "entwicklung" && this.entwicklungCounter == 6) {
 	    this.entwicklungCounter = this.entwicklungCounter -2;
-		this.entwicklungDialog(this.entwicklungCounter);
+		  this.entwicklungDialog(this.entwicklungCounter);
 	    this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);
 	} else if (identifier == "endzustand") {
-		this.endzustandCounter = this.endzustandCounter - 1;
-		this.endzustandDialog(this.endzustandCounter);
-        this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);		
-	} else if (identifier == "endzustand" && this.endzustandCounter == 4) {
+		  this.endzustandCounter = this.endzustandCounter - 1;
+		  this.endzustandDialog(this.endzustandCounter);
+      this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);		
+	} else if (identifier == "endzustand" && this.endzustandCounter == 5) {
 	    this.endzustandCounter = this.endzustandCounter -2;
-		this.endzustandDialog(this.endzustandCounter);
+		  this.endzustandDialog(this.endzustandCounter);
 	    this.szenarioProvider.updateCounter(this.ausgangslageCounter, this.entwicklungCounter, this.endzustandCounter);
     }
   }

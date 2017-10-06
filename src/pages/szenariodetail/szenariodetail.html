@@ -185,29 +185,30 @@
     </ion-slides>
 </div>
 
-<h4 padding> Szenario von {{currentSzenario?.username}}</h4>
-
+<div padding-top>
+ <h4 padding-top> Szenario von {{currentSzenario?.username}}</h4>
+</div>
 <ion-list>
 
   <div>
     <ion-list-header no-lines>
       Ausgangslage:
     </ion-list-header>    
-    <ion-item padding-left>
+    <p padding-left>
       {{currentSzenario?.ausgangslage}}
-    </ion-item>
+    </p>
     <ion-list-header no-lines>
       Entwicklung:
     </ion-list-header>    
-    <ion-item padding-leftm>
+    <p padding-left>
       {{currentSzenario?.entwicklung}}
-    </ion-item>
+    </p>
     <ion-list-header no-lines>
       Endzustand:
     </ion-list-header>    
-    <ion-item padding-left>
+    <p padding-left>
       {{currentSzenario?.endzustand}}
-    </ion-item>
+    </p>
   </div>
 </ion-list>
 

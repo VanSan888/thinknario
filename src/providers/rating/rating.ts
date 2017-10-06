@@ -45,18 +45,24 @@ public erhalteneBewertungenList: Array<any>;
 
   //Promise um Asynchronität zu gewährleisten
   checkPathforComments(szenarioID: string):  Promise<boolean> {
-	return new Promise<boolean>((resolve, reject) => {
-	  //Zu prüfender Pfad inklusive der Varibalen aus den einzelnen Seiten
-	  firebase.database().ref('/ratingData')
-	  .child(firebase.auth().currentUser.uid).child('erstellteBewertungen')
-    .child(szenarioID)
-	  //.on() inklusive Arrow Funktion und Snapshot("data"), um die Daten auszulesen
-	  .on('value', data => {
-		//.exists() gibt "true" mittels resolve() an das Promise
-		//zurück, wenn Werte in dem angegebenen Pfad existieren
-	    resolve(data.exists());
-	  });
-	});  
+	  return new Promise<boolean>((resolve, reject) => {
+      //Es wird ein Observer auf das Auth object gesetzt
+      firebase.auth().onAuthStateChanged((user) => {
+        //Wenn ein user angemeldet ist, dann
+        if(user){
+	        //Zu prüfender Pfad inklusive der Varibalen aus den einzelnen Seiten
+	        firebase.database().ref('/ratingData')
+	        .child(firebase.auth().currentUser.uid).child('erstellteBewertungen')
+          .child(szenarioID)
+	        //.on() inklusive Arrow Funktion und Snapshot("data"), um die Daten auszulesen
+	        .on('value', data => {
+		      //.exists() gibt "true" mittels resolve() an das Promise
+		      //zurück, wenn Werte in dem angegebenen Pfad existieren
+	          resolve(data.exists());
+          });
+       }
+      });
+    });
   }
   
   //Sehr ähnlich zu ProfileProvider. Siehe Erklärung dort
