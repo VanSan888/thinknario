@@ -13,12 +13,17 @@
 <!-- name der Form für die Validierung -->
 <form #ratingForm="ngForm">
   <h4 padding-left>Beschreibung</h4>
-  <p padding-left padding-bottom>Hier eine kurze Beschreibung</p>
+  <p padding-left padding-bottom>
+    Bitte geben Sie eine Bewertung für {{currentSzenario?.username}} ab, indem sie alle Kriterien mit
+    Hilfe der Schieberegler zwischen 1 und 100 einschätzen.
+    <br>
+    Versuchen Sie möglichst objektiv und fair zu sein, damit auch wirklich die besten Szenarien ein Incentive bekommen.
+  </p>
   <h6 padding-left padding-bottom>Bitte geben Sie ihre Einschätzung für die folgenden Kriterien an:</h6>
   <ion-list padding-left>
     <h5>Entwicklung</h5>
 	<!-- Hier werden die einzelnen Ratingkriterien jeweils als ioin-range
-    abgefragt und eingegeben. Bei Veränderung der Werte wird durch (mouseup)
+  abgefragt und eingegeben. Bei Veränderung der Werte wird durch (mouseup)
 	die jeweilige Update() Funktion in ratingdetail.ts aufgerufen. (mouseup) wird hier verwendet,
   da nur ein Event ausgelöst wird, wenn die Maus losgelassen wird. Das sonst verwendete (ionChange),
   feuert bei jeder Veränderung des Ratings ein Event, was dazu führt, dass allein fünf Alerts

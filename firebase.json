@@ -9,15 +9,19 @@
       "**/.*",
       "**/node_modules/**"
     ],
-  "rewrites": [{
-    "source": "**",
-    "destination": "/index.html"
-  }],
-  "redirects": [ {
-	  "source" : "https://thinknario.firebaseapp.com",
-	  "destination" : "/index.html",
-	  "type" : 301
-  }],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+    "redirects": [
+      {
+        "source": "https://thinknario.firebaseapp.com",
+        "destination": "/index.html",
+        "type": 301
+      }
+    ],
     "headers": [
       {
         "source": "*",
