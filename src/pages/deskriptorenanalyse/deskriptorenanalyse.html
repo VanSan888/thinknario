@@ -20,7 +20,7 @@
 
 <!-- slides zur Darstellung der Hilfen, wie man die canvas benutzt.
 toggleHilfe blendet die Hilfen ein und aus (siehe ion-toggle).-->
-<ion-slides [hidden]="!toggleHilfe">
+<ion-slides [hidden]="!toggleHilfe" padding>
   <ion-slide>
     <p> Für weitere Erkärungen einfach die Videos hin- und herschieben. </p>
     <p> Zeichnen </p>
@@ -142,8 +142,10 @@ toggleHilfe blendet die Hilfen ein und aus (siehe ion-toggle).-->
 
 
   <ion-list>
-    <h6>An dieser Stelle gilt es, alle Schlüsselfaktoren zu sortieren.
-        Faktoren, die Ihnen am wichtigsten sind, sollen oben erscheinen.
+    <h6>
+      An dieser Stelle gilt es, alle Schlüsselfaktoren zu sortieren. Klicken sie dazu auf die 
+      Schaltflächen rechts von den Begriffen und ziehen Sie sie an die gewünschte Stelle.
+      Faktoren, die Ihnen am wichtigsten sind, sollen oben erscheinen.
     </h6>
       <ion-item-group reorder="true" (ionItemReorder)="reorderItems($event)">
         <div *ngFor="let factor of factors">

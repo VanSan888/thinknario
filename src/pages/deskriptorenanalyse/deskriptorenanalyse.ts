@@ -2,7 +2,7 @@
 import { Component, Input, ElementRef, ViewChild } from '@angular/core';
 import { NavController, IonicPage, AlertController,
          ToastController, Loading,  LoadingController, reorderArray } from 'ionic-angular';
-//Das Obervable und die anderen rxjs Komponenten werden für das Zeichnen auf dem Canvas benötigt.
+//Das Observable und die anderen rxjs Komponenten werden für das Zeichnen auf dem Canvas benötigt.
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/takeUntil';
@@ -83,12 +83,12 @@ public hideStartEnd: boolean = true;
 factors: Array<{show: boolean, name: string}>;
 
 
-constructor(public navCtrl: NavController,
-            public alertCtrl: AlertController,
-            public szenarioProvider: SzenarioProvider,
-            private _sanitizer: DomSanitizer,
-            public loadingCtrl: LoadingController,
-            public toastCtrl: ToastController,){
+constructor(public navCtrl          : NavController,
+            public alertCtrl        : AlertController,
+            public szenarioProvider : SzenarioProvider,
+            private _sanitizer      : DomSanitizer,
+            public loadingCtrl      : LoadingController,
+            public toastCtrl        : ToastController){
     //Festlegen der Youtube-URLs
     let videoURL1 = "https://www.youtube.com/embed/ilVnDcQUra0";
     //mit Hilfe der bypassSecurityTrustResourceUrl() Funktion wird die Sicherheit der
@@ -506,15 +506,14 @@ private captureEvents(canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D
     this.loading = this.loadingCtrl.create({
     content: 'Bitte warten...'
     });
-
     this.loading.present();
     //Festlegen der Kontexte
     let canvas1 = this.canvas1.nativeElement;
 	  let canvas2 = this.canvas2.nativeElement;
 	  let canvas3 = this.canvas3.nativeElement;
     
-    //Sechs mal Funktion, um canvas in blob umzuwandeln.
-    //Nur so kann Firebase die Daten speichern. Als reines Canvas ist dies nicht möglich
+    //Drei mal Funktion, um canvas in blob umzuwandeln.
+    //Nur so kann Firebase die Daten speichern. Als reines Canvas ist dies nicht möglich.
 	  canvas1.toBlob(blob => {
       //Neue Variable vom Typ Image.
       var image = new Image();
