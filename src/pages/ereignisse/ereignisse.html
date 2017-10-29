@@ -27,7 +27,7 @@
       <ion-textarea type="text" placeholder="Hier Ihr erstes Ereignis eingeben" 
 	    [(ngModel)]="ereignis1" name="Ereignis1"
 	    (change)="updateEreignis('ereignis1', ereignis1, begruendung1)"
-	    required minlength="50" maxlength="350" #Ereignis1="ngModel" fz-elastic>
+	    required minlength="30" maxlength="350" #Ereignis1="ngModel" fz-elastic>
 	    </ion-textarea>
     </ion-item>
 	<div *ngIf="Ereignis1.errors && (Ereignis1.dirty || Ereignis1.touched)"
@@ -36,7 +36,7 @@
         <p>Bitte geben Sie ein Ereignis ein.</p>
       </div>
       <div [hidden]="!Ereignis1.errors.minlength">
-        <p>Ihr Ereignis sollte mindestens 50 Zeichen lang sein</p>
+        <p>Ihr Ereignis sollte mindestens 30 Zeichen lang sein</p>
       </div>
       <div [hidden]="!Ereignis1.errors.maxlength">
         <p>Ihr Ereignis sollte nicht länger als 350 Zeichen  sein</p>
@@ -54,7 +54,7 @@
       <ion-textarea type="text" placeholder="Hier Ihr zweites Ereignis eingeben" 
 	    [(ngModel)]="ereignis2" name="Ereignis2"
 	    (change)="updateEreignis('ereignis2', ereignis2, begruendung2)"
-	    required minlength="50" maxlength="350" #Ereignis2="ngModel" fz-elastic>
+	    required minlength="30" maxlength="350" #Ereignis2="ngModel" fz-elastic>
 	    </ion-textarea>
     </ion-item>
 	<div *ngIf="Ereignis2.errors && (Ereignis2.dirty || Ereignis2.touched)"
@@ -63,7 +63,7 @@
         <p>Bitte geben Sie ein Ereignis ein.</p>
       </div>
       <div [hidden]="!Ereignis2.errors.minlength">
-        <p>Ihr Ereignis sollte mindestens 50 Zeichen lang sein</p>
+        <p>Ihr Ereignis sollte mindestens 30 Zeichen lang sein</p>
       </div>
       <div [hidden]="!Ereignis2.errors.maxlength">
         <p>Ihr Ereignis sollte nicht länger als 350 Zeichen  sein</p>
@@ -81,13 +81,13 @@
       <ion-textarea type="text" placeholder="Optional hier Ihr drittes Ereignis eingeben" 
 	    [(ngModel)]="ereignis3" name="Ereignis3"
 	    (change)="updateEreignis('ereignis3', ereignis3, begruendung3)"
-	    minlength="50" maxlength="350" #Ereignis3="ngModel" fz-elastic>
+	    minlength="30" maxlength="350" #Ereignis3="ngModel" fz-elastic>
 	    </ion-textarea>
     </ion-item>
 	<div *ngIf="Ereignis3.errors && (Ereignis3.dirty || Ereignis3.touched)"
     class="alert alert-danger">
       <div [hidden]="!Ereignis3.errors.minlength">
-        <p>Ihr Ereignis sollte mindestens 50 Zeichen lang sein</p>
+        <p>Ihr Ereignis sollte mindestens 30 Zeichen lang sein</p>
       </div>
       <div [hidden]="!Ereignis3.errors.maxlength">
         <p>Ihr Ereignis sollte nicht länger als 350 Zeichen  sein</p>
@@ -105,13 +105,13 @@
       <ion-textarea type="text" placeholder="Optional hier Ihr viertes Ereignis eingeben" 
 	    [(ngModel)]="ereignis4" name="Ereignis4"
 	    (change)="updateEreignis('ereignis4', ereignis4, begruendung4)"
-	    minlength="50" maxlength="350" #Ereignis4="ngModel" fz-elastic>
+	    minlength="30" maxlength="350" #Ereignis4="ngModel" fz-elastic>
 	  </ion-textarea>
     </ion-item>
 	<div *ngIf="Ereignis4.errors && (Ereignis4.dirty || Ereignis4.touched)"
     class="alert alert-danger">
       <div [hidden]="!Ereignis4.errors.minlength">
-        <p>Ihr Ereignis sollte mindestens 50 Zeichen lang sein</p>
+        <p>Ihr Ereignis sollte mindestens 30 Zeichen lang sein</p>
       </div>
       <div [hidden]="!Ereignis4.errors.maxlength">
         <p>Ihr Ereignis sollte nicht länger als 350 Zeichen  sein</p>

@@ -37,12 +37,7 @@ toggleHilfe blendet die Hilfen ein und aus (siehe ion-toggle).-->
     <p> Für weitere Erkärungen einfach die Videos hin- und herschieben. </p>
     <p> Zurücksetzen </p>
     <iframe width="400px" height="300px" [src]="safeURL3" frameborder="0" allowfullscreen></iframe>
-  </ion-slide>
-  <ion-slide>
-      <p> Für weitere Erkärungen einfach die Videos hin- und herschieben. </p>
-      <p> Faktoren ordnen (Video noch einfügen) </p>
-      <iframe width="400px" height="300px" [src]="" frameborder="0" allowfullscreen></iframe>
-    </ion-slide>  
+  </ion-slide> 
 </ion-slides>
 
 <!-- ion-toggle zum ein-und ausblenden der Hiflen mittels two-way Data binding -->
@@ -143,9 +138,10 @@ toggleHilfe blendet die Hilfen ein und aus (siehe ion-toggle).-->
 
   <ion-list>
     <h6>
-      An dieser Stelle gilt es, alle Schlüsselfaktoren zu sortieren. Klicken sie dazu auf die 
-      Schaltflächen rechts von den Begriffen und ziehen Sie sie an die gewünschte Stelle.
-      Faktoren, die Ihnen am wichtigsten sind, sollen oben erscheinen.
+      Zum Abschluss dieses Schrittes gilt es, alle Ihre Schlüsselfaktoren zu sortieren.
+      Klicken sie dazu auf die Schaltflächen rechts von den Begriffen und 
+      ziehen Sie sie an die gewünschte Stelle. Faktoren, die Ihnen am wichtigsten sind, 
+      sollen oben erscheinen.
     </h6>
       <ion-item-group reorder="true" (ionItemReorder)="reorderItems($event)">
         <div *ngFor="let factor of factors">

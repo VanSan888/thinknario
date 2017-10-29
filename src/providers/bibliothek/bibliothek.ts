@@ -23,8 +23,9 @@ export class BibliothekProvider {
               //Beschreibe das Arrays
               rawList.push({
                 id: snap.key,
-			          username: snap.val().userName.userName,
-                problemdefinition: snap.val().problemdefinition.problemdefinition,
+                username: snap.val().userName.userName,
+                //Problemdefinition müsste eigentlich in Problemname umbenannt werden.
+                problemdefinition: snap.val().problemfeld.aktivitaet.aktivitaet,
 			          average: snap.val().average.average,
               });  
             }
@@ -106,8 +107,9 @@ export class BibliothekProvider {
 			      //Später soll auch die Anzahl der Kommentare
 			      //Auf das Array geschrieben werden und in bibliothekpage.html angezeigt werden.
             id: snap.key,
-			      username: snap.val().userName,
-			      problemdefinition: snap.val().problemdefinition,
+            username: snap.val().userName,
+            //Problemdefinition müsste eigentlich in Problemname umbenannt werden
+			      problemdefinition: snap.val().problemfeld.aktivitaet.aktivitaet,
 			      average: snap.val().average.average,			
           });		  
         return false

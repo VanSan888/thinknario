@@ -69,8 +69,11 @@
     bei der ein speziell angepasster Rucksack vorteilhaft wäre?
   </p>
   <h6 padding-left>
-    Beschreiben Sie diese Aktivität kurz!
+    Benennen Sie diese Aktivität, indem Sie ihr einen kurzen, prägnanten Namen geben!
   </h6>
+  <p padding-left>
+    Der Name der Aktivität wird später in der Community für andere Sichtbar sein.
+  </p>
 </div>
 
 <form #aktivitaetBeschreibungForm="ngForm"  [hidden]="!toggleBeschreibung">
@@ -78,18 +81,18 @@
   <ion-label for="Aktivitaet" stacked>Ihre Aktivität</ion-label>
     <ion-textarea  type="text" placeholder="Hier Ihre Aktivität bescheiben"
     [(ngModel)]="aktivitaet" (change)="updateBeschreibungAktivitaet(aktivitaet)"
-    name="Aktivitaet" required minlength="20" maxlength="160" #Aktivitaet="ngModel" fz-elastic>
+    name="Aktivitaet" required minlength="8" maxlength="60" #Aktivitaet="ngModel" fz-elastic>
     </ion-textarea>
   </ion-item>
   <div *ngIf="Aktivitaet.errors && (Aktivitaet.dirty || Aktivitaet.touched)"
   class="alert alert-danger">
   <!-- Fehlernachricht, wenn die Eingabe zu kurz ist -->
     <div [hidden]="!Aktivitaet.errors.minlength">
-      <p>Die Beschreibung Ihrer Aktivität sollte mindestens 20 Zeichen lang sein</p>
+      <p>Die Beschreibung Ihrer Aktivität sollte mindestens 8 Zeichen lang sein</p>
     </div>
   <!-- Fehlernachricht, wenn die Eingabe zu lang ist -->
     <div [hidden]="!Aktivitaet.errors.maxlength">
-      <p>Die Beschreibung Ihrer Aktivität sollte nicht länger als 160 Zeichen sein</p>
+      <p>Die Beschreibung Ihrer Aktivität sollte nicht länger als 60 Zeichen sein</p>
     </div>
   </div>  
 </form>
